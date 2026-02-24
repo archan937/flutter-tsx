@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ESNext"],
+    "strict": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "@tsx/flutter",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "outDir": "./dist",
+    "rootDir": ".",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "types": ["bun-types"]
+  },
+  "include": ["src/**/*", "bin/**/*", "scripts/**/*", "types/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
