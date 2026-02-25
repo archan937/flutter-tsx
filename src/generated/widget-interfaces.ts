@@ -13,19 +13,47 @@ export interface TextStyleProps {
   fontFamily?: string;
 }
 
-export interface TextProps {
-  style?: TextStyleProps;
-  textAlign?: 'left' | 'right' | 'center' | 'justify' | 'start' | 'end';
-  maxLines?: number;
-  overflow?: 'clip' | 'fade' | 'ellipsis' | 'visible';
-  softWrap?: boolean;
-  /** style.color */
-  'style.color'?: string;
-  /** style.fontSize */
-  'style.fontSize'?: number;
-  /** style.fontWeight */
-  'style.fontWeight'?: 'normal' | 'bold' | 'w100' | 'w200' | 'w300' | 'w400' | 'w500' | 'w600' | 'w700' | 'w800' | 'w900';
-  children?: string | number;
+export interface MaterialAppProps {
+  title?: string;
+  debugShowCheckedModeBanner?: boolean;
+  theme?: Record<string, unknown>;
+  darkTheme?: Record<string, unknown>;
+  themeMode?: 'system' | 'light' | 'dark';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ScaffoldProps {
+  backgroundColor?: string;
+  resizeToAvoidBottomInset?: boolean;
+  extendBody?: boolean;
+  extendBodyBehindAppBar?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CenterProps {
+  widthFactor?: number;
+  heightFactor?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ContainerProps {
+  width?: number;
+  height?: number;
+  color?: string;
+  padding?: number | [number, number] | [number, number, number, number];
+  margin?: number | [number, number] | [number, number, number, number];
+  alignment?: string;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AppBarProps {
+  title?: FlutterElement;
+  backgroundColor?: string;
+  elevation?: number;
+  centerTitle?: boolean;
+  leading?: FlutterElement;
+  automaticallyImplyLeading?: boolean;
+  children?: FlutterElement | FlutterElement[];
 }
 
 export interface ColumnProps {
@@ -40,71 +68,6 @@ export interface RowProps {
   crossAxisAlignment?: 'start' | 'end' | 'center' | 'stretch' | 'baseline';
   mainAxisSize?: 'min' | 'max';
   children?: FlutterElement | FlutterElement[];
-}
-
-export interface ContainerProps {
-  width?: number;
-  height?: number;
-  color?: string;
-  padding?: number | [number, number] | [number, number, number, number];
-  margin?: number | [number, number] | [number, number, number, number];
-  alignment?: string;
-  children?: FlutterElement;
-}
-
-export interface ScaffoldProps {
-  backgroundColor?: string;
-  resizeToAvoidBottomInset?: boolean;
-  extendBody?: boolean;
-  extendBodyBehindAppBar?: boolean;
-  children?: FlutterElement;
-}
-
-export interface MaterialAppProps {
-  title?: string;
-  debugShowCheckedModeBanner?: boolean;
-  theme?: Record<string, unknown>;
-  darkTheme?: Record<string, unknown>;
-  themeMode?: 'system' | 'light' | 'dark';
-  children?: FlutterElement;
-}
-
-export interface AppBarProps {
-  title?: FlutterElement;
-  backgroundColor?: string;
-  elevation?: number;
-  centerTitle?: boolean;
-  leading?: FlutterElement;
-  automaticallyImplyLeading?: boolean;
-  children?: FlutterElement;
-}
-
-export interface ElevatedButtonProps {
-  onClick?: () => void;
-  onLongPress?: () => void;
-  autofocus?: boolean;
-  children?: FlutterElement;
-}
-
-export interface TextButtonProps {
-  onClick?: () => void;
-  onLongPress?: () => void;
-  children?: FlutterElement;
-}
-
-export interface IconButtonProps {
-  icon: FlutterElement;
-  onClick?: () => void;
-  tooltip?: string;
-  iconSize?: number;
-  color?: string;
-}
-
-export interface ImageProps {
-  src: string;
-  width?: number;
-  height?: number;
-  fit?: 'fill' | 'contain' | 'cover' | 'fitWidth' | 'fitHeight' | 'none' | 'scaleDown';
 }
 
 export interface ListViewProps {
@@ -130,29 +93,119 @@ export interface StackProps {
   children?: FlutterElement | FlutterElement[];
 }
 
-export interface PaddingProps {
-  padding: number | [number, number] | [number, number, number, number];
-  children?: FlutterElement;
+export interface TextProps {
+  style?: TextStyleProps;
+  textAlign?: 'left' | 'right' | 'center' | 'justify' | 'start' | 'end';
+  maxLines?: number;
+  overflow?: 'clip' | 'fade' | 'ellipsis' | 'visible';
+  softWrap?: boolean;
+  /** style.color */
+  'style.color'?: string;
+  /** style.fontSize */
+  'style.fontSize'?: number;
+  /** style.fontWeight */
+  'style.fontWeight'?: 'normal' | 'bold' | 'w100' | 'w200' | 'w300' | 'w400' | 'w500' | 'w600' | 'w700' | 'w800' | 'w900';
+  children?: string | number;
 }
 
-export interface CenterProps {
+export interface ElevatedButtonProps {
+  onClick?: () => void;
+  onLongPress?: () => void;
+  autofocus?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface TextButtonProps {
+  onClick?: () => void;
+  onLongPress?: () => void;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface OutlinedButtonProps {
+  onClick?: () => void;
+  onLongPress?: () => void;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface IconButtonProps {
+  icon: FlutterElement;
+  onClick?: () => void;
+  tooltip?: string;
+  iconSize?: number;
+  color?: string;
+}
+
+export interface CardProps {
+  elevation?: number;
+  color?: string;
+  margin?: number | [number, number] | [number, number, number, number];
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface PaddingProps {
+  padding: number | [number, number] | [number, number, number, number];
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ExpandedProps {
+  flex?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface FlexibleProps {
+  flex?: number;
+  fit?: 'tight' | 'loose';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AlignProps {
+  alignment?: string;
   widthFactor?: number;
   heightFactor?: number;
-  children?: FlutterElement;
+  children?: FlutterElement | FlutterElement[];
 }
 
 export interface SizedBoxProps {
   width?: number;
   height?: number;
-  children?: FlutterElement;
+  children?: FlutterElement | FlutterElement[];
 }
 
-export interface DividerProps {
+export interface WrapProps {
+  spacing?: number;
+  runSpacing?: number;
+  alignment?: 'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly';
+  direction?: 'horizontal' | 'vertical';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ListTileProps {
+  title?: FlutterElement;
+  subtitle?: FlutterElement;
+  leading?: FlutterElement;
+  trailing?: FlutterElement;
+  onTap?: () => void;
+  selected?: boolean;
+}
+
+export interface BottomNavigationBarProps {
+}
+
+export interface DrawerProps {
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AlertDialogProps {
+  title?: FlutterElement;
+  content?: FlutterElement;
+  actions?: FlutterElement[];
+}
+
+export interface ImageProps {
+  src: string;
+  width?: number;
   height?: number;
-  thickness?: number;
-  color?: string;
-  indent?: number;
-  endIndent?: number;
+  fit?: 'fill' | 'contain' | 'cover' | 'fitWidth' | 'fitHeight' | 'none' | 'scaleDown';
 }
 
 export interface IconProps {
@@ -203,44 +256,31 @@ export interface CircularProgressIndicatorProps {
   strokeWidth?: number;
 }
 
-export interface AlertDialogProps {
-  title?: FlutterElement;
-  content?: FlutterElement;
-  actions?: FlutterElement[];
+export interface LinearProgressIndicatorProps {
 }
 
-export interface CardProps {
-  elevation?: number;
+export interface DividerProps {
+  height?: number;
+  thickness?: number;
   color?: string;
-  margin?: number | [number, number] | [number, number, number, number];
-  children?: FlutterElement;
+  indent?: number;
+  endIndent?: number;
 }
 
-export interface ListTileProps {
-  title?: FlutterElement;
-  subtitle?: FlutterElement;
-  leading?: FlutterElement;
-  trailing?: FlutterElement;
-  onTap?: () => void;
-  selected?: boolean;
+export interface SnackBarProps {
 }
 
-export interface ExpandedProps {
-  flex?: number;
-  children?: FlutterElement;
+export interface BottomSheetProps {
+  children?: FlutterElement | FlutterElement[];
 }
 
-export interface FlexibleProps {
-  flex?: number;
-  fit?: 'tight' | 'loose';
-  children?: FlutterElement;
+export interface NavigationBarProps {
 }
 
-export interface WrapProps {
-  spacing?: number;
-  runSpacing?: number;
-  alignment?: 'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly';
-  direction?: 'horizontal' | 'vertical';
+export interface TabBarProps {
+}
+
+export interface TabBarViewProps {
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -248,18 +288,5 @@ export interface FloatingActionButtonProps {
   onClick?: () => void;
   tooltip?: string;
   backgroundColor?: string;
-  children?: FlutterElement;
-}
-
-export interface OutlinedButtonProps {
-  onClick?: () => void;
-  onLongPress?: () => void;
-  children?: FlutterElement;
-}
-
-export interface AlignProps {
-  alignment?: string;
-  widthFactor?: number;
-  heightFactor?: number;
-  children?: FlutterElement;
+  children?: FlutterElement | FlutterElement[];
 }

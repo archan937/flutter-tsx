@@ -135,7 +135,9 @@ function childrenPropLine(widget: WidgetDef): string {
     if (widget.name === "Text") return "  children?: string | number;";
     return "";
   }
-  if (widget.singleChild) return "  children?: FlutterElement;";
+  // Always allow arrays: even "single-child" widgets (e.g. Scaffold.body) can
+  // appear alongside slotted siblings (e.g. AppBar) in the same JSX block,
+  // which makes TypeScript pass children as an array via jsxs().
   return "  children?: FlutterElement | FlutterElement[];";
 }
 

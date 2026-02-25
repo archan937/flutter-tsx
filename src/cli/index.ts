@@ -1,6 +1,7 @@
 import { defineCommand, runMain } from "citty";
 import { initCmd } from "./commands/init.js";
 import { devCmd } from "./commands/dev.js";
+import { installCmd } from "./commands/install.js";
 
 export const main = defineCommand({
   meta: {
@@ -9,6 +10,7 @@ export const main = defineCommand({
     description: "flutter.tsx — write Flutter apps in TypeScript/JSX",
   },
   subCommands: {
+    install: installCmd,
     init: initCmd,
     dev: devCmd,
   },

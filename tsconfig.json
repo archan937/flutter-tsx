@@ -9,11 +9,7 @@
     "jsxImportSource": "@tsx/flutter",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "outDir": "./dist",
-    "rootDir": ".",
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
+    "noEmit": true,
     "types": ["bun-types"]
   },
   "include": ["src/**/*", "bin/**/*", "scripts/**/*", "types/**/*"],

@@ -13,10 +13,12 @@ export function userPackageJson(appName: string): string {
       "dev:android": "fsx dev --target=android",
       "dev:macos": "fsx dev --target=macos",
       "dev:web": "fsx dev --target=web",
-      build: "fsx build",
     },
     dependencies: {
       "@tsx/flutter": "^0.1.0",
+    },
+    devDependencies: {
+      "@types/bun": "^1.2.0",
     },
   };
 

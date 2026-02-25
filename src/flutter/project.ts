@@ -10,7 +10,8 @@ import { mainDart } from "../templates/main-dart.js";
  */
 export async function ensureFlutterProject(
   flutterDir: string,
-  config: AppConfig
+  config: AppConfig,
+  flutterBin = "flutter"
 ): Promise<void> {
   const libDir = join(flutterDir, "lib");
   const pubspecPath = join(flutterDir, "pubspec.yaml");
@@ -22,7 +23,7 @@ export async function ensureFlutterProject(
     // Run flutter create
     const appName = config.name.toLowerCase().replace(/[^a-z0-9_]/g, "_");
     const proc = Bun.spawn(
-      ["flutter", "create", "--project-name", appName, "--no-pub", flutterDir],
+      [flutterBin, "create", "--project-name", appName, "--no-pub", flutterDir],
       { stdout: "pipe", stderr: "pipe" }
     );
     await proc.exited;
@@ -32,17 +33,13 @@ export async function ensureFlutterProject(
     }
   }
 
-  // Always overwrite pubspec.yaml to reflect current config
+  // Always overwrite pubspec.yaml and main.dart so the app runs the user's TSX entry (App.dart)
   mkdirSync(libDir, { recursive: true });
   writeFileSync(pubspecPath, pubspecYaml(config), "utf-8");
-
-  // Write main.dart if missing
-  if (!existsSync(mainDartPath)) {
-    writeFileSync(mainDartPath, mainDart(), "utf-8");
-  }
+  writeFileSync(mainDartPath, mainDart(), "utf-8");
 
   // Run flutter pub get
-  const pubGet = Bun.spawn(["flutter", "pub", "get"], {
+  const pubGet = Bun.spawn([flutterBin, "pub", "get"], {
     cwd: flutterDir,
     stdout: "pipe",
     stderr: "pipe",

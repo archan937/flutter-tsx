@@ -1,106 +1,49 @@
 [
   {
-    "name": "Text",
-    "dartClass": "Text",
-    "category": "display",
+    "name": "MaterialApp",
+    "dartClass": "MaterialApp",
+    "category": "navigation",
     "selfSlot": "",
-    "defaultChildSlot": "none",
-    "singleChild": false,
+    "defaultChildSlot": "home",
+    "singleChild": true,
     "props": [
       {
-        "name": "style",
-        "tsxProp": "style",
-        "dartParam": "style",
-        "dartType": "TextStyle?",
-        "required": false,
-        "transform": "textStyle"
-      },
-      {
-        "name": "textAlign",
-        "tsxProp": "textAlign",
-        "dartParam": "textAlign",
-        "dartType": "TextAlign?",
+        "name": "title",
+        "tsxProp": "title",
+        "dartParam": "title",
+        "dartType": "String",
         "required": false,
         "transform": "string"
       },
       {
-        "name": "maxLines",
-        "tsxProp": "maxLines",
-        "dartParam": "maxLines",
-        "dartType": "int?",
-        "required": false,
-        "transform": "int"
-      },
-      {
-        "name": "overflow",
-        "tsxProp": "overflow",
-        "dartParam": "overflow",
-        "dartType": "TextOverflow?",
-        "required": false,
-        "transform": "string"
-      },
-      {
-        "name": "softWrap",
-        "tsxProp": "softWrap",
-        "dartParam": "softWrap",
-        "dartType": "bool?",
+        "name": "debugShowCheckedModeBanner",
+        "tsxProp": "debugShowCheckedModeBanner",
+        "dartParam": "debugShowCheckedModeBanner",
+        "dartType": "bool",
         "required": false,
         "transform": "none"
-      }
-    ],
-    "styling": [
-      {
-        "name": "color",
-        "tsxProp": "style.color",
-        "dartParam": "color",
-        "dartType": "Color?",
-        "transform": "color"
       },
       {
-        "name": "fontSize",
-        "tsxProp": "style.fontSize",
-        "dartParam": "fontSize",
-        "dartType": "double?",
-        "transform": "number"
-      },
-      {
-        "name": "fontWeight",
-        "tsxProp": "style.fontWeight",
-        "dartParam": "fontWeight",
-        "dartType": "FontWeight?",
-        "transform": "string"
-      }
-    ]
-  },
-  {
-    "name": "Column",
-    "dartClass": "Column",
-    "category": "layout",
-    "selfSlot": "",
-    "defaultChildSlot": "children",
-    "singleChild": false,
-    "props": [
-      {
-        "name": "mainAxisAlignment",
-        "tsxProp": "mainAxisAlignment",
-        "dartParam": "mainAxisAlignment",
-        "dartType": "MainAxisAlignment",
+        "name": "theme",
+        "tsxProp": "theme",
+        "dartParam": "theme",
+        "dartType": "ThemeData?",
         "required": false,
-        "transform": "string"
+        "transform": "none"
       },
       {
-        "name": "crossAxisAlignment",
-        "tsxProp": "crossAxisAlignment",
-        "dartParam": "crossAxisAlignment",
-        "dartType": "CrossAxisAlignment",
+        "name": "darkTheme",
+        "tsxProp": "darkTheme",
+        "dartParam": "darkTheme",
+        "dartType": "ThemeData?",
         "required": false,
-        "transform": "string"
+        "transform": "none"
       },
       {
-        "name": "mainAxisSize",
-        "tsxProp": "mainAxisSize",
-        "dartParam": "mainAxisSize",
-        "dartType": "MainAxisSize",
+        "name": "themeMode",
+        "tsxProp": "themeMode",
+        "dartParam": "themeMode",
+        "dartType": "ThemeMode?",
         "required": false,
         "transform": "string"
       }
@@ -108,36 +51,71 @@
     "styling": []
   },
   {
-    "name": "Row",
-    "dartClass": "Row",
+    "name": "Scaffold",
+    "dartClass": "Scaffold",
     "category": "layout",
     "selfSlot": "",
-    "defaultChildSlot": "children",
-    "singleChild": false,
+    "defaultChildSlot": "body",
+    "singleChild": true,
     "props": [
       {
-        "name": "mainAxisAlignment",
-        "tsxProp": "mainAxisAlignment",
-        "dartParam": "mainAxisAlignment",
-        "dartType": "MainAxisAlignment",
+        "name": "backgroundColor",
+        "tsxProp": "backgroundColor",
+        "dartParam": "backgroundColor",
+        "dartType": "Color?",
         "required": false,
-        "transform": "string"
+        "transform": "color"
       },
       {
-        "name": "crossAxisAlignment",
-        "tsxProp": "crossAxisAlignment",
-        "dartParam": "crossAxisAlignment",
-        "dartType": "CrossAxisAlignment",
+        "name": "resizeToAvoidBottomInset",
+        "tsxProp": "resizeToAvoidBottomInset",
+        "dartParam": "resizeToAvoidBottomInset",
+        "dartType": "bool?",
         "required": false,
-        "transform": "string"
+        "transform": "none"
       },
       {
-        "name": "mainAxisSize",
-        "tsxProp": "mainAxisSize",
-        "dartParam": "mainAxisSize",
-        "dartType": "MainAxisSize",
+        "name": "extendBody",
+        "tsxProp": "extendBody",
+        "dartParam": "extendBody",
+        "dartType": "bool?",
         "required": false,
-        "transform": "string"
+        "transform": "none"
+      },
+      {
+        "name": "extendBodyBehindAppBar",
+        "tsxProp": "extendBodyBehindAppBar",
+        "dartParam": "extendBodyBehindAppBar",
+        "dartType": "bool?",
+        "required": false,
+        "transform": "none"
+      }
+    ],
+    "styling": []
+  },
+  {
+    "name": "Center",
+    "dartClass": "Center",
+    "category": "layout",
+    "selfSlot": "",
+    "defaultChildSlot": "child",
+    "singleChild": true,
+    "props": [
+      {
+        "name": "widthFactor",
+        "tsxProp": "widthFactor",
+        "dartParam": "widthFactor",
+        "dartType": "double?",
+        "required": false,
+        "transform": "double"
+      },
+      {
+        "name": "heightFactor",
+        "tsxProp": "heightFactor",
+        "dartParam": "heightFactor",
+        "dartType": "double?",
+        "required": false,
+        "transform": "double"
       }
     ],
     "styling": []
@@ -195,100 +173,6 @@
         "tsxProp": "alignment",
         "dartParam": "alignment",
         "dartType": "AlignmentGeometry?",
-        "required": false,
-        "transform": "string"
-      }
-    ],
-    "styling": []
-  },
-  {
-    "name": "Scaffold",
-    "dartClass": "Scaffold",
-    "category": "layout",
-    "selfSlot": "",
-    "defaultChildSlot": "body",
-    "singleChild": true,
-    "props": [
-      {
-        "name": "backgroundColor",
-        "tsxProp": "backgroundColor",
-        "dartParam": "backgroundColor",
-        "dartType": "Color?",
-        "required": false,
-        "transform": "color"
-      },
-      {
-        "name": "resizeToAvoidBottomInset",
-        "tsxProp": "resizeToAvoidBottomInset",
-        "dartParam": "resizeToAvoidBottomInset",
-        "dartType": "bool?",
-        "required": false,
-        "transform": "none"
-      },
-      {
-        "name": "extendBody",
-        "tsxProp": "extendBody",
-        "dartParam": "extendBody",
-        "dartType": "bool?",
-        "required": false,
-        "transform": "none"
-      },
-      {
-        "name": "extendBodyBehindAppBar",
-        "tsxProp": "extendBodyBehindAppBar",
-        "dartParam": "extendBodyBehindAppBar",
-        "dartType": "bool?",
-        "required": false,
-        "transform": "none"
-      }
-    ],
-    "styling": []
-  },
-  {
-    "name": "MaterialApp",
-    "dartClass": "MaterialApp",
-    "category": "navigation",
-    "selfSlot": "",
-    "defaultChildSlot": "home",
-    "singleChild": true,
-    "props": [
-      {
-        "name": "title",
-        "tsxProp": "title",
-        "dartParam": "title",
-        "dartType": "String",
-        "required": false,
-        "transform": "string"
-      },
-      {
-        "name": "debugShowCheckedModeBanner",
-        "tsxProp": "debugShowCheckedModeBanner",
-        "dartParam": "debugShowCheckedModeBanner",
-        "dartType": "bool",
-        "required": false,
-        "transform": "none"
-      },
-      {
-        "name": "theme",
-        "tsxProp": "theme",
-        "dartParam": "theme",
-        "dartType": "ThemeData?",
-        "required": false,
-        "transform": "none"
-      },
-      {
-        "name": "darkTheme",
-        "tsxProp": "darkTheme",
-        "dartParam": "darkTheme",
-        "dartType": "ThemeData?",
-        "required": false,
-        "transform": "none"
-      },
-      {
-        "name": "themeMode",
-        "tsxProp": "themeMode",
-        "dartParam": "themeMode",
-        "dartType": "ThemeMode?",
         "required": false,
         "transform": "string"
       }
@@ -355,155 +239,69 @@
     "styling": []
   },
   {
-    "name": "ElevatedButton",
-    "dartClass": "ElevatedButton",
-    "category": "input",
+    "name": "Column",
+    "dartClass": "Column",
+    "category": "layout",
     "selfSlot": "",
-    "defaultChildSlot": "child",
-    "singleChild": true,
-    "props": [
-      {
-        "name": "onPressed",
-        "tsxProp": "onClick",
-        "dartParam": "onPressed",
-        "dartType": "VoidCallback?",
-        "required": false,
-        "transform": "callback"
-      },
-      {
-        "name": "onLongPress",
-        "tsxProp": "onLongPress",
-        "dartParam": "onLongPress",
-        "dartType": "VoidCallback?",
-        "required": false,
-        "transform": "callback"
-      },
-      {
-        "name": "autofocus",
-        "tsxProp": "autofocus",
-        "dartParam": "autofocus",
-        "dartType": "bool",
-        "required": false,
-        "transform": "none"
-      }
-    ],
-    "styling": []
-  },
-  {
-    "name": "TextButton",
-    "dartClass": "TextButton",
-    "category": "input",
-    "selfSlot": "",
-    "defaultChildSlot": "child",
-    "singleChild": true,
-    "props": [
-      {
-        "name": "onPressed",
-        "tsxProp": "onClick",
-        "dartParam": "onPressed",
-        "dartType": "VoidCallback?",
-        "required": false,
-        "transform": "callback"
-      },
-      {
-        "name": "onLongPress",
-        "tsxProp": "onLongPress",
-        "dartParam": "onLongPress",
-        "dartType": "VoidCallback?",
-        "required": false,
-        "transform": "callback"
-      }
-    ],
-    "styling": []
-  },
-  {
-    "name": "IconButton",
-    "dartClass": "IconButton",
-    "category": "input",
-    "selfSlot": "",
-    "defaultChildSlot": "none",
+    "defaultChildSlot": "children",
     "singleChild": false,
     "props": [
       {
-        "name": "icon",
-        "tsxProp": "icon",
-        "dartParam": "icon",
-        "dartType": "Widget",
-        "required": true,
-        "transform": "widget"
-      },
-      {
-        "name": "onPressed",
-        "tsxProp": "onClick",
-        "dartParam": "onPressed",
-        "dartType": "VoidCallback?",
-        "required": false,
-        "transform": "callback"
-      },
-      {
-        "name": "tooltip",
-        "tsxProp": "tooltip",
-        "dartParam": "tooltip",
-        "dartType": "String?",
+        "name": "mainAxisAlignment",
+        "tsxProp": "mainAxisAlignment",
+        "dartParam": "mainAxisAlignment",
+        "dartType": "MainAxisAlignment",
         "required": false,
         "transform": "string"
       },
       {
-        "name": "iconSize",
-        "tsxProp": "iconSize",
-        "dartParam": "iconSize",
-        "dartType": "double?",
+        "name": "crossAxisAlignment",
+        "tsxProp": "crossAxisAlignment",
+        "dartParam": "crossAxisAlignment",
+        "dartType": "CrossAxisAlignment",
         "required": false,
-        "transform": "double"
+        "transform": "string"
       },
       {
-        "name": "color",
-        "tsxProp": "color",
-        "dartParam": "color",
-        "dartType": "Color?",
+        "name": "mainAxisSize",
+        "tsxProp": "mainAxisSize",
+        "dartParam": "mainAxisSize",
+        "dartType": "MainAxisSize",
         "required": false,
-        "transform": "color"
+        "transform": "string"
       }
     ],
     "styling": []
   },
   {
-    "name": "Image",
-    "dartClass": "Image",
-    "category": "display",
+    "name": "Row",
+    "dartClass": "Row",
+    "category": "layout",
     "selfSlot": "",
-    "defaultChildSlot": "none",
+    "defaultChildSlot": "children",
     "singleChild": false,
     "props": [
       {
-        "name": "src",
-        "tsxProp": "src",
-        "dartParam": "src",
-        "dartType": "String",
-        "required": true,
+        "name": "mainAxisAlignment",
+        "tsxProp": "mainAxisAlignment",
+        "dartParam": "mainAxisAlignment",
+        "dartType": "MainAxisAlignment",
+        "required": false,
         "transform": "string"
       },
       {
-        "name": "width",
-        "tsxProp": "width",
-        "dartParam": "width",
-        "dartType": "double?",
+        "name": "crossAxisAlignment",
+        "tsxProp": "crossAxisAlignment",
+        "dartParam": "crossAxisAlignment",
+        "dartType": "CrossAxisAlignment",
         "required": false,
-        "transform": "double"
+        "transform": "string"
       },
       {
-        "name": "height",
-        "tsxProp": "height",
-        "dartParam": "height",
-        "dartType": "double?",
-        "required": false,
-        "transform": "double"
-      },
-      {
-        "name": "fit",
-        "tsxProp": "fit",
-        "dartParam": "fit",
-        "dartType": "BoxFit?",
+        "name": "mainAxisSize",
+        "tsxProp": "mainAxisSize",
+        "dartParam": "mainAxisSize",
+        "dartType": "MainAxisSize",
         "required": false,
         "transform": "string"
       }
@@ -632,6 +430,254 @@
     "styling": []
   },
   {
+    "name": "Text",
+    "dartClass": "Text",
+    "category": "display",
+    "selfSlot": "",
+    "defaultChildSlot": "none",
+    "singleChild": false,
+    "props": [
+      {
+        "name": "style",
+        "tsxProp": "style",
+        "dartParam": "style",
+        "dartType": "TextStyle?",
+        "required": false,
+        "transform": "textStyle"
+      },
+      {
+        "name": "textAlign",
+        "tsxProp": "textAlign",
+        "dartParam": "textAlign",
+        "dartType": "TextAlign?",
+        "required": false,
+        "transform": "string"
+      },
+      {
+        "name": "maxLines",
+        "tsxProp": "maxLines",
+        "dartParam": "maxLines",
+        "dartType": "int?",
+        "required": false,
+        "transform": "int"
+      },
+      {
+        "name": "overflow",
+        "tsxProp": "overflow",
+        "dartParam": "overflow",
+        "dartType": "TextOverflow?",
+        "required": false,
+        "transform": "string"
+      },
+      {
+        "name": "softWrap",
+        "tsxProp": "softWrap",
+        "dartParam": "softWrap",
+        "dartType": "bool?",
+        "required": false,
+        "transform": "none"
+      }
+    ],
+    "styling": [
+      {
+        "name": "color",
+        "tsxProp": "style.color",
+        "dartParam": "color",
+        "dartType": "Color?",
+        "transform": "color"
+      },
+      {
+        "name": "fontSize",
+        "tsxProp": "style.fontSize",
+        "dartParam": "fontSize",
+        "dartType": "double?",
+        "transform": "number"
+      },
+      {
+        "name": "fontWeight",
+        "tsxProp": "style.fontWeight",
+        "dartParam": "fontWeight",
+        "dartType": "FontWeight?",
+        "transform": "string"
+      }
+    ]
+  },
+  {
+    "name": "ElevatedButton",
+    "dartClass": "ElevatedButton",
+    "category": "input",
+    "selfSlot": "",
+    "defaultChildSlot": "child",
+    "singleChild": true,
+    "props": [
+      {
+        "name": "onPressed",
+        "tsxProp": "onClick",
+        "dartParam": "onPressed",
+        "dartType": "VoidCallback?",
+        "required": false,
+        "transform": "callback"
+      },
+      {
+        "name": "onLongPress",
+        "tsxProp": "onLongPress",
+        "dartParam": "onLongPress",
+        "dartType": "VoidCallback?",
+        "required": false,
+        "transform": "callback"
+      },
+      {
+        "name": "autofocus",
+        "tsxProp": "autofocus",
+        "dartParam": "autofocus",
+        "dartType": "bool",
+        "required": false,
+        "transform": "none"
+      }
+    ],
+    "styling": []
+  },
+  {
+    "name": "TextButton",
+    "dartClass": "TextButton",
+    "category": "input",
+    "selfSlot": "",
+    "defaultChildSlot": "child",
+    "singleChild": true,
+    "props": [
+      {
+        "name": "onPressed",
+        "tsxProp": "onClick",
+        "dartParam": "onPressed",
+        "dartType": "VoidCallback?",
+        "required": false,
+        "transform": "callback"
+      },
+      {
+        "name": "onLongPress",
+        "tsxProp": "onLongPress",
+        "dartParam": "onLongPress",
+        "dartType": "VoidCallback?",
+        "required": false,
+        "transform": "callback"
+      }
+    ],
+    "styling": []
+  },
+  {
+    "name": "OutlinedButton",
+    "dartClass": "OutlinedButton",
+    "category": "input",
+    "selfSlot": "",
+    "defaultChildSlot": "child",
+    "singleChild": true,
+    "props": [
+      {
+        "name": "onPressed",
+        "tsxProp": "onClick",
+        "dartParam": "onPressed",
+        "dartType": "VoidCallback?",
+        "required": false,
+        "transform": "callback"
+      },
+      {
+        "name": "onLongPress",
+        "tsxProp": "onLongPress",
+        "dartParam": "onLongPress",
+        "dartType": "VoidCallback?",
+        "required": false,
+        "transform": "callback"
+      }
+    ],
+    "styling": []
+  },
+  {
+    "name": "IconButton",
+    "dartClass": "IconButton",
+    "category": "input",
+    "selfSlot": "",
+    "defaultChildSlot": "none",
+    "singleChild": false,
+    "props": [
+      {
+        "name": "icon",
+        "tsxProp": "icon",
+        "dartParam": "icon",
+        "dartType": "Widget",
+        "required": true,
+        "transform": "widget"
+      },
+      {
+        "name": "onPressed",
+        "tsxProp": "onClick",
+        "dartParam": "onPressed",
+        "dartType": "VoidCallback?",
+        "required": false,
+        "transform": "callback"
+      },
+      {
+        "name": "tooltip",
+        "tsxProp": "tooltip",
+        "dartParam": "tooltip",
+        "dartType": "String?",
+        "required": false,
+        "transform": "string"
+      },
+      {
+        "name": "iconSize",
+        "tsxProp": "iconSize",
+        "dartParam": "iconSize",
+        "dartType": "double?",
+        "required": false,
+        "transform": "double"
+      },
+      {
+        "name": "color",
+        "tsxProp": "color",
+        "dartParam": "color",
+        "dartType": "Color?",
+        "required": false,
+        "transform": "color"
+      }
+    ],
+    "styling": []
+  },
+  {
+    "name": "Card",
+    "dartClass": "Card",
+    "category": "display",
+    "selfSlot": "",
+    "defaultChildSlot": "child",
+    "singleChild": true,
+    "props": [
+      {
+        "name": "elevation",
+        "tsxProp": "elevation",
+        "dartParam": "elevation",
+        "dartType": "double?",
+        "required": false,
+        "transform": "double"
+      },
+      {
+        "name": "color",
+        "tsxProp": "color",
+        "dartParam": "color",
+        "dartType": "Color?",
+        "required": false,
+        "transform": "color"
+      },
+      {
+        "name": "margin",
+        "tsxProp": "margin",
+        "dartParam": "margin",
+        "dartType": "EdgeInsetsGeometry?",
+        "required": false,
+        "transform": "edgeinsets"
+      }
+    ],
+    "styling": []
+  },
+  {
     "name": "Padding",
     "dartClass": "Padding",
     "category": "layout",
@@ -651,13 +697,67 @@
     "styling": []
   },
   {
-    "name": "Center",
-    "dartClass": "Center",
+    "name": "Expanded",
+    "dartClass": "Expanded",
     "category": "layout",
     "selfSlot": "",
     "defaultChildSlot": "child",
     "singleChild": true,
     "props": [
+      {
+        "name": "flex",
+        "tsxProp": "flex",
+        "dartParam": "flex",
+        "dartType": "int",
+        "required": false,
+        "transform": "int"
+      }
+    ],
+    "styling": []
+  },
+  {
+    "name": "Flexible",
+    "dartClass": "Flexible",
+    "category": "layout",
+    "selfSlot": "",
+    "defaultChildSlot": "child",
+    "singleChild": true,
+    "props": [
+      {
+        "name": "flex",
+        "tsxProp": "flex",
+        "dartParam": "flex",
+        "dartType": "int",
+        "required": false,
+        "transform": "int"
+      },
+      {
+        "name": "fit",
+        "tsxProp": "fit",
+        "dartParam": "fit",
+        "dartType": "FlexFit",
+        "required": false,
+        "transform": "string"
+      }
+    ],
+    "styling": []
+  },
+  {
+    "name": "Align",
+    "dartClass": "Align",
+    "category": "layout",
+    "selfSlot": "",
+    "defaultChildSlot": "child",
+    "singleChild": true,
+    "props": [
+      {
+        "name": "alignment",
+        "tsxProp": "alignment",
+        "dartParam": "alignment",
+        "dartType": "AlignmentGeometry",
+        "required": false,
+        "transform": "string"
+      },
       {
         "name": "widthFactor",
         "tsxProp": "widthFactor",
@@ -705,13 +805,186 @@
     "styling": []
   },
   {
-    "name": "Divider",
-    "dartClass": "Divider",
+    "name": "Wrap",
+    "dartClass": "Wrap",
+    "category": "layout",
+    "selfSlot": "",
+    "defaultChildSlot": "children",
+    "singleChild": false,
+    "props": [
+      {
+        "name": "spacing",
+        "tsxProp": "spacing",
+        "dartParam": "spacing",
+        "dartType": "double",
+        "required": false,
+        "transform": "double"
+      },
+      {
+        "name": "runSpacing",
+        "tsxProp": "runSpacing",
+        "dartParam": "runSpacing",
+        "dartType": "double",
+        "required": false,
+        "transform": "double"
+      },
+      {
+        "name": "alignment",
+        "tsxProp": "alignment",
+        "dartParam": "alignment",
+        "dartType": "WrapAlignment",
+        "required": false,
+        "transform": "string"
+      },
+      {
+        "name": "direction",
+        "tsxProp": "direction",
+        "dartParam": "direction",
+        "dartType": "Axis",
+        "required": false,
+        "transform": "string"
+      }
+    ],
+    "styling": []
+  },
+  {
+    "name": "ListTile",
+    "dartClass": "ListTile",
     "category": "display",
     "selfSlot": "",
     "defaultChildSlot": "none",
     "singleChild": false,
     "props": [
+      {
+        "name": "title",
+        "tsxProp": "title",
+        "dartParam": "title",
+        "dartType": "Widget?",
+        "required": false,
+        "transform": "widget"
+      },
+      {
+        "name": "subtitle",
+        "tsxProp": "subtitle",
+        "dartParam": "subtitle",
+        "dartType": "Widget?",
+        "required": false,
+        "transform": "widget"
+      },
+      {
+        "name": "leading",
+        "tsxProp": "leading",
+        "dartParam": "leading",
+        "dartType": "Widget?",
+        "required": false,
+        "transform": "widget"
+      },
+      {
+        "name": "trailing",
+        "tsxProp": "trailing",
+        "dartParam": "trailing",
+        "dartType": "Widget?",
+        "required": false,
+        "transform": "widget"
+      },
+      {
+        "name": "onTap",
+        "tsxProp": "onTap",
+        "dartParam": "onTap",
+        "dartType": "VoidCallback?",
+        "required": false,
+        "transform": "callback"
+      },
+      {
+        "name": "selected",
+        "tsxProp": "selected",
+        "dartParam": "selected",
+        "dartType": "bool",
+        "required": false,
+        "transform": "none"
+      }
+    ],
+    "styling": []
+  },
+  {
+    "name": "BottomNavigationBar",
+    "dartClass": "BottomNavigationBar",
+    "category": "navigation",
+    "selfSlot": "bottomNavigationBar",
+    "defaultChildSlot": "none",
+    "singleChild": false,
+    "props": [],
+    "styling": []
+  },
+  {
+    "name": "Drawer",
+    "dartClass": "Drawer",
+    "category": "navigation",
+    "selfSlot": "drawer",
+    "defaultChildSlot": "child",
+    "singleChild": true,
+    "props": [],
+    "styling": []
+  },
+  {
+    "name": "AlertDialog",
+    "dartClass": "AlertDialog",
+    "category": "other",
+    "selfSlot": "",
+    "defaultChildSlot": "none",
+    "singleChild": false,
+    "props": [
+      {
+        "name": "title",
+        "tsxProp": "title",
+        "dartParam": "title",
+        "dartType": "Widget?",
+        "required": false,
+        "transform": "widget"
+      },
+      {
+        "name": "content",
+        "tsxProp": "content",
+        "dartParam": "content",
+        "dartType": "Widget?",
+        "required": false,
+        "transform": "widget"
+      },
+      {
+        "name": "actions",
+        "tsxProp": "actions",
+        "dartParam": "actions",
+        "dartType": "List<Widget>?",
+        "required": false,
+        "transform": "none"
+      }
+    ],
+    "styling": []
+  },
+  {
+    "name": "Image",
+    "dartClass": "Image",
+    "category": "display",
+    "selfSlot": "",
+    "defaultChildSlot": "none",
+    "singleChild": false,
+    "props": [
+      {
+        "name": "src",
+        "tsxProp": "src",
+        "dartParam": "src",
+        "dartType": "String",
+        "required": true,
+        "transform": "string"
+      },
+      {
+        "name": "width",
+        "tsxProp": "width",
+        "dartParam": "width",
+        "dartType": "double?",
+        "required": false,
+        "transform": "double"
+      },
       {
         "name": "height",
         "tsxProp": "height",
@@ -721,36 +994,12 @@
         "transform": "double"
       },
       {
-        "name": "thickness",
-        "tsxProp": "thickness",
-        "dartParam": "thickness",
-        "dartType": "double?",
+        "name": "fit",
+        "tsxProp": "fit",
+        "dartParam": "fit",
+        "dartType": "BoxFit?",
         "required": false,
-        "transform": "double"
-      },
-      {
-        "name": "color",
-        "tsxProp": "color",
-        "dartParam": "color",
-        "dartType": "Color?",
-        "required": false,
-        "transform": "color"
-      },
-      {
-        "name": "indent",
-        "tsxProp": "indent",
-        "dartParam": "indent",
-        "dartType": "double?",
-        "required": false,
-        "transform": "double"
-      },
-      {
-        "name": "endIndent",
-        "tsxProp": "endIndent",
-        "dartParam": "endIndent",
-        "dartType": "double?",
-        "required": false,
-        "transform": "double"
+        "transform": "string"
       }
     ],
     "styling": []
@@ -1062,52 +1311,35 @@
     "styling": []
   },
   {
-    "name": "AlertDialog",
-    "dartClass": "AlertDialog",
-    "category": "other",
+    "name": "LinearProgressIndicator",
+    "dartClass": "LinearProgressIndicator",
+    "category": "display",
+    "selfSlot": "",
+    "defaultChildSlot": "none",
+    "singleChild": false,
+    "props": [],
+    "styling": []
+  },
+  {
+    "name": "Divider",
+    "dartClass": "Divider",
+    "category": "display",
     "selfSlot": "",
     "defaultChildSlot": "none",
     "singleChild": false,
     "props": [
       {
-        "name": "title",
-        "tsxProp": "title",
-        "dartParam": "title",
-        "dartType": "Widget?",
+        "name": "height",
+        "tsxProp": "height",
+        "dartParam": "height",
+        "dartType": "double?",
         "required": false,
-        "transform": "widget"
+        "transform": "double"
       },
       {
-        "name": "content",
-        "tsxProp": "content",
-        "dartParam": "content",
-        "dartType": "Widget?",
-        "required": false,
-        "transform": "widget"
-      },
-      {
-        "name": "actions",
-        "tsxProp": "actions",
-        "dartParam": "actions",
-        "dartType": "List<Widget>?",
-        "required": false,
-        "transform": "none"
-      }
-    ],
-    "styling": []
-  },
-  {
-    "name": "Card",
-    "dartClass": "Card",
-    "category": "display",
-    "selfSlot": "",
-    "defaultChildSlot": "child",
-    "singleChild": true,
-    "props": [
-      {
-        "name": "elevation",
-        "tsxProp": "elevation",
-        "dartParam": "elevation",
+        "name": "thickness",
+        "tsxProp": "thickness",
+        "dartParam": "thickness",
         "dartType": "double?",
         "required": false,
         "transform": "double"
@@ -1121,162 +1353,72 @@
         "transform": "color"
       },
       {
-        "name": "margin",
-        "tsxProp": "margin",
-        "dartParam": "margin",
-        "dartType": "EdgeInsetsGeometry?",
+        "name": "indent",
+        "tsxProp": "indent",
+        "dartParam": "indent",
+        "dartType": "double?",
         "required": false,
-        "transform": "edgeinsets"
+        "transform": "double"
+      },
+      {
+        "name": "endIndent",
+        "tsxProp": "endIndent",
+        "dartParam": "endIndent",
+        "dartType": "double?",
+        "required": false,
+        "transform": "double"
       }
     ],
     "styling": []
   },
   {
-    "name": "ListTile",
-    "dartClass": "ListTile",
-    "category": "display",
+    "name": "SnackBar",
+    "dartClass": "SnackBar",
+    "category": "other",
     "selfSlot": "",
     "defaultChildSlot": "none",
     "singleChild": false,
-    "props": [
-      {
-        "name": "title",
-        "tsxProp": "title",
-        "dartParam": "title",
-        "dartType": "Widget?",
-        "required": false,
-        "transform": "widget"
-      },
-      {
-        "name": "subtitle",
-        "tsxProp": "subtitle",
-        "dartParam": "subtitle",
-        "dartType": "Widget?",
-        "required": false,
-        "transform": "widget"
-      },
-      {
-        "name": "leading",
-        "tsxProp": "leading",
-        "dartParam": "leading",
-        "dartType": "Widget?",
-        "required": false,
-        "transform": "widget"
-      },
-      {
-        "name": "trailing",
-        "tsxProp": "trailing",
-        "dartParam": "trailing",
-        "dartType": "Widget?",
-        "required": false,
-        "transform": "widget"
-      },
-      {
-        "name": "onTap",
-        "tsxProp": "onTap",
-        "dartParam": "onTap",
-        "dartType": "VoidCallback?",
-        "required": false,
-        "transform": "callback"
-      },
-      {
-        "name": "selected",
-        "tsxProp": "selected",
-        "dartParam": "selected",
-        "dartType": "bool",
-        "required": false,
-        "transform": "none"
-      }
-    ],
+    "props": [],
     "styling": []
   },
   {
-    "name": "Expanded",
-    "dartClass": "Expanded",
-    "category": "layout",
+    "name": "BottomSheet",
+    "dartClass": "BottomSheet",
+    "category": "other",
     "selfSlot": "",
     "defaultChildSlot": "child",
     "singleChild": true,
-    "props": [
-      {
-        "name": "flex",
-        "tsxProp": "flex",
-        "dartParam": "flex",
-        "dartType": "int",
-        "required": false,
-        "transform": "int"
-      }
-    ],
+    "props": [],
     "styling": []
   },
   {
-    "name": "Flexible",
-    "dartClass": "Flexible",
-    "category": "layout",
-    "selfSlot": "",
-    "defaultChildSlot": "child",
-    "singleChild": true,
-    "props": [
-      {
-        "name": "flex",
-        "tsxProp": "flex",
-        "dartParam": "flex",
-        "dartType": "int",
-        "required": false,
-        "transform": "int"
-      },
-      {
-        "name": "fit",
-        "tsxProp": "fit",
-        "dartParam": "fit",
-        "dartType": "FlexFit",
-        "required": false,
-        "transform": "string"
-      }
-    ],
+    "name": "NavigationBar",
+    "dartClass": "NavigationBar",
+    "category": "navigation",
+    "selfSlot": "navigationBar",
+    "defaultChildSlot": "none",
+    "singleChild": false,
+    "props": [],
     "styling": []
   },
   {
-    "name": "Wrap",
-    "dartClass": "Wrap",
-    "category": "layout",
+    "name": "TabBar",
+    "dartClass": "TabBar",
+    "category": "navigation",
+    "selfSlot": "tabBar",
+    "defaultChildSlot": "none",
+    "singleChild": false,
+    "props": [],
+    "styling": []
+  },
+  {
+    "name": "TabBarView",
+    "dartClass": "TabBarView",
+    "category": "navigation",
     "selfSlot": "",
     "defaultChildSlot": "children",
     "singleChild": false,
-    "props": [
-      {
-        "name": "spacing",
-        "tsxProp": "spacing",
-        "dartParam": "spacing",
-        "dartType": "double",
-        "required": false,
-        "transform": "double"
-      },
-      {
-        "name": "runSpacing",
-        "tsxProp": "runSpacing",
-        "dartParam": "runSpacing",
-        "dartType": "double",
-        "required": false,
-        "transform": "double"
-      },
-      {
-        "name": "alignment",
-        "tsxProp": "alignment",
-        "dartParam": "alignment",
-        "dartType": "WrapAlignment",
-        "required": false,
-        "transform": "string"
-      },
-      {
-        "name": "direction",
-        "tsxProp": "direction",
-        "dartParam": "direction",
-        "dartType": "Axis",
-        "required": false,
-        "transform": "string"
-      }
-    ],
+    "props": [],
     "styling": []
   },
   {
@@ -1310,68 +1452,6 @@
         "dartType": "Color?",
         "required": false,
         "transform": "color"
-      }
-    ],
-    "styling": []
-  },
-  {
-    "name": "OutlinedButton",
-    "dartClass": "OutlinedButton",
-    "category": "input",
-    "selfSlot": "",
-    "defaultChildSlot": "child",
-    "singleChild": true,
-    "props": [
-      {
-        "name": "onPressed",
-        "tsxProp": "onClick",
-        "dartParam": "onPressed",
-        "dartType": "VoidCallback?",
-        "required": false,
-        "transform": "callback"
-      },
-      {
-        "name": "onLongPress",
-        "tsxProp": "onLongPress",
-        "dartParam": "onLongPress",
-        "dartType": "VoidCallback?",
-        "required": false,
-        "transform": "callback"
-      }
-    ],
-    "styling": []
-  },
-  {
-    "name": "Align",
-    "dartClass": "Align",
-    "category": "layout",
-    "selfSlot": "",
-    "defaultChildSlot": "child",
-    "singleChild": true,
-    "props": [
-      {
-        "name": "alignment",
-        "tsxProp": "alignment",
-        "dartParam": "alignment",
-        "dartType": "AlignmentGeometry",
-        "required": false,
-        "transform": "string"
-      },
-      {
-        "name": "widthFactor",
-        "tsxProp": "widthFactor",
-        "dartParam": "widthFactor",
-        "dartType": "double?",
-        "required": false,
-        "transform": "double"
-      },
-      {
-        "name": "heightFactor",
-        "tsxProp": "heightFactor",
-        "dartParam": "heightFactor",
-        "dartType": "double?",
-        "required": false,
-        "transform": "double"
       }
     ],
     "styling": []

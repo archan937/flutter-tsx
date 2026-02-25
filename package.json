@@ -5,16 +5,16 @@
   "bin": { "fsx": "./dist/bin/fsx.js" },
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./dist/src/index.js",
+      "types": "./dist/src/index.d.ts"
     },
     "./jsx-runtime": {
-      "import": "./dist/jsx-runtime.js",
-      "types": "./dist/jsx-runtime.d.ts"
+      "import": "./dist/src/jsx-runtime.js",
+      "types": "./dist/src/jsx-runtime.d.ts"
     },
     "./jsx-dev-runtime": {
-      "import": "./dist/jsx-dev-runtime.js",
-      "types": "./dist/jsx-dev-runtime.d.ts"
+      "import": "./dist/src/jsx-dev-runtime.js",
+      "types": "./dist/src/jsx-dev-runtime.d.ts"
     }
   },
   "scripts": {

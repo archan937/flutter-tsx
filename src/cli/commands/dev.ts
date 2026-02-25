@@ -6,6 +6,8 @@ import { ensureFlutterProject } from "../../flutter/project.js";
 import { transpileFile, transpileAll } from "../../transpiler/index.js";
 import { FlutterRunner } from "../../flutter/runner.js";
 import { logger } from "../utils/logger.js";
+import { FLUTTER_BIN } from "./install.js";
+import { existsSync } from "fs";
 
 export const devCmd = defineCommand({
   meta: {
@@ -25,6 +27,14 @@ export const devCmd = defineCommand({
     },
   },
   async run({ args }) {
+    // 0. Check Flutter is available
+    const flutterBin = Bun.which("flutter") ?? (existsSync(FLUTTER_BIN) ? FLUTTER_BIN : null);
+    if (!flutterBin) {
+      logger.error("Flutter SDK not found in PATH.");
+      logger.info("Run `fsx install` to install Flutter automatically.");
+      process.exit(1);
+    }
+
     const root = resolve(args.root ?? process.cwd());
     const config = readConfig(root);
     const target = (args.target as string) || config.target || "web";
@@ -39,7 +49,7 @@ export const devCmd = defineCommand({
     // 1. Ensure flutter project
     logger.start("Preparing Flutter project...");
     try {
-      await ensureFlutterProject(flutterDir, config);
+      await ensureFlutterProject(flutterDir, config, flutterBin);
       logger.success("Flutter project ready");
     } catch (err) {
       logger.error("Failed to prepare Flutter project:", err);
@@ -56,7 +66,7 @@ export const devCmd = defineCommand({
     }
 
     // 3. Start flutter runner
-    const runner = new FlutterRunner(flutterDir, target);
+    const runner = new FlutterRunner(flutterDir, target, flutterBin);
     try {
       await runner.start();
     } catch (err) {
