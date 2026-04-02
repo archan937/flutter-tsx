@@ -7,10 +7,15 @@
     "strict": true,
     "jsx": "react-jsx",
     "jsxImportSource": "@tsx/flutter",
-    "esModuleInterop": true,
     "skipLibCheck": true,
     "noEmit": true,
-    "types": ["bun-types"]
+    "types": ["bun-types"],
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true
   },
   "include": ["src/**/*", "bin/**/*", "scripts/**/*", "types/**/*"],
   "exclude": ["node_modules", "dist"]

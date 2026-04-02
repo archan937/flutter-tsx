@@ -1,8 +1,5 @@
-/**
- * Generates a starter test file for a new user project.
- */
-export function testTsx(appName: string): string {
-  return `import { describe, it, expect } from 'bun:test';
+export const testTsx = (appName: string): string =>
+  `import { describe, it, expect } from 'bun:test';
 import { MainApp } from '../src/App';
 
 describe('${appName}', () => {
@@ -13,4 +10,3 @@ describe('${appName}', () => {
   });
 });
 `;
-}

@@ -41,13 +41,17 @@ import type {
   NavigationBarProps,
   TabBarProps,
   TabBarViewProps,
-  FloatingActionButtonProps
+  FloatingActionButtonProps,
 } from './widget-interfaces.js';
 
-export const MaterialApp = defineComponent<MaterialAppProps>({ single: 'MaterialApp' });
+export const MaterialApp = defineComponent<MaterialAppProps>({
+  single: 'MaterialApp',
+});
 export const Scaffold = defineComponent<ScaffoldProps>({ single: 'Scaffold' });
 export const Center = defineComponent<CenterProps>({ single: 'Center' });
-export const Container = defineComponent<ContainerProps>({ single: 'Container' });
+export const Container = defineComponent<ContainerProps>({
+  single: 'Container',
+});
 export const AppBar = defineComponent<AppBarProps>({ single: 'AppBar' });
 export const Column = defineComponent<ColumnProps>({ single: 'Column' });
 export const Row = defineComponent<RowProps>({ single: 'Row' });
@@ -55,10 +59,18 @@ export const ListView = defineComponent<ListViewProps>({ single: 'ListView' });
 export const GridView = defineComponent<GridViewProps>({ single: 'GridView' });
 export const Stack = defineComponent<StackProps>({ single: 'Stack' });
 export const Text = defineComponent<TextProps>({ single: 'Text' });
-export const ElevatedButton = defineComponent<ElevatedButtonProps>({ single: 'ElevatedButton' });
-export const TextButton = defineComponent<TextButtonProps>({ single: 'TextButton' });
-export const OutlinedButton = defineComponent<OutlinedButtonProps>({ single: 'OutlinedButton' });
-export const IconButton = defineComponent<IconButtonProps>({ single: 'IconButton' });
+export const ElevatedButton = defineComponent<ElevatedButtonProps>({
+  single: 'ElevatedButton',
+});
+export const TextButton = defineComponent<TextButtonProps>({
+  single: 'TextButton',
+});
+export const OutlinedButton = defineComponent<OutlinedButtonProps>({
+  single: 'OutlinedButton',
+});
+export const IconButton = defineComponent<IconButtonProps>({
+  single: 'IconButton',
+});
 export const Card = defineComponent<CardProps>({ single: 'Card' });
 export const Padding = defineComponent<PaddingProps>({ single: 'Padding' });
 export const Expanded = defineComponent<ExpandedProps>({ single: 'Expanded' });
@@ -67,21 +79,41 @@ export const Align = defineComponent<AlignProps>({ single: 'Align' });
 export const SizedBox = defineComponent<SizedBoxProps>({ single: 'SizedBox' });
 export const Wrap = defineComponent<WrapProps>({ single: 'Wrap' });
 export const ListTile = defineComponent<ListTileProps>({ single: 'ListTile' });
-export const BottomNavigationBar = defineComponent<BottomNavigationBarProps>({ single: 'BottomNavigationBar' });
+export const BottomNavigationBar = defineComponent<BottomNavigationBarProps>({
+  single: 'BottomNavigationBar',
+});
 export const Drawer = defineComponent<DrawerProps>({ single: 'Drawer' });
-export const AlertDialog = defineComponent<AlertDialogProps>({ single: 'AlertDialog' });
+export const AlertDialog = defineComponent<AlertDialogProps>({
+  single: 'AlertDialog',
+});
 export const Image = defineComponent<ImageProps>({ single: 'Image' });
 export const Icon = defineComponent<IconProps>({ single: 'Icon' });
-export const TextField = defineComponent<TextFieldProps>({ single: 'TextField' });
+export const TextField = defineComponent<TextFieldProps>({
+  single: 'TextField',
+});
 export const Switch = defineComponent<SwitchProps>({ single: 'Switch' });
 export const Checkbox = defineComponent<CheckboxProps>({ single: 'Checkbox' });
 export const Slider = defineComponent<SliderProps>({ single: 'Slider' });
-export const CircularProgressIndicator = defineComponent<CircularProgressIndicatorProps>({ single: 'CircularProgressIndicator' });
-export const LinearProgressIndicator = defineComponent<LinearProgressIndicatorProps>({ single: 'LinearProgressIndicator' });
+export const CircularProgressIndicator =
+  defineComponent<CircularProgressIndicatorProps>({
+    single: 'CircularProgressIndicator',
+  });
+export const LinearProgressIndicator =
+  defineComponent<LinearProgressIndicatorProps>({
+    single: 'LinearProgressIndicator',
+  });
 export const Divider = defineComponent<DividerProps>({ single: 'Divider' });
 export const SnackBar = defineComponent<SnackBarProps>({ single: 'SnackBar' });
-export const BottomSheet = defineComponent<BottomSheetProps>({ single: 'BottomSheet' });
-export const NavigationBar = defineComponent<NavigationBarProps>({ single: 'NavigationBar' });
+export const BottomSheet = defineComponent<BottomSheetProps>({
+  single: 'BottomSheet',
+});
+export const NavigationBar = defineComponent<NavigationBarProps>({
+  single: 'NavigationBar',
+});
 export const TabBar = defineComponent<TabBarProps>({ single: 'TabBar' });
-export const TabBarView = defineComponent<TabBarViewProps>({ single: 'TabBarView' });
-export const FloatingActionButton = defineComponent<FloatingActionButtonProps>({ single: 'FloatingActionButton' });
+export const TabBarView = defineComponent<TabBarViewProps>({
+  single: 'TabBarView',
+});
+export const FloatingActionButton = defineComponent<FloatingActionButtonProps>({
+  single: 'FloatingActionButton',
+});

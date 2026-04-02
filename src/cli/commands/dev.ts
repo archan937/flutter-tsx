@@ -1,68 +1,70 @@
-import { defineCommand } from "citty";
-import { join, resolve } from "path";
-import chokidar from "chokidar";
-import { readConfig } from "../utils/config.js";
-import { ensureFlutterProject } from "../../flutter/project.js";
-import { transpileFile, transpileAll } from "../../transpiler/index.js";
-import { FlutterRunner } from "../../flutter/runner.js";
-import { logger } from "../utils/logger.js";
-import { FLUTTER_BIN } from "./install.js";
-import { existsSync } from "fs";
+import chokidar from 'chokidar';
+import { defineCommand } from 'citty';
+import { existsSync } from 'fs';
+import { join, resolve } from 'path';
+
+import { ensureFlutterProject } from '../../flutter/project.js';
+import { FlutterRunner } from '../../flutter/runner.js';
+import { transpileAll, transpileFile } from '../../transpiler/index.js';
+import { readConfig } from '../utils/config.js';
+import { logger } from '../utils/logger.js';
+import { FLUTTER_BIN } from './install.js';
 
 export const devCmd = defineCommand({
   meta: {
-    name: "dev",
-    description: "Watch TSX sources, transpile to Dart, and run Flutter",
+    name: 'dev',
+    description: 'Watch TSX sources, transpile to Dart, and run Flutter',
   },
   args: {
     target: {
-      type: "string",
-      description: "Flutter target device (web, ios, android, macos, linux)",
-      default: "",
+      type: 'string',
+      description: 'Flutter target device (web, ios, android, macos, linux)',
+      default: '',
     },
     root: {
-      type: "string",
-      description: "Project root directory",
+      type: 'string',
+      description: 'Project root directory',
       default: process.cwd(),
     },
   },
   async run({ args }) {
     // 0. Check Flutter is available
-    const flutterBin = Bun.which("flutter") ?? (existsSync(FLUTTER_BIN) ? FLUTTER_BIN : null);
+    const flutterBin =
+      Bun.which('flutter') ?? (existsSync(FLUTTER_BIN) ? FLUTTER_BIN : null);
     if (!flutterBin) {
-      logger.error("Flutter SDK not found in PATH.");
-      logger.info("Run `fsx install` to install Flutter automatically.");
+      logger.error('Flutter SDK not found in PATH.');
+      logger.info('Run `fsx install` to install Flutter automatically.');
       process.exit(1);
     }
 
     const root = resolve(args.root ?? process.cwd());
     const config = readConfig(root);
-    const target = (args.target as string) || config.target || "web";
+    const target = (args.target as string | undefined) ?? config.target;
 
-    const flutterDir = join(root, ".fsx", "flutter");
-    const srcDir = join(root, "src");
-    const outDir = join(root, config.outDir ?? ".fsx/flutter/lib");
+    const flutterDir = join(root, '.fsx', 'flutter');
+    const srcDir = join(root, 'src');
+    const outDir = join(root, config.outDir ?? '.fsx/flutter/lib');
 
     logger.info(`Starting flutter.tsx dev server`);
     logger.info(`Target: ${target}`);
 
     // 1. Ensure flutter project
-    logger.start("Preparing Flutter project...");
+    logger.start('Preparing Flutter project...');
     try {
       await ensureFlutterProject(flutterDir, config, flutterBin);
-      logger.success("Flutter project ready");
+      logger.success('Flutter project ready');
     } catch (err) {
-      logger.error("Failed to prepare Flutter project:", err);
+      logger.error('Failed to prepare Flutter project:', err);
       process.exit(1);
     }
 
     // 2. Initial transpile
-    logger.start("Transpiling TSX → Dart...");
+    logger.start('Transpiling TSX → Dart...');
     try {
       const files = await transpileAll(srcDir, outDir);
       logger.success(`Transpiled ${files.length} file(s)`);
     } catch (err) {
-      logger.error("Transpile error:", err);
+      logger.error('Transpile error:', err);
     }
 
     // 3. Start flutter runner
@@ -70,13 +72,13 @@ export const devCmd = defineCommand({
     try {
       await runner.start();
     } catch (err) {
-      logger.error("Failed to start Flutter:", err);
+      logger.error('Failed to start Flutter:', err);
       process.exit(1);
     }
 
     // 4. Watch for changes
-    const watchPatterns = (config.watch ?? ["src/**/*.tsx"]).map((p) =>
-      join(root, p)
+    const watchPatterns = (config.watch ?? ['src/**/*.tsx']).map((p) =>
+      join(root, p),
     );
 
     const watcher = chokidar.watch(watchPatterns, {
@@ -84,38 +86,40 @@ export const devCmd = defineCommand({
       persistent: true,
     });
 
-    watcher.on("change", async (filePath: string) => {
-      logger.info(`Changed: ${filePath.replace(root + "/", "")}`);
+    watcher.on('change', async (filePath: string) => {
+      logger.info(`Changed: ${filePath.replace(root + '/', '')}`);
       try {
         await transpileFile(filePath, outDir);
         await runner.hotReload();
-        logger.success("Hot reload sent");
+        logger.success('Hot reload sent');
       } catch (err) {
-        logger.error("Transpile/reload error:", err);
+        logger.error('Transpile/reload error:', err);
       }
     });
 
-    watcher.on("add", async (filePath: string) => {
-      logger.info(`Added: ${filePath.replace(root + "/", "")}`);
+    watcher.on('add', async (filePath: string) => {
+      logger.info(`Added: ${filePath.replace(root + '/', '')}`);
       try {
         await transpileFile(filePath, outDir);
         await runner.hotRestart();
       } catch (err) {
-        logger.error("Transpile error:", err);
+        logger.error('Transpile error:', err);
       }
     });
 
     // 5. Graceful shutdown
-    const shutdown = async () => {
-      logger.info("\nShutting down...");
+    const shutdown = async (): Promise<void> => {
+      logger.info('\nShutting down...');
       await watcher.close();
       await runner.stop();
       process.exit(0);
     };
 
-    process.on("SIGINT", shutdown);
-    process.on("SIGTERM", shutdown);
+    process.on('SIGINT', shutdown);
+    process.on('SIGTERM', shutdown);
 
-    logger.success(`Watching ${watchPatterns.length} pattern(s). Press Ctrl+C to stop.`);
+    logger.success(
+      `Watching ${watchPatterns.length} pattern(s). Press Ctrl+C to stop.`,
+    );
   },
 });

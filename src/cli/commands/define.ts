@@ -1,34 +1,40 @@
-import { defineCommand } from "citty";
-import { logger } from "../utils/logger.js";
+import { defineCommand } from 'citty';
+
+import { logger } from '../utils/logger.js';
 
 export const defineCmd = defineCommand({
   meta: {
-    name: "define",
-    description: "Download Flutter API docs and regenerate widget types",
+    name: 'define',
+    description: 'Download Flutter API docs and regenerate widget types',
   },
   async run() {
-    logger.start("Downloading Flutter API reference...");
+    logger.start('Downloading Flutter API reference...');
 
     try {
-      const parseModule = await import("../../../scripts/parse-flutter-docs.js");
+      const parseModule =
+        await import('../../../scripts/parse-flutter-docs.js');
       await parseModule.run();
-      logger.success("ref/widgets.json updated");
+      logger.success('ref/widgets.json updated');
     } catch (err) {
-      logger.error("Failed to download/parse Flutter docs:", err);
+      logger.error('Failed to download/parse Flutter docs:', err);
       throw err;
     }
 
-    logger.start("Generating TypeScript types...");
+    logger.start('Generating TypeScript types...');
 
     try {
-      const genModule = await import("../../../scripts/generate-types.js");
+      const genModule = await import('../../../scripts/generate-types.js');
       await genModule.run();
-      logger.success("Widget types generated in src/generated/ and types/jsx.d.ts");
+      logger.success(
+        'Widget types generated in src/generated/ and types/jsx.d.ts',
+      );
     } catch (err) {
-      logger.error("Failed to generate types:", err);
+      logger.error('Failed to generate types:', err);
       throw err;
     }
 
-    logger.success("Done — widget types updated. Run `bun run build` to rebuild.");
+    logger.success(
+      'Done — widget types updated. Run `bun run build` to rebuild.',
+    );
   },
 });

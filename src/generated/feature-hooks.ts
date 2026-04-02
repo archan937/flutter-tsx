@@ -19,11 +19,21 @@ export interface CameraAPI {
 export function useCamera(): CameraAPI {
   // Runtime stub — transpiler converts this to Flutter plugin calls
   return {
-    takePicture() { return Promise.resolve(undefined as never); },
-    startVideoRecording() { return Promise.resolve(undefined as never); },
-    stopVideoRecording() { return Promise.resolve(undefined as never); },
-    initialize(_direction) { return Promise.resolve(undefined as never); },
-    dispose() { return Promise.resolve(undefined as never); },
+    takePicture() {
+      return Promise.resolve(undefined as never);
+    },
+    startVideoRecording() {
+      return Promise.resolve(undefined as never);
+    },
+    stopVideoRecording() {
+      return Promise.resolve(undefined as never);
+    },
+    initialize(_direction) {
+      return Promise.resolve(undefined as never);
+    },
+    dispose() {
+      return Promise.resolve(undefined as never);
+    },
   } as CameraAPI;
 }
 
@@ -44,20 +54,36 @@ export interface AudioAPI {
 export function useAudio(): AudioAPI {
   // Runtime stub — transpiler converts this to Flutter plugin calls
   return {
-    play(_source) { return Promise.resolve(undefined as never); },
-    pause() { return Promise.resolve(undefined as never); },
-    stop() { return Promise.resolve(undefined as never); },
-    setVolume(_volume) { return Promise.resolve(undefined as never); },
-    getDuration() { return Promise.resolve(undefined as never); },
+    play(_source) {
+      return Promise.resolve(undefined as never);
+    },
+    pause() {
+      return Promise.resolve(undefined as never);
+    },
+    stop() {
+      return Promise.resolve(undefined as never);
+    },
+    setVolume(_volume) {
+      return Promise.resolve(undefined as never);
+    },
+    getDuration() {
+      return Promise.resolve(undefined as never);
+    },
   } as AudioAPI;
 }
 
 // ── Location ──────────────────────────────────────────
 export interface LocationAPI {
   /** Returns the current GPS position. */
-  getCurrentPosition(): Promise<{ latitude: number; longitude: number; accuracy: number }>;
+  getCurrentPosition(): Promise<{
+    latitude: number;
+    longitude: number;
+    accuracy: number;
+  }>;
   /** Watches for position changes and calls callback. Returns an unsubscribe function. */
-  watchPosition(callback: (pos: { latitude: number; longitude: number }) => void): () => void;
+  watchPosition(
+    callback: (pos: { latitude: number; longitude: number }) => void,
+  ): () => void;
   /** Requests location permission from the user. */
   requestPermission(): Promise<boolean>;
 }
@@ -65,9 +91,15 @@ export interface LocationAPI {
 export function useLocation(): LocationAPI {
   // Runtime stub — transpiler converts this to Flutter plugin calls
   return {
-    getCurrentPosition() { return Promise.resolve(undefined as never); },
-    watchPosition(_callback) { return () => {}; },
-    requestPermission() { return Promise.resolve(undefined as never); },
+    getCurrentPosition() {
+      return Promise.resolve(undefined as never);
+    },
+    watchPosition(_callback) {
+      return () => {};
+    },
+    requestPermission() {
+      return Promise.resolve(undefined as never);
+    },
   } as LocationAPI;
 }
 
@@ -86,10 +118,18 @@ export interface StorageAPI {
 export function useStorage(): StorageAPI {
   // Runtime stub — transpiler converts this to Flutter plugin calls
   return {
-    getItem(_key) { return Promise.resolve(undefined as never); },
-    setItem(_key, _value) { return Promise.resolve(undefined as never); },
-    removeItem(_key) { return Promise.resolve(undefined as never); },
-    clear() { return Promise.resolve(undefined as never); },
+    getItem(_key) {
+      return Promise.resolve(undefined as never);
+    },
+    setItem(_key, _value) {
+      return Promise.resolve(undefined as never);
+    },
+    removeItem(_key) {
+      return Promise.resolve(undefined as never);
+    },
+    clear() {
+      return Promise.resolve(undefined as never);
+    },
   } as StorageAPI;
 }
 
@@ -106,8 +146,14 @@ export interface NotificationsAPI {
 export function useNotifications(): NotificationsAPI {
   // Runtime stub — transpiler converts this to Flutter plugin calls
   return {
-    show(_title, _body, _id) { return Promise.resolve(undefined as never); },
-    requestPermission() { return Promise.resolve(undefined as never); },
-    cancel(_id) { return Promise.resolve(undefined as never); },
+    show(_title, _body, _id) {
+      return Promise.resolve(undefined as never);
+    },
+    requestPermission() {
+      return Promise.resolve(undefined as never);
+    },
+    cancel(_id) {
+      return Promise.resolve(undefined as never);
+    },
   } as NotificationsAPI;
 }

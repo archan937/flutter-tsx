@@ -4,7 +4,18 @@ import type { FlutterElement } from '../core/widget-node.js';
 export interface TextStyleProps {
   color?: string;
   fontSize?: number;
-  fontWeight?: 'normal' | 'bold' | 'w100' | 'w200' | 'w300' | 'w400' | 'w500' | 'w600' | 'w700' | 'w800' | 'w900';
+  fontWeight?:
+    | 'normal'
+    | 'bold'
+    | 'w100'
+    | 'w200'
+    | 'w300'
+    | 'w400'
+    | 'w500'
+    | 'w600'
+    | 'w700'
+    | 'w800'
+    | 'w900';
   fontStyle?: 'normal' | 'italic';
   letterSpacing?: number;
   wordSpacing?: number;
@@ -57,14 +68,26 @@ export interface AppBarProps {
 }
 
 export interface ColumnProps {
-  mainAxisAlignment?: 'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly';
+  mainAxisAlignment?:
+    | 'start'
+    | 'end'
+    | 'center'
+    | 'spaceBetween'
+    | 'spaceAround'
+    | 'spaceEvenly';
   crossAxisAlignment?: 'start' | 'end' | 'center' | 'stretch' | 'baseline';
   mainAxisSize?: 'min' | 'max';
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface RowProps {
-  mainAxisAlignment?: 'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly';
+  mainAxisAlignment?:
+    | 'start'
+    | 'end'
+    | 'center'
+    | 'spaceBetween'
+    | 'spaceAround'
+    | 'spaceEvenly';
   crossAxisAlignment?: 'start' | 'end' | 'center' | 'stretch' | 'baseline';
   mainAxisSize?: 'min' | 'max';
   children?: FlutterElement | FlutterElement[];
@@ -104,7 +127,18 @@ export interface TextProps {
   /** style.fontSize */
   'style.fontSize'?: number;
   /** style.fontWeight */
-  'style.fontWeight'?: 'normal' | 'bold' | 'w100' | 'w200' | 'w300' | 'w400' | 'w500' | 'w600' | 'w700' | 'w800' | 'w900';
+  'style.fontWeight'?:
+    | 'normal'
+    | 'bold'
+    | 'w100'
+    | 'w200'
+    | 'w300'
+    | 'w400'
+    | 'w500'
+    | 'w600'
+    | 'w700'
+    | 'w800'
+    | 'w900';
   children?: string | number;
 }
 
@@ -174,7 +208,13 @@ export interface SizedBoxProps {
 export interface WrapProps {
   spacing?: number;
   runSpacing?: number;
-  alignment?: 'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly';
+  alignment?:
+    | 'start'
+    | 'end'
+    | 'center'
+    | 'spaceBetween'
+    | 'spaceAround'
+    | 'spaceEvenly';
   direction?: 'horizontal' | 'vertical';
   children?: FlutterElement | FlutterElement[];
 }
@@ -188,8 +228,7 @@ export interface ListTileProps {
   selected?: boolean;
 }
 
-export interface BottomNavigationBarProps {
-}
+export interface BottomNavigationBarProps {}
 
 export interface DrawerProps {
   children?: FlutterElement | FlutterElement[];
@@ -205,7 +244,14 @@ export interface ImageProps {
   src: string;
   width?: number;
   height?: number;
-  fit?: 'fill' | 'contain' | 'cover' | 'fitWidth' | 'fitHeight' | 'none' | 'scaleDown';
+  fit?:
+    | 'fill'
+    | 'contain'
+    | 'cover'
+    | 'fitWidth'
+    | 'fitHeight'
+    | 'none'
+    | 'scaleDown';
 }
 
 export interface IconProps {
@@ -256,8 +302,7 @@ export interface CircularProgressIndicatorProps {
   strokeWidth?: number;
 }
 
-export interface LinearProgressIndicatorProps {
-}
+export interface LinearProgressIndicatorProps {}
 
 export interface DividerProps {
   height?: number;
@@ -267,18 +312,15 @@ export interface DividerProps {
   endIndent?: number;
 }
 
-export interface SnackBarProps {
-}
+export interface SnackBarProps {}
 
 export interface BottomSheetProps {
   children?: FlutterElement | FlutterElement[];
 }
 
-export interface NavigationBarProps {
-}
+export interface NavigationBarProps {}
 
-export interface TabBarProps {
-}
+export interface TabBarProps {}
 
 export interface TabBarViewProps {
   children?: FlutterElement | FlutterElement[];

@@ -1,4 +1,4 @@
-import type { Subprocess } from "bun";
+import type { Subprocess } from 'bun';
 
 /**
  * Manages a running `flutter run` process.
@@ -10,19 +10,19 @@ import type { Subprocess } from "bun";
  * with the device list if it's not a known id.
  */
 export class FlutterRunner {
-  private proc: Subprocess<"pipe", "pipe", "pipe"> | null = null;
+  private proc: Subprocess<'pipe', 'pipe', 'pipe'> | null = null;
   private flutterDir: string;
   private target: string;
   private flutterBin: string;
 
   private static readonly DEVICE_IDS: Partial<Record<string, string>> = {
-    web: "chrome",
-    macos: "macos",
-    linux: "linux",
-    windows: "windows",
+    web: 'chrome',
+    macos: 'macos',
+    linux: 'linux',
+    windows: 'windows',
   };
 
-  constructor(flutterDir: string, target = "web", flutterBin = "flutter") {
+  constructor(flutterDir: string, target = 'web', flutterBin = 'flutter') {
     this.flutterDir = flutterDir;
     this.target = target;
     this.flutterBin = flutterBin;
@@ -30,42 +30,58 @@ export class FlutterRunner {
 
   /** macOS arch that Xcode actually has a destination for (avoids "Unable to find a device matching arch"). */
   private static async getMacOSArch(flutterDir: string): Promise<string> {
-    if (process.platform !== "darwin") return process.arch === "x64" ? "x86_64" : "arm64";
+    if (process.platform !== 'darwin')
+      return process.arch === 'x64' ? 'x86_64' : 'arm64';
     const macosDir = `${flutterDir}/macos`;
     const projectPath = `${macosDir}/Runner.xcodeproj`;
     try {
       const proc = Bun.spawn(
-        ["xcodebuild", "-showdestinations", "-scheme", "Runner", "-project", projectPath],
-        { cwd: macosDir, stdout: "pipe", stderr: "pipe" }
+        [
+          'xcodebuild',
+          '-showdestinations',
+          '-scheme',
+          'Runner',
+          '-project',
+          projectPath,
+        ],
+        { cwd: macosDir, stdout: 'pipe', stderr: 'pipe' },
       );
       const out = await new Response(proc.stdout).text();
       await new Response(proc.stderr).text();
       await proc.exited;
       const macArchs = new Set<string>();
-      for (const line of out.split("\n")) {
-        const m = line.match(/platform:macOS[^}]*arch:(\w+)/i) ?? line.match(/arch:(\w+)[^}]*platform:macOS/i);
-        if (m && (m[1] === "x86_64" || m[1] === "arm64")) macArchs.add(m[1]);
+      for (const line of out.split('\n')) {
+        const m =
+          line.match(/platform:macOS[^}]*arch:(\w+)/i) ??
+          line.match(/arch:(\w+)[^}]*platform:macOS/i);
+        if (m && (m[1] === 'x86_64' || m[1] === 'arm64')) macArchs.add(m[1]);
       }
       if (macArchs.size === 1) return [...macArchs][0];
       if (macArchs.size >= 2) {
-        const uname = (await FlutterRunner.unameM()) ?? "arm64";
-        const preferred = uname === "x86_64" ? "x86_64" : "arm64";
+        const uname = (await FlutterRunner.unameM()) ?? 'arm64';
+        const preferred = uname === 'x86_64' ? 'x86_64' : 'arm64';
         if (macArchs.has(preferred)) return preferred;
         return [...macArchs][0];
       }
     } catch {
       // fall through
     }
-    return (await FlutterRunner.unameM()) ?? (process.arch === "x64" ? "x86_64" : "arm64");
+    return (
+      (await FlutterRunner.unameM()) ??
+      (process.arch === 'x64' ? 'x86_64' : 'arm64')
+    );
   }
 
   private static async unameM(): Promise<string | null> {
     try {
-      const proc = Bun.spawn(["uname", "-m"], { stdout: "pipe", stderr: "pipe" });
+      const proc = Bun.spawn(['uname', '-m'], {
+        stdout: 'pipe',
+        stderr: 'pipe',
+      });
       const out = await new Response(proc.stdout).text();
       await proc.exited;
       const arch = out.trim().toLowerCase();
-      if (arch === "x86_64" || arch === "arm64") return arch;
+      if (arch === 'x86_64' || arch === 'arm64') return arch;
     } catch {
       // ignore
     }
@@ -74,29 +90,33 @@ export class FlutterRunner {
 
   async start(): Promise<void> {
     if (this.proc) {
-      throw new Error("FlutterRunner already started");
+      throw new Error('FlutterRunner already started');
     }
 
     const deviceId = FlutterRunner.DEVICE_IDS[this.target] ?? this.target;
-    const args = [this.flutterBin, "run", "-d", deviceId];
+    const args = [this.flutterBin, 'run', '-d', deviceId];
 
     let env: Record<string, string> | undefined;
-    if (this.target === "macos") {
-      env = { ...process.env, FLUTTER_XCODE_ARCHS: await FlutterRunner.getMacOSArch(this.flutterDir) };
+    if (this.target === 'macos') {
+      env = {
+        ...process.env,
+        FLUTTER_XCODE_ARCHS: await FlutterRunner.getMacOSArch(this.flutterDir),
+      };
     }
 
-    this.proc = Bun.spawn(args, {
+    const proc = Bun.spawn(args, {
       cwd: this.flutterDir,
-      stdin: "pipe",
-      stdout: "pipe",
-      stderr: "pipe",
+      stdin: 'pipe',
+      stdout: 'pipe',
+      stderr: 'pipe',
       ...(env && { env }),
     });
+    this.proc = proc;
 
     this.pipeOutput();
 
     const exitPromise = new Promise<void>((resolve) => {
-      this.proc!.exited.then((code) => {
+      proc.exited.then((code) => {
         if (code !== 0 && code !== null) {
           console.error(`[flutter] process exited with code ${code}`);
         }
@@ -112,19 +132,19 @@ export class FlutterRunner {
 
   async hotReload(): Promise<void> {
     if (!this.proc?.stdin) return;
-    await this.proc.stdin.write("r\n");
+    await this.proc.stdin.write('r\n');
   }
 
   async hotRestart(): Promise<void> {
     if (!this.proc?.stdin) return;
-    await this.proc.stdin.write("R\n");
+    await this.proc.stdin.write('R\n');
   }
 
   async stop(): Promise<void> {
     if (!this.proc) return;
     try {
       if (this.proc.stdin) {
-        await this.proc.stdin.write("q\n");
+        await this.proc.stdin.write('q\n');
         await new Promise((r) => setTimeout(r, 500));
       }
     } catch {
@@ -148,8 +168,8 @@ export class FlutterRunner {
     const pipeStream = async (
       stream: ReadableStream<Uint8Array> | undefined,
       prefix: string,
-      filter?: (line: string) => boolean
-    ) => {
+      filter?: (line: string) => boolean,
+    ): Promise<void> => {
       if (!stream) return;
       const reader = stream.getReader();
       const decoder = new TextDecoder();
@@ -158,7 +178,7 @@ export class FlutterRunner {
           const { done, value } = await reader.read();
           if (done) break;
           const text = decoder.decode(value, { stream: true });
-          for (const line of text.split("\n")) {
+          for (const line of text.split('\n')) {
             const t = line.trim();
             if (!t) continue;
             if (filter && !filter(t)) continue;
@@ -170,11 +190,14 @@ export class FlutterRunner {
       }
     };
 
-    pipeStream(this.proc.stdout as unknown as ReadableStream<Uint8Array>, "[flutter]");
+    pipeStream(
+      this.proc.stdout as unknown as ReadableStream<Uint8Array>,
+      '[flutter]',
+    );
     pipeStream(
       this.proc.stderr as unknown as ReadableStream<Uint8Array>,
-      "[flutter err]",
-      (line) => !FlutterRunner.XCODE_NOISE.test(line)
+      '[flutter err]',
+      (line) => !FlutterRunner.XCODE_NOISE.test(line),
     );
   }
 }

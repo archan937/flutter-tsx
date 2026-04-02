@@ -26,7 +26,12 @@
       {
         "name": "initialize",
         "args": [
-          { "name": "direction", "tsType": "'front' | 'back'", "dartType": "CameraLensDirection", "required": false }
+          {
+            "name": "direction",
+            "tsType": "'front' | 'back'",
+            "dartType": "CameraLensDirection",
+            "required": false
+          }
         ],
         "returns": "Promise<void>",
         "behavior": "Initializes the camera with the given lens direction."
@@ -48,7 +53,12 @@
       {
         "name": "play",
         "args": [
-          { "name": "source", "tsType": "string", "dartType": "String", "required": true }
+          {
+            "name": "source",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          }
         ],
         "returns": "Promise<void>",
         "behavior": "Plays audio from the given URL or asset path."
@@ -68,7 +78,12 @@
       {
         "name": "setVolume",
         "args": [
-          { "name": "volume", "tsType": "number", "dartType": "double", "required": true }
+          {
+            "name": "volume",
+            "tsType": "number",
+            "dartType": "double",
+            "required": true
+          }
         ],
         "returns": "Promise<void>",
         "behavior": "Sets the volume level (0.0 to 1.0)."
@@ -96,7 +111,12 @@
       {
         "name": "watchPosition",
         "args": [
-          { "name": "callback", "tsType": "(pos: { latitude: number; longitude: number }) => void", "dartType": "Function", "required": true }
+          {
+            "name": "callback",
+            "tsType": "(pos: { latitude: number; longitude: number }) => void",
+            "dartType": "Function",
+            "required": true
+          }
         ],
         "returns": "() => void",
         "behavior": "Watches for position changes and calls callback. Returns an unsubscribe function."
@@ -118,7 +138,12 @@
       {
         "name": "getItem",
         "args": [
-          { "name": "key", "tsType": "string", "dartType": "String", "required": true }
+          {
+            "name": "key",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          }
         ],
         "returns": "Promise<string | null>",
         "behavior": "Retrieves a value by key from persistent storage."
@@ -126,8 +151,18 @@
       {
         "name": "setItem",
         "args": [
-          { "name": "key", "tsType": "string", "dartType": "String", "required": true },
-          { "name": "value", "tsType": "string", "dartType": "String", "required": true }
+          {
+            "name": "key",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          },
+          {
+            "name": "value",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          }
         ],
         "returns": "Promise<void>",
         "behavior": "Stores a value by key in persistent storage."
@@ -135,7 +170,12 @@
       {
         "name": "removeItem",
         "args": [
-          { "name": "key", "tsType": "string", "dartType": "String", "required": true }
+          {
+            "name": "key",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          }
         ],
         "returns": "Promise<void>",
         "behavior": "Removes a value by key from persistent storage."
@@ -157,9 +197,24 @@
       {
         "name": "show",
         "args": [
-          { "name": "title", "tsType": "string", "dartType": "String", "required": true },
-          { "name": "body", "tsType": "string", "dartType": "String", "required": true },
-          { "name": "id", "tsType": "number", "dartType": "int", "required": false }
+          {
+            "name": "title",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          },
+          {
+            "name": "body",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          },
+          {
+            "name": "id",
+            "tsType": "number",
+            "dartType": "int",
+            "required": false
+          }
         ],
         "returns": "Promise<void>",
         "behavior": "Shows a local notification with the given title and body."
@@ -173,7 +228,12 @@
       {
         "name": "cancel",
         "args": [
-          { "name": "id", "tsType": "number", "dartType": "int", "required": true }
+          {
+            "name": "id",
+            "tsType": "number",
+            "dartType": "int",
+            "required": true
+          }
         ],
         "returns": "Promise<void>",
         "behavior": "Cancels a scheduled or active notification by ID."

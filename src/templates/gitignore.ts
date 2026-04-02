@@ -1,8 +1,4 @@
-/**
- * Generates the .gitignore for a new user project.
- */
-export function gitignore(): string {
-  return `# Dependencies
+export const gitignore = (): string => `# Dependencies
 node_modules/
 
 # Flutter.tsx build artifacts
@@ -25,4 +21,3 @@ Thumbs.db
 *.swp
 *.swo
 `;
-}

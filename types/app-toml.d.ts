@@ -6,7 +6,7 @@ export interface AppConfig {
   /** Flutter version constraint, e.g. ">=3.0.0" */
   flutterVersion?: string;
   /** Default target device for `fsx dev` */
-  target?: "web" | "ios" | "android" | "macos" | "linux" | "windows";
+  target?: 'web' | 'ios' | 'android' | 'macos' | 'linux' | 'windows';
   /** Extra Flutter pub dependencies to add to pubspec.yaml */
   dependencies?: Record<string, string>;
   /** Source glob patterns to watch (default: ["src/**\/*.tsx"]) */

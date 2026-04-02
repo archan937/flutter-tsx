@@ -1,8 +1,5 @@
-/**
- * Generates the starter App.tsx for a new flutter.tsx project.
- */
-export function appTsx(appName: string): string {
-  return `import { MaterialApp, Scaffold, AppBar, Center, Text } from '@tsx/flutter';
+export const appTsx = (appName: string): string =>
+  `import { MaterialApp, Scaffold, AppBar, Center, Text } from '@tsx/flutter';
 
 export const MainApp = () => (
   <MaterialApp title="${appName}">
@@ -15,4 +12,3 @@ export const MainApp = () => (
   </MaterialApp>
 );
 `;
-}

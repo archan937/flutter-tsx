@@ -1,89 +1,22 @@
-import ts from "typescript";
-import { analyzeHooks } from "./hooks-analyzer.js";
-import { transformColor, transformPadding, transformTextStyle, dartString } from "./dart-helpers.js";
-import { getReturnJSX, getFunctionBody } from "./parser.js";
-import type { ExportedComponent } from "./parser.js";
+import ts from 'typescript';
 
-// ---------------------------------------------------------------------------
-// Slot maps (loaded lazily — populated after fsx define runs)
-// ---------------------------------------------------------------------------
-
-let _selfSlotMap: Map<string, string> | null = null;
-let _childSlotMap: Map<string, string> | null = null;
-let _singleChildSet: Set<string> | null = null;
-
-function getSelfSlotMap(): Map<string, string> {
-  if (!_selfSlotMap) {
-    try {
-      // Dynamic import to handle pre-generate state
-      const mod = require("../generated/slot-map.js");
-      _selfSlotMap = mod.SELF_SLOT_MAP;
-    } catch {
-      _selfSlotMap = new Map([
-        ["AppBar", "appBar"],
-        ["BottomNavigationBar", "bottomNavigationBar"],
-        ["Drawer", "drawer"],
-        ["FloatingActionButton", "floatingActionButton"],
-        ["NavigationBar", "navigationBar"],
-        ["TabBar", "tabBar"],
-      ]);
-    }
-  }
-  return _selfSlotMap!;
-}
-
-function getChildSlotMap(): Map<string, string> {
-  if (!_childSlotMap) {
-    try {
-      const mod = require("../generated/slot-map.js");
-      _childSlotMap = mod.CHILD_SLOT_MAP;
-    } catch {
-      _childSlotMap = new Map([
-        ["MaterialApp", "home"],
-        ["Scaffold", "body"],
-        ["Center", "child"],
-        ["Container", "child"],
-        ["Padding", "child"],
-        ["SizedBox", "child"],
-        ["Expanded", "child"],
-        ["Flexible", "child"],
-        ["Align", "child"],
-        ["Card", "child"],
-        ["Drawer", "child"],
-        ["Column", "children"],
-        ["Row", "children"],
-        ["ListView", "children"],
-        ["GridView", "children"],
-        ["Stack", "children"],
-        ["Wrap", "children"],
-        ["TabBarView", "children"],
-        ["ElevatedButton", "child"],
-        ["TextButton", "child"],
-        ["OutlinedButton", "child"],
-        ["FloatingActionButton", "child"],
-        ["AppBar", "title"],
-      ]);
-    }
-  }
-  return _childSlotMap!;
-}
-
-function getSingleChildSet(): Set<string> {
-  if (!_singleChildSet) {
-    try {
-      const mod = require("../generated/slot-map.js");
-      _singleChildSet = mod.SINGLE_CHILD_WIDGETS;
-    } catch {
-      _singleChildSet = new Set([
-        "MaterialApp", "Scaffold", "Center", "Container", "Padding",
-        "SizedBox", "Expanded", "Flexible", "Align", "Card",
-        "Drawer", "ElevatedButton", "TextButton", "OutlinedButton",
-        "FloatingActionButton", "AppBar",
-      ]);
-    }
-  }
-  return _singleChildSet!;
-}
+import {
+  CHILD_SLOT_MAP,
+  SELF_SLOT_MAP,
+  SINGLE_CHILD_WIDGETS,
+} from '../generated/slot-map.js';
+import {
+  dartString,
+  transformColor,
+  transformPadding,
+  transformTextStyle,
+} from './dart-helpers.js';
+import { analyzeHooks } from './hooks-analyzer.js';
+import {
+  type ExportedComponent,
+  getFunctionBody,
+  getReturnJSX,
+} from './parser.js';
 
 // ---------------------------------------------------------------------------
 // CodegenContext
@@ -93,14 +26,9 @@ export class CodegenContext {
   private sourceFile: ts.SourceFile;
   private stateVarNames = new Set<string>();
   private stateSetterNames = new Set<string>();
-  private indent = 0;
 
   constructor(sourceFile: ts.SourceFile) {
     this.sourceFile = sourceFile;
-  }
-
-  private indentStr(): string {
-    return "  ".repeat(this.indent);
   }
 
   // -------------------------------------------------------------------------
@@ -108,7 +36,7 @@ export class CodegenContext {
   // -------------------------------------------------------------------------
 
   generateComponent(component: ExportedComponent): string {
-    const body = getFunctionBody(component.node, this.sourceFile);
+    const body = getFunctionBody(component.node);
     let hasState = false;
 
     if (body && ts.isBlock(body)) {
@@ -133,12 +61,12 @@ export class CodegenContext {
   // -------------------------------------------------------------------------
 
   private genStatelessWidget(component: ExportedComponent): string {
-    const name = component.name;
-    const jsxRoot = getReturnJSX(component.node, this.sourceFile);
+    const { name } = component;
+    const jsxRoot = getReturnJSX(component.node);
 
     const dartWidget = jsxRoot
       ? this.visitJSX(jsxRoot, null)
-      : "const Placeholder()";
+      : 'const Placeholder()';
 
     return [
       `class ${name} extends StatelessWidget {`,
@@ -148,7 +76,7 @@ export class CodegenContext {
       `    return ${dartWidget};`,
       `  }`,
       `}`,
-    ].join("\n");
+    ].join('\n');
   }
 
   // -------------------------------------------------------------------------
@@ -157,44 +85,48 @@ export class CodegenContext {
 
   private genStatefulWidget(
     component: ExportedComponent,
-    analysis: ReturnType<typeof analyzeHooks>
+    analysis: ReturnType<typeof analyzeHooks>,
   ): string {
-    const name = component.name;
+    const { name } = component;
     const stateName = `_${name}State`;
-    const jsxRoot = getReturnJSX(component.node, this.sourceFile);
-    const dartWidget = jsxRoot ? this.visitJSX(jsxRoot, null) : "const Placeholder()";
+    const jsxRoot = getReturnJSX(component.node);
+    const dartWidget = jsxRoot
+      ? this.visitJSX(jsxRoot, null)
+      : 'const Placeholder()';
 
     const stateFields = analysis.stateVars
       .map((sv) => `  ${sv.dartType} ${sv.name} = ${sv.initializer};`)
-      .join("\n");
+      .join('\n');
 
     // Build initState if there are effects
-    let initState = "";
+    let initState = '';
     if (analysis.hasEffects) {
       const effectBody = analysis.effectBodies
         .map((b) => `    ${b}`)
-        .join("\n");
-      initState = [
-        `  @override`,
-        `  void initState() {`,
-        `    super.initState();`,
-        effectBody,
-        `  }`,
-      ].join("\n") + "\n";
+        .join('\n');
+      initState =
+        [
+          `  @override`,
+          `  void initState() {`,
+          `    super.initState();`,
+          effectBody,
+          `  }`,
+        ].join('\n') + '\n';
     }
 
     // Build dispose if there are cleanups
-    let dispose = "";
+    let dispose = '';
     const cleanups = analysis.effectCleanups.filter(Boolean);
     if (cleanups.length > 0) {
-      const cleanupBody = cleanups.map((c) => `    ${c}();`).join("\n");
-      dispose = [
-        `  @override`,
-        `  void dispose() {`,
-        cleanupBody,
-        `    super.dispose();`,
-        `  }`,
-      ].join("\n") + "\n";
+      const cleanupBody = cleanups.map((c) => `    ${c}();`).join('\n');
+      dispose =
+        [
+          `  @override`,
+          `  void dispose() {`,
+          cleanupBody,
+          `    super.dispose();`,
+          `  }`,
+        ].join('\n') + '\n';
     }
 
     return [
@@ -210,12 +142,12 @@ export class CodegenContext {
       `  Widget build(BuildContext context) {`,
       `    return ${dartWidget};`,
       `  }`,
-      initState ? initState.trimEnd() : "",
-      dispose ? dispose.trimEnd() : "",
+      initState ? initState.trimEnd() : '',
+      dispose ? dispose.trimEnd() : '',
       `}`,
     ]
-      .filter((l) => l !== "")
-      .join("\n");
+      .filter((l) => l !== '')
+      .join('\n');
   }
 
   // -------------------------------------------------------------------------
@@ -224,7 +156,7 @@ export class CodegenContext {
 
   visitJSX(
     node: ts.JsxElement | ts.JsxSelfClosingElement | ts.JsxFragment,
-    parentWidgetName: string | null
+    parentWidgetName: string | null,
   ): string {
     if (ts.isJsxFragment(node)) {
       return this.visitFragment(node, parentWidgetName);
@@ -240,87 +172,105 @@ export class CodegenContext {
 
     const children = ts.isJsxElement(node) ? [...node.children] : [];
 
-    return this.buildWidgetCall(tagName, attributes, children, parentWidgetName);
+    return this.buildWidgetCall(tagName, attributes, children);
   }
 
   private visitFragment(
     node: ts.JsxFragment,
-    parentWidgetName: string | null
+    parentWidgetName: string | null,
   ): string {
     const children = [...node.children].filter(
-      (c) => !ts.isJsxText(c) || c.getText(this.sourceFile).trim() !== ""
+      (c) => !ts.isJsxText(c) || c.getText(this.sourceFile).trim() !== '',
     );
     if (children.length === 1) {
       const child = children[0];
-      if (ts.isJsxElement(child) || ts.isJsxSelfClosingElement(child) || ts.isJsxFragment(child)) {
+      if (
+        ts.isJsxElement(child) ||
+        ts.isJsxSelfClosingElement(child) ||
+        ts.isJsxFragment(child)
+      ) {
         return this.visitJSX(child, parentWidgetName);
       }
     }
     // Multiple children in a fragment — wrap in Column
     const childExprs = children
-      .filter((c): c is ts.JsxElement | ts.JsxSelfClosingElement => {
-        return ts.isJsxElement(c) || ts.isJsxSelfClosingElement(c);
-      })
-      .map((c) => this.visitJSX(c, "Column"));
-    return `Column(children: [${childExprs.join(", ")}])`;
+      .filter(
+        (c): c is ts.JsxElement | ts.JsxSelfClosingElement =>
+          ts.isJsxElement(c) || ts.isJsxSelfClosingElement(c),
+      )
+      .map((c) => this.visitJSX(c, 'Column'));
+    return `Column(children: [${childExprs.join(', ')}])`;
   }
 
   private buildWidgetCall(
     tagName: string,
     attributes: ts.JsxAttributes,
     children: ts.JsxChild[],
-    _parentWidgetName: string | null
   ): string {
     const props = this.extractProps(attributes);
     const parts: string[] = [];
 
     // --- Handle string props already encoded as named params
     for (const [key, value] of Object.entries(props)) {
-      if (key === "children") continue; // handled below
+      if (key === 'children') continue; // handled below
       parts.push(`${key}: ${value}`);
     }
 
     // --- Handle children
     const meaningfulChildren = children.filter((c) => {
       if (ts.isJsxText(c)) {
-        return c.getText(this.sourceFile).trim() !== "";
+        return c.getText(this.sourceFile).trim() !== '';
       }
       return true;
     });
 
     if (meaningfulChildren.length > 0) {
-      const childSlot = getChildSlotMap().get(tagName);
+      const childSlot = CHILD_SLOT_MAP.get(tagName);
 
-      if (tagName === "Text") {
+      if (tagName === 'Text') {
         // Text: children become positional string arg
         const textContent = this.extractTextChildren(meaningfulChildren);
         if (textContent) {
-          return `Text(${textContent}${parts.length > 0 ? ", " + parts.join(", ") : ""})`;
+          return `Text(${textContent}${parts.length > 0 ? ', ' + parts.join(', ') : ''})`;
         }
-      } else if (childSlot === "child" || getSingleChildSet().has(tagName)) {
+      } else if (childSlot === 'child' || SINGLE_CHILD_WIDGETS.has(tagName)) {
         // Single child
         const childDart = this.visitSingleChild(meaningfulChildren, tagName);
-        if (childDart) parts.push(`${childSlot ?? "child"}: ${childDart}`);
-      } else if (childSlot === "children") {
+        if (childDart) parts.push(`${childSlot ?? 'child'}: ${childDart}`);
+      } else if (childSlot === 'children') {
         // Multi children — but first check if any have self-slots
-        const slottedChildren = this.visitChildrenWithSlots(meaningfulChildren, tagName);
+        const slottedChildren = this.visitChildrenWithSlots(
+          meaningfulChildren,
+          tagName,
+        );
         parts.push(...slottedChildren.slottedArgs);
         if (slottedChildren.unslottedChildren.length > 0) {
-          parts.push(`children: [${slottedChildren.unslottedChildren.join(", ")}]`);
+          parts.push(
+            `children: [${slottedChildren.unslottedChildren.join(', ')}]`,
+          );
         }
-      } else if (childSlot === "home" || childSlot === "body" || childSlot === "title") {
+      } else if (
+        childSlot === 'home' ||
+        childSlot === 'body' ||
+        childSlot === 'title'
+      ) {
         // Named single child
         const childDart = this.visitSingleChild(meaningfulChildren, tagName);
         if (childDart) parts.push(`${childSlot}: ${childDart}`);
       } else {
         // Unknown slot — check for self-slots first, then use children
-        const slottedChildren = this.visitChildrenWithSlots(meaningfulChildren, tagName);
+        const slottedChildren = this.visitChildrenWithSlots(
+          meaningfulChildren,
+          tagName,
+        );
         parts.push(...slottedChildren.slottedArgs);
         if (slottedChildren.unslottedChildren.length > 0) {
-          if (getSingleChildSet().has(tagName)) {
+          if (SINGLE_CHILD_WIDGETS.has(tagName)) {
             parts.push(`child: ${slottedChildren.unslottedChildren[0]}`);
           } else {
-            parts.push(`children: [${slottedChildren.unslottedChildren.join(", ")}]`);
+            parts.push(
+              `children: [${slottedChildren.unslottedChildren.join(', ')}]`,
+            );
           }
         }
       }
@@ -329,7 +279,7 @@ export class CodegenContext {
     if (parts.length === 0) {
       return `${tagName}()`;
     }
-    return `${tagName}(${parts.join(", ")})`;
+    return `${tagName}(${parts.join(', ')})`;
   }
 
   /**
@@ -338,7 +288,7 @@ export class CodegenContext {
    */
   private visitChildrenWithSlots(
     children: ts.JsxChild[],
-    parentWidget: string
+    parentWidget: string,
   ): { slottedArgs: string[]; unslottedChildren: string[] } {
     const slottedArgs: string[] = [];
     const unslottedChildren: string[] = [];
@@ -358,14 +308,18 @@ export class CodegenContext {
         continue;
       }
 
-      if (ts.isJsxElement(child) || ts.isJsxSelfClosingElement(child) || ts.isJsxFragment(child)) {
+      if (
+        ts.isJsxElement(child) ||
+        ts.isJsxSelfClosingElement(child) ||
+        ts.isJsxFragment(child)
+      ) {
         const childTagName = ts.isJsxFragment(child)
           ? null
           : ts.isJsxElement(child)
             ? child.openingElement.tagName.getText(this.sourceFile)
             : child.tagName.getText(this.sourceFile);
 
-        const selfSlot = childTagName ? getSelfSlotMap().get(childTagName) : null;
+        const selfSlot = childTagName ? SELF_SLOT_MAP.get(childTagName) : null;
 
         if (selfSlot) {
           const dartChild = this.visitJSX(child, parentWidget);
@@ -382,7 +336,7 @@ export class CodegenContext {
 
   private visitSingleChild(
     children: ts.JsxChild[],
-    parentWidget: string
+    parentWidget: string,
   ): string | null {
     // First check for a slotted child (like AppBar inside Scaffold)
     const allChildren = this.visitChildrenWithSlots(children, parentWidget);
@@ -406,7 +360,7 @@ export class CodegenContext {
       }
     }
 
-    return parts.length > 0 ? parts.join(" + ") : null;
+    return parts.length > 0 ? parts.join(' + ') : null;
   }
 
   // -------------------------------------------------------------------------
@@ -420,11 +374,11 @@ export class CodegenContext {
       if (ts.isJsxSpreadAttribute(attr)) continue;
 
       const name = attr.name.getText(this.sourceFile);
-      const initializer = attr.initializer;
+      const { initializer } = attr;
 
       if (!initializer) {
         // Boolean shorthand: <Widget disabled />
-        result[name] = "true";
+        result[name] = 'true';
         continue;
       }
 
@@ -446,47 +400,53 @@ export class CodegenContext {
   private transformPropValue(
     propName: string,
     value: string | ts.Expression,
-    isExpr = false
+    isExpr = false,
   ): string {
-    const raw = typeof value === "string" ? value : value.getText(this.sourceFile);
+    const raw =
+      typeof value === 'string' ? value : value.getText(this.sourceFile);
 
     // Color props
     if (
-      propName.toLowerCase().includes("color") ||
-      propName === "backgroundColor" ||
-      propName === "activeColor"
+      propName.toLowerCase().includes('color') ||
+      propName === 'backgroundColor' ||
+      propName === 'activeColor'
     ) {
-      if (typeof value === "string") return transformColor(value);
+      if (typeof value === 'string') return transformColor(value);
     }
 
     // Padding / margin
-    if (propName === "padding" || propName === "margin") {
-      if (typeof value === "string") return transformPadding(Number(value) || value);
+    if (propName === 'padding' || propName === 'margin') {
+      if (typeof value === 'string')
+        return transformPadding(Number(value) || value);
       // Array literal from expression
       if (isExpr && ts.isArrayLiteralExpression(value as ts.Expression)) {
         const arr = (value as ts.ArrayLiteralExpression).elements.map((e) =>
-          parseFloat(e.getText(this.sourceFile))
+          parseFloat(e.getText(this.sourceFile)),
         );
         return transformPadding(arr);
       }
     }
 
     // Callback props: onClick, onChange, etc.
-    if (propName.startsWith("on") && isExpr) {
+    if (propName.startsWith('on') && isExpr) {
       return this.transformCallbackExpr(value as ts.Expression);
     }
 
     // String literal
-    if (typeof value === "string") return dartString(value);
+    if (typeof value === 'string') return dartString(value);
 
     // Boolean literal
-    if (raw === "true" || raw === "false") return raw;
+    if (raw === 'true' || raw === 'false') return raw;
 
     // Numeric literal
     if (!isNaN(Number(raw))) return raw;
 
     // style object
-    if (propName === "style" && isExpr && ts.isObjectLiteralExpression(value as ts.Expression)) {
+    if (
+      propName === 'style' &&
+      isExpr &&
+      ts.isObjectLiteralExpression(value as ts.Expression)
+    ) {
       return this.transformStyleObject(value as ts.ObjectLiteralExpression);
     }
 
@@ -508,11 +468,9 @@ export class CodegenContext {
     const src = this.sourceFile;
 
     if (ts.isArrowFunction(expr) || ts.isFunctionExpression(expr)) {
-      const body = expr.body;
+      const { body } = expr;
 
-      // Transform setter calls: setCount(x) → setState(() { count = x; })
-      const bodyText = body.getText(src);
-      const transformed = this.transformCallbackBody(bodyText, body);
+      const transformed = this.transformCallbackBody(body);
       return `() { ${transformed} }`;
     }
 
@@ -524,7 +482,7 @@ export class CodegenContext {
     return `() { ${expr.getText(src)}; }`;
   }
 
-  private transformCallbackBody(rawText: string, body: ts.ConciseBody): string {
+  private transformCallbackBody(body: ts.ConciseBody): string {
     if (!ts.isBlock(body)) {
       // Concise arrow body: () => setCount(count + 1)
       return this.transformStatement(body);
@@ -532,7 +490,7 @@ export class CodegenContext {
 
     const stmts = body.statements
       .map((s) => this.transformStatement(s))
-      .join(" ");
+      .join(' ');
     return stmts;
   }
 
@@ -544,6 +502,7 @@ export class CodegenContext {
       const callee = node.expression.getText(src);
       if (this.stateSetterNames.has(callee) && node.arguments.length === 1) {
         const varName = this.getStateVarForSetter(callee);
+        if (!varName) return node.getText(src) + ';';
         const argExpr = node.arguments[0];
         const argText = argExpr.getText(src);
 
@@ -551,7 +510,10 @@ export class CodegenContext {
         if (ts.isArrowFunction(argExpr) && argExpr.parameters.length === 1) {
           const paramName = argExpr.parameters[0].name.getText(src);
           const bodyText = argExpr.body.getText(src);
-          const replaced = bodyText.replace(new RegExp(`\\b${paramName}\\b`, "g"), varName!);
+          const replaced = bodyText.replace(
+            new RegExp(`\\b${paramName}\\b`, 'g'),
+            varName,
+          );
           return `setState(() { ${varName} = ${replaced}; });`;
         }
 
@@ -564,7 +526,7 @@ export class CodegenContext {
       return this.transformStatement(node.expression);
     }
 
-    return node.getText(src) + ";";
+    return node.getText(src) + ';';
   }
 
   private getStateVarForSetter(setterName: string): string | null {
@@ -582,7 +544,7 @@ export class CodegenContext {
       if (ts.isPropertyAssignment(prop) && ts.isIdentifier(prop.name)) {
         const key = prop.name.getText(this.sourceFile);
         const val = prop.initializer.getText(this.sourceFile);
-        styleMap[key] = val.replace(/^['"]|['"]$/g, ""); // strip quotes
+        styleMap[key] = val.replace(/^['"]|['"]$/g, ''); // strip quotes
       }
     }
     return transformTextStyle(styleMap);
@@ -602,7 +564,7 @@ export class CodegenContext {
       parts.push(span.literal.text);
     }
 
-    return `'${parts.join("")}'`;
+    return `'${parts.join('')}'`;
   }
 
   private transformExpression(expr: ts.Expression): string {
@@ -616,7 +578,7 @@ export class CodegenContext {
     ) {
       return this.visitJSX(
         expr as unknown as ts.JsxElement | ts.JsxSelfClosingElement,
-        null
+        null,
       );
     }
 
@@ -628,10 +590,10 @@ export class CodegenContext {
 // File-level codegen
 // ---------------------------------------------------------------------------
 
-export function generateDartFile(
+export const generateDartFile = (
   sourceFile: ts.SourceFile,
-  components: ExportedComponent[]
-): string {
+  components: ExportedComponent[],
+): string => {
   const ctx = new CodegenContext(sourceFile);
 
   const parts: string[] = [
@@ -642,8 +604,8 @@ export function generateDartFile(
 
   for (const component of components) {
     parts.push(ctx.generateComponent(component));
-    parts.push("");
+    parts.push('');
   }
 
-  return parts.join("\n");
-}
+  return parts.join('\n');
+};

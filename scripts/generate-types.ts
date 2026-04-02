@@ -11,13 +11,13 @@
  *   types/jsx.d.ts
  */
 
-import { existsSync, mkdirSync, writeFileSync, readFileSync } from "fs";
-import { join, dirname } from "path";
-import { fileURLToPath } from "url";
+import { existsSync, mkdirSync, writeFileSync, readFileSync } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const ROOT = join(__dirname, "..");
+const ROOT = join(__dirname, '..');
 
 interface PropDef {
   name: string;
@@ -79,66 +79,72 @@ function ensure(dir: string) {
 
 function write(filePath: string, content: string) {
   ensure(dirname(filePath));
-  writeFileSync(filePath, content, "utf-8");
-  console.log(`  Written: ${filePath.replace(ROOT + "/", "")}`);
+  writeFileSync(filePath, content, 'utf-8');
+  console.log(`  Written: ${filePath.replace(ROOT + '/', '')}`);
 }
 
 function dartTypeToTs(dartType: string): string {
-  const t = dartType.replace(/\?$/, "");
+  const t = dartType.replace(/\?$/, '');
   const map: Record<string, string> = {
-    "String": "string",
-    "bool": "boolean",
-    "int": "number",
-    "double": "number",
-    "VoidCallback": "() => void",
-    "dynamic": "unknown",
-    "Widget": "FlutterElement",
-    "List<Widget>": "FlutterElement[]",
-    "IconData": "string",
-    "Color": "string",
-    "EdgeInsetsGeometry": "number | [number, number] | [number, number, number, number]",
-    "AlignmentGeometry": "string",
-    "TextStyle": "TextStyleProps",
-    "ThemeData": "Record<string, unknown>",
-    "Axis": "'horizontal' | 'vertical'",
-    "MainAxisAlignment": "'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly'",
-    "CrossAxisAlignment": "'start' | 'end' | 'center' | 'stretch' | 'baseline'",
-    "MainAxisSize": "'min' | 'max'",
-    "TextAlign": "'left' | 'right' | 'center' | 'justify' | 'start' | 'end'",
-    "TextOverflow": "'clip' | 'fade' | 'ellipsis' | 'visible'",
-    "BoxFit": "'fill' | 'contain' | 'cover' | 'fitWidth' | 'fitHeight' | 'none' | 'scaleDown'",
-    "FontWeight": "'normal' | 'bold' | 'w100' | 'w200' | 'w300' | 'w400' | 'w500' | 'w600' | 'w700' | 'w800' | 'w900'",
-    "TextInputType": "'text' | 'number' | 'phone' | 'email' | 'url' | 'multiline'",
-    "StackFit": "'loose' | 'expand' | 'passthrough'",
-    "FlexFit": "'tight' | 'loose'",
-    "WrapAlignment": "'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly'",
-    "Clip": "'none' | 'hardEdge' | 'antiAlias' | 'antiAliasWithSaveLayer'",
-    "ThemeMode": "'system' | 'light' | 'dark'",
+    String: 'string',
+    bool: 'boolean',
+    int: 'number',
+    double: 'number',
+    VoidCallback: '() => void',
+    dynamic: 'unknown',
+    Widget: 'FlutterElement',
+    'List<Widget>': 'FlutterElement[]',
+    IconData: 'string',
+    Color: 'string',
+    EdgeInsetsGeometry:
+      'number | [number, number] | [number, number, number, number]',
+    AlignmentGeometry: 'string',
+    TextStyle: 'TextStyleProps',
+    ThemeData: 'Record<string, unknown>',
+    Axis: "'horizontal' | 'vertical'",
+    MainAxisAlignment:
+      "'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly'",
+    CrossAxisAlignment: "'start' | 'end' | 'center' | 'stretch' | 'baseline'",
+    MainAxisSize: "'min' | 'max'",
+    TextAlign: "'left' | 'right' | 'center' | 'justify' | 'start' | 'end'",
+    TextOverflow: "'clip' | 'fade' | 'ellipsis' | 'visible'",
+    BoxFit:
+      "'fill' | 'contain' | 'cover' | 'fitWidth' | 'fitHeight' | 'none' | 'scaleDown'",
+    FontWeight:
+      "'normal' | 'bold' | 'w100' | 'w200' | 'w300' | 'w400' | 'w500' | 'w600' | 'w700' | 'w800' | 'w900'",
+    TextInputType:
+      "'text' | 'number' | 'phone' | 'email' | 'url' | 'multiline'",
+    StackFit: "'loose' | 'expand' | 'passthrough'",
+    FlexFit: "'tight' | 'loose'",
+    WrapAlignment:
+      "'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly'",
+    Clip: "'none' | 'hardEdge' | 'antiAlias' | 'antiAliasWithSaveLayer'",
+    ThemeMode: "'system' | 'light' | 'dark'",
   };
 
-  if (t.startsWith("ValueChanged<")) {
+  if (t.startsWith('ValueChanged<')) {
     const inner = t.slice(13, -1);
     return `(value: ${dartTypeToTs(inner)}) => void`;
   }
 
-  return map[t] ?? "unknown";
+  return map[t] ?? 'unknown';
 }
 
 function propToTsOptional(prop: PropDef): string {
   const tsType = dartTypeToTs(prop.dartType);
-  const optional = prop.required ? "" : "?";
+  const optional = prop.required ? '' : '?';
   return `  ${prop.tsxProp}${optional}: ${tsType};`;
 }
 
 function childrenPropLine(widget: WidgetDef): string {
-  if (widget.defaultChildSlot === "none") {
-    if (widget.name === "Text") return "  children?: string | number;";
-    return "";
+  if (widget.defaultChildSlot === 'none') {
+    if (widget.name === 'Text') return '  children?: string | number;';
+    return '';
   }
   // Always allow arrays: even "single-child" widgets (e.g. Scaffold.body) can
   // appear alongside slotted siblings (e.g. AppBar) in the same JSX block,
   // which makes TypeScript pass children as an array via jsxs().
-  return "  children?: FlutterElement | FlutterElement[];";
+  return '  children?: FlutterElement | FlutterElement[];';
 }
 
 // ---------------------------------------------------------------------------
@@ -183,12 +189,12 @@ function genWidgetInterfaces(widgets: WidgetDef[]): string {
     lines.push(``);
   }
 
-  return lines.join("\n");
+  return lines.join('\n');
 }
 
 function genWidgetComponents(widgets: WidgetDef[]): string {
   const names = widgets.map((w) => w.name);
-  const importInterfaces = names.map((n) => `${n}Props`).join(",\n  ");
+  const importInterfaces = names.map((n) => `${n}Props`).join(',\n  ');
 
   const lines: string[] = [
     `// DO NOT EDIT — generated by \`fsx define\``,
@@ -200,10 +206,12 @@ function genWidgetComponents(widgets: WidgetDef[]): string {
   ];
 
   for (const widget of widgets) {
-    lines.push(`export const ${widget.name} = defineComponent<${widget.name}Props>({ single: '${widget.dartClass}' });`);
+    lines.push(
+      `export const ${widget.name} = defineComponent<${widget.name}Props>({ single: '${widget.dartClass}' });`,
+    );
   }
 
-  return lines.join("\n") + "\n";
+  return lines.join('\n') + '\n';
 }
 
 function genWidgetMap(widgets: WidgetDef[]): string {
@@ -248,12 +256,14 @@ function genWidgetMap(widgets: WidgetDef[]): string {
   lines.push(`]);`);
   lines.push(``);
 
-  return lines.join("\n");
+  return lines.join('\n');
 }
 
 function genSlotMap(widgets: WidgetDef[]): string {
   const selfSlots = widgets.filter((w) => w.selfSlot);
-  const childSlots = widgets.filter((w) => w.defaultChildSlot && w.defaultChildSlot !== "none");
+  const childSlots = widgets.filter(
+    (w) => w.defaultChildSlot && w.defaultChildSlot !== 'none',
+  );
 
   const lines: string[] = [
     `// DO NOT EDIT — generated by \`fsx define\``,
@@ -272,8 +282,12 @@ function genSlotMap(widgets: WidgetDef[]): string {
   lines.push(`]);`);
   lines.push(``);
   lines.push(`/**`);
-  lines.push(` * CHILD_SLOT_MAP: which named param holds the children of this widget?`);
-  lines.push(` * e.g., Center → 'child', Column → 'children', MaterialApp → 'home'`);
+  lines.push(
+    ` * CHILD_SLOT_MAP: which named param holds the children of this widget?`,
+  );
+  lines.push(
+    ` * e.g., Center → 'child', Column → 'children', MaterialApp → 'home'`,
+  );
   lines.push(` */`);
   lines.push(`export const CHILD_SLOT_MAP: Map<string, string> = new Map([`);
 
@@ -293,7 +307,7 @@ function genSlotMap(widgets: WidgetDef[]): string {
   lines.push(`]);`);
   lines.push(``);
 
-  return lines.join("\n");
+  return lines.join('\n');
 }
 
 function genFeatureHooks(features: FeatureDef[]): string {
@@ -308,25 +322,31 @@ function genFeatureHooks(features: FeatureDef[]): string {
     const hookName = feature.tsxHook;
     const apiName = `${capitalize(feature.name)}API`;
 
-    lines.push(`// ── ${capitalize(feature.name)} ──────────────────────────────────────────`);
+    lines.push(
+      `// ── ${capitalize(feature.name)} ──────────────────────────────────────────`,
+    );
     lines.push(`export interface ${apiName} {`);
     for (const fn of feature.functions) {
       const params = fn.args
-        .map((a) => `${a.name}${a.required ? "" : "?"}: ${a.tsType}`)
-        .join(", ");
+        .map((a) => `${a.name}${a.required ? '' : '?'}: ${a.tsType}`)
+        .join(', ');
       lines.push(`  /** ${fn.behavior} */`);
       lines.push(`  ${fn.name}(${params}): ${fn.returns};`);
     }
     lines.push(`}`);
     lines.push(``);
     lines.push(`export function ${hookName}(): ${apiName} {`);
-    lines.push(`  // Runtime stub — transpiler converts this to Flutter plugin calls`);
+    lines.push(
+      `  // Runtime stub — transpiler converts this to Flutter plugin calls`,
+    );
     lines.push(`  return {`);
     for (const fn of feature.functions) {
-      const params = fn.args.map((a) => `_${a.name}`).join(", ");
-      if (fn.returns.startsWith("Promise<")) {
-        lines.push(`    ${fn.name}(${params}) { return Promise.resolve(undefined as never); },`);
-      } else if (fn.returns === "() => void") {
+      const params = fn.args.map((a) => `_${a.name}`).join(', ');
+      if (fn.returns.startsWith('Promise<')) {
+        lines.push(
+          `    ${fn.name}(${params}) { return Promise.resolve(undefined as never); },`,
+        );
+      } else if (fn.returns === '() => void') {
         lines.push(`    ${fn.name}(${params}) { return () => {}; },`);
       } else {
         lines.push(`    ${fn.name}(${params}) { return undefined as never; },`);
@@ -337,11 +357,11 @@ function genFeatureHooks(features: FeatureDef[]): string {
     lines.push(``);
   }
 
-  return lines.join("\n");
+  return lines.join('\n');
 }
 
 function genJsxDts(widgets: WidgetDef[]): string {
-  const importLine = widgets.map((w) => `${w.name}Props`).join(",\n  ");
+  const importLine = widgets.map((w) => `${w.name}Props`).join(',\n  ');
 
   const lines: string[] = [
     `// DO NOT EDIT — generated by \`fsx define\``,
@@ -364,7 +384,7 @@ function genJsxDts(widgets: WidgetDef[]): string {
   lines.push(`}`);
   lines.push(``);
 
-  return lines.join("\n");
+  return lines.join('\n');
 }
 
 function capitalize(s: string): string {
@@ -376,31 +396,39 @@ function capitalize(s: string): string {
 // ---------------------------------------------------------------------------
 
 export async function run(): Promise<void> {
-  const widgetsPath = join(ROOT, "ref", "widgets.json");
-  const featuresPath = join(ROOT, "ref", "features.json");
-  const generatedDir = join(ROOT, "src", "generated");
-  const typesDir = join(ROOT, "types");
+  const widgetsPath = join(ROOT, 'ref', 'widgets.json');
+  const featuresPath = join(ROOT, 'ref', 'features.json');
+  const generatedDir = join(ROOT, 'src', 'generated');
+  const typesDir = join(ROOT, 'types');
 
   ensure(generatedDir);
   ensure(typesDir);
 
   if (!existsSync(widgetsPath)) {
-    throw new Error("ref/widgets.json not found — run `fsx define` first");
+    throw new Error('ref/widgets.json not found — run `fsx define` first');
   }
 
-  const widgets: WidgetDef[] = JSON.parse(readFileSync(widgetsPath, "utf-8"));
+  const widgets: WidgetDef[] = JSON.parse(readFileSync(widgetsPath, 'utf-8'));
   const features: FeatureDef[] = existsSync(featuresPath)
-    ? JSON.parse(readFileSync(featuresPath, "utf-8"))
+    ? JSON.parse(readFileSync(featuresPath, 'utf-8'))
     : [];
 
-  write(join(generatedDir, "widget-interfaces.ts"), genWidgetInterfaces(widgets));
-  write(join(generatedDir, "widget-components.ts"), genWidgetComponents(widgets));
-  write(join(generatedDir, "widget-map.ts"), genWidgetMap(widgets));
-  write(join(generatedDir, "slot-map.ts"), genSlotMap(widgets));
-  write(join(generatedDir, "feature-hooks.ts"), genFeatureHooks(features));
-  write(join(typesDir, "jsx.d.ts"), genJsxDts(widgets));
+  write(
+    join(generatedDir, 'widget-interfaces.ts'),
+    genWidgetInterfaces(widgets),
+  );
+  write(
+    join(generatedDir, 'widget-components.ts'),
+    genWidgetComponents(widgets),
+  );
+  write(join(generatedDir, 'widget-map.ts'), genWidgetMap(widgets));
+  write(join(generatedDir, 'slot-map.ts'), genSlotMap(widgets));
+  write(join(generatedDir, 'feature-hooks.ts'), genFeatureHooks(features));
+  write(join(typesDir, 'jsx.d.ts'), genJsxDts(widgets));
 
-  console.log(`  Generated ${widgets.length} widget types + ${features.length} feature hooks`);
+  console.log(
+    `  Generated ${widgets.length} widget types + ${features.length} feature hooks`,
+  );
 }
 
 if (import.meta.main) {

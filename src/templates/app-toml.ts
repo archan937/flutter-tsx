@@ -1,8 +1,8 @@
-/**
- * Generates the default app.toml configuration file.
- */
-export function appToml(appName: string, bundleId: string, target = "web"): string {
-  return `# flutter.tsx configuration
+export const appToml = (
+  appName: string,
+  bundleId: string,
+  target = 'web',
+): string => `# flutter.tsx configuration
 name = "${appName}"
 bundleId = "${bundleId}"
 target = "${target}"
@@ -20,4 +20,3 @@ outDir = ".fsx/flutter/lib"
 # [dependencies]
 # http = "^1.2.0"
 `;
-}
