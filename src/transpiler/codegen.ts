@@ -233,45 +233,41 @@ export class CodegenContext {
         if (textContent) {
           return `Text(${textContent}${parts.length > 0 ? ', ' + parts.join(', ') : ''})`;
         }
-      } else if (childSlot === 'child' || SINGLE_CHILD_WIDGETS.has(tagName)) {
-        // Single child
-        const childDart = this.visitSingleChild(meaningfulChildren, tagName);
-        if (childDart) parts.push(`${childSlot ?? 'child'}: ${childDart}`);
       } else if (childSlot === 'children') {
-        // Multi children — but first check if any have self-slots
-        const slottedChildren = this.visitChildrenWithSlots(
+        // Multi-child slot — extract self-slots then collect the rest as array
+        const { slottedArgs, unslottedChildren } = this.visitChildrenWithSlots(
           meaningfulChildren,
           tagName,
         );
-        parts.push(...slottedChildren.slottedArgs);
-        if (slottedChildren.unslottedChildren.length > 0) {
-          parts.push(
-            `children: [${slottedChildren.unslottedChildren.join(', ')}]`,
-          );
+        parts.push(...slottedArgs);
+        if (unslottedChildren.length > 0) {
+          parts.push(`children: [${unslottedChildren.join(', ')}]`);
         }
-      } else if (
-        childSlot === 'home' ||
-        childSlot === 'body' ||
-        childSlot === 'title'
-      ) {
-        // Named single child
-        const childDart = this.visitSingleChild(meaningfulChildren, tagName);
-        if (childDart) parts.push(`${childSlot}: ${childDart}`);
-      } else {
-        // Unknown slot — check for self-slots first, then use children
-        const slottedChildren = this.visitChildrenWithSlots(
+      } else if (childSlot) {
+        // Named single-child slot (child / body / home / title / …)
+        // Self-slotted siblings (AppBar → appBar:, FAB → floatingActionButton:)
+        // must be extracted first, then the remaining child fills the named slot.
+        const { slottedArgs, unslottedChildren } = this.visitChildrenWithSlots(
           meaningfulChildren,
           tagName,
         );
-        parts.push(...slottedChildren.slottedArgs);
-        if (slottedChildren.unslottedChildren.length > 0) {
-          if (SINGLE_CHILD_WIDGETS.has(tagName)) {
-            parts.push(`child: ${slottedChildren.unslottedChildren[0]}`);
-          } else {
-            parts.push(
-              `children: [${slottedChildren.unslottedChildren.join(', ')}]`,
-            );
-          }
+        parts.push(...slottedArgs);
+        if (unslottedChildren.length > 0) {
+          parts.push(`${childSlot}: ${unslottedChildren[0]}`);
+        }
+      } else if (SINGLE_CHILD_WIDGETS.has(tagName)) {
+        // Known single-child widget not in CHILD_SLOT_MAP
+        const childDart = this.visitSingleChild(meaningfulChildren, tagName);
+        if (childDart) parts.push(`child: ${childDart}`);
+      } else {
+        // Unknown widget — extract self-slots then fall back to children array
+        const { slottedArgs, unslottedChildren } = this.visitChildrenWithSlots(
+          meaningfulChildren,
+          tagName,
+        );
+        parts.push(...slottedArgs);
+        if (unslottedChildren.length > 0) {
+          parts.push(`children: [${unslottedChildren.join(', ')}]`);
         }
       }
     }
@@ -354,8 +350,12 @@ export class CodegenContext {
       } else if (ts.isJsxExpression(child)) {
         const expr = child.expression;
         if (expr) {
-          const exprText = expr.getText(this.sourceFile);
-          parts.push(`'\${${exprText}}'`);
+          if (ts.isTemplateLiteral(expr)) {
+            parts.push(this.transformTemplateLiteral(expr));
+          } else {
+            const exprText = expr.getText(this.sourceFile);
+            parts.push(`'\${${exprText}}'`);
+          }
         }
       }
     }
