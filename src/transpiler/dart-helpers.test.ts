@@ -72,6 +72,10 @@ describe('transformColor', () => {
   it('passes through unknown values', () => {
     expect(transformColor('someVar')).toBe('someVar');
   });
+
+  it('passes through # colors with invalid hex length', () => {
+    expect(transformColor('#1234')).toBe('#1234');
+  });
 });
 
 describe('transformPadding', () => {
@@ -197,6 +201,18 @@ describe('transformTextStyle', () => {
   it('converts lineThrough decoration', () => {
     expect(transformTextStyle({ decoration: 'lineThrough' })).toBe(
       'TextStyle(decoration: TextDecoration.lineThrough)',
+    );
+  });
+
+  it('converts overline decoration', () => {
+    expect(transformTextStyle({ decoration: 'overline' })).toBe(
+      'TextStyle(decoration: TextDecoration.overline)',
+    );
+  });
+
+  it('falls back to TextDecoration.none for unknown decoration', () => {
+    expect(transformTextStyle({ decoration: 'unknown' })).toBe(
+      'TextStyle(decoration: TextDecoration.none)',
     );
   });
 

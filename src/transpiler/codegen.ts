@@ -1,10 +1,6 @@
 import ts from 'typescript';
 
-import {
-  CHILD_SLOT_MAP,
-  SELF_SLOT_MAP,
-  SINGLE_CHILD_WIDGETS,
-} from '../generated/slot-map.js';
+import { CHILD_SLOT_MAP, SELF_SLOT_MAP } from '../generated/slot-map.js';
 import {
   dartString,
   transformColor,
@@ -255,10 +251,6 @@ export class CodegenContext {
         if (unslottedChildren.length > 0) {
           parts.push(`${childSlot}: ${unslottedChildren[0]}`);
         }
-      } else if (SINGLE_CHILD_WIDGETS.has(tagName)) {
-        // Known single-child widget not in CHILD_SLOT_MAP
-        const childDart = this.visitSingleChild(meaningfulChildren, tagName);
-        if (childDart) parts.push(`child: ${childDart}`);
       } else {
         // Unknown widget — extract self-slots then fall back to children array
         const { slottedArgs, unslottedChildren } = this.visitChildrenWithSlots(
@@ -328,16 +320,6 @@ export class CodegenContext {
     }
 
     return { slottedArgs, unslottedChildren };
-  }
-
-  private visitSingleChild(
-    children: ts.JsxChild[],
-    parentWidget: string,
-  ): string | null {
-    // First check for a slotted child (like AppBar inside Scaffold)
-    const allChildren = this.visitChildrenWithSlots(children, parentWidget);
-    // Return first unslotted child
-    return allChildren.unslottedChildren[0] ?? null;
   }
 
   private extractTextChildren(children: ts.JsxChild[]): string | null {

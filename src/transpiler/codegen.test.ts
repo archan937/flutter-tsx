@@ -523,3 +523,41 @@ describe('generateDartFile — multiple components', () => {
     );
   });
 });
+
+describe('transformExpression — JSX expression containers in children', () => {
+  it('renders a string literal expression child', () => {
+    const out = getBody(`
+      export const App = () => (
+        <Column>{"hello"}</Column>
+      );
+    `);
+    expect(out).toContain(`children: ['hello']`);
+  });
+
+  it('renders a numeric literal expression child', () => {
+    const out = getBody(`
+      export const App = () => (
+        <Column>{42}</Column>
+      );
+    `);
+    expect(out).toContain('children: [42]');
+  });
+
+  it('renders a JSX element expression child', () => {
+    const out = getBody(`
+      export const App = () => (
+        <Column>{<Center />}</Column>
+      );
+    `);
+    expect(out).toContain('children: [Center()]');
+  });
+
+  it('renders an identifier expression child', () => {
+    const out = getBody(`
+      export const App = () => (
+        <Column>{someWidget}</Column>
+      );
+    `);
+    expect(out).toContain('children: [someWidget]');
+  });
+});

@@ -1,7 +1,12 @@
 import { describe, expect, it } from 'bun:test';
 import ts from 'typescript';
 
-import { getFunctionBody, getReturnJSX, parseSource } from './parser.js';
+import {
+  getFunctionBody,
+  getReturnJSX,
+  parseFile,
+  parseSource,
+} from './parser.js';
 
 describe('parseSource', () => {
   it('parses a function declaration component', () => {
@@ -54,6 +59,16 @@ describe('parseSource', () => {
     const { exports } = parseSource(src);
     expect(exports).toHaveLength(1);
     expect(exports[0].name).toBe('MyComp');
+  });
+
+  it('parses a function expression component', () => {
+    const src = `
+      export const Widget = function() { return <Text>hi</Text>; };
+    `;
+    const { exports } = parseSource(src);
+    expect(exports).toHaveLength(1);
+    expect(exports[0].name).toBe('Widget');
+    expect(exports[0].isArrow).toBe(false);
   });
 
   it('returns sourceFile with correct filename', () => {
@@ -152,5 +167,28 @@ describe('getReturnJSX', () => {
     expect(jsx).not.toBeNull();
     if (!jsx) throw new Error('Expected JSX');
     expect(ts.isJsxFragment(jsx)).toBe(true);
+  });
+
+  it('returns null for a function that returns a non-JSX value', () => {
+    const { exports } = parseSource(`
+      export function Comp() { return 42; }
+    `);
+    expect(getReturnJSX(exports[0].node)).toBeNull();
+  });
+});
+
+describe('parseFile', () => {
+  it('parses a .tsx file from disk', async () => {
+    const tmp = '/tmp/flutter-test-parseFile.tsx';
+    await Bun.write(tmp, `export function Hello() { return <Text>hi</Text>; }`);
+    const { exports } = parseFile(tmp);
+    expect(exports).toHaveLength(1);
+    expect(exports[0].name).toBe('Hello');
+  });
+
+  it('throws for a non-existent file', () => {
+    expect(() => parseFile('/tmp/does-not-exist-flutter.tsx')).toThrow(
+      'Could not parse file',
+    );
   });
 });
