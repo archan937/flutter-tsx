@@ -115,48 +115,62 @@ If `fsx dev --target=macos` prints xcodebuild warnings and no window opens:
 
 This command is for the `flutter-tsx` package author to regenerate widget type definitions when the Flutter API changes. It is **not** registered in the `fsx` CLI binary.
 
+**Prerequisite:** `fsx install` must have run so the Flutter SDK exists at `~/.fsx/flutter/`. The script checks for `~/.fsx/flutter/bin/dart` on startup and throws `"Run \`fsx install\` first."` if it is missing.
+
 ```sh
 bun run define
-# = bun scripts/parse-flutter-docs.ts && bun scripts/generate-types.ts
+# = bun scripts/define/index.ts   (3-stage pipeline)
 ```
 
-**Step 1 — `scripts/parse-flutter-docs.ts`**
+**Stage 1 — Dart extractor (`scripts/dart-extractor/`)**
 
-- Fetches `https://api.flutter.dev/offline/flutter.docs.zip`
-- Parses constructor parameter HTML for 539 widgets (full material + cupertino catalog)
-- Merges with hand-authored `SLOT_OVERRIDES` that encode the parent/child slot topology
-- Falls back to built-in `FALLBACK_WIDGETS` if the download fails
-- Writes `ref/widgets.json`
+Shells out to `dart run bin/extract.dart --flutter-path ~/.fsx/flutter` inside the `scripts/dart-extractor/` Dart package. The extractor uses the Dart analyzer to introspect the Flutter SDK source directly — no HTTP download, no HTML scraping. It writes a single `ref/api.json` containing every widget constructor, enum, type alias, and top-level function in the material + cupertino libraries.
 
-**Step 2 — `scripts/generate-types.ts`**
+**Stage 2 — Derive (`scripts/define/index.ts`)**
 
-Reads `ref/widgets.json` + `ref/features.json` and writes:
+Reads `ref/api.json`, runs `buildDefs(api)` + `buildRecipes()` + `buildCodegenMap()`, and writes seven files into `ref/derived/`:
 
-| File                                 | Contents                                                       |
-| ------------------------------------ | -------------------------------------------------------------- |
-| `src/generated/widget-interfaces.ts` | One `interface XProps` per widget with typed TSX props         |
-| `src/generated/widget-components.ts` | `export const Text = defineComponent<TextProps>({…})`          |
-| `src/generated/widget-map.ts`        | Runtime `WIDGET_MAP` used by the transpiler                    |
-| `src/generated/slot-map.ts`          | `SELF_SLOT_MAP`, `CHILD_SLOT_MAP`, `SINGLE_CHILD_WIDGETS`      |
-| `src/generated/feature-hooks.ts`     | Stub hooks: `useCamera`, `useAudio`, `useLocation`, etc.       |
-| `types/jsx.d.ts`                     | `JSX.IntrinsicElements` declaration (enables IDE autocomplete) |
+| File                               | Contents                                                         |
+| ---------------------------------- | ---------------------------------------------------------------- |
+| `ref/derived/widgets.json`         | One `WidgetDef` entry per Flutter widget                         |
+| `ref/derived/enums.json`           | Dart enums as TSX string-literal unions                          |
+| `ref/derived/types.json`           | Value + utility types                                            |
+| `ref/derived/hooks.json`           | Hook capability definitions                                      |
+| `ref/derived/functions.json`       | Top-level Flutter functions (e.g. `showDialog`)                  |
+| `ref/derived/plugins.json`         | Native plugin definitions (package, pubspec dep, codegen recipe) |
+| `ref/derived/plugins-codegen.json` | Method-rewrite templates consumed by the transpiler              |
 
-All these files are committed to git and shipped in the published package. They are the stable, author-curated output. End-developers never run `fsx define`.
+**Stage 3 — Generate TS types (`scripts/generate-types.ts`)**
+
+Reads `ref/derived/*.json` and writes:
+
+| File                                 | Contents                                                         |
+| ------------------------------------ | ---------------------------------------------------------------- |
+| `src/generated/widget-interfaces.ts` | One `interface XProps` per widget with typed TSX props           |
+| `src/generated/widget-components.ts` | `export const Text = defineComponent<TextProps>({…})`            |
+| `src/generated/widget-map.ts`        | Runtime `WIDGET_MAP` used by the transpiler                      |
+| `src/generated/slot-map.ts`          | `SELF_SLOT_MAP`, `CHILD_SLOT_MAP`, `SINGLE_CHILD_WIDGETS`        |
+| `src/generated/feature-hooks.ts`     | 18 typed plugin hooks: `useCamera`, `useAudio`, `useLocation`, … |
+| `src/generated/feature-functions.ts` | Top-level Flutter functions exported as typed TS wrappers        |
+| `src/generated/plugin-map.ts`        | `PLUGIN_MAP` consumed by the transpiler for method rewrites      |
+| `types/jsx.d.ts`                     | `JSX.IntrinsicElements` declaration (enables IDE autocomplete)   |
+
+All these files are committed to git and shipped in the published package. They are the stable, author-curated output. End-developers never run `bun run define`.
 
 ---
 
 ### Core Data Schemas
 
-#### `ref/widgets.json` — one entry per Flutter widget
+The canonical reference data lives under `ref/derived/` (written by Stage 2 of `bun run define`). The `WidgetDef` type is defined in `scripts/define/api-types.ts`:
 
 ```ts
 interface WidgetDef {
   name: string; // "ElevatedButton"
   dartClass: string; // "ElevatedButton"
   category: 'layout' | 'input' | 'display' | 'navigation' | 'other';
-  selfSlot: string; // if non-empty: the named param this widget occupies in its parent
-  // e.g. AppBar → "appBar", so parent writes appBar: AppBar(...)
-  defaultChildSlot: // how children of THIS widget are passed to Dart
+  selfSlot: string; // if non-empty: named param this widget occupies in its parent
+  // e.g. AppBar → "appBar" → parent writes appBar: AppBar(...)
+  defaultChildSlot: // how THIS widget's children are passed to Dart
     | 'child' // single widget: child: X
     | 'children' // list: children: [X, Y]
     | 'home' // MaterialApp.home
@@ -169,9 +183,7 @@ interface WidgetDef {
 }
 ```
 
-#### `ref/features.json` — native device capabilities
-
-Defines plugin hooks (camera, audio, location, storage, notifications, maps, and more) with their TypeScript API surface and the corresponding Flutter pub package. The transpiler converts hook calls to idiomatic Dart plugin calls, including controller fields, `initState`/`dispose` lifecycle wiring, and method rewrites.
+`ref/derived/plugins.json` holds one entry per native capability — package name, `pubspec.yaml` dep line, Dart import, and method-rewrite recipes that the transpiler uses to convert hook calls to idiomatic Dart.
 
 ---
 
@@ -306,7 +318,7 @@ Runtime stubs that exist purely so TypeScript type-checks correctly. The transpi
 ```sh
 cd packages/flutter-tsx
 bun install
-bun run define        # author only: regenerate ref/widgets.json + src/generated/
+bun run define        # author only: regenerate ref/derived/*.json + src/generated/
 bun run build         # tsc types + bun bundle → dist/src + dist/bin
 ```
 
@@ -356,9 +368,9 @@ bun run dev           # = fsx dev --target=web
 
 ## Widget & API Coverage
 
-**539 widgets · 130 family types (enums) · 2 core hooks · 20+ native plugin hooks**
+**539 widgets · 147 enums · 767 types · 2 core hooks · 18 native plugin hooks**
 
-The full Flutter material + cupertino widget catalog is generated from the live Flutter API docs via `bun run define` — see the [complete API reference](./docs/api-reference.html) for every widget with its props table, TSX example, and transpiled Dart counterpart.
+The full Flutter material + cupertino widget catalog is generated by introspecting the installed Flutter SDK via `bun run define` — see the [complete API reference](./docs/api-reference.html) for every widget with its props table, TSX example, and transpiled Dart counterpart.
 
 | Category                   | Count |
 | -------------------------- | ----- |
@@ -379,17 +391,28 @@ Run `bun run docs` (author-only) to regenerate `api-reference.html` from the cur
 
 ### Native Plugin Hooks
 
-| Hook                 | Flutter Package                   | Dart Codegen                                                 |
-| -------------------- | --------------------------------- | ------------------------------------------------------------ |
-| `useCamera()`        | `camera ^0.10`                    | ✓ Controller field + `initState`/`dispose` + method rewrites |
-| `useMapController()` | `google_maps_flutter ^2`          | ✓ Controller field + `animateCamera` rewrite                 |
-| `useImagePicker()`   | `image_picker ^1`                 | ✓ Instance field + `pickImage`/`pickVideo` rewrites          |
-| `useAudio()`         | `audioplayers ^6`                 | ✓ Player field + play/pause/stop rewrites                    |
-| `useLocation()`      | `geolocator ^12`                  | ✓ Stream subscription + position callbacks                   |
-| `useStorage()`       | `shared_preferences ^2.3`         | ✓ Async get/set rewrites                                     |
-| `useNotifications()` | `flutter_local_notifications ^17` | ✓ Plugin init + show rewrite                                 |
+| Hook                     | Flutter Package                       |
+| ------------------------ | ------------------------------------- |
+| `useAudio()`             | `audioplayers ^6.1.0`                 |
+| `useBiometrics()`        | `local_auth ^2.3.0`                   |
+| `useCamera()`            | `camera ^0.10.6+2`                    |
+| `useConnectivity()`      | `connectivity_plus ^6.1.1`            |
+| `useDatabase()`          | `sqflite ^2.4.1`                      |
+| `useDeviceInfo()`        | `device_info_plus ^10.1.2`            |
+| `useGoogleSignIn()`      | `google_sign_in ^6.2.2`               |
+| `useImagePicker()`       | `image_picker ^1.1.2`                 |
+| `useInAppPurchase()`     | `in_app_purchase ^3.2.0`              |
+| `useLocation()`          | `geolocator ^13.0.2`                  |
+| `useMapController()`     | `google_maps_flutter ^2.10.0`         |
+| `useNavigate()`          | `go_router ^14.6.3`                   |
+| `useNotifications()`     | `flutter_local_notifications ^17.2.4` |
+| `usePermission()`        | `permission_handler ^11.3.1`          |
+| `useSecureStorage()`     | `flutter_secure_storage ^9.2.2`       |
+| `useStorage()`           | `shared_preferences ^2.3.3`           |
+| `useVideoController()`   | `video_player ^2.9.2`                 |
+| `useWebViewController()` | `webview_flutter ^4.10.0`             |
 
-Plugin hooks emit the correct `import 'package:…'` line, wire controller lifecycle in `initState`/`dispose`, and rewrite method calls to their idiomatic Dart forms.
+Plugin hooks emit the correct `import 'package:…'` line, wire controller lifecycle in `initState`/`dispose`, and rewrite method calls to their idiomatic Dart forms. Method recipes live in `ref/derived/plugins-codegen.json`.
 
 ---
 
@@ -403,4 +426,4 @@ Plugin hooks emit the correct `import 'package:…'` line, wire controller lifec
 
 **Idempotent dev server.** `fsx dev` can be killed and restarted freely. The `.fsx/flutter/` internal project is created once and reused. Hot-reload is handled by writing `"r\n"` to `flutter run`'s stdin rather than restarting the process.
 
-**Tested end-to-end.** Every example in the API reference is real TSX that the transpiler actually compiles — the Dart shown in the docs is produced by the same `generateDartFile` path used in production. Coverage is enforced at ≥ 99% on `src/transpiler/` via `bunfig.toml` threshold.
+**Tested end-to-end.** Every example in the API reference is real TSX that the transpiler actually compiles — the Dart shown in the docs is produced by the same `generateDartFile` path used in production. Coverage is enforced at ≥ 99.75% on `src/transpiler/` via the `--coverage-threshold=0.9975` flag in `package.json`'s `test:coverage` script.
