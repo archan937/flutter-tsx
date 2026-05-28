@@ -5,10 +5,15 @@ import type { AppConfig } from '../../types/app-toml.js';
 import { mainDart } from '../templates/main-dart.js';
 import { pubspecYaml } from '../templates/pubspec-yaml.js';
 
+export interface EnsureFlutterProjectOptions {
+  flutterBin?: string;
+  extraDeps?: string[];
+}
+
 export const ensureFlutterProject = async (
   flutterDir: string,
   config: AppConfig,
-  flutterBin = 'flutter',
+  { flutterBin = 'flutter', extraDeps = [] }: EnsureFlutterProjectOptions = {},
 ): Promise<void> => {
   const libDir = join(flutterDir, 'lib');
   const pubspecPath = join(flutterDir, 'pubspec.yaml');
@@ -30,7 +35,7 @@ export const ensureFlutterProject = async (
   }
 
   mkdirSync(libDir, { recursive: true });
-  writeFileSync(pubspecPath, pubspecYaml(config), 'utf-8');
+  writeFileSync(pubspecPath, pubspecYaml(config, extraDeps), 'utf-8');
   writeFileSync(mainDartPath, mainDart(), 'utf-8');
 
   const pubGet = Bun.spawn([flutterBin, 'pub', 'get'], {

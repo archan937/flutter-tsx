@@ -1,7 +1,11 @@
 import { describe, expect, it } from 'bun:test';
 import ts from 'typescript';
 
-import { analyzeHooks, type HooksAnalysis } from './hooks-analyzer.js';
+import {
+  analyzeHooks,
+  type HooksAnalysis,
+  type PluginUsage,
+} from './hooks-analyzer.js';
 import { getFunctionBody, parseSource } from './parser.js';
 
 const analyze = (src: string): HooksAnalysis => {
@@ -73,6 +77,17 @@ describe('analyzeHooks — useState', () => {
     const result = analyze('const x = 1;');
     expect(result.stateVars).toHaveLength(0);
   });
+
+  it('does not hoist useState from a nested arrow function', () => {
+    const result = analyze(`
+      const [outer, setOuter] = useState(0);
+      const handler = () => {
+        const [inner, setInner] = useState(1);
+      };
+    `);
+    expect(result.stateVars).toHaveLength(1);
+    expect(result.stateVars[0].name).toBe('outer');
+  });
 });
 
 describe('analyzeHooks — useEffect', () => {
@@ -118,5 +133,58 @@ describe('analyzeHooks — useEffect', () => {
     const result = analyze('const x = 1;');
     expect(result.hasEffects).toBe(false);
     expect(result.effectBodies).toHaveLength(0);
+  });
+});
+
+describe('analyzeHooks — plugin hooks', () => {
+  it('detects useCamera() as a PluginUsage', () => {
+    const result = analyze('const cam = useCamera();');
+    expect(result.pluginUsages).toHaveLength(1);
+    const usage = result.pluginUsages[0] as PluginUsage;
+    expect(usage.varName).toBe('cam');
+    expect(usage.hookName).toBe('useCamera');
+    expect(usage.pluginDef.tsxName).toBe('useCamera');
+  });
+
+  it('detects useStorage() as a PluginUsage', () => {
+    const result = analyze('const store = useStorage();');
+    expect(result.pluginUsages).toHaveLength(1);
+    expect(result.pluginUsages[0].hookName).toBe('useStorage');
+    expect(result.pluginUsages[0].varName).toBe('store');
+  });
+
+  it('detects useState alongside useCamera', () => {
+    const result = analyze(`
+      const [count, setCount] = useState(0);
+      const cam = useCamera();
+    `);
+    expect(result.stateVars).toHaveLength(1);
+    expect(result.stateVars[0].name).toBe('count');
+    expect(result.pluginUsages).toHaveLength(1);
+    expect(result.pluginUsages[0].hookName).toBe('useCamera');
+  });
+
+  it('returns empty pluginUsages when no plugin hooks used', () => {
+    const result = analyze('const x = 1;');
+    expect(result.pluginUsages).toHaveLength(0);
+  });
+
+  it('does not detect widget surface entries (VideoPlayer is widget, not hook)', () => {
+    const result = analyze('const vp = VideoPlayer();');
+    expect(result.pluginUsages).toHaveLength(0);
+  });
+
+  it('does not detect function surface entries', () => {
+    const result = analyze('const file = pickFile();');
+    expect(result.pluginUsages).toHaveLength(0);
+  });
+});
+
+describe('analyzeHooks — useEffect with concise arrow body', () => {
+  it('captures concise (non-block) arrow body as effectBody', () => {
+    const result = analyze(`useEffect(() => console.log('hi'), []);`);
+    expect(result.hasEffects).toBe(true);
+    expect(result.effectBodies).toHaveLength(1);
+    expect(result.effectBodies[0]).toContain("console.log('hi')");
   });
 });

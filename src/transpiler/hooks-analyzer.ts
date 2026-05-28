@@ -1,5 +1,7 @@
 import ts from 'typescript';
 
+import { PLUGIN_MAP, type PluginDef } from '../generated/plugin-map.js';
+
 export interface StateVar {
   name: string;
   setter: string;
@@ -8,11 +10,26 @@ export interface StateVar {
   initializer: string;
 }
 
+export interface PluginUsage {
+  varName: string;
+  hookName: string;
+  pluginDef: PluginDef;
+}
+
+export interface HandlerDef {
+  name: string;
+  isAsync: boolean;
+  node: ts.ArrowFunction | ts.FunctionExpression;
+}
+
 export interface HooksAnalysis {
   stateVars: StateVar[];
   hasEffects: boolean;
   effectBodies: string[];
+  effectStatements: ts.Statement[][];
   effectCleanups: string[];
+  pluginUsages: PluginUsage[];
+  handlerFunctions: HandlerDef[];
 }
 
 const TS_TO_DART_TYPE: Record<string, string> = {
@@ -43,13 +60,18 @@ const inferDartType = (tsType: string, initializer: string): string => {
   return TS_TO_DART_TYPE[tsType.toLowerCase()] ?? 'dynamic';
 };
 
+const HOOK_SURFACES = new Set(['action', 'state', 'client']);
+
 export const analyzeHooks = (
   funcBody: ts.Block,
   sourceFile: ts.SourceFile,
 ): HooksAnalysis => {
   const stateVars: StateVar[] = [];
   const effectBodies: string[] = [];
+  const effectStatements: ts.Statement[][] = [];
   const effectCleanups: string[] = [];
+  const pluginUsages: PluginUsage[] = [];
+  const handlerFunctions: HandlerDef[] = [];
 
   const visit = (node: ts.Node): void => {
     if (
@@ -57,6 +79,40 @@ export const analyzeHooks = (
       node.declarationList.declarations.length === 1
     ) {
       const decl = node.declarationList.declarations[0];
+
+      if (
+        ts.isIdentifier(decl.name) &&
+        decl.initializer &&
+        ts.isCallExpression(decl.initializer)
+      ) {
+        const hookName = decl.initializer.expression.getText(sourceFile);
+        const pluginDef = PLUGIN_MAP.get(hookName);
+        if (pluginDef && HOOK_SURFACES.has(pluginDef.surface)) {
+          pluginUsages.push({
+            varName: decl.name.getText(sourceFile),
+            hookName,
+            pluginDef,
+          });
+        }
+      }
+
+      // Local handler function: const fn = () => { ... } or const fn = async () => { ... }
+      if (
+        ts.isIdentifier(decl.name) &&
+        decl.initializer &&
+        (ts.isArrowFunction(decl.initializer) ||
+          ts.isFunctionExpression(decl.initializer))
+      ) {
+        handlerFunctions.push({
+          name: decl.name.getText(sourceFile),
+          isAsync:
+            decl.initializer.modifiers?.some(
+              (m) => m.kind === ts.SyntaxKind.AsyncKeyword,
+            ) ?? false,
+          node: decl.initializer,
+        });
+      }
+
       if (
         ts.isArrayBindingPattern(decl.name) &&
         decl.initializer &&
@@ -124,12 +180,16 @@ export const analyzeHooks = (
               cleanupText = returnStmt.expression.getText(sourceFile);
             }
 
-            bodyText = statements
-              .filter((s) => !ts.isReturnStatement(s))
+            const nonReturnStmts = statements.filter(
+              (s) => !ts.isReturnStatement(s),
+            );
+            bodyText = nonReturnStmts
               .map((s) => s.getText(sourceFile))
               .join('\n');
+            effectStatements.push([...nonReturnStmts]);
           } else {
             bodyText = body.getText(sourceFile);
+            effectStatements.push([]);
           }
 
           effectBodies.push(bodyText);
@@ -138,7 +198,15 @@ export const analyzeHooks = (
       }
     }
 
-    ts.forEachChild(node, visit);
+    if (
+      !ts.isArrowFunction(node) &&
+      !ts.isFunctionExpression(node) &&
+      !ts.isFunctionDeclaration(node) &&
+      !ts.isClassDeclaration(node) &&
+      !ts.isClassExpression(node)
+    ) {
+      ts.forEachChild(node, visit);
+    }
   };
 
   ts.forEachChild(funcBody, visit);
@@ -147,6 +215,9 @@ export const analyzeHooks = (
     stateVars,
     hasEffects: effectBodies.length > 0,
     effectBodies,
+    effectStatements,
     effectCleanups,
+    pluginUsages,
+    handlerFunctions,
   };
 };

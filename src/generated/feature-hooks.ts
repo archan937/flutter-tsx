@@ -4,156 +4,303 @@
 
 // ── Camera ──────────────────────────────────────────
 export interface CameraAPI {
-  /** Takes a picture and returns the file path of the captured image. */
-  takePicture(): Promise<string>;
-  /** Starts recording a video. */
-  startVideoRecording(): Promise<void>;
-  /** Stops video recording and returns the file path. */
-  stopVideoRecording(): Promise<string>;
-  /** Initializes the camera with the given lens direction. */
-  initialize(direction?: 'front' | 'back'): Promise<void>;
-  /** Releases camera resources. */
-  dispose(): Promise<void>;
+  /** Initialize the camera controller */
+  initialize(): Promise<void>;
+  /** Capture a photo and return its file path */
+  takePicture(): Promise<{ path: string }>;
+  /** Release camera resources */
+  dispose(): void;
 }
 
 export function useCamera(): CameraAPI {
   // Runtime stub — transpiler converts this to Flutter plugin calls
   return {
-    takePicture() {
-      return Promise.resolve(undefined as never);
-    },
-    startVideoRecording() {
-      return Promise.resolve(undefined as never);
-    },
-    stopVideoRecording() {
-      return Promise.resolve(undefined as never);
-    },
-    initialize(_direction) {
-      return Promise.resolve(undefined as never);
-    },
-    dispose() {
-      return Promise.resolve(undefined as never);
-    },
+    initialize() { return Promise.resolve(undefined as never); },
+    takePicture() { return Promise.resolve(undefined as never); },
+    dispose() { return undefined as never; },
   } as CameraAPI;
+}
+
+// ── ImagePicker ──────────────────────────────────────────
+export interface ImagePickerAPI {
+  /** Select an image from gallery or camera */
+  pickImage(source?: 'gallery' | 'camera'): Promise<{ path: string } | null>;
+  /** Select a video from gallery or camera */
+  pickVideo(source?: 'gallery' | 'camera'): Promise<{ path: string } | null>;
+}
+
+export function useImagePicker(): ImagePickerAPI {
+  // Runtime stub — transpiler converts this to Flutter plugin calls
+  return {
+    pickImage(_source) { return Promise.resolve(undefined as never); },
+    pickVideo(_source) { return Promise.resolve(undefined as never); },
+  } as ImagePickerAPI;
+}
+
+// ── VideoController ──────────────────────────────────────────
+export interface VideoControllerAPI {
+  /** Start playback */
+  play(): void;
+  /** Pause playback */
+  pause(): void;
+  /** Seek to position */
+  seekTo(seconds: number): Promise<void>;
+}
+
+export function useVideoController(): VideoControllerAPI {
+  // Runtime stub — transpiler converts this to Flutter plugin calls
+  return {
+    play() { return undefined as never; },
+    pause() { return undefined as never; },
+    seekTo(_seconds) { return Promise.resolve(undefined as never); },
+  } as VideoControllerAPI;
 }
 
 // ── Audio ──────────────────────────────────────────
 export interface AudioAPI {
-  /** Plays audio from the given URL or asset path. */
-  play(source: string): Promise<void>;
-  /** Pauses the currently playing audio. */
+  /** Play audio from URL */
+  play(url: string): Promise<void>;
+  /** Pause playback */
   pause(): Promise<void>;
-  /** Stops the currently playing audio. */
+  /** Stop playback */
   stop(): Promise<void>;
-  /** Sets the volume level (0.0 to 1.0). */
+  /** Set volume (0.0–1.0) */
   setVolume(volume: number): Promise<void>;
-  /** Returns the duration of the current audio in milliseconds. */
-  getDuration(): Promise<number>;
 }
 
 export function useAudio(): AudioAPI {
   // Runtime stub — transpiler converts this to Flutter plugin calls
   return {
-    play(_source) {
-      return Promise.resolve(undefined as never);
-    },
-    pause() {
-      return Promise.resolve(undefined as never);
-    },
-    stop() {
-      return Promise.resolve(undefined as never);
-    },
-    setVolume(_volume) {
-      return Promise.resolve(undefined as never);
-    },
-    getDuration() {
-      return Promise.resolve(undefined as never);
-    },
+    play(_url) { return Promise.resolve(undefined as never); },
+    pause() { return Promise.resolve(undefined as never); },
+    stop() { return Promise.resolve(undefined as never); },
+    setVolume(_volume) { return Promise.resolve(undefined as never); },
   } as AudioAPI;
+}
+
+// ── MapController ──────────────────────────────────────────
+export interface MapControllerAPI {
+  /** Animate the camera to a new position */
+  animateTo(position: { lat: number; lng: number; zoom?: number }): Promise<void>;
+}
+
+export function useMapController(): MapControllerAPI {
+  // Runtime stub — transpiler converts this to Flutter plugin calls
+  return {
+    animateTo(_position) { return Promise.resolve(undefined as never); },
+  } as MapControllerAPI;
 }
 
 // ── Location ──────────────────────────────────────────
 export interface LocationAPI {
-  /** Returns the current GPS position. */
-  getCurrentPosition(): Promise<{
-    latitude: number;
-    longitude: number;
-    accuracy: number;
-  }>;
-  /** Watches for position changes and calls callback. Returns an unsubscribe function. */
-  watchPosition(
-    callback: (pos: { latitude: number; longitude: number }) => void,
-  ): () => void;
-  /** Requests location permission from the user. */
-  requestPermission(): Promise<boolean>;
+  /** Get a one-shot position fix */
+  getCurrentPosition(): Promise<{ latitude: number; longitude: number; accuracy: number }>;
 }
 
 export function useLocation(): LocationAPI {
   // Runtime stub — transpiler converts this to Flutter plugin calls
   return {
-    getCurrentPosition() {
-      return Promise.resolve(undefined as never);
-    },
-    watchPosition(_callback) {
-      return () => {};
-    },
-    requestPermission() {
-      return Promise.resolve(undefined as never);
-    },
+    getCurrentPosition() { return Promise.resolve(undefined as never); },
   } as LocationAPI;
 }
 
 // ── Storage ──────────────────────────────────────────
 export interface StorageAPI {
-  /** Retrieves a value by key from persistent storage. */
-  getItem(key: string): Promise<string | null>;
-  /** Stores a value by key in persistent storage. */
-  setItem(key: string, value: string): Promise<void>;
-  /** Removes a value by key from persistent storage. */
-  removeItem(key: string): Promise<void>;
-  /** Clears all values from persistent storage. */
-  clear(): Promise<void>;
+  /** Read a stored value by key */
+  get(key: string): Promise<string | number | boolean | null>;
+  /** Write a value by key */
+  set(key: string, value: string | number | boolean): Promise<void>;
+  /** Delete a stored key */
+  remove(key: string): Promise<void>;
 }
 
 export function useStorage(): StorageAPI {
   // Runtime stub — transpiler converts this to Flutter plugin calls
   return {
-    getItem(_key) {
-      return Promise.resolve(undefined as never);
-    },
-    setItem(_key, _value) {
-      return Promise.resolve(undefined as never);
-    },
-    removeItem(_key) {
-      return Promise.resolve(undefined as never);
-    },
-    clear() {
-      return Promise.resolve(undefined as never);
-    },
+    get(_key) { return Promise.resolve(undefined as never); },
+    set(_key, _value) { return Promise.resolve(undefined as never); },
+    remove(_key) { return Promise.resolve(undefined as never); },
   } as StorageAPI;
+}
+
+// ── Database ──────────────────────────────────────────
+export interface DatabaseAPI {
+  /** Execute a SELECT query */
+  query(sql: string, params?: unknown[]): Promise<Record<string, unknown>[]>;
+  /** Execute an INSERT, UPDATE or DELETE statement */
+  execute(sql: string, params?: unknown[]): Promise<void>;
+}
+
+export function useDatabase(): DatabaseAPI {
+  // Runtime stub — transpiler converts this to Flutter plugin calls
+  return {
+    query(_sql, _params) { return Promise.resolve(undefined as never); },
+    execute(_sql, _params) { return Promise.resolve(undefined as never); },
+  } as DatabaseAPI;
+}
+
+// ── SecureStorage ──────────────────────────────────────────
+export interface SecureStorageAPI {
+  /** Read an encrypted value by key */
+  read(key: string): Promise<string | null>;
+  /** Write and encrypt a value by key */
+  write(key: string, value: string): Promise<void>;
+  /** Delete an encrypted key */
+  delete(key: string): Promise<void>;
+  /** Read all stored key-value pairs */
+  readAll(): Promise<Record<string, string>>;
+}
+
+export function useSecureStorage(): SecureStorageAPI {
+  // Runtime stub — transpiler converts this to Flutter plugin calls
+  return {
+    read(_key) { return Promise.resolve(undefined as never); },
+    write(_key, _value) { return Promise.resolve(undefined as never); },
+    delete(_key) { return Promise.resolve(undefined as never); },
+    readAll() { return Promise.resolve(undefined as never); },
+  } as SecureStorageAPI;
+}
+
+// ── Biometrics ──────────────────────────────────────────
+export interface BiometricsAPI {
+  /** Prompt the user for biometric authentication */
+  authenticate(reason?: string): Promise<boolean>;
+  /** Check if biometric authentication is available on the device */
+  isAvailable(): Promise<boolean>;
+}
+
+export function useBiometrics(): BiometricsAPI {
+  // Runtime stub — transpiler converts this to Flutter plugin calls
+  return {
+    authenticate(_reason) { return Promise.resolve(undefined as never); },
+    isAvailable() { return Promise.resolve(undefined as never); },
+  } as BiometricsAPI;
+}
+
+// ── DeviceInfo ──────────────────────────────────────────
+export interface DeviceInfoAPI {
+}
+
+export function useDeviceInfo(): DeviceInfoAPI {
+  // Runtime stub — transpiler converts this to Flutter plugin calls
+  return {
+  } as DeviceInfoAPI;
+}
+
+// ── Connectivity ──────────────────────────────────────────
+export interface ConnectivityAPI {
+}
+
+export function useConnectivity(): ConnectivityAPI {
+  // Runtime stub — transpiler converts this to Flutter plugin calls
+  return {
+  } as ConnectivityAPI;
+}
+
+// ── Permission ──────────────────────────────────────────
+export interface PermissionAPI {
+  /** Request the permission and return the updated status */
+  request(): Promise<'granted' | 'denied' | 'permanentlyDenied'>;
+}
+
+export function usePermission(): PermissionAPI {
+  // Runtime stub — transpiler converts this to Flutter plugin calls
+  return {
+    request() { return Promise.resolve(undefined as never); },
+  } as PermissionAPI;
 }
 
 // ── Notifications ──────────────────────────────────────────
 export interface NotificationsAPI {
-  /** Shows a local notification with the given title and body. */
+  /** Display an immediate local notification */
   show(title: string, body: string, id?: number): Promise<void>;
-  /** Requests notification permission from the user. */
-  requestPermission(): Promise<boolean>;
-  /** Cancels a scheduled or active notification by ID. */
+  /** Cancel a pending or displayed notification */
   cancel(id: number): Promise<void>;
 }
 
 export function useNotifications(): NotificationsAPI {
   // Runtime stub — transpiler converts this to Flutter plugin calls
   return {
-    show(_title, _body, _id) {
-      return Promise.resolve(undefined as never);
-    },
-    requestPermission() {
-      return Promise.resolve(undefined as never);
-    },
-    cancel(_id) {
-      return Promise.resolve(undefined as never);
-    },
+    show(_title, _body, _id) { return Promise.resolve(undefined as never); },
+    cancel(_id) { return Promise.resolve(undefined as never); },
   } as NotificationsAPI;
+}
+
+// ── WebViewController ──────────────────────────────────────────
+export interface WebViewControllerAPI {
+  /** Navigate to a new URL */
+  loadUrl(url: string): Promise<void>;
+  /** Reload the current page */
+  reload(): Promise<void>;
+  /** Navigate back in history */
+  goBack(): Promise<void>;
+  /** Execute JavaScript in the page */
+  runJavaScript(code: string): Promise<void>;
+}
+
+export function useWebViewController(): WebViewControllerAPI {
+  // Runtime stub — transpiler converts this to Flutter plugin calls
+  return {
+    loadUrl(_url) { return Promise.resolve(undefined as never); },
+    reload() { return Promise.resolve(undefined as never); },
+    goBack() { return Promise.resolve(undefined as never); },
+    runJavaScript(_code) { return Promise.resolve(undefined as never); },
+  } as WebViewControllerAPI;
+}
+
+// ── GoogleSignIn ──────────────────────────────────────────
+export interface GoogleSignInAPI {
+  /** Open the Google sign-in flow */
+  signIn(): Promise<{ email: string; displayName: string; photoUrl: string | null } | null>;
+  /** Sign out the current Google user */
+  signOut(): Promise<void>;
+  /** Return the currently signed-in user without a new sign-in prompt */
+  currentUser(): { email: string; displayName: string } | null;
+}
+
+export function useGoogleSignIn(): GoogleSignInAPI {
+  // Runtime stub — transpiler converts this to Flutter plugin calls
+  return {
+    signIn() { return Promise.resolve(undefined as never); },
+    signOut() { return Promise.resolve(undefined as never); },
+    currentUser() { return undefined as never; },
+  } as GoogleSignInAPI;
+}
+
+// ── InAppPurchase ──────────────────────────────────────────
+export interface InAppPurchaseAPI {
+  /** Fetch product details from the store */
+  getProducts(ids: string[]): Promise<Array<{ id: string; title: string; price: string }>>;
+  /** Initiate a purchase flow for a product */
+  purchase(productId: string): Promise<void>;
+}
+
+export function useInAppPurchase(): InAppPurchaseAPI {
+  // Runtime stub — transpiler converts this to Flutter plugin calls
+  return {
+    getProducts(_ids) { return Promise.resolve(undefined as never); },
+    purchase(_productId) { return Promise.resolve(undefined as never); },
+  } as InAppPurchaseAPI;
+}
+
+// ── Navigate ──────────────────────────────────────────
+export interface NavigateAPI {
+  /** Navigate to a route path */
+  go(path: string): void;
+  /** Push a new route onto the stack */
+  push(path: string): void;
+  /** Go back to the previous route */
+  pop(): void;
+  /** Replace the current route */
+  replace(path: string): void;
+}
+
+export function useNavigate(): NavigateAPI {
+  // Runtime stub — transpiler converts this to Flutter plugin calls
+  return {
+    go(_path) { return undefined as never; },
+    push(_path) { return undefined as never; },
+    pop() { return undefined as never; },
+    replace(_path) { return undefined as never; },
+  } as NavigateAPI;
 }

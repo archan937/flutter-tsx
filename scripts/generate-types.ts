@@ -2,7 +2,7 @@
 /**
  * generate-types.ts
  *
- * Reads ref/widgets.json + ref/features.json and generates:
+ * Reads ref/derived/widgets.json + ref/derived/hooks.json and generates:
  *   src/generated/widget-interfaces.ts
  *   src/generated/widget-components.ts
  *   src/generated/widget-map.ts
@@ -14,60 +14,17 @@
 import { existsSync, mkdirSync, writeFileSync, readFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import type {
+  FunctionDef,
+  HookDef,
+  PluginDef,
+  PropDef,
+  WidgetDef,
+} from './define/api-types';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const ROOT = join(__dirname, '..');
-
-interface PropDef {
-  name: string;
-  tsxProp: string;
-  dartParam: string;
-  dartType: string;
-  required: boolean;
-  transform: string;
-}
-
-interface StylingDef {
-  name: string;
-  tsxProp: string;
-  dartParam: string;
-  dartType: string;
-  transform: string;
-}
-
-interface WidgetDef {
-  name: string;
-  dartClass: string;
-  category: string;
-  selfSlot: string;
-  defaultChildSlot: string;
-  singleChild: boolean;
-  props: PropDef[];
-  styling: StylingDef[];
-}
-
-interface FeatureFunctionArg {
-  name: string;
-  tsType: string;
-  dartType: string;
-  required: boolean;
-}
-
-interface FeatureFunction {
-  name: string;
-  args: FeatureFunctionArg[];
-  returns: string;
-  behavior: string;
-}
-
-interface FeatureDef {
-  name: string;
-  dartPackage: string;
-  pubspecDep: string;
-  tsxHook: string;
-  functions: FeatureFunction[];
-}
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -83,58 +40,10 @@ function write(filePath: string, content: string) {
   console.log(`  Written: ${filePath.replace(ROOT + '/', '')}`);
 }
 
-function dartTypeToTs(dartType: string): string {
-  const t = dartType.replace(/\?$/, '');
-  const map: Record<string, string> = {
-    String: 'string',
-    bool: 'boolean',
-    int: 'number',
-    double: 'number',
-    VoidCallback: '() => void',
-    dynamic: 'unknown',
-    Widget: 'FlutterElement',
-    'List<Widget>': 'FlutterElement[]',
-    IconData: 'string',
-    Color: 'string',
-    EdgeInsetsGeometry:
-      'number | [number, number] | [number, number, number, number]',
-    AlignmentGeometry: 'string',
-    TextStyle: 'TextStyleProps',
-    ThemeData: 'Record<string, unknown>',
-    Axis: "'horizontal' | 'vertical'",
-    MainAxisAlignment:
-      "'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly'",
-    CrossAxisAlignment: "'start' | 'end' | 'center' | 'stretch' | 'baseline'",
-    MainAxisSize: "'min' | 'max'",
-    TextAlign: "'left' | 'right' | 'center' | 'justify' | 'start' | 'end'",
-    TextOverflow: "'clip' | 'fade' | 'ellipsis' | 'visible'",
-    BoxFit:
-      "'fill' | 'contain' | 'cover' | 'fitWidth' | 'fitHeight' | 'none' | 'scaleDown'",
-    FontWeight:
-      "'normal' | 'bold' | 'w100' | 'w200' | 'w300' | 'w400' | 'w500' | 'w600' | 'w700' | 'w800' | 'w900'",
-    TextInputType:
-      "'text' | 'number' | 'phone' | 'email' | 'url' | 'multiline'",
-    StackFit: "'loose' | 'expand' | 'passthrough'",
-    FlexFit: "'tight' | 'loose'",
-    WrapAlignment:
-      "'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly'",
-    Clip: "'none' | 'hardEdge' | 'antiAlias' | 'antiAliasWithSaveLayer'",
-    ThemeMode: "'system' | 'light' | 'dark'",
-  };
-
-  if (t.startsWith('ValueChanged<')) {
-    const inner = t.slice(13, -1);
-    return `(value: ${dartTypeToTs(inner)}) => void`;
-  }
-
-  return map[t] ?? 'unknown';
-}
-
-function propToTsOptional(prop: PropDef): string {
-  const tsType = dartTypeToTs(prop.dartType);
+const propToTsOptional = (prop: PropDef): string => {
   const optional = prop.required ? '' : '?';
-  return `  ${prop.tsxProp}${optional}: ${tsType};`;
-}
+  return `  ${prop.tsxProp}${optional}: ${prop.tsType};`;
+};
 
 function childrenPropLine(widget: WidgetDef): string {
   if (widget.defaultChildSlot === 'none') {
@@ -174,12 +83,13 @@ function genWidgetInterfaces(widgets: WidgetDef[]): string {
     lines.push(`export interface ${widget.name}Props {`);
 
     for (const prop of widget.props) {
+      if (prop.name === widget.defaultChildSlot) continue;
       lines.push(propToTsOptional(prop));
     }
 
     for (const style of widget.styling) {
       lines.push(`  /** style.${style.name} */`);
-      lines.push(`  '${style.tsxProp}'?: ${dartTypeToTs(style.dartType)};`);
+      lines.push(`  '${style.tsxProp}'?: ${style.tsType};`);
     }
 
     const childLine = childrenPropLine(widget);
@@ -234,6 +144,7 @@ function genWidgetMap(widgets: WidgetDef[]): string {
     `  tsxProp: string;`,
     `  dartParam: string;`,
     `  dartType: string;`,
+    `  tsType: string;`,
     `  required: boolean;`,
     `  transform: string;`,
     `}`,
@@ -243,6 +154,7 @@ function genWidgetMap(widgets: WidgetDef[]): string {
     `  tsxProp: string;`,
     `  dartParam: string;`,
     `  dartType: string;`,
+    `  tsType: string;`,
     `  transform: string;`,
     `}`,
     ``,
@@ -310,7 +222,7 @@ function genSlotMap(widgets: WidgetDef[]): string {
   return lines.join('\n');
 }
 
-function genFeatureHooks(features: FeatureDef[]): string {
+function genFeatureHooks(features: HookDef[]): string {
   const lines: string[] = [
     `// DO NOT EDIT — generated by \`fsx define\``,
     `// Stub hooks for Flutter native features.`,
@@ -391,13 +303,103 @@ function capitalize(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
+function genFeatureFunctions(functions: FunctionDef[]): string {
+  if (functions.length === 0) {
+    return `// DO NOT EDIT — generated by \`fsx define\`\n// No utility functions registered yet.\n`;
+  }
+
+  const lines: string[] = [
+    `// DO NOT EDIT — generated by \`fsx define\``,
+    `// Utility functions that map to Dart SDK statics or single-call plugin APIs.`,
+    ``,
+  ];
+
+  // Separate plain functions from namespaced ones (e.g. "hapticFeedback.light")
+  const plain = functions.filter((f) => !f.name.includes('.'));
+  const namespaced = functions.filter((f) => f.name.includes('.'));
+
+  for (const fn of plain) {
+    const params = fn.args
+      .map((a) => `${a.name}${a.required ? '' : '?'}: ${a.tsType}`)
+      .join(', ');
+    lines.push(`/** ${fn.description} */`);
+    lines.push(`export function ${fn.name}(${params}): ${fn.returns} {`);
+    lines.push(`  // Runtime stub — transpiler rewrites to Dart`);
+    lines.push(`  return undefined as never;`);
+    lines.push(`}`);
+    lines.push(``);
+  }
+
+  // Group namespaced functions into const objects
+  const groups = new Map<string, FunctionDef[]>();
+  for (const fn of namespaced) {
+    const ns = fn.name.split('.')[0]!;
+    const group = groups.get(ns) ?? [];
+    group.push(fn);
+    groups.set(ns, group);
+  }
+
+  for (const [ns, fns] of groups) {
+    lines.push(`export const ${ns} = {`);
+    for (const fn of fns) {
+      const method = fn.name.split('.').slice(1).join('.');
+      const params = fn.args
+        .map((a) => `${a.name}${a.required ? '' : '?'}: ${a.tsType}`)
+        .join(', ');
+      lines.push(`  /** ${fn.description} */`);
+      lines.push(`  ${method}(${params}): ${fn.returns} {`);
+      lines.push(`    // Runtime stub — transpiler rewrites to Dart`);
+      lines.push(`    return undefined as never;`);
+      lines.push(`  },`);
+    }
+    lines.push(`};`);
+    lines.push(``);
+  }
+
+  return lines.join('\n');
+}
+
+function genPluginMap(plugins: PluginDef[]): string {
+  const lines: string[] = [
+    `// DO NOT EDIT — generated by \`fsx define\``,
+    ``,
+    `export interface PluginDef {`,
+    `  name: string;`,
+    `  domain: string;`,
+    `  surface: string;`,
+    `  tsxName: string;`,
+    `  description: string;`,
+    `  package?: string;`,
+    `  pubspecDep?: string;`,
+    `  dartImport: string;`,
+    `  tsxExample: string;`,
+    `  dartExample: string;`,
+    `}`,
+    ``,
+    `export const PLUGIN_MAP: Map<string, PluginDef> = new Map([`,
+  ];
+
+  for (const plugin of plugins) {
+    lines.push(
+      `  [${JSON.stringify(plugin.tsxName)}, ${JSON.stringify(plugin)}],`,
+    );
+  }
+
+  lines.push(`]);`);
+  lines.push(``);
+
+  return lines.join('\n');
+}
+
 // ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
 export async function run(): Promise<void> {
-  const widgetsPath = join(ROOT, 'ref', 'widgets.json');
-  const featuresPath = join(ROOT, 'ref', 'features.json');
+  const widgetsPath = join(ROOT, 'ref', 'derived', 'widgets.json');
+  const featuresPath = join(ROOT, 'ref', 'derived', 'hooks.json');
+  const functionsPath = join(ROOT, 'ref', 'derived', 'functions.json');
+  const pluginsPath = join(ROOT, 'ref', 'derived', 'plugins.json');
   const generatedDir = join(ROOT, 'src', 'generated');
   const typesDir = join(ROOT, 'types');
 
@@ -405,12 +407,20 @@ export async function run(): Promise<void> {
   ensure(typesDir);
 
   if (!existsSync(widgetsPath)) {
-    throw new Error('ref/widgets.json not found — run `fsx define` first');
+    throw new Error(
+      'ref/derived/widgets.json not found — run `fsx define` first',
+    );
   }
 
   const widgets: WidgetDef[] = JSON.parse(readFileSync(widgetsPath, 'utf-8'));
-  const features: FeatureDef[] = existsSync(featuresPath)
+  const features: HookDef[] = existsSync(featuresPath)
     ? JSON.parse(readFileSync(featuresPath, 'utf-8'))
+    : [];
+  const functions: FunctionDef[] = existsSync(functionsPath)
+    ? JSON.parse(readFileSync(functionsPath, 'utf-8'))
+    : [];
+  const plugins: PluginDef[] = existsSync(pluginsPath)
+    ? JSON.parse(readFileSync(pluginsPath, 'utf-8'))
     : [];
 
   write(
@@ -424,13 +434,21 @@ export async function run(): Promise<void> {
   write(join(generatedDir, 'widget-map.ts'), genWidgetMap(widgets));
   write(join(generatedDir, 'slot-map.ts'), genSlotMap(widgets));
   write(join(generatedDir, 'feature-hooks.ts'), genFeatureHooks(features));
+  write(
+    join(generatedDir, 'feature-functions.ts'),
+    genFeatureFunctions(functions),
+  );
+  write(join(generatedDir, 'plugin-map.ts'), genPluginMap(plugins));
   write(join(typesDir, 'jsx.d.ts'), genJsxDts(widgets));
 
   console.log(
-    `  Generated ${widgets.length} widget types + ${features.length} feature hooks`,
+    `  Generated ${widgets.length} widget types + ${features.length} feature hooks + ${functions.length} utility functions`,
   );
 }
 
 if (import.meta.main) {
-  run().catch(console.error);
+  run().catch((err: unknown) => {
+    console.error(err instanceof Error ? err.message : String(err));
+    process.exit(1);
+  });
 }

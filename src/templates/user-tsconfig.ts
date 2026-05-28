@@ -7,7 +7,7 @@ export const userTsconfig = (): string => {
       lib: ['ESNext'],
       strict: true,
       jsx: 'react-jsx',
-      jsxImportSource: '@tsx/flutter',
+      jsxImportSource: 'flutter-tsx',
       esModuleInterop: true,
       skipLibCheck: true,
       noEmit: true,

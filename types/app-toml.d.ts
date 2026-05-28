@@ -13,4 +13,6 @@ export interface AppConfig {
   watch?: string[];
   /** Output directory for generated Dart files (default: ".fsx/flutter/lib") */
   outDir?: string;
+  /** Flutter asset paths to include in pubspec.yaml flutter: assets: section */
+  assets?: string[];
 }

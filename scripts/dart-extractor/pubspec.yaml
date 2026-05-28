@@ -1,0 +1,11 @@
+name: dart_extractor
+description: Extracts Flutter widget metadata from SDK source via package:analyzer
+version: 1.0.0
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+dependencies:
+  analyzer: ^10.1.0
+  path: ^1.9.0
+  args: ^2.4.0
+dev_dependencies:
+  test: ^1.24.0

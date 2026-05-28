@@ -1,0 +1,1590 @@
+[
+  {
+    "family": "enum",
+    "name": "ThemeMode",
+    "library": "material",
+    "values": [
+      "system",
+      "light",
+      "dark"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "MaterialBannerClosedReason",
+    "library": "material",
+    "values": [
+      "dismiss",
+      "swipe",
+      "hide",
+      "remove"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "BottomNavigationBarType",
+    "library": "material",
+    "values": [
+      "fixed",
+      "shifting"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "BottomNavigationBarLandscapeLayout",
+    "library": "material",
+    "values": [
+      "spread",
+      "centered",
+      "linear"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "IconAlignment",
+    "library": "material",
+    "values": [
+      "start",
+      "end"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "ButtonTextTheme",
+    "library": "material",
+    "values": [
+      "normal",
+      "accent",
+      "primary"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "ButtonBarLayoutBehavior",
+    "library": "material",
+    "values": [
+      "constrained",
+      "padded"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "DynamicSchemeVariant",
+    "library": "material",
+    "values": [
+      "tonalSpot",
+      "fidelity",
+      "monochrome",
+      "neutral",
+      "vibrant",
+      "expressive",
+      "content",
+      "rainbow",
+      "fruitSalad"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "DatePickerEntryMode",
+    "library": "material",
+    "values": [
+      "calendar",
+      "input",
+      "calendarOnly",
+      "inputOnly"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "DatePickerMode",
+    "library": "material",
+    "values": [
+      "day",
+      "year"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "DrawerAlignment",
+    "library": "material",
+    "values": [
+      "start",
+      "end"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "DropdownMenuCloseBehavior",
+    "library": "material",
+    "values": [
+      "all",
+      "self",
+      "none"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "CollapseMode",
+    "library": "material",
+    "values": [
+      "parallax",
+      "pin",
+      "none"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "StretchMode",
+    "library": "material",
+    "values": [
+      "zoomBackground",
+      "blurBackground",
+      "fadeTitle"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "FloatingLabelBehavior",
+    "library": "material",
+    "values": [
+      "never",
+      "auto",
+      "always"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "ListTileStyle",
+    "library": "material",
+    "values": [
+      "list",
+      "drawer"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "ListTileControlAffinity",
+    "library": "material",
+    "values": [
+      "leading",
+      "trailing",
+      "platform"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "ListTileTitleAlignment",
+    "library": "material",
+    "values": [
+      "threeLine",
+      "titleHeight",
+      "top",
+      "center",
+      "bottom"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "MaterialType",
+    "library": "material",
+    "values": [
+      "canvas",
+      "card",
+      "circle",
+      "button",
+      "transparency"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "NavigationDestinationLabelBehavior",
+    "library": "material",
+    "values": [
+      "alwaysShow",
+      "alwaysHide",
+      "onlyShowSelected"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "NavigationRailLabelType",
+    "library": "material",
+    "values": [
+      "none",
+      "selected",
+      "all"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "PopupMenuPosition",
+    "library": "material",
+    "values": [
+      "over",
+      "under"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "RefreshIndicatorStatus",
+    "library": "material",
+    "values": [
+      "drag",
+      "armed",
+      "snap",
+      "refresh",
+      "done",
+      "canceled"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "RefreshIndicatorTriggerMode",
+    "library": "material",
+    "values": [
+      "anywhere",
+      "onEdge"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "SliderInteraction",
+    "library": "material",
+    "values": [
+      "tapAndSlide",
+      "tapOnly",
+      "slideOnly",
+      "slideThumb"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "ShowValueIndicator",
+    "library": "material",
+    "values": [
+      "onlyForDiscrete",
+      "onlyForContinuous",
+      "always",
+      "onDrag",
+      "alwaysVisible",
+      "never"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "Thumb",
+    "library": "material",
+    "values": [
+      "start",
+      "end"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "SnackBarClosedReason",
+    "library": "material",
+    "values": [
+      "action",
+      "dismiss",
+      "swipe",
+      "hide",
+      "remove",
+      "timeout"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "SnackBarBehavior",
+    "library": "material",
+    "values": [
+      "fixed",
+      "floating"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "StepState",
+    "library": "material",
+    "values": [
+      "indexed",
+      "editing",
+      "complete",
+      "disabled",
+      "error"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "StepperType",
+    "library": "material",
+    "values": [
+      "vertical",
+      "horizontal"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "TabBarIndicatorSize",
+    "library": "material",
+    "values": [
+      "tab",
+      "label"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "TabAlignment",
+    "library": "material",
+    "values": [
+      "start",
+      "startOffset",
+      "fill",
+      "center"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "TabIndicatorAnimation",
+    "library": "material",
+    "values": [
+      "linear",
+      "elastic"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "SmartDashesType",
+    "library": "material",
+    "values": [
+      "disabled",
+      "enabled"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "SmartQuotesType",
+    "library": "material",
+    "values": [
+      "disabled",
+      "enabled"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "TextInputAction",
+    "library": "material",
+    "values": [
+      "none",
+      "unspecified",
+      "done",
+      "go",
+      "search",
+      "send",
+      "next",
+      "previous",
+      "continueAction",
+      "join",
+      "route",
+      "emergencyCall",
+      "newline"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "TextCapitalization",
+    "library": "material",
+    "values": [
+      "words",
+      "sentences",
+      "characters",
+      "none"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "MaterialTapTargetSize",
+    "library": "material",
+    "values": [
+      "padded",
+      "shrinkWrap"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "DayPeriod",
+    "library": "material",
+    "values": [
+      "am",
+      "pm"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "TimeOfDayFormat",
+    "library": "material",
+    "values": [
+      "HH_colon_mm",
+      "HH_dot_mm",
+      "frenchCanadian",
+      "H_colon_mm",
+      "h_colon_mm_space_a",
+      "a_space_h_colon_mm"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "HourFormat",
+    "library": "material",
+    "values": [
+      "HH",
+      "H",
+      "h"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "TimePickerEntryMode",
+    "library": "material",
+    "values": [
+      "dial",
+      "input",
+      "dialOnly",
+      "inputOnly"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "ScriptCategory",
+    "library": "material",
+    "values": [
+      "englishLike",
+      "dense",
+      "tall"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "WidgetsServiceExtensions",
+    "library": "material",
+    "values": [
+      "debugDumpApp",
+      "debugDumpFocusTree",
+      "showPerformanceOverlay",
+      "didSendFirstFrameEvent",
+      "didSendFirstFrameRasterizedEvent",
+      "fastReassemble",
+      "profileWidgetBuilds",
+      "profileUserWidgetBuilds",
+      "debugAllowBanner"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "WidgetInspectorServiceExtensions",
+    "library": "material",
+    "values": [
+      "structuredErrors",
+      "show",
+      "trackRebuildDirtyWidgets",
+      "widgetLocationIdMap",
+      "trackRepaintWidgets",
+      "disposeAllGroups",
+      "disposeGroup",
+      "isWidgetTreeReady",
+      "disposeId",
+      "setPubRootDirectories",
+      "addPubRootDirectories",
+      "removePubRootDirectories",
+      "getPubRootDirectories",
+      "setSelectionById",
+      "getParentChain",
+      "getProperties",
+      "getChildren",
+      "getChildrenSummaryTree",
+      "getChildrenDetailsSubtree",
+      "getRootWidget",
+      "getRootWidgetTree",
+      "getRootWidgetSummaryTree",
+      "getRootWidgetSummaryTreeWithPreviews",
+      "getDetailsSubtree",
+      "getSelectedWidget",
+      "getSelectedSummaryWidget",
+      "isWidgetCreationTracked",
+      "screenshot",
+      "getLayoutExplorerNode",
+      "setFlexFit",
+      "setFlexFactor",
+      "setFlexProperties"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "StandardComponentType",
+    "library": "material",
+    "values": [
+      "backButton",
+      "closeButton",
+      "moreButton",
+      "drawerButton"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "CrossFadeState",
+    "library": "material",
+    "values": [
+      "showFirst",
+      "showSecond"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "ConnectionState",
+    "library": "material",
+    "values": [
+      "none",
+      "waiting",
+      "active",
+      "done"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "OptionsViewOpenDirection",
+    "library": "material",
+    "values": [
+      "up",
+      "down",
+      "mostSpace"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "AutofillContextAction",
+    "library": "material",
+    "values": [
+      "commit",
+      "cancel"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "BannerLocation",
+    "library": "material",
+    "values": [
+      "topStart",
+      "topEnd",
+      "bottomStart",
+      "bottomEnd"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "TargetPlatform",
+    "library": "material",
+    "values": [
+      "android",
+      "fuchsia",
+      "iOS",
+      "linux",
+      "macOS",
+      "windows"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "RenderComparison",
+    "library": "material",
+    "values": [
+      "identical",
+      "metadata",
+      "paint",
+      "layout"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "Axis",
+    "library": "material",
+    "values": [
+      "horizontal",
+      "vertical"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "VerticalDirection",
+    "library": "material",
+    "values": [
+      "up",
+      "down"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "AxisDirection",
+    "library": "material",
+    "values": [
+      "up",
+      "right",
+      "down",
+      "left"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "BorderStyle",
+    "library": "material",
+    "values": [
+      "none",
+      "solid"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "BoxShape",
+    "library": "material",
+    "values": [
+      "rectangle",
+      "circle"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "BoxFit",
+    "library": "material",
+    "values": [
+      "fill",
+      "contain",
+      "cover",
+      "fitWidth",
+      "fitHeight",
+      "none",
+      "scaleDown"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "ImageRepeat",
+    "library": "material",
+    "values": [
+      "repeat",
+      "repeatX",
+      "repeatY",
+      "noRepeat"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "FlutterLogoStyle",
+    "library": "material",
+    "values": [
+      "markOnly",
+      "horizontal",
+      "stacked"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "ResizeImagePolicy",
+    "library": "material",
+    "values": [
+      "exact",
+      "fit"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "WebHtmlElementStrategy",
+    "library": "material",
+    "values": [
+      "never",
+      "fallback",
+      "prefer"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "TextOverflow",
+    "library": "material",
+    "values": [
+      "clip",
+      "fade",
+      "ellipsis",
+      "visible"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "TextWidthBasis",
+    "library": "material",
+    "values": [
+      "parent",
+      "longestLine"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "ContextMenuButtonType",
+    "library": "material",
+    "values": [
+      "cut",
+      "copy",
+      "paste",
+      "selectAll",
+      "delete",
+      "lookUp",
+      "searchWeb",
+      "share",
+      "liveTextInput",
+      "custom"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "DismissDirection",
+    "library": "material",
+    "values": [
+      "vertical",
+      "horizontal",
+      "endToStart",
+      "startToEnd",
+      "up",
+      "down",
+      "none"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "SelectionChangedCause",
+    "library": "material",
+    "values": [
+      "tap",
+      "doubleTap",
+      "longPress",
+      "forcePress",
+      "keyboard",
+      "toolbar",
+      "drag",
+      "stylusHandwriting"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "KeyEventResult",
+    "library": "material",
+    "values": [
+      "handled",
+      "ignored",
+      "skipRemainingHandlers"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "UnfocusDisposition",
+    "library": "material",
+    "values": [
+      "scope",
+      "previouslyFocusedChild"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "FocusHighlightMode",
+    "library": "material",
+    "values": [
+      "touch",
+      "traditional"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "FocusHighlightStrategy",
+    "library": "material",
+    "values": [
+      "automatic",
+      "alwaysTouch",
+      "alwaysTraditional"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "TraversalDirection",
+    "library": "material",
+    "values": [
+      "up",
+      "right",
+      "down",
+      "left"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "TraversalEdgeBehavior",
+    "library": "material",
+    "values": [
+      "closedLoop",
+      "leaveFlutterView",
+      "parentScope",
+      "stop"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "AutovalidateMode",
+    "library": "material",
+    "values": [
+      "disabled",
+      "always",
+      "onUserInteraction",
+      "onUnfocus",
+      "onUserInteractionIfError"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "DiagnosticLevel",
+    "library": "material",
+    "values": [
+      "hidden",
+      "fine",
+      "debug",
+      "info",
+      "warning",
+      "hint",
+      "summary",
+      "error",
+      "off"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "HeroFlightDirection",
+    "library": "material",
+    "values": [
+      "push",
+      "pop"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "PanAxis",
+    "library": "material",
+    "values": [
+      "horizontal",
+      "vertical",
+      "aligned",
+      "free"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "ChangeReportingBehavior",
+    "library": "material",
+    "values": [
+      "onScrollEnd",
+      "onScrollUpdate"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "Orientation",
+    "library": "material",
+    "values": [
+      "portrait",
+      "landscape"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "NavigationMode",
+    "library": "material",
+    "values": [
+      "traditional",
+      "directional"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "RoutePopDisposition",
+    "library": "material",
+    "values": [
+      "pop",
+      "doNotPop",
+      "bubble"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "OverflowBarAlignment",
+    "library": "material",
+    "values": [
+      "start",
+      "end",
+      "center"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "OverlayChildLocation",
+    "library": "material",
+    "values": [
+      "nearestOverlay",
+      "rootOverlay"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "PlatformProvidedMenuItemType",
+    "library": "material",
+    "values": [
+      "about",
+      "quit",
+      "servicesSubmenu",
+      "hide",
+      "hideOtherApplications",
+      "showAllApplications",
+      "startSpeaking",
+      "stopSpeaking",
+      "toggleFullScreen",
+      "minimizeWindow",
+      "zoomWindow",
+      "arrangeWindowsInFront"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "TooltipTriggerMode",
+    "library": "material",
+    "values": [
+      "manual",
+      "longPress",
+      "tap"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "RepeatMode",
+    "library": "material",
+    "values": [
+      "restart",
+      "reverse"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "RouteInformationReportingType",
+    "library": "material",
+    "values": [
+      "none",
+      "neglect",
+      "navigate"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "AndroidOverscrollIndicator",
+    "library": "material",
+    "values": [
+      "stretch",
+      "glow"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "ScrollDecelerationRate",
+    "library": "material",
+    "values": [
+      "normal",
+      "fast"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "ScrollPositionAlignmentPolicy",
+    "library": "material",
+    "values": [
+      "explicit",
+      "keepVisibleAtEnd",
+      "keepVisibleAtStart"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "ScrollViewKeyboardDismissBehavior",
+    "library": "material",
+    "values": [
+      "manual",
+      "onDrag"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "DiagonalDragBehavior",
+    "library": "material",
+    "values": [
+      "none",
+      "weightedEvent",
+      "weightedContinuous",
+      "free"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "ScrollIncrementType",
+    "library": "material",
+    "values": [
+      "line",
+      "page"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "ScrollbarOrientation",
+    "library": "material",
+    "values": [
+      "left",
+      "right",
+      "top",
+      "bottom"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "SelectableRegionSelectionStatus",
+    "library": "material",
+    "values": [
+      "changing",
+      "finalized"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "LockState",
+    "library": "material",
+    "values": [
+      "ignored",
+      "locked",
+      "unlocked"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "FloatingHeaderSnapMode",
+    "library": "material",
+    "values": [
+      "overlay",
+      "scroll"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "SnapshotMode",
+    "library": "material",
+    "values": [
+      "permissive",
+      "normal",
+      "forced"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "ClipboardStatus",
+    "library": "material",
+    "values": [
+      "pasteable",
+      "unknown",
+      "notPasteable"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "LiveTextInputStatus",
+    "library": "material",
+    "values": [
+      "enabled",
+      "unknown",
+      "disabled"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "InspectorButtonVariant",
+    "library": "material",
+    "values": [
+      "filled",
+      "toggle",
+      "iconOnly"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "WidgetState",
+    "library": "material",
+    "values": [
+      "hovered",
+      "focused",
+      "pressed",
+      "dragged",
+      "selected",
+      "scrolledUnder",
+      "disabled",
+      "error"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "TextSelectionHandleType",
+    "library": "material",
+    "values": [
+      "left",
+      "right",
+      "collapsed"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "AnimationStatus",
+    "library": "material",
+    "values": [
+      "dismissed",
+      "forward",
+      "reverse",
+      "completed"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "AnimationBehavior",
+    "library": "material",
+    "values": [
+      "normal",
+      "preserve"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "FlexFit",
+    "library": "material",
+    "values": [
+      "tight",
+      "loose"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "MainAxisSize",
+    "library": "material",
+    "values": [
+      "min",
+      "max"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "MainAxisAlignment",
+    "library": "material",
+    "values": [
+      "start",
+      "end",
+      "center",
+      "spaceBetween",
+      "spaceAround",
+      "spaceEvenly"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "CrossAxisAlignment",
+    "library": "material",
+    "values": [
+      "start",
+      "end",
+      "center",
+      "stretch",
+      "baseline"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "HitTestBehavior",
+    "library": "material",
+    "values": [
+      "deferToChild",
+      "opaque",
+      "translucent"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "DecorationPosition",
+    "library": "material",
+    "values": [
+      "background",
+      "foreground"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "StackFit",
+    "library": "material",
+    "values": [
+      "loose",
+      "expand",
+      "passthrough"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "WrapAlignment",
+    "library": "material",
+    "values": [
+      "start",
+      "end",
+      "center",
+      "spaceBetween",
+      "spaceAround",
+      "spaceEvenly"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "WrapCrossAlignment",
+    "library": "material",
+    "values": [
+      "start",
+      "end",
+      "center"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "TableCellVerticalAlignment",
+    "library": "material",
+    "values": [
+      "top",
+      "middle",
+      "bottom",
+      "baseline",
+      "fill",
+      "intrinsicHeight"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "GrowthDirection",
+    "library": "material",
+    "values": [
+      "forward",
+      "reverse"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "SliverPaintOrder",
+    "library": "material",
+    "values": [
+      "firstIsTop",
+      "lastIsTop"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "CupertinoButtonSize",
+    "library": "cupertino",
+    "values": [
+      "small",
+      "medium",
+      "large"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "CupertinoDatePickerMode",
+    "library": "cupertino",
+    "values": [
+      "time",
+      "date",
+      "dateAndTime",
+      "monthYear"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "CupertinoTimerPickerMode",
+    "library": "cupertino",
+    "values": [
+      "hm",
+      "ms",
+      "hms"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "ExpansionTileTransitionMode",
+    "library": "cupertino",
+    "values": [
+      "fade",
+      "scroll"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "CupertinoUserInterfaceLevelData",
+    "library": "cupertino",
+    "values": [
+      "base",
+      "elevated"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "CupertinoListSectionType",
+    "library": "cupertino",
+    "values": [
+      "base",
+      "insetGrouped"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "DatePickerDateTimeOrder",
+    "library": "cupertino",
+    "values": [
+      "date_time_dayPeriod",
+      "date_dayPeriod_time",
+      "time_dayPeriod_date",
+      "dayPeriod_time_date"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "DatePickerDateOrder",
+    "library": "cupertino",
+    "values": [
+      "dmy",
+      "mdy",
+      "ymd",
+      "ydm"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "NavigationBarBottomMode",
+    "library": "cupertino",
+    "values": [
+      "automatic",
+      "always"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "RefreshIndicatorMode",
+    "library": "cupertino",
+    "values": [
+      "inactive",
+      "drag",
+      "armed",
+      "refresh",
+      "done"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "OverlayVisibilityMode",
+    "library": "cupertino",
+    "values": [
+      "never",
+      "editing",
+      "notEditing",
+      "always"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "KeyDataTransitMode",
+    "library": "services",
+    "values": [
+      "rawKeyData",
+      "keyDataThenRawKeyData"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "KeyboardLockMode",
+    "library": "services",
+    "values": [
+      "numLock",
+      "scrollLock",
+      "capsLock"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "SwipeEdge",
+    "library": "services",
+    "values": [
+      "left",
+      "right"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "KeyboardSide",
+    "library": "services",
+    "values": [
+      "any",
+      "left",
+      "right",
+      "all"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "ModifierKey",
+    "library": "services",
+    "values": [
+      "controlModifier",
+      "shiftModifier",
+      "altModifier",
+      "metaModifier",
+      "capsLockModifier",
+      "numLockModifier",
+      "scrollLockModifier",
+      "functionModifier",
+      "symbolModifier"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "ContentSensitivity",
+    "library": "services",
+    "values": [
+      "autoSensitive",
+      "sensitive",
+      "notSensitive"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "ServicesServiceExtensions",
+    "library": "services",
+    "values": [
+      "profilePlatformChannels",
+      "evict"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "DeviceOrientation",
+    "library": "services",
+    "values": [
+      "portraitUp",
+      "landscapeLeft",
+      "portraitDown",
+      "landscapeRight"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "SystemUiOverlay",
+    "library": "services",
+    "values": [
+      "top",
+      "bottom"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "SystemUiMode",
+    "library": "services",
+    "values": [
+      "leanBack",
+      "immersive",
+      "immersiveSticky",
+      "edgeToEdge",
+      "manual"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "SystemSoundType",
+    "library": "services",
+    "values": [
+      "click",
+      "tick",
+      "alert"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "MaxLengthEnforcement",
+    "library": "services",
+    "values": [
+      "none",
+      "enforced",
+      "truncateAfterCompositionEnds"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "FloatingCursorDragState",
+    "library": "services",
+    "values": [
+      "Start",
+      "Update",
+      "End"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "UndoDirection",
+    "library": "services",
+    "values": [
+      "undo",
+      "redo"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "DiagnosticsTreeStyle",
+    "library": "foundation",
+    "values": [
+      "none",
+      "sparse",
+      "offstage",
+      "dense",
+      "transition",
+      "error",
+      "whitespace",
+      "flat",
+      "singleLine",
+      "errorProperty",
+      "shallow",
+      "truncateChildren"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "FoundationServiceExtensions",
+    "library": "foundation",
+    "values": [
+      "reassemble",
+      "exit",
+      "connectedVmServiceUri",
+      "activeDevToolsServerAddress",
+      "platformOverride",
+      "brightnessOverride"
+    ]
+  },
+  {
+    "family": "enum",
+    "name": "SpringType",
+    "library": "physics",
+    "values": [
+      "criticallyDamped",
+      "underDamped",
+      "overDamped"
+    ]
+  }
+]

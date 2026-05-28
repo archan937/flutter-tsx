@@ -1,0 +1,594 @@
+[
+  {
+    "name": "camera",
+    "dartPackage": "package:camera/camera.dart",
+    "pubspecDep": "camera: ^0.10.6+2",
+    "tsxHook": "useCamera",
+    "functions": [
+      {
+        "name": "initialize",
+        "args": [],
+        "returns": "Promise<void>",
+        "behavior": "Initialize the camera controller"
+      },
+      {
+        "name": "takePicture",
+        "args": [],
+        "returns": "Promise<{ path: string }>",
+        "behavior": "Capture a photo and return its file path"
+      },
+      {
+        "name": "dispose",
+        "args": [],
+        "returns": "void",
+        "behavior": "Release camera resources"
+      }
+    ]
+  },
+  {
+    "name": "imagePicker",
+    "dartPackage": "package:image_picker/image_picker.dart",
+    "pubspecDep": "image_picker: ^1.1.2",
+    "tsxHook": "useImagePicker",
+    "functions": [
+      {
+        "name": "pickImage",
+        "args": [
+          {
+            "name": "source",
+            "tsType": "'gallery' | 'camera'",
+            "dartType": "ImageSource",
+            "required": false
+          }
+        ],
+        "returns": "Promise<{ path: string } | null>",
+        "behavior": "Select an image from gallery or camera"
+      },
+      {
+        "name": "pickVideo",
+        "args": [
+          {
+            "name": "source",
+            "tsType": "'gallery' | 'camera'",
+            "dartType": "ImageSource",
+            "required": false
+          }
+        ],
+        "returns": "Promise<{ path: string } | null>",
+        "behavior": "Select a video from gallery or camera"
+      }
+    ]
+  },
+  {
+    "name": "videoController",
+    "dartPackage": "package:video_player/video_player.dart",
+    "pubspecDep": "video_player: ^2.9.2",
+    "tsxHook": "useVideoController",
+    "functions": [
+      {
+        "name": "play",
+        "args": [],
+        "returns": "void",
+        "behavior": "Start playback"
+      },
+      {
+        "name": "pause",
+        "args": [],
+        "returns": "void",
+        "behavior": "Pause playback"
+      },
+      {
+        "name": "seekTo",
+        "args": [
+          {
+            "name": "seconds",
+            "tsType": "number",
+            "dartType": "Duration",
+            "required": true
+          }
+        ],
+        "returns": "Promise<void>",
+        "behavior": "Seek to position"
+      }
+    ]
+  },
+  {
+    "name": "audio",
+    "dartPackage": "package:audioplayers/audioplayers.dart",
+    "pubspecDep": "audioplayers: ^6.1.0",
+    "tsxHook": "useAudio",
+    "functions": [
+      {
+        "name": "play",
+        "args": [
+          {
+            "name": "url",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          }
+        ],
+        "returns": "Promise<void>",
+        "behavior": "Play audio from URL"
+      },
+      {
+        "name": "pause",
+        "args": [],
+        "returns": "Promise<void>",
+        "behavior": "Pause playback"
+      },
+      {
+        "name": "stop",
+        "args": [],
+        "returns": "Promise<void>",
+        "behavior": "Stop playback"
+      },
+      {
+        "name": "setVolume",
+        "args": [
+          {
+            "name": "volume",
+            "tsType": "number",
+            "dartType": "double",
+            "required": true
+          }
+        ],
+        "returns": "Promise<void>",
+        "behavior": "Set volume (0.0–1.0)"
+      }
+    ]
+  },
+  {
+    "name": "mapController",
+    "dartPackage": "package:google_maps_flutter/google_maps_flutter.dart",
+    "pubspecDep": "google_maps_flutter: ^2.10.0",
+    "tsxHook": "useMapController",
+    "functions": [
+      {
+        "name": "animateTo",
+        "args": [
+          {
+            "name": "position",
+            "tsType": "{ lat: number; lng: number; zoom?: number }",
+            "dartType": "CameraPosition",
+            "required": true
+          }
+        ],
+        "returns": "Promise<void>",
+        "behavior": "Animate the camera to a new position"
+      }
+    ]
+  },
+  {
+    "name": "location",
+    "dartPackage": "package:geolocator/geolocator.dart",
+    "pubspecDep": "geolocator: ^13.0.2",
+    "tsxHook": "useLocation",
+    "functions": [
+      {
+        "name": "getCurrentPosition",
+        "args": [],
+        "returns": "Promise<{ latitude: number; longitude: number; accuracy: number }>",
+        "behavior": "Get a one-shot position fix"
+      }
+    ]
+  },
+  {
+    "name": "storage",
+    "dartPackage": "package:shared_preferences/shared_preferences.dart",
+    "pubspecDep": "shared_preferences: ^2.3.3",
+    "tsxHook": "useStorage",
+    "functions": [
+      {
+        "name": "get",
+        "args": [
+          {
+            "name": "key",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          }
+        ],
+        "returns": "Promise<string | number | boolean | null>",
+        "behavior": "Read a stored value by key"
+      },
+      {
+        "name": "set",
+        "args": [
+          {
+            "name": "key",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          },
+          {
+            "name": "value",
+            "tsType": "string | number | boolean",
+            "dartType": "Object",
+            "required": true
+          }
+        ],
+        "returns": "Promise<void>",
+        "behavior": "Write a value by key"
+      },
+      {
+        "name": "remove",
+        "args": [
+          {
+            "name": "key",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          }
+        ],
+        "returns": "Promise<void>",
+        "behavior": "Delete a stored key"
+      }
+    ]
+  },
+  {
+    "name": "database",
+    "dartPackage": "package:sqflite/sqflite.dart",
+    "pubspecDep": "sqflite: ^2.4.1",
+    "tsxHook": "useDatabase",
+    "functions": [
+      {
+        "name": "query",
+        "args": [
+          {
+            "name": "sql",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          },
+          {
+            "name": "params",
+            "tsType": "unknown[]",
+            "dartType": "List<Object?>",
+            "required": false
+          }
+        ],
+        "returns": "Promise<Record<string, unknown>[]>",
+        "behavior": "Execute a SELECT query"
+      },
+      {
+        "name": "execute",
+        "args": [
+          {
+            "name": "sql",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          },
+          {
+            "name": "params",
+            "tsType": "unknown[]",
+            "dartType": "List<Object?>",
+            "required": false
+          }
+        ],
+        "returns": "Promise<void>",
+        "behavior": "Execute an INSERT, UPDATE or DELETE statement"
+      }
+    ]
+  },
+  {
+    "name": "secureStorage",
+    "dartPackage": "package:flutter_secure_storage/flutter_secure_storage.dart",
+    "pubspecDep": "flutter_secure_storage: ^9.2.2",
+    "tsxHook": "useSecureStorage",
+    "functions": [
+      {
+        "name": "read",
+        "args": [
+          {
+            "name": "key",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          }
+        ],
+        "returns": "Promise<string | null>",
+        "behavior": "Read an encrypted value by key"
+      },
+      {
+        "name": "write",
+        "args": [
+          {
+            "name": "key",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          },
+          {
+            "name": "value",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          }
+        ],
+        "returns": "Promise<void>",
+        "behavior": "Write and encrypt a value by key"
+      },
+      {
+        "name": "delete",
+        "args": [
+          {
+            "name": "key",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          }
+        ],
+        "returns": "Promise<void>",
+        "behavior": "Delete an encrypted key"
+      },
+      {
+        "name": "readAll",
+        "args": [],
+        "returns": "Promise<Record<string, string>>",
+        "behavior": "Read all stored key-value pairs"
+      }
+    ]
+  },
+  {
+    "name": "biometrics",
+    "dartPackage": "package:local_auth/local_auth.dart",
+    "pubspecDep": "local_auth: ^2.3.0",
+    "tsxHook": "useBiometrics",
+    "functions": [
+      {
+        "name": "authenticate",
+        "args": [
+          {
+            "name": "reason",
+            "tsType": "string",
+            "dartType": "String",
+            "required": false
+          }
+        ],
+        "returns": "Promise<boolean>",
+        "behavior": "Prompt the user for biometric authentication"
+      },
+      {
+        "name": "isAvailable",
+        "args": [],
+        "returns": "Promise<boolean>",
+        "behavior": "Check if biometric authentication is available on the device"
+      }
+    ]
+  },
+  {
+    "name": "deviceInfo",
+    "dartPackage": "package:device_info_plus/device_info_plus.dart",
+    "pubspecDep": "device_info_plus: ^10.1.2",
+    "tsxHook": "useDeviceInfo",
+    "functions": []
+  },
+  {
+    "name": "connectivity",
+    "dartPackage": "package:connectivity_plus/connectivity_plus.dart",
+    "pubspecDep": "connectivity_plus: ^6.1.1",
+    "tsxHook": "useConnectivity",
+    "functions": []
+  },
+  {
+    "name": "permission",
+    "dartPackage": "package:permission_handler/permission_handler.dart",
+    "pubspecDep": "permission_handler: ^11.3.1",
+    "tsxHook": "usePermission",
+    "functions": [
+      {
+        "name": "request",
+        "args": [],
+        "returns": "Promise<'granted' | 'denied' | 'permanentlyDenied'>",
+        "behavior": "Request the permission and return the updated status"
+      }
+    ]
+  },
+  {
+    "name": "notifications",
+    "dartPackage": "package:flutter_local_notifications/flutter_local_notifications.dart",
+    "pubspecDep": "flutter_local_notifications: ^17.2.4",
+    "tsxHook": "useNotifications",
+    "functions": [
+      {
+        "name": "show",
+        "args": [
+          {
+            "name": "title",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          },
+          {
+            "name": "body",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          },
+          {
+            "name": "id",
+            "tsType": "number",
+            "dartType": "int",
+            "required": false
+          }
+        ],
+        "returns": "Promise<void>",
+        "behavior": "Display an immediate local notification"
+      },
+      {
+        "name": "cancel",
+        "args": [
+          {
+            "name": "id",
+            "tsType": "number",
+            "dartType": "int",
+            "required": true
+          }
+        ],
+        "returns": "Promise<void>",
+        "behavior": "Cancel a pending or displayed notification"
+      }
+    ]
+  },
+  {
+    "name": "webViewController",
+    "dartPackage": "package:webview_flutter/webview_flutter.dart",
+    "pubspecDep": "webview_flutter: ^4.10.0",
+    "tsxHook": "useWebViewController",
+    "functions": [
+      {
+        "name": "loadUrl",
+        "args": [
+          {
+            "name": "url",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          }
+        ],
+        "returns": "Promise<void>",
+        "behavior": "Navigate to a new URL"
+      },
+      {
+        "name": "reload",
+        "args": [],
+        "returns": "Promise<void>",
+        "behavior": "Reload the current page"
+      },
+      {
+        "name": "goBack",
+        "args": [],
+        "returns": "Promise<void>",
+        "behavior": "Navigate back in history"
+      },
+      {
+        "name": "runJavaScript",
+        "args": [
+          {
+            "name": "code",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          }
+        ],
+        "returns": "Promise<void>",
+        "behavior": "Execute JavaScript in the page"
+      }
+    ]
+  },
+  {
+    "name": "googleSignIn",
+    "dartPackage": "package:google_sign_in/google_sign_in.dart",
+    "pubspecDep": "google_sign_in: ^6.2.2",
+    "tsxHook": "useGoogleSignIn",
+    "functions": [
+      {
+        "name": "signIn",
+        "args": [],
+        "returns": "Promise<{ email: string; displayName: string; photoUrl: string | null } | null>",
+        "behavior": "Open the Google sign-in flow"
+      },
+      {
+        "name": "signOut",
+        "args": [],
+        "returns": "Promise<void>",
+        "behavior": "Sign out the current Google user"
+      },
+      {
+        "name": "currentUser",
+        "args": [],
+        "returns": "{ email: string; displayName: string } | null",
+        "behavior": "Return the currently signed-in user without a new sign-in prompt"
+      }
+    ]
+  },
+  {
+    "name": "inAppPurchase",
+    "dartPackage": "package:in_app_purchase/in_app_purchase.dart",
+    "pubspecDep": "in_app_purchase: ^3.2.0",
+    "tsxHook": "useInAppPurchase",
+    "functions": [
+      {
+        "name": "getProducts",
+        "args": [
+          {
+            "name": "ids",
+            "tsType": "string[]",
+            "dartType": "Set<String>",
+            "required": true
+          }
+        ],
+        "returns": "Promise<Array<{ id: string; title: string; price: string }>>",
+        "behavior": "Fetch product details from the store"
+      },
+      {
+        "name": "purchase",
+        "args": [
+          {
+            "name": "productId",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          }
+        ],
+        "returns": "Promise<void>",
+        "behavior": "Initiate a purchase flow for a product"
+      }
+    ]
+  },
+  {
+    "name": "navigate",
+    "dartPackage": "package:go_router/go_router.dart",
+    "pubspecDep": "go_router: ^14.6.3",
+    "tsxHook": "useNavigate",
+    "functions": [
+      {
+        "name": "go",
+        "args": [
+          {
+            "name": "path",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          }
+        ],
+        "returns": "void",
+        "behavior": "Navigate to a route path"
+      },
+      {
+        "name": "push",
+        "args": [
+          {
+            "name": "path",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          }
+        ],
+        "returns": "void",
+        "behavior": "Push a new route onto the stack"
+      },
+      {
+        "name": "pop",
+        "args": [],
+        "returns": "void",
+        "behavior": "Go back to the previous route"
+      },
+      {
+        "name": "replace",
+        "args": [
+          {
+            "name": "path",
+            "tsType": "string",
+            "dartType": "String",
+            "required": true
+          }
+        ],
+        "returns": "void",
+        "behavior": "Replace the current route"
+      }
+    ]
+  }
+]

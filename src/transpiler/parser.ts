@@ -124,13 +124,8 @@ export const parseSource = (
 export const getFunctionBody = (
   node: ts.FunctionDeclaration | ts.ArrowFunction | ts.FunctionExpression,
 ): ts.Block | ts.Expression | null => {
-  if (ts.isFunctionDeclaration(node) || ts.isFunctionExpression(node)) {
-    return node.body ?? null;
-  }
-  if (ts.isArrowFunction(node)) {
-    return node.body;
-  }
-  return null;
+  if (ts.isArrowFunction(node)) return node.body;
+  return node.body ?? null; // FunctionDeclaration | FunctionExpression
 };
 
 export const getReturnJSX = (

@@ -12,7 +12,7 @@ export const userPackageJson = (appName: string): string => {
       'dev:web': 'fsx dev --target=web',
     },
     dependencies: {
-      '@tsx/flutter': '^0.1.0',
+      'flutter-tsx': '^0.1.0',
     },
     devDependencies: {
       '@types/bun': '^1.2.0',

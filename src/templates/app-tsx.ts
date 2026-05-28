@@ -1,5 +1,5 @@
 export const appTsx = (appName: string): string =>
-  `import { MaterialApp, Scaffold, AppBar, Center, Text } from '@tsx/flutter';
+  `import { MaterialApp, Scaffold, AppBar, Center, Text } from 'flutter-tsx';
 
 export const MainApp = () => (
   <MaterialApp title="${appName}">

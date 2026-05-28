@@ -48,23 +48,39 @@ export const devCmd = defineCommand({
     logger.info(`Starting flutter.tsx dev server`);
     logger.info(`Target: ${target}`);
 
-    // 1. Ensure flutter project
+    // 1. Ensure flutter project (initial scaffold with config.dependencies only)
     logger.start('Preparing Flutter project...');
     try {
-      await ensureFlutterProject(flutterDir, config, flutterBin);
+      await ensureFlutterProject(flutterDir, config, { flutterBin });
       logger.success('Flutter project ready');
     } catch (err) {
       logger.error('Failed to prepare Flutter project:', err);
       process.exit(1);
     }
 
-    // 2. Initial transpile
+    // 2. Initial transpile — collect detected plugin packages
     logger.start('Transpiling TSX → Dart...');
+    let detectedPackages: string[] = [];
     try {
-      const files = await transpileAll(srcDir, outDir);
-      logger.success(`Transpiled ${files.length} file(s)`);
+      const results = await transpileAll(srcDir, outDir);
+      detectedPackages = [...new Set(results.flatMap((r) => r.packages))];
+      logger.success(`Transpiled ${results.length} file(s)`);
     } catch (err) {
       logger.error('Transpile error:', err);
+    }
+
+    // 2b. If new packages detected, re-write pubspec and run pub get
+    if (detectedPackages.length > 0) {
+      logger.start('Installing plugin packages...');
+      try {
+        await ensureFlutterProject(flutterDir, config, {
+          flutterBin,
+          extraDeps: detectedPackages,
+        });
+        logger.success('Plugin packages installed');
+      } catch (err) {
+        logger.error('Failed to install plugin packages:', err);
+      }
     }
 
     // 3. Start flutter runner

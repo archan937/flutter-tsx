@@ -1,18 +1,96 @@
+import { readFileSync } from 'fs';
+import { join } from 'path';
 import ts from 'typescript';
 
 import { CHILD_SLOT_MAP, SELF_SLOT_MAP } from '../generated/slot-map.js';
+import { WIDGET_MAP } from '../generated/widget-map.js';
 import {
   dartString,
   transformColor,
   transformPadding,
   transformTextStyle,
 } from './dart-helpers.js';
-import { analyzeHooks } from './hooks-analyzer.js';
 import {
-  type ExportedComponent,
-  getFunctionBody,
-  getReturnJSX,
-} from './parser.js';
+  analyzeHooks,
+  type HandlerDef,
+  type PluginUsage,
+} from './hooks-analyzer.js';
+import {
+  tryTransformAndExpression,
+  tryTransformMapCall,
+  tryTransformTernary,
+} from './jsx-control-flow.js';
+import { type ExportedComponent, getFunctionBody } from './parser.js';
+
+// ---------------------------------------------------------------------------
+// DartCodegen spec — loaded from ref/derived/plugins-codegen.json at runtime
+// ---------------------------------------------------------------------------
+
+interface DartCodegen {
+  imports: string[];
+  controllerField?: string;
+  initState?: string;
+  dispose?: string;
+  methods?: Record<string, string>;
+  expression?: string;
+}
+
+const loadCodegenMap = (): Record<string, DartCodegen> => {
+  try {
+    const jsonPath = join(
+      import.meta.dir,
+      '..',
+      '..',
+      'ref',
+      'derived',
+      'plugins-codegen.json',
+    );
+    return JSON.parse(readFileSync(jsonPath, 'utf-8')) as Record<
+      string,
+      DartCodegen
+    >;
+  } catch {
+    return {};
+  }
+};
+
+const PLUGIN_CODEGEN_MAP: Record<string, DartCodegen> = loadCodegenMap();
+
+// ---------------------------------------------------------------------------
+// Plugin arg substitution helper
+// ---------------------------------------------------------------------------
+
+const substitutePluginArgs = (
+  template: string,
+  args: readonly ts.Expression[],
+  sourceFile: ts.SourceFile,
+): string => {
+  let result = template;
+
+  args.forEach((arg, idx) => {
+    // Replace $N.key patterns (object literal property access)
+    result = result.replace(
+      new RegExp(`\\$${idx}\\.([a-zA-Z_][a-zA-Z0-9_]*)`, 'g'),
+      (_match, key: string) => {
+        if (ts.isObjectLiteralExpression(arg)) {
+          const prop = arg.properties.find(
+            (p): p is ts.PropertyAssignment =>
+              ts.isPropertyAssignment(p) && p.name.getText(sourceFile) === key,
+          );
+          if (prop) return prop.initializer.getText(sourceFile);
+        }
+        return `${arg.getText(sourceFile)}.${key}`;
+      },
+    );
+    // Replace bare $N
+    result = result.replace(
+      new RegExp(`\\$${idx}(?![.\\w])`, 'g'),
+      arg.getText(sourceFile),
+    );
+  });
+
+  return result;
+};
 
 // ---------------------------------------------------------------------------
 // CodegenContext
@@ -22,6 +100,13 @@ export class CodegenContext {
   private sourceFile: ts.SourceFile;
   private stateVarNames = new Set<string>();
   private stateSetterNames = new Set<string>();
+  readonly imports = new Set<string>(['package:flutter/material.dart']);
+  private pluginFields: string[] = [];
+  private pluginInitState: string[] = [];
+  private pluginDispose: string[] = [];
+  private pluginVarNames = new Set<string>();
+  private pluginMethods = new Map<string, Record<string, string>>();
+  private handlerFunctionNames = new Set<string>();
 
   constructor(sourceFile: ts.SourceFile) {
     this.sourceFile = sourceFile;
@@ -33,23 +118,62 @@ export class CodegenContext {
 
   generateComponent(component: ExportedComponent): string {
     const body = getFunctionBody(component.node);
-    let hasState = false;
 
     if (body && ts.isBlock(body)) {
       const analysis = analyzeHooks(body, this.sourceFile);
-      hasState = analysis.stateVars.length > 0;
+      const hasState = analysis.stateVars.length > 0;
+      const hasPlugins = analysis.pluginUsages.length > 0;
 
       for (const sv of analysis.stateVars) {
         this.stateVarNames.add(sv.name);
         this.stateSetterNames.add(sv.setter);
       }
 
-      if (hasState) {
+      for (const h of analysis.handlerFunctions) {
+        this.handlerFunctionNames.add(h.name);
+      }
+
+      this.applyPluginUsages(analysis.pluginUsages);
+
+      if (hasState || hasPlugins) {
         return this.genStatefulWidget(component, analysis);
       }
     }
 
     return this.genStatelessWidget(component);
+  }
+
+  private applyPluginUsages(usages: PluginUsage[]): void {
+    for (const usage of usages) {
+      const codegen = PLUGIN_CODEGEN_MAP[usage.hookName];
+      if (!codegen) continue;
+
+      for (const imp of codegen.imports) {
+        const bare = imp
+          .replace(/^import\s+'/, '')
+          .replace(/';$/, '')
+          .replace(/'\s*as\s+\w+/, '');
+        this.imports.add(bare);
+      }
+
+      if (codegen.controllerField) {
+        this.pluginFields.push(`  ${codegen.controllerField}`);
+      }
+
+      if (codegen.initState) {
+        this.pluginInitState.push(codegen.initState);
+      }
+
+      if (codegen.dispose) {
+        this.pluginDispose.push(codegen.dispose);
+      }
+
+      this.pluginVarNames.add(usage.varName);
+
+      if (codegen.methods) {
+        this.pluginMethods.set(usage.varName, codegen.methods);
+      }
+    }
   }
 
   // -------------------------------------------------------------------------
@@ -58,18 +182,13 @@ export class CodegenContext {
 
   private genStatelessWidget(component: ExportedComponent): string {
     const { name } = component;
-    const jsxRoot = getReturnJSX(component.node);
-
-    const dartWidget = jsxRoot
-      ? this.visitJSX(jsxRoot, null)
-      : 'const Placeholder()';
 
     return [
       `class ${name} extends StatelessWidget {`,
       `  const ${name}({super.key});`,
       `  @override`,
       `  Widget build(BuildContext context) {`,
-      `    return ${dartWidget};`,
+      this.buildMethodBody(component),
       `  }`,
       `}`,
     ].join('\n');
@@ -85,45 +204,65 @@ export class CodegenContext {
   ): string {
     const { name } = component;
     const stateName = `_${name}State`;
-    const jsxRoot = getReturnJSX(component.node);
-    const dartWidget = jsxRoot
-      ? this.visitJSX(jsxRoot, null)
-      : 'const Placeholder()';
 
-    const stateFields = analysis.stateVars
+    const stateVarFields = analysis.stateVars
       .map((sv) => `  ${sv.dartType} ${sv.name} = ${sv.initializer};`)
       .join('\n');
 
-    // Build initState if there are effects
+    const allFields = [stateVarFields, ...this.pluginFields]
+      .filter(Boolean)
+      .join('\n');
+
+    // Build initState if there are effects or plugin initState bodies
+    const effectInitLines = analysis.hasEffects
+      ? analysis.effectStatements.flatMap((stmts, i) =>
+          stmts.length > 0
+            ? stmts.map((s) => `    ${this.transformStatement(s)}`)
+            : [`    ${analysis.effectBodies[i]}`],
+        )
+      : [];
+    const pluginInitLines = this.pluginInitState.map((b) =>
+      b
+        .split('\n')
+        .map((l) => `    ${l}`)
+        .join('\n'),
+    );
+    const allInitLines = [...effectInitLines, ...pluginInitLines];
+
     let initState = '';
-    if (analysis.hasEffects) {
-      const effectBody = analysis.effectBodies
-        .map((b) => `    ${b}`)
-        .join('\n');
+    if (allInitLines.length > 0) {
       initState =
         [
           `  @override`,
           `  void initState() {`,
           `    super.initState();`,
-          effectBody,
+          allInitLines.join('\n'),
           `  }`,
         ].join('\n') + '\n';
     }
 
-    // Build dispose if there are cleanups
-    let dispose = '';
+    // Build dispose if there are cleanups or plugin dispose bodies
     const cleanups = analysis.effectCleanups.filter(Boolean);
-    if (cleanups.length > 0) {
-      const cleanupBody = cleanups.map((c) => `    ${c}();`).join('\n');
+    const allDisposeBodies = [
+      ...cleanups.map((c) => `    ${c}();`),
+      ...this.pluginDispose.map((d) => `    ${d}`),
+    ];
+
+    let dispose = '';
+    if (allDisposeBodies.length > 0) {
       dispose =
         [
           `  @override`,
           `  void dispose() {`,
-          cleanupBody,
+          allDisposeBodies.join('\n'),
           `    super.dispose();`,
           `  }`,
         ].join('\n') + '\n';
     }
+
+    const handlerMethods = analysis.handlerFunctions
+      .map((h) => this.emitHandlerMethod(h))
+      .join('\n');
 
     return [
       `class ${name} extends StatefulWidget {`,
@@ -133,13 +272,14 @@ export class CodegenContext {
       `}`,
       ``,
       `class ${stateName} extends State<${name}> {`,
-      stateFields,
+      allFields,
       `  @override`,
       `  Widget build(BuildContext context) {`,
-      `    return ${dartWidget};`,
+      this.buildMethodBody(component),
       `  }`,
       initState ? initState.trimEnd() : '',
       dispose ? dispose.trimEnd() : '',
+      handlerMethods || '',
       `}`,
     ]
       .filter((l) => l !== '')
@@ -203,7 +343,7 @@ export class CodegenContext {
     attributes: ts.JsxAttributes,
     children: ts.JsxChild[],
   ): string {
-    const props = this.extractProps(attributes);
+    const props = this.extractProps(attributes, tagName);
     const parts: string[] = [];
 
     // --- Handle string props already encoded as named params
@@ -248,6 +388,11 @@ export class CodegenContext {
           tagName,
         );
         parts.push(...slottedArgs);
+        if (unslottedChildren.length > 1) {
+          console.warn(
+            `[fsx] ${tagName}: slot '${childSlot}' accepts one child but got ${unslottedChildren.length}; extra children dropped`,
+          );
+        }
         if (unslottedChildren.length > 0) {
           parts.push(`${childSlot}: ${unslottedChildren[0]}`);
         }
@@ -284,7 +429,7 @@ export class CodegenContext {
     for (const child of children) {
       if (ts.isJsxText(child)) {
         const text = child.getText(this.sourceFile).trim();
-        if (text) unslottedChildren.push(dartString(text));
+        if (text) unslottedChildren.push(`Text(${dartString(text)})`);
         continue;
       }
 
@@ -346,119 +491,228 @@ export class CodegenContext {
   }
 
   // -------------------------------------------------------------------------
+  // Build method body — supports early returns and control-flow returns
+  // -------------------------------------------------------------------------
+
+  private buildMethodBody(component: ExportedComponent): string {
+    const body = getFunctionBody(component.node);
+    if (!body) return '    return const Placeholder();';
+
+    if (!ts.isBlock(body)) {
+      return `    return ${this.transformReturnExpr(body)};`;
+    }
+
+    const lines: string[] = [];
+    for (const stmt of body.statements) {
+      if (ts.isReturnStatement(stmt) && stmt.expression) {
+        lines.push(`    return ${this.transformReturnExpr(stmt.expression)};`);
+      } else if (ts.isIfStatement(stmt)) {
+        const guardText = stmt.expression.getText(this.sourceFile);
+        const thenReturn = this.extractGuardReturn(stmt.thenStatement);
+        if (thenReturn !== null) {
+          lines.push(`    if (${guardText}) return ${thenReturn};`);
+        }
+      }
+    }
+
+    return lines.length > 0
+      ? lines.join('\n')
+      : '    return const Placeholder();';
+  }
+
+  private extractGuardReturn(stmt: ts.Statement): string | null {
+    if (ts.isReturnStatement(stmt) && stmt.expression) {
+      return this.transformReturnExpr(stmt.expression);
+    }
+    if (
+      ts.isBlock(stmt) &&
+      stmt.statements.length === 1 &&
+      ts.isReturnStatement(stmt.statements[0]) &&
+      stmt.statements[0].expression
+    ) {
+      return this.transformReturnExpr(stmt.statements[0].expression);
+    }
+    return null;
+  }
+
+  private transformReturnExpr(expr: ts.Expression): string {
+    if (ts.isParenthesizedExpression(expr)) {
+      return this.transformReturnExpr(expr.expression);
+    }
+    if (
+      ts.isJsxElement(expr) ||
+      ts.isJsxSelfClosingElement(expr) ||
+      ts.isJsxFragment(expr)
+    ) {
+      return this.visitJSX(expr, null);
+    }
+    if (ts.isConditionalExpression(expr)) {
+      const result = tryTransformTernary(expr, this.sourceFile, (n) =>
+        this.visitJSX(n, null),
+      );
+      if (result) return result;
+    }
+    return 'const Placeholder()';
+  }
+
+  // -------------------------------------------------------------------------
   // Props extraction
   // -------------------------------------------------------------------------
 
-  private extractProps(attributes: ts.JsxAttributes): Record<string, string> {
+  private extractProps(
+    attributes: ts.JsxAttributes,
+    tagName: string,
+  ): Record<string, string> {
     const result: Record<string, string> = {};
 
     for (const attr of attributes.properties) {
       if (ts.isJsxSpreadAttribute(attr)) continue;
 
-      const name = attr.name.getText(this.sourceFile);
+      const tsxName = attr.name.getText(this.sourceFile);
+      if (tsxName === 'key') continue; // React-only reserved prop
+
+      const widgetDef = WIDGET_MAP.get(tagName);
+      const propDef =
+        widgetDef?.props.find((p) => p.tsxProp === tsxName) ??
+        widgetDef?.styling.find((p) => p.tsxProp === tsxName);
+      const dartParam = propDef?.dartParam ?? tsxName;
       const { initializer } = attr;
 
       if (!initializer) {
-        // Boolean shorthand: <Widget disabled />
-        result[name] = 'true';
+        result[dartParam] = 'true';
         continue;
       }
 
       if (ts.isStringLiteral(initializer)) {
-        result[name] = this.transformPropValue(name, initializer.text);
+        // TextField.label is a convenience prop that maps to decoration: InputDecoration(labelText:...)
+        const effectiveDartParam =
+          tagName === 'TextField' && tsxName === 'label'
+            ? 'decoration'
+            : dartParam;
+        result[effectiveDartParam] = this.transformStringProp(
+          tagName,
+          tsxName,
+          initializer.text,
+        );
         continue;
       }
 
       if (ts.isJsxExpression(initializer)) {
         const expr = initializer.expression;
         if (!expr) continue;
-        result[name] = this.transformPropValue(name, expr, true);
+        result[dartParam] = this.transformExprProp(tsxName, expr);
       }
     }
 
     return result;
   }
 
-  private transformPropValue(
+  private transformStringProp(
+    tagName: string,
     propName: string,
-    value: string | ts.Expression,
-    isExpr = false,
+    value: string,
   ): string {
-    const raw =
-      typeof value === 'string' ? value : value.getText(this.sourceFile);
-
-    // Color props
     if (
       propName.toLowerCase().includes('color') ||
       propName === 'backgroundColor' ||
       propName === 'activeColor'
     ) {
-      if (typeof value === 'string') return transformColor(value);
+      return transformColor(value);
     }
 
-    // Padding / margin
+    // TextField label convenience prop → InputDecoration(labelText: ...)
+    if (propName === 'label') {
+      return `InputDecoration(labelText: ${dartString(value)})`;
+    }
+
     if (propName === 'padding' || propName === 'margin') {
-      if (typeof value === 'string')
-        return transformPadding(Number(value) || value);
-      // Array literal from expression
-      if (isExpr && ts.isArrayLiteralExpression(value as ts.Expression)) {
-        const arr = (value as ts.ArrayLiteralExpression).elements.map((e) =>
+      return transformPadding(Number(value) || value);
+    }
+
+    // Enum props: look up the widget's prop definition to emit EnumClass.value
+    const widgetDef = WIDGET_MAP.get(tagName);
+    const propDef =
+      widgetDef?.props.find((p) => p.tsxProp === propName) ??
+      widgetDef?.styling.find((p) => p.tsxProp === propName);
+    if (propDef?.transform === 'enum') {
+      const enumClass = propDef.dartType.replace('?', '');
+      return `${enumClass}.${value}`;
+    }
+
+    return dartString(value);
+  }
+
+  private transformExprProp(propName: string, expr: ts.Expression): string {
+    const raw = expr.getText(this.sourceFile);
+
+    if (
+      propName.toLowerCase().includes('color') ||
+      propName === 'backgroundColor' ||
+      propName === 'activeColor'
+    ) {
+      if (ts.isStringLiteral(expr)) return transformColor(expr.text);
+      return raw;
+    }
+
+    if (propName === 'padding' || propName === 'margin') {
+      if (ts.isArrayLiteralExpression(expr)) {
+        const arr = expr.elements.map((e) =>
           parseFloat(e.getText(this.sourceFile)),
         );
         return transformPadding(arr);
       }
     }
 
-    // Callback props: onClick, onChange, etc.
-    if (propName.startsWith('on') && isExpr) {
-      return this.transformCallbackExpr(value as ts.Expression);
+    if (propName.startsWith('on')) {
+      return this.transformCallbackExpr(expr);
     }
 
-    // String literal
-    if (typeof value === 'string') return dartString(value);
-
-    // Boolean literal
     if (raw === 'true' || raw === 'false') return raw;
 
-    // Numeric literal
-    if (!isNaN(Number(raw))) return raw;
+    if (raw.trim() !== '' && !isNaN(Number(raw))) return raw;
 
-    // style object
-    if (
-      propName === 'style' &&
-      isExpr &&
-      ts.isObjectLiteralExpression(value as ts.Expression)
-    ) {
-      return this.transformStyleObject(value as ts.ObjectLiteralExpression);
+    if (propName === 'style' && ts.isObjectLiteralExpression(expr)) {
+      return this.transformStyleObject(expr);
     }
 
-    // Template literal — convert ${x} to Dart interpolation
-    if (isExpr && ts.isTemplateLiteral(value as ts.Expression)) {
-      return this.transformTemplateLiteral(value as ts.TemplateLiteral);
+    if (ts.isTemplateLiteral(expr)) {
+      return this.transformTemplateLiteral(expr);
     }
 
-    // Identifier (variable reference)
-    if (isExpr && ts.isIdentifier(value as ts.Expression)) {
-      return raw;
-    }
-
-    // Default: return raw expression
-    return isExpr ? raw : dartString(raw);
+    return raw;
   }
 
   private transformCallbackExpr(expr: ts.Expression): string {
     const src = this.sourceFile;
 
     if (ts.isArrowFunction(expr) || ts.isFunctionExpression(expr)) {
-      const { body } = expr;
+      const { parameters, body } = expr;
 
+      // Form-input pattern: (e) => setX(e.target.value) → (value) { setState... }
+      if (parameters.length === 1) {
+        const paramName = parameters[0].name.getText(src);
+        const bodyRaw = body.getText(src);
+        if (bodyRaw.includes(`${paramName}.target.value`)) {
+          const transformed = this.transformCallbackBody(body).replace(
+            new RegExp(`\\b${paramName}\\.target\\.value\\b`, 'g'),
+            'value',
+          );
+          return `(value) { ${transformed} }`;
+        }
+      }
+
+      // General callback with parameters: (index) => setIdx(index) → (index) { ... }
+      const paramList = parameters.map((p) => p.name.getText(src)).join(', ');
       const transformed = this.transformCallbackBody(body);
-      return `() { ${transformed} }`;
+      return paramList
+        ? `(${paramList}) { ${transformed} }`
+        : `() { ${transformed} }`;
     }
 
-    // Identifier: pass-through
+    // Identifier: local handler → _handlerName; otherwise pass-through
     if (ts.isIdentifier(expr)) {
-      return expr.getText(src);
+      const name = expr.getText(src);
+      return this.handlerFunctionNames.has(name) ? `_${name}` : name;
     }
 
     return `() { ${expr.getText(src)}; }`;
@@ -476,8 +730,61 @@ export class CodegenContext {
     return stmts;
   }
 
+  private emitHandlerMethod(h: HandlerDef): string {
+    const { body } = h.node;
+
+    let bodyLines: string;
+    if (ts.isBlock(body)) {
+      bodyLines = body.statements
+        .map((s) => `    ${this.transformStatement(s)}`)
+        .join('\n');
+    } else {
+      bodyLines = `    ${this.transformStatement(body)}`;
+    }
+
+    // Auto-detect async: if any transformed line starts with 'await', the method must be async
+    const needsAsync =
+      h.isAsync ||
+      bodyLines.split('\n').some((l) => l.trimStart().startsWith('await '));
+
+    const returnType = needsAsync ? 'Future<void>' : 'void';
+    const asyncKw = needsAsync ? ' async' : '';
+
+    return [`  ${returnType} _${h.name}()${asyncKw} {`, bodyLines, `  }`].join(
+      '\n',
+    );
+  }
+
   private transformStatement(node: ts.Node): string {
     const src = this.sourceFile;
+
+    // Unwrap await: await expr → handle the inner expression
+    if (ts.isAwaitExpression(node)) {
+      return this.transformStatement(node.expression);
+    }
+
+    // pluginVar.method(args) → Dart template from pluginMethods map
+    if (
+      ts.isCallExpression(node) &&
+      ts.isPropertyAccessExpression(node.expression)
+    ) {
+      const obj = node.expression.expression.getText(src);
+      const method = node.expression.name.getText(src);
+      if (this.pluginVarNames.has(obj)) {
+        const methods = this.pluginMethods.get(obj);
+        if (methods?.[method]) {
+          const template = methods[method];
+          // Substitute $0, $1, ... and $0.key (object property access)
+          const substituted = substitutePluginArgs(
+            template,
+            node.arguments,
+            this.sourceFile,
+          );
+          return `${substituted};`;
+        }
+        // Unknown method on known plugin var — fall through to raw text
+      }
+    }
 
     // setX(value) → setState(() { x = value; })
     if (ts.isCallExpression(node)) {
@@ -512,12 +819,9 @@ export class CodegenContext {
   }
 
   private getStateVarForSetter(setterName: string): string | null {
-    // Convention: setCount → count, setMyValue → myValue
     const withoutSet = setterName.slice(3);
     const varName = withoutSet.charAt(0).toLowerCase() + withoutSet.slice(1);
-    if (this.stateVarNames.has(varName)) return varName;
-    // Brute force: find which var has this setter
-    return null;
+    return this.stateVarNames.has(varName) ? varName : null;
   }
 
   private transformStyleObject(obj: ts.ObjectLiteralExpression): string {
@@ -552,16 +856,31 @@ export class CodegenContext {
   private transformExpression(expr: ts.Expression): string {
     const src = this.sourceFile;
 
-    if (ts.isStringLiteral(expr)) return dartString(expr.text);
-    if (ts.isNumericLiteral(expr)) return expr.text;
-    if (
-      ts.isJsxElement(expr as unknown as ts.Node) ||
-      ts.isJsxSelfClosingElement(expr as unknown as ts.Node)
-    ) {
-      return this.visitJSX(
-        expr as unknown as ts.JsxElement | ts.JsxSelfClosingElement,
-        null,
+    if (ts.isStringLiteral(expr)) return `Text(${dartString(expr.text)})`;
+    if (ts.isNumericLiteral(expr)) return `Text('${expr.text}')`;
+    if (ts.isJsxElement(expr) || ts.isJsxSelfClosingElement(expr)) {
+      return this.visitJSX(expr, null);
+    }
+
+    if (ts.isConditionalExpression(expr)) {
+      const result = tryTransformTernary(expr, src, (n) =>
+        this.visitJSX(n, null),
       );
+      if (result) return result;
+    }
+
+    if (ts.isBinaryExpression(expr)) {
+      const result = tryTransformAndExpression(expr, src, (n) =>
+        this.visitJSX(n, null),
+      );
+      if (result) return result;
+    }
+
+    if (ts.isCallExpression(expr)) {
+      const result = tryTransformMapCall(expr, src, (n) =>
+        this.visitJSX(n, null),
+      );
+      if (result) return result;
     }
 
     return expr.getText(src);
@@ -572,22 +891,45 @@ export class CodegenContext {
 // File-level codegen
 // ---------------------------------------------------------------------------
 
-export const generateDartFile = (
+const buildDartOutput = (
   sourceFile: ts.SourceFile,
   components: ExportedComponent[],
-): string => {
+): { code: string; ctx: CodegenContext } => {
   const ctx = new CodegenContext(sourceFile);
+
+  const componentBodies = components
+    .map((c) => ctx.generateComponent(c))
+    .filter(Boolean);
+
+  const importLines = [...ctx.imports].map((i) => `import '${i}';`).join('\n');
 
   const parts: string[] = [
     `// GENERATED — do not edit. Source: ${sourceFile.fileName}`,
-    `import 'package:flutter/material.dart';`,
+    importLines,
     ``,
+    ...componentBodies.flatMap((body, idx) =>
+      idx < componentBodies.length - 1 ? [body, ''] : [body],
+    ),
+    '',
   ];
 
-  for (const component of components) {
-    parts.push(ctx.generateComponent(component));
-    parts.push('');
-  }
+  return { code: parts.join('\n'), ctx };
+};
 
-  return parts.join('\n');
+export const generateDartFile = (
+  sourceFile: ts.SourceFile,
+  components: ExportedComponent[],
+): string => buildDartOutput(sourceFile, components).code;
+
+export interface DartFileResult {
+  code: string;
+  imports: Set<string>;
+}
+
+export const generateDartFileResult = (
+  sourceFile: ts.SourceFile,
+  components: ExportedComponent[],
+): DartFileResult => {
+  const { code, ctx } = buildDartOutput(sourceFile, components);
+  return { code, imports: ctx.imports };
 };

@@ -1,0 +1,194 @@
+{
+  "useCamera": {
+    "imports": [
+      "import 'package:camera/camera.dart';"
+    ],
+    "controllerField": "CameraController? _cameraController;",
+    "initState": "availableCameras().then((cameras) {\n  if (cameras.isEmpty) return;\n  _cameraController = CameraController(cameras.first, ResolutionPreset.medium);\n  _cameraController!.initialize().then((_) { if (mounted) setState(() {}); });\n});",
+    "dispose": "_cameraController?.dispose();",
+    "methods": {
+      "initialize": "await _cameraController!.initialize()",
+      "takePicture": "await _cameraController!.takePicture()"
+    }
+  },
+  "useImagePicker": {
+    "imports": [
+      "import 'package:image_picker/image_picker.dart';"
+    ],
+    "controllerField": "final ImagePicker _imagePicker = ImagePicker();",
+    "methods": {
+      "pickImage": "await _imagePicker.pickImage(source: ImageSource.gallery)",
+      "pickVideo": "await _imagePicker.pickVideo(source: ImageSource.gallery)"
+    }
+  },
+  "useVideoController": {
+    "imports": [
+      "import 'package:video_player/video_player.dart';"
+    ],
+    "methods": {
+      "play": "_videoController?.play()",
+      "pause": "_videoController?.pause()",
+      "seekTo": "await _videoController?.seekTo(Duration(seconds: seconds))"
+    }
+  },
+  "useAudio": {
+    "imports": [
+      "import 'package:audioplayers/audioplayers.dart';"
+    ],
+    "controllerField": "final AudioPlayer _audioPlayer = AudioPlayer();",
+    "dispose": "await _audioPlayer.dispose();",
+    "methods": {
+      "play": "await _audioPlayer.play(UrlSource(url))",
+      "pause": "await _audioPlayer.pause()",
+      "stop": "await _audioPlayer.stop()",
+      "setVolume": "await _audioPlayer.setVolume(volume)"
+    }
+  },
+  "useMapController": {
+    "imports": [
+      "import 'package:google_maps_flutter/google_maps_flutter.dart';"
+    ],
+    "methods": {
+      "animateTo": "await _mapController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng($0.lat, $0.lng), zoom: $0.zoom ?? 12)))"
+    }
+  },
+  "useLocation": {
+    "imports": [
+      "import 'package:geolocator/geolocator.dart';"
+    ],
+    "controllerField": "double? _latitude;\ndouble? _longitude;\ndouble? _accuracy;\nStreamSubscription<Position>? _locationSub;",
+    "initState": "_locationSub = Geolocator.getPositionStream().listen((pos) {\n  setState(() {\n    _latitude = pos.latitude;\n    _longitude = pos.longitude;\n    _accuracy = pos.accuracy;\n  });\n});",
+    "dispose": "_locationSub?.cancel();",
+    "methods": {
+      "getCurrentPosition": "await Geolocator.getCurrentPosition()"
+    }
+  },
+  "useStorage": {
+    "imports": [
+      "import 'package:shared_preferences/shared_preferences.dart';"
+    ],
+    "controllerField": "SharedPreferences? _prefs;",
+    "initState": "SharedPreferences.getInstance().then((prefs) => setState(() => _prefs = prefs));",
+    "methods": {
+      "get": "_prefs?.get(key)",
+      "set": "await _prefs?.setString(key, value.toString())",
+      "remove": "await _prefs?.remove(key)"
+    }
+  },
+  "useDatabase": {
+    "imports": [
+      "import 'package:sqflite/sqflite.dart';",
+      "import 'package:path/path.dart';"
+    ],
+    "controllerField": "Database? _database;",
+    "initState": "openDatabase(join(await getDatabasesPath(), dbName)).then((db) => setState(() => _database = db));",
+    "methods": {
+      "query": "await _database!.rawQuery(sql, params)",
+      "execute": "await _database!.execute(sql, params)"
+    }
+  },
+  "useSecureStorage": {
+    "imports": [
+      "import 'package:flutter_secure_storage/flutter_secure_storage.dart';"
+    ],
+    "controllerField": "final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();",
+    "methods": {
+      "read": "await _secureStorage.read(key: key)",
+      "write": "await _secureStorage.write(key: key, value: value)",
+      "delete": "await _secureStorage.delete(key: key)",
+      "readAll": "await _secureStorage.readAll()"
+    }
+  },
+  "useBiometrics": {
+    "imports": [
+      "import 'package:local_auth/local_auth.dart';"
+    ],
+    "controllerField": "final LocalAuthentication _localAuth = LocalAuthentication();",
+    "methods": {
+      "authenticate": "await _localAuth.authenticate(localizedReason: reason ?? 'Authenticate')",
+      "isAvailable": "await _localAuth.canCheckBiometrics"
+    }
+  },
+  "useDeviceInfo": {
+    "imports": [
+      "import 'package:device_info_plus/device_info_plus.dart';",
+      "import 'dart:io' show Platform;"
+    ],
+    "controllerField": "String? _devicePlatform;\nString? _deviceModel;\nString? _deviceVersion;\nbool _isPhysicalDevice = true;",
+    "initState": "DeviceInfoPlugin().deviceInfo.then((info) => setState(() {\n  if (Platform.isIOS) {\n    final ios = info as IosDeviceInfo;\n    _devicePlatform = 'ios'; _deviceModel = ios.model; _deviceVersion = ios.systemVersion; _isPhysicalDevice = ios.isPhysicalDevice;\n  } else if (Platform.isAndroid) {\n    final and = info as AndroidDeviceInfo;\n    _devicePlatform = 'android'; _deviceModel = and.model; _deviceVersion = and.version.release; _isPhysicalDevice = and.isPhysicalDevice;\n  }\n}));",
+    "methods": {}
+  },
+  "useConnectivity": {
+    "imports": [
+      "import 'package:connectivity_plus/connectivity_plus.dart';"
+    ],
+    "controllerField": "ConnectivityResult _connectivityType = ConnectivityResult.none;\nStreamSubscription<List<ConnectivityResult>>? _connectivitySub;",
+    "initState": "_connectivitySub = Connectivity().onConnectivityChanged.listen((results) {\n  setState(() => _connectivityType = results.isNotEmpty ? results.first : ConnectivityResult.none);\n});",
+    "dispose": "_connectivitySub?.cancel();",
+    "methods": {}
+  },
+  "usePermission": {
+    "imports": [
+      "import 'package:permission_handler/permission_handler.dart';"
+    ],
+    "controllerField": "PermissionStatus? _permissionStatus;",
+    "initState": "Permission.camera.status.then((s) => setState(() => _permissionStatus = s));",
+    "methods": {
+      "request": "await Permission.camera.request()"
+    }
+  },
+  "useNotifications": {
+    "imports": [
+      "import 'package:flutter_local_notifications/flutter_local_notifications.dart';"
+    ],
+    "controllerField": "final FlutterLocalNotificationsPlugin _notifications = FlutterLocalNotificationsPlugin();",
+    "initState": "const initSettings = InitializationSettings(\n  android: AndroidInitializationSettings('@mipmap/ic_launcher'),\n  iOS: DarwinInitializationSettings(),\n);\n_notifications.initialize(initSettings);",
+    "methods": {
+      "show": "await _notifications.show(id ?? 0, title, body, null)",
+      "cancel": "await _notifications.cancel(id)"
+    }
+  },
+  "useWebViewController": {
+    "imports": [
+      "import 'package:webview_flutter/webview_flutter.dart';"
+    ],
+    "methods": {
+      "loadUrl": "await _webViewController.loadRequest(Uri.parse(url))",
+      "reload": "await _webViewController.reload()",
+      "goBack": "await _webViewController.goBack()",
+      "runJavaScript": "await _webViewController.runJavaScript(code)"
+    }
+  },
+  "useGoogleSignIn": {
+    "imports": [
+      "import 'package:google_sign_in/google_sign_in.dart';"
+    ],
+    "controllerField": "final GoogleSignIn _googleSignIn = GoogleSignIn();",
+    "methods": {
+      "signIn": "await _googleSignIn.signIn()",
+      "signOut": "await _googleSignIn.signOut()",
+      "currentUser": "_googleSignIn.currentUser"
+    }
+  },
+  "useInAppPurchase": {
+    "imports": [
+      "import 'package:in_app_purchase/in_app_purchase.dart';"
+    ],
+    "controllerField": "final InAppPurchase _iap = InAppPurchase.instance;",
+    "methods": {
+      "getProducts": "await _iap.queryProductDetails(Set.from(ids))",
+      "purchase": "await _iap.buyNonConsumable(purchaseParam: PurchaseParam(productDetails: productDetails))"
+    }
+  },
+  "useNavigate": {
+    "imports": [
+      "import 'package:go_router/go_router.dart';"
+    ],
+    "methods": {
+      "go": "context.go(path)",
+      "push": "context.push(path)",
+      "pop": "context.pop()",
+      "replace": "context.replace(path)"
+    }
+  }
+}

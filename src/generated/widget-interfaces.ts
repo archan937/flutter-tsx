@@ -4,18 +4,7 @@ import type { FlutterElement } from '../core/widget-node.js';
 export interface TextStyleProps {
   color?: string;
   fontSize?: number;
-  fontWeight?:
-    | 'normal'
-    | 'bold'
-    | 'w100'
-    | 'w200'
-    | 'w300'
-    | 'w400'
-    | 'w500'
-    | 'w600'
-    | 'w700'
-    | 'w800'
-    | 'w900';
+  fontWeight?: 'normal' | 'bold' | 'w100' | 'w200' | 'w300' | 'w400' | 'w500' | 'w600' | 'w700' | 'w800' | 'w900';
   fontStyle?: 'normal' | 'italic';
   letterSpacing?: number;
   wordSpacing?: number;
@@ -24,171 +13,3327 @@ export interface TextStyleProps {
   fontFamily?: string;
 }
 
+export interface AboutListTileProps {
+  icon?: FlutterElement;
+  applicationName?: string;
+  applicationVersion?: string;
+  applicationIcon?: FlutterElement;
+  applicationLegalese?: string;
+  aboutBoxChildren?: FlutterElement[];
+  dense?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AboutDialogProps {
+  applicationName?: string;
+  applicationVersion?: string;
+  applicationIcon?: FlutterElement;
+  applicationLegalese?: string;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface LicensePageProps {
+  applicationName?: string;
+  applicationVersion?: string;
+  applicationIcon?: FlutterElement;
+  applicationLegalese?: string;
+}
+
+export interface BackButtonIconProps {
+}
+
+export interface BackButtonProps {
+  color?: unknown;
+  style?: unknown;
+  onClick?: unknown;
+}
+
+export interface CloseButtonIconProps {
+}
+
+export interface CloseButtonProps {
+  color?: unknown;
+  onClick?: unknown;
+  style?: unknown;
+}
+
+export interface DrawerButtonIconProps {
+}
+
+export interface DrawerButtonProps {
+  color?: unknown;
+  style?: unknown;
+  onClick?: unknown;
+}
+
+export interface EndDrawerButtonIconProps {
+}
+
+export interface EndDrawerButtonProps {
+  color?: unknown;
+  style?: unknown;
+  onClick?: unknown;
+}
+
+export interface ActionChipProps {
+  avatar?: FlutterElement;
+  label: FlutterElement;
+  labelStyle?: TextStyleProps;
+  labelPadding?: number | [number, number] | [number, number, number, number];
+  onClick?: unknown;
+  pressElevation?: number;
+  tooltip?: string;
+  side?: unknown;
+  shape?: unknown;
+  clipBehavior?: unknown;
+  focusNode?: unknown;
+  autofocus?: boolean;
+  color?: unknown;
+  backgroundColor?: unknown;
+  disabledColor?: unknown;
+  padding?: number | [number, number] | [number, number, number, number];
+  visualDensity?: unknown;
+  materialTapTargetSize?: 'padded' | 'shrinkWrap';
+  elevation?: number;
+  shadowColor?: unknown;
+  surfaceTintColor?: unknown;
+  iconTheme?: unknown;
+  avatarBoxConstraints?: unknown;
+  chipAnimationStyle?: unknown;
+  mouseCursor?: unknown;
+}
+
+export interface ActionIconThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AdaptiveTextSelectionToolbarProps {
+  anchors: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AnimatedIconProps {
+  icon: unknown;
+  progress: unknown;
+  color?: unknown;
+  size?: number;
+  semanticLabel?: string;
+  textDirection?: unknown;
+}
+
 export interface MaterialAppProps {
+  navigatorKey?: unknown;
+  scaffoldMessengerKey?: unknown;
+  routes?: Record<string, () => FlutterElement>;
+  initialRoute?: string;
+  onGenerateRoute?: (settings: unknown) => unknown;
+  onGenerateInitialRoutes?: (initialRoute: string) => unknown[];
+  onUnknownRoute?: (settings: unknown) => unknown;
+  onNavigationNotification?: (notification: unknown) => boolean;
+  navigatorObservers?: unknown[];
+  builder?: (child: FlutterElement) => FlutterElement;
   title?: string;
-  debugShowCheckedModeBanner?: boolean;
+  onGenerateTitle?: () => string;
+  color?: unknown;
   theme?: Record<string, unknown>;
   darkTheme?: Record<string, unknown>;
+  highContrastTheme?: Record<string, unknown>;
+  highContrastDarkTheme?: Record<string, unknown>;
   themeMode?: 'system' | 'light' | 'dark';
-  children?: FlutterElement | FlutterElement[];
-}
-
-export interface ScaffoldProps {
-  backgroundColor?: string;
-  resizeToAvoidBottomInset?: boolean;
-  extendBody?: boolean;
-  extendBodyBehindAppBar?: boolean;
-  children?: FlutterElement | FlutterElement[];
-}
-
-export interface CenterProps {
-  widthFactor?: number;
-  heightFactor?: number;
-  children?: FlutterElement | FlutterElement[];
-}
-
-export interface ContainerProps {
-  width?: number;
-  height?: number;
-  color?: string;
-  padding?: number | [number, number] | [number, number, number, number];
-  margin?: number | [number, number] | [number, number, number, number];
-  alignment?: string;
+  themeAnimationDuration?: unknown;
+  themeAnimationCurve?: unknown;
+  locale?: unknown;
+  localizationsDelegates?: unknown[];
+  localeListResolutionCallback?: (locales: unknown[], supportedLocales: unknown[]) => unknown;
+  localeResolutionCallback?: (locale: unknown, supportedLocales: unknown[]) => unknown;
+  supportedLocales?: unknown[];
+  debugShowMaterialGrid?: boolean;
+  showPerformanceOverlay?: boolean;
+  checkerboardRasterCacheImages?: boolean;
+  checkerboardOffscreenLayers?: boolean;
+  showSemanticsDebugger?: boolean;
+  debugShowCheckedModeBanner?: boolean;
+  shortcuts?: Record<string, unknown>;
+  actions?: Record<string, unknown>;
+  restorationScopeId?: string;
+  scrollBehavior?: unknown;
+  useInheritedMediaQuery?: boolean;
+  themeAnimationStyle?: unknown;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface AppBarProps {
-  title?: FlutterElement;
-  backgroundColor?: string;
-  elevation?: number;
-  centerTitle?: boolean;
   leading?: FlutterElement;
   automaticallyImplyLeading?: boolean;
+  actions?: FlutterElement[];
+  automaticallyImplyActions?: boolean;
+  flexibleSpace?: FlutterElement;
+  bottom?: unknown;
+  elevation?: number;
+  scrolledUnderElevation?: number;
+  notificationPredicate?: (notification: unknown) => boolean;
+  shadowColor?: unknown;
+  surfaceTintColor?: unknown;
+  shape?: unknown;
+  backgroundColor?: unknown;
+  foregroundColor?: unknown;
+  iconTheme?: unknown;
+  actionsIconTheme?: unknown;
+  primary?: boolean;
+  centerTitle?: boolean;
+  excludeHeaderSemantics?: boolean;
+  titleSpacing?: number;
+  toolbarOpacity?: number;
+  bottomOpacity?: number;
+  toolbarHeight?: number;
+  leadingWidth?: number;
+  toolbarTextStyle?: TextStyleProps;
+  titleTextStyle?: TextStyleProps;
+  systemOverlayStyle?: unknown;
+  forceMaterialTransparency?: boolean;
+  useDefaultSemanticsOrder?: boolean;
+  clipBehavior?: unknown;
+  actionsPadding?: number | [number, number] | [number, number, number, number];
+  animateColor?: boolean;
   children?: FlutterElement | FlutterElement[];
 }
 
-export interface ColumnProps {
-  mainAxisAlignment?:
-    | 'start'
-    | 'end'
-    | 'center'
-    | 'spaceBetween'
-    | 'spaceAround'
-    | 'spaceEvenly';
-  crossAxisAlignment?: 'start' | 'end' | 'center' | 'stretch' | 'baseline';
+export interface SliverAppBarProps {
+  leading?: FlutterElement;
+  automaticallyImplyLeading?: boolean;
+  actions?: FlutterElement[];
+  automaticallyImplyActions?: boolean;
+  flexibleSpace?: FlutterElement;
+  bottom?: unknown;
+  elevation?: number;
+  scrolledUnderElevation?: number;
+  shadowColor?: unknown;
+  surfaceTintColor?: unknown;
+  forceElevated?: boolean;
+  backgroundColor?: unknown;
+  foregroundColor?: unknown;
+  iconTheme?: unknown;
+  actionsIconTheme?: unknown;
+  primary?: boolean;
+  centerTitle?: boolean;
+  excludeHeaderSemantics?: boolean;
+  titleSpacing?: number;
+  collapsedHeight?: number;
+  expandedHeight?: number;
+  floating?: boolean;
+  pinned?: boolean;
+  snap?: boolean;
+  stretch?: boolean;
+  stretchTriggerOffset?: number;
+  onStretchTrigger?: () => Promise<void>;
+  shape?: unknown;
+  toolbarHeight?: number;
+  leadingWidth?: number;
+  toolbarTextStyle?: TextStyleProps;
+  titleTextStyle?: TextStyleProps;
+  systemOverlayStyle?: unknown;
+  forceMaterialTransparency?: boolean;
+  useDefaultSemanticsOrder?: boolean;
+  clipBehavior?: unknown;
+  actionsPadding?: number | [number, number] | [number, number, number, number];
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AppBarThemeProps {
+  color?: unknown;
+  backgroundColor?: unknown;
+  foregroundColor?: unknown;
+  elevation?: number;
+  scrolledUnderElevation?: number;
+  shadowColor?: unknown;
+  surfaceTintColor?: unknown;
+  shape?: unknown;
+  iconTheme?: unknown;
+  actionsIconTheme?: unknown;
+  centerTitle?: boolean;
+  titleSpacing?: number;
+  leadingWidth?: number;
+  toolbarHeight?: number;
+  toolbarTextStyle?: TextStyleProps;
+  titleTextStyle?: TextStyleProps;
+  systemOverlayStyle?: unknown;
+  actionsPadding?: number | [number, number] | [number, number, number, number];
+  data?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AutocompleteProps {
+  optionsBuilder: (textEditingValue: unknown) => unknown;
+  displayStringForOption?: (option: unknown) => string;
+  fieldViewBuilder?: (textEditingController: unknown, focusNode: unknown, onFieldSubmitted: unknown) => FlutterElement;
+  focusNode?: unknown;
+  onSelected?: (option: unknown) => void;
+  optionsMaxHeight?: number;
+  optionsViewBuilder?: (onSelected: (option: unknown) => void, options: unknown[]) => FlutterElement;
+  optionsViewOpenDirection?: 'up' | 'down' | 'mostSpace';
+  textEditingController?: unknown;
+  initialValue?: unknown;
+}
+
+export interface BadgeProps {
+  backgroundColor?: unknown;
+  textColor?: unknown;
+  smallSize?: number;
+  largeSize?: number;
+  textStyle?: TextStyleProps;
+  padding?: number | [number, number] | [number, number, number, number];
+  alignment?: string;
+  offset?: unknown;
+  label?: FlutterElement;
+  isLabelVisible?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface BadgeThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface MaterialBannerProps {
+  content: FlutterElement;
+  contentTextStyle?: TextStyleProps;
+  actions: FlutterElement[];
+  elevation?: number;
+  leading?: FlutterElement;
+  backgroundColor?: unknown;
+  surfaceTintColor?: unknown;
+  shadowColor?: unknown;
+  dividerColor?: unknown;
+  padding?: number | [number, number] | [number, number, number, number];
+  margin?: number | [number, number] | [number, number, number, number];
+  leadingPadding?: number | [number, number] | [number, number, number, number];
+  forceActionsBelow?: boolean;
+  overflowAlignment?: 'start' | 'end' | 'center';
+  animation?: unknown;
+  onVisible?: unknown;
+  minActionBarHeight?: number;
+}
+
+export interface MaterialBannerThemeProps {
+  data?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface BottomAppBarProps {
+  color?: unknown;
+  elevation?: number;
+  shape?: unknown;
+  clipBehavior?: unknown;
+  notchMargin?: number;
+  padding?: number | [number, number] | [number, number, number, number];
+  surfaceTintColor?: unknown;
+  shadowColor?: unknown;
+  height?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface BottomAppBarThemeProps {
+  color?: unknown;
+  elevation?: number;
+  shape?: unknown;
+  height?: number;
+  surfaceTintColor?: unknown;
+  shadowColor?: unknown;
+  padding?: number | [number, number] | [number, number, number, number];
+  data?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface BottomNavigationBarProps {
+  items: unknown[];
+  onTap?: (value: number) => void;
+  currentIndex?: number;
+  elevation?: number;
+  type?: 'fixed' | 'shifting';
+  fixedColor?: unknown;
+  backgroundColor?: unknown;
+  iconSize?: number;
+  selectedItemColor?: unknown;
+  unselectedItemColor?: unknown;
+  selectedIconTheme?: unknown;
+  unselectedIconTheme?: unknown;
+  selectedFontSize?: number;
+  unselectedFontSize?: number;
+  selectedLabelStyle?: TextStyleProps;
+  unselectedLabelStyle?: TextStyleProps;
+  showSelectedLabels?: boolean;
+  showUnselectedLabels?: boolean;
+  mouseCursor?: unknown;
+  enableFeedback?: boolean;
+  landscapeLayout?: 'spread' | 'centered' | 'linear';
+  useLegacyColorScheme?: boolean;
+}
+
+export interface BottomNavigationBarThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface BottomSheetProps {
+  animationController?: unknown;
+  enableDrag?: boolean;
+  showDragHandle?: boolean;
+  dragHandleColor?: unknown;
+  dragHandleSize?: unknown;
+  onDragStart?: (details: unknown) => void;
+  onDragEnd?: (details: unknown, isClosing: boolean) => void;
+  backgroundColor?: unknown;
+  shadowColor?: unknown;
+  elevation?: number;
+  shape?: unknown;
+  clipBehavior?: unknown;
+  constraints?: unknown;
+  onClosing: unknown;
+  builder: () => FlutterElement;
+}
+
+export interface RawMaterialButtonProps {
+  onClick: unknown;
+  onLongPress?: unknown;
+  onHighlightChanged?: (value: boolean) => void;
+  mouseCursor?: unknown;
+  textStyle?: TextStyleProps;
+  fillColor?: unknown;
+  focusColor?: unknown;
+  hoverColor?: unknown;
+  highlightColor?: unknown;
+  splashColor?: unknown;
+  elevation?: number;
+  focusElevation?: number;
+  hoverElevation?: number;
+  highlightElevation?: number;
+  disabledElevation?: number;
+  padding?: number | [number, number] | [number, number, number, number];
+  visualDensity?: unknown;
+  constraints?: unknown;
+  shape?: unknown;
+  animationDuration?: unknown;
+  clipBehavior?: unknown;
+  focusNode?: unknown;
+  autofocus?: boolean;
+  materialTapTargetSize?: 'padded' | 'shrinkWrap';
+  enableFeedback?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ButtonBarProps {
+  alignment?: 'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly';
   mainAxisSize?: 'min' | 'max';
+  buttonTextTheme?: 'normal' | 'accent' | 'primary';
+  buttonMinWidth?: number;
+  buttonHeight?: number;
+  buttonPadding?: number | [number, number] | [number, number, number, number];
+  buttonAlignedDropdown?: boolean;
+  layoutBehavior?: 'constrained' | 'padded';
+  overflowDirection?: 'up' | 'down';
+  overflowButtonSpacing?: number;
   children?: FlutterElement | FlutterElement[];
 }
 
-export interface RowProps {
-  mainAxisAlignment?:
-    | 'start'
-    | 'end'
-    | 'center'
-    | 'spaceBetween'
-    | 'spaceAround'
-    | 'spaceEvenly';
-  crossAxisAlignment?: 'start' | 'end' | 'center' | 'stretch' | 'baseline';
-  mainAxisSize?: 'min' | 'max';
+export interface ButtonBarThemeProps {
+  data: unknown;
   children?: FlutterElement | FlutterElement[];
 }
 
-export interface ListViewProps {
+export interface ButtonThemeProps {
+  textTheme?: 'normal' | 'accent' | 'primary';
+  layoutBehavior?: 'constrained' | 'padded';
+  minWidth?: number;
+  height?: number;
+  padding?: number | [number, number] | [number, number, number, number];
+  shape?: unknown;
+  alignedDropdown?: boolean;
+  buttonColor?: unknown;
+  disabledColor?: unknown;
+  focusColor?: unknown;
+  hoverColor?: unknown;
+  highlightColor?: unknown;
+  splashColor?: unknown;
+  colorScheme?: unknown;
+  materialTapTargetSize?: 'padded' | 'shrinkWrap';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CalendarDatePickerProps {
+  initialDate: unknown;
+  firstDate: unknown;
+  lastDate: unknown;
+  currentDate?: unknown;
+  onDateChanged: (value: unknown) => void;
+  onDisplayedMonthChanged?: (value: unknown) => void;
+  initialCalendarMode?: 'day' | 'year';
+  selectableDayPredicate?: (day: unknown) => boolean;
+  calendarDelegate?: unknown;
+}
+
+export interface YearPickerProps {
+  currentDate?: unknown;
+  firstDate: unknown;
+  lastDate: unknown;
+  initialDate?: unknown;
+  selectedDate: unknown;
+  onChange: (value: unknown) => void;
+  dragStartBehavior?: string;
+  calendarDelegate?: unknown;
+}
+
+export interface CardProps {
+  color?: unknown;
+  shadowColor?: unknown;
+  surfaceTintColor?: unknown;
+  elevation?: number;
+  shape?: unknown;
+  borderOnForeground?: boolean;
+  margin?: number | [number, number] | [number, number, number, number];
+  clipBehavior?: unknown;
+  semanticContainer?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CardThemeProps {
+  clipBehavior?: unknown;
+  color?: unknown;
+  surfaceTintColor?: unknown;
+  shadowColor?: unknown;
+  elevation?: number;
+  margin?: number | [number, number] | [number, number, number, number];
+  shape?: unknown;
+  data?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CarouselViewProps {
+  padding?: number | [number, number] | [number, number, number, number];
+  backgroundColor?: unknown;
+  elevation?: number;
+  shape?: unknown;
+  itemClipBehavior?: unknown;
+  overlayColor?: unknown;
+  itemSnapping?: boolean;
+  shrinkExtent?: number;
+  controller?: unknown;
   scrollDirection?: 'horizontal' | 'vertical';
   reverse?: boolean;
-  shrinkWrap?: boolean;
+  onTap?: (value: number) => void;
+  enableSplash?: boolean;
+  itemExtent: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CarouselViewThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CheckboxProps {
+  value: boolean;
+  tristate?: boolean;
+  onChange: (value: boolean) => void;
+  mouseCursor?: unknown;
+  activeColor?: unknown;
+  fillColor?: unknown;
+  checkColor?: unknown;
+  focusColor?: unknown;
+  hoverColor?: unknown;
+  overlayColor?: unknown;
+  splashRadius?: number;
+  materialTapTargetSize?: 'padded' | 'shrinkWrap';
+  visualDensity?: unknown;
+  focusNode?: unknown;
+  autofocus?: boolean;
+  shape?: unknown;
+  side?: unknown;
+  isError?: boolean;
+  semanticLabel?: string;
+}
+
+export interface CheckboxListTileProps {
+  value: boolean;
+  onChange: (value: boolean) => void;
+  mouseCursor?: unknown;
+  activeColor?: unknown;
+  fillColor?: unknown;
+  checkColor?: unknown;
+  hoverColor?: unknown;
+  overlayColor?: unknown;
+  splashRadius?: number;
+  materialTapTargetSize?: 'padded' | 'shrinkWrap';
+  visualDensity?: unknown;
+  focusNode?: unknown;
+  autofocus?: boolean;
+  shape?: unknown;
+  side?: unknown;
+  isError?: boolean;
+  enabled?: boolean;
+  tileColor?: unknown;
+  subtitle?: FlutterElement;
+  isThreeLine?: boolean;
+  dense?: boolean;
+  secondary?: FlutterElement;
+  selected?: boolean;
+  controlAffinity?: 'leading' | 'trailing' | 'platform';
+  contentPadding?: number | [number, number] | [number, number, number, number];
+  tristate?: boolean;
+  checkboxShape?: unknown;
+  selectedTileColor?: unknown;
+  onFocusChange?: (value: boolean) => void;
+  enableFeedback?: boolean;
+  horizontalTitleGap?: number;
+  minVerticalPadding?: number;
+  minLeadingWidth?: number;
+  minTileHeight?: number;
+  checkboxSemanticLabel?: string;
+  checkboxScaleFactor?: number;
+  titleAlignment?: 'threeLine' | 'titleHeight' | 'top' | 'center' | 'bottom';
+  internalAddSemanticForOnTap?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CheckboxThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ChipProps {
+  avatar?: FlutterElement;
+  label: FlutterElement;
+  labelStyle?: TextStyleProps;
+  labelPadding?: number | [number, number] | [number, number, number, number];
+  deleteIcon?: FlutterElement;
+  onDeleted?: unknown;
+  deleteIconColor?: unknown;
+  deleteButtonTooltipMessage?: string;
+  side?: unknown;
+  shape?: unknown;
+  clipBehavior?: unknown;
+  focusNode?: unknown;
+  autofocus?: boolean;
+  color?: unknown;
+  backgroundColor?: unknown;
+  padding?: number | [number, number] | [number, number, number, number];
+  visualDensity?: unknown;
+  materialTapTargetSize?: 'padded' | 'shrinkWrap';
+  elevation?: number;
+  shadowColor?: unknown;
+  surfaceTintColor?: unknown;
+  iconTheme?: unknown;
+  avatarBoxConstraints?: unknown;
+  deleteIconBoxConstraints?: unknown;
+  chipAnimationStyle?: unknown;
+  mouseCursor?: unknown;
+}
+
+export interface RawChipProps {
+  defaultProperties?: unknown;
+  avatar?: FlutterElement;
+  label: FlutterElement;
+  labelStyle?: TextStyleProps;
+  padding?: number | [number, number] | [number, number, number, number];
+  visualDensity?: unknown;
+  labelPadding?: number | [number, number] | [number, number, number, number];
+  deleteIcon?: FlutterElement;
+  onDeleted?: unknown;
+  deleteIconColor?: unknown;
+  deleteButtonTooltipMessage?: string;
+  onClick?: unknown;
+  onSelected?: (value: boolean) => void;
+  pressElevation?: number;
+  tapEnabled?: boolean;
+  selected?: boolean;
+  isEnabled?: boolean;
+  disabledColor?: unknown;
+  selectedColor?: unknown;
+  tooltip?: string;
+  side?: unknown;
+  shape?: unknown;
+  clipBehavior?: unknown;
+  focusNode?: unknown;
+  autofocus?: boolean;
+  color?: unknown;
+  backgroundColor?: unknown;
+  materialTapTargetSize?: 'padded' | 'shrinkWrap';
+  elevation?: number;
+  shadowColor?: unknown;
+  surfaceTintColor?: unknown;
+  iconTheme?: unknown;
+  selectedShadowColor?: unknown;
+  showCheckmark?: boolean;
+  checkmarkColor?: unknown;
+  avatarBorder?: unknown;
+  avatarBoxConstraints?: unknown;
+  deleteIconBoxConstraints?: unknown;
+  chipAnimationStyle?: unknown;
+  mouseCursor?: unknown;
+}
+
+export interface ChipThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ChoiceChipProps {
+  avatar?: FlutterElement;
+  label: FlutterElement;
+  labelStyle?: TextStyleProps;
+  labelPadding?: number | [number, number] | [number, number, number, number];
+  onSelected?: (value: boolean) => void;
+  pressElevation?: number;
+  selected: boolean;
+  selectedColor?: unknown;
+  disabledColor?: unknown;
+  tooltip?: string;
+  side?: unknown;
+  shape?: unknown;
+  clipBehavior?: unknown;
+  focusNode?: unknown;
+  autofocus?: boolean;
+  color?: unknown;
+  backgroundColor?: unknown;
+  padding?: number | [number, number] | [number, number, number, number];
+  visualDensity?: unknown;
+  materialTapTargetSize?: 'padded' | 'shrinkWrap';
+  elevation?: number;
+  shadowColor?: unknown;
+  surfaceTintColor?: unknown;
+  iconTheme?: unknown;
+  selectedShadowColor?: unknown;
+  showCheckmark?: boolean;
+  checkmarkColor?: unknown;
+  avatarBorder?: unknown;
+  avatarBoxConstraints?: unknown;
+  chipAnimationStyle?: unknown;
+  mouseCursor?: unknown;
+}
+
+export interface CircleAvatarProps {
+  backgroundColor?: unknown;
+  backgroundImage?: unknown;
+  foregroundImage?: unknown;
+  onBackgroundImageError?: (exception: unknown, stackTrace: unknown) => void;
+  onForegroundImageError?: (exception: unknown, stackTrace: unknown) => void;
+  foregroundColor?: unknown;
+  radius?: number;
+  minRadius?: number;
+  maxRadius?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DataTableProps {
+  columns: unknown[];
+  sortColumnIndex?: number;
+  sortAscending?: boolean;
+  onSelectAll?: (value: boolean) => void;
+  decoration?: unknown;
+  dataRowColor?: unknown;
+  dataRowHeight?: number;
+  dataRowMinHeight?: number;
+  dataRowMaxHeight?: number;
+  dataTextStyle?: TextStyleProps;
+  headingRowColor?: unknown;
+  headingRowHeight?: number;
+  headingTextStyle?: TextStyleProps;
+  horizontalMargin?: number;
+  columnSpacing?: number;
+  showCheckboxColumn?: boolean;
+  showBottomBorder?: boolean;
+  dividerThickness?: number;
+  rows: unknown[];
+  checkboxHorizontalMargin?: number;
+  border?: unknown;
+  clipBehavior?: unknown;
+}
+
+export interface TableRowInkWellProps {
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
+  onHighlightChanged?: (value: boolean) => void;
+  onHover?: (value: boolean) => void;
+  onSecondaryTap?: () => void;
+  onSecondaryTapDown?: (details: unknown) => void;
+  overlayColor?: unknown;
+  mouseCursor?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DataTableThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DatePickerDialogProps {
+  initialDate?: unknown;
+  firstDate: unknown;
+  lastDate: unknown;
+  currentDate?: unknown;
+  initialEntryMode?: 'calendar' | 'input' | 'calendarOnly' | 'inputOnly';
+  selectableDayPredicate?: (day: unknown) => boolean;
+  cancelText?: string;
+  confirmText?: string;
+  helpText?: string;
+  initialCalendarMode?: 'day' | 'year';
+  errorFormatText?: string;
+  errorInvalidText?: string;
+  fieldHintText?: string;
+  fieldLabelText?: string;
+  keyboardType?: 'text' | 'number' | 'phone' | 'email' | 'url' | 'multiline';
+  restorationId?: string;
+  onDatePickerModeChange?: (value: 'calendar' | 'input' | 'calendarOnly' | 'inputOnly') => void;
+  switchToInputEntryModeIcon?: unknown;
+  switchToCalendarEntryModeIcon?: unknown;
+  insetPadding?: number | [number, number] | [number, number, number, number];
+  calendarDelegate?: unknown;
+}
+
+export interface DateRangePickerDialogProps {
+  initialDateRange?: unknown;
+  firstDate: unknown;
+  lastDate: unknown;
+  currentDate?: unknown;
+  initialEntryMode?: 'calendar' | 'input' | 'calendarOnly' | 'inputOnly';
+  helpText?: string;
+  cancelText?: string;
+  confirmText?: string;
+  saveText?: string;
+  errorInvalidRangeText?: string;
+  errorFormatText?: string;
+  errorInvalidText?: string;
+  fieldStartHintText?: string;
+  fieldEndHintText?: string;
+  fieldStartLabelText?: string;
+  fieldEndLabelText?: string;
+  keyboardType?: 'text' | 'number' | 'phone' | 'email' | 'url' | 'multiline';
+  restorationId?: string;
+  switchToInputEntryModeIcon?: unknown;
+  switchToCalendarEntryModeIcon?: unknown;
+  selectableDayPredicate?: (day: unknown, selectedStartDay: unknown, selectedEndDay: unknown) => boolean;
+  calendarDelegate?: unknown;
+}
+
+export interface DatePickerThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DesktopTextSelectionToolbarProps {
+  anchor: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DesktopTextSelectionToolbarButtonProps {
+  onClick: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DialogProps {
+  backgroundColor?: unknown;
+  elevation?: number;
+  shadowColor?: unknown;
+  surfaceTintColor?: unknown;
+  insetAnimationDuration?: unknown;
+  insetAnimationCurve?: unknown;
+  insetPadding?: number | [number, number] | [number, number, number, number];
+  clipBehavior?: unknown;
+  shape?: unknown;
+  alignment?: string;
+  semanticsRole?: unknown;
+  constraints?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AlertDialogProps {
+  icon?: FlutterElement;
+  iconPadding?: number | [number, number] | [number, number, number, number];
+  iconColor?: unknown;
+  titlePadding?: number | [number, number] | [number, number, number, number];
+  titleTextStyle?: TextStyleProps;
+  content?: FlutterElement;
+  contentPadding?: number | [number, number] | [number, number, number, number];
+  contentTextStyle?: TextStyleProps;
+  actions?: FlutterElement[];
+  actionsPadding?: number | [number, number] | [number, number, number, number];
+  actionsAlignment?: 'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly';
+  actionsOverflowAlignment?: 'start' | 'end' | 'center';
+  actionsOverflowDirection?: 'up' | 'down';
+  actionsOverflowButtonSpacing?: number;
+  buttonPadding?: number | [number, number] | [number, number, number, number];
+  backgroundColor?: unknown;
+  elevation?: number;
+  shadowColor?: unknown;
+  surfaceTintColor?: unknown;
+  semanticLabel?: string;
+  insetPadding?: number | [number, number] | [number, number, number, number];
+  clipBehavior?: unknown;
+  shape?: unknown;
+  alignment?: string;
+  constraints?: unknown;
+  scrollable?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SimpleDialogOptionProps {
+  onClick?: unknown;
   padding?: number | [number, number] | [number, number, number, number];
   children?: FlutterElement | FlutterElement[];
 }
 
-export interface GridViewProps {
-  crossAxisCount?: number;
-  scrollDirection?: 'horizontal' | 'vertical';
-  crossAxisSpacing?: number;
-  mainAxisSpacing?: number;
-  children?: FlutterElement | FlutterElement[];
-}
-
-export interface StackProps {
+export interface SimpleDialogProps {
+  title?: FlutterElement;
+  titlePadding?: number | [number, number] | [number, number, number, number];
+  titleTextStyle?: TextStyleProps;
+  contentPadding?: number | [number, number] | [number, number, number, number];
+  backgroundColor?: unknown;
+  elevation?: number;
+  shadowColor?: unknown;
+  surfaceTintColor?: unknown;
+  semanticLabel?: string;
+  insetPadding?: number | [number, number] | [number, number, number, number];
+  clipBehavior?: unknown;
+  shape?: unknown;
   alignment?: string;
-  fit?: 'loose' | 'expand' | 'passthrough';
-  clipBehavior?: 'none' | 'hardEdge' | 'antiAlias' | 'antiAliasWithSaveLayer';
+  constraints?: unknown;
   children?: FlutterElement | FlutterElement[];
 }
 
-export interface TextProps {
+export interface DialogThemeProps {
+  backgroundColor?: unknown;
+  elevation?: number;
+  shadowColor?: unknown;
+  surfaceTintColor?: unknown;
+  shape?: unknown;
+  alignment?: string;
+  iconColor?: unknown;
+  titleTextStyle?: TextStyleProps;
+  contentTextStyle?: TextStyleProps;
+  actionsPadding?: number | [number, number] | [number, number, number, number];
+  barrierColor?: unknown;
+  insetPadding?: number | [number, number] | [number, number, number, number];
+  clipBehavior?: unknown;
+  data?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DividerProps {
+  height?: number;
+  thickness?: number;
+  indent?: number;
+  endIndent?: number;
+  color?: unknown;
+  radius?: unknown;
+}
+
+export interface VerticalDividerProps {
+  width?: number;
+  thickness?: number;
+  indent?: number;
+  endIndent?: number;
+  color?: unknown;
+  radius?: unknown;
+}
+
+export interface DividerThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DrawerProps {
+  backgroundColor?: unknown;
+  elevation?: number;
+  shadowColor?: unknown;
+  surfaceTintColor?: unknown;
+  shape?: unknown;
+  width?: number;
+  semanticLabel?: string;
+  clipBehavior?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DrawerControllerProps {
+  alignment: 'start' | 'end';
+  isDrawerOpen?: boolean;
+  drawerCallback?: (isOpened: boolean) => void;
+  dragStartBehavior?: string;
+  scrimColor?: unknown;
+  edgeDragWidth?: number;
+  enableOpenDragGesture?: boolean;
+  drawerBarrierDismissible?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DrawerHeaderProps {
+  decoration?: unknown;
+  margin?: number | [number, number] | [number, number, number, number];
+  padding?: number | [number, number] | [number, number, number, number];
+  duration?: unknown;
+  curve?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DrawerThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DropdownMenuItemProps {
+  onTap?: unknown;
+  value?: unknown;
+  enabled?: boolean;
+  alignment?: string;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DropdownButtonHideUnderlineProps {
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DropdownButtonProps {
+  items: unknown[];
+  selectedItemBuilder?: () => FlutterElement[];
+  value?: unknown;
+  hint?: FlutterElement;
+  disabledHint?: FlutterElement;
+  onChange: (value: unknown) => void;
+  onTap?: unknown;
+  elevation?: number;
   style?: TextStyleProps;
-  textAlign?: 'left' | 'right' | 'center' | 'justify' | 'start' | 'end';
+  underline?: FlutterElement;
+  icon?: FlutterElement;
+  iconDisabledColor?: unknown;
+  iconEnabledColor?: unknown;
+  iconSize?: number;
+  isDense?: boolean;
+  isExpanded?: boolean;
+  itemHeight?: number;
+  menuWidth?: number;
+  focusColor?: unknown;
+  focusNode?: unknown;
+  autofocus?: boolean;
+  dropdownColor?: unknown;
+  menuMaxHeight?: number;
+  enableFeedback?: boolean;
+  alignment?: string;
+  borderRadius?: unknown;
+  padding?: number | [number, number] | [number, number, number, number];
+  barrierDismissible?: boolean;
+  mouseCursor?: unknown;
+  dropdownMenuItemMouseCursor?: unknown;
+}
+
+export interface DropdownButtonFormFieldProps {
+  items: unknown[];
+  selectedItemBuilder?: () => FlutterElement[];
+  value?: unknown;
+  initialValue?: unknown;
+  hint?: FlutterElement;
+  disabledHint?: FlutterElement;
+  onChange: (value: unknown) => void;
+  onTap?: unknown;
+  elevation?: number;
+  style?: TextStyleProps;
+  icon?: FlutterElement;
+  iconDisabledColor?: unknown;
+  iconEnabledColor?: unknown;
+  iconSize?: number;
+  isDense?: boolean;
+  isExpanded?: boolean;
+  itemHeight?: number;
+  focusColor?: unknown;
+  focusNode?: unknown;
+  autofocus?: boolean;
+  dropdownColor?: unknown;
+  decoration?: unknown;
+  onSaved?: (newValue: unknown) => void;
+  validator?: (value: unknown) => string;
+  errorBuilder?: (errorText: string) => FlutterElement;
+  forceErrorText?: string;
+  autovalidateMode?: 'disabled' | 'always' | 'onUserInteraction' | 'onUnfocus' | 'onUserInteractionIfError';
+  menuMaxHeight?: number;
+  enableFeedback?: boolean;
+  alignment?: string;
+  borderRadius?: unknown;
+  padding?: number | [number, number] | [number, number, number, number];
+  barrierDismissible?: boolean;
+  mouseCursor?: unknown;
+  dropdownMenuItemMouseCursor?: unknown;
+}
+
+export interface DropdownMenuProps {
+  enabled?: boolean;
+  width?: number;
+  menuHeight?: number;
+  leadingIcon?: FlutterElement;
+  trailingIcon?: FlutterElement;
+  showTrailingIcon?: boolean;
+  trailingIconFocusNode?: unknown;
+  label?: FlutterElement;
+  hintText?: string;
+  helperText?: string;
+  errorText?: string;
+  selectedTrailingIcon?: FlutterElement;
+  enableFilter?: boolean;
+  enableSearch?: boolean;
+  keyboardType?: 'text' | 'number' | 'phone' | 'email' | 'url' | 'multiline';
+  textStyle?: TextStyleProps;
+  textAlign?: unknown;
+  inputDecorationTheme?: unknown;
+  decorationBuilder?: (controller: unknown) => unknown;
+  menuStyle?: unknown;
+  controller?: unknown;
+  initialSelection?: unknown;
+  onSelected?: (value: unknown) => void;
+  focusNode?: unknown;
+  requestFocusOnTap?: boolean;
+  selectOnly?: boolean;
+  expandedInsets?: number | [number, number] | [number, number, number, number];
+  filterCallback?: (entries: unknown[], filter: string) => unknown[];
+  searchCallback?: (entries: unknown[], query: string) => number;
+  alignmentOffset?: unknown;
+  dropdownMenuEntries: unknown[];
+  inputFormatters?: unknown[];
+  closeBehavior?: 'all' | 'self' | 'none';
   maxLines?: number;
-  overflow?: 'clip' | 'fade' | 'ellipsis' | 'visible';
-  softWrap?: boolean;
-  /** style.color */
-  'style.color'?: string;
-  /** style.fontSize */
-  'style.fontSize'?: number;
-  /** style.fontWeight */
-  'style.fontWeight'?:
-    | 'normal'
-    | 'bold'
-    | 'w100'
-    | 'w200'
-    | 'w300'
-    | 'w400'
-    | 'w500'
-    | 'w600'
-    | 'w700'
-    | 'w800'
-    | 'w900';
-  children?: string | number;
+  textInputAction?: 'none' | 'unspecified' | 'done' | 'go' | 'search' | 'send' | 'next' | 'previous' | 'continueAction' | 'join' | 'route' | 'emergencyCall' | 'newline';
+  cursorHeight?: number;
+  restorationId?: string;
+  menuController?: unknown;
+}
+
+export interface DropdownMenuFormFieldProps {
+  enabled?: boolean;
+  width?: number;
+  menuHeight?: number;
+  leadingIcon?: FlutterElement;
+  trailingIcon?: FlutterElement;
+  label?: FlutterElement;
+  hintText?: string;
+  helperText?: string;
+  selectedTrailingIcon?: FlutterElement;
+  enableFilter?: boolean;
+  enableSearch?: boolean;
+  keyboardType?: 'text' | 'number' | 'phone' | 'email' | 'url' | 'multiline';
+  textStyle?: TextStyleProps;
+  textAlign?: unknown;
+  inputDecorationTheme?: unknown;
+  decorationBuilder?: (controller: unknown) => unknown;
+  menuStyle?: unknown;
+  controller?: unknown;
+  initialSelection?: unknown;
+  onSelected?: (value: unknown) => void;
+  focusNode?: unknown;
+  requestFocusOnTap?: boolean;
+  expandedInsets?: number | [number, number] | [number, number, number, number];
+  alignmentOffset?: unknown;
+  filterCallback?: (entries: unknown[], filter: string) => unknown[];
+  searchCallback?: (entries: unknown[], query: string) => number;
+  dropdownMenuEntries: unknown[];
+  inputFormatters?: unknown[];
+  closeBehavior?: 'all' | 'self' | 'none';
+  maxLines?: number;
+  textInputAction?: 'none' | 'unspecified' | 'done' | 'go' | 'search' | 'send' | 'next' | 'previous' | 'continueAction' | 'join' | 'route' | 'emergencyCall' | 'newline';
+  restorationId?: string;
+  onSaved?: (newValue: unknown) => void;
+  autovalidateMode?: 'disabled' | 'always' | 'onUserInteraction' | 'onUnfocus' | 'onUserInteractionIfError';
+  validator?: (value: unknown) => string;
+  forceErrorText?: string;
+  errorBuilder?: (errorText: string) => FlutterElement;
+}
+
+export interface DropdownMenuThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
 }
 
 export interface ElevatedButtonProps {
-  onClick?: () => void;
-  onLongPress?: () => void;
+  onClick: unknown;
+  onLongPress?: unknown;
+  onHover?: (value: boolean) => void;
+  onFocusChange?: (value: boolean) => void;
+  style?: unknown;
+  focusNode?: unknown;
   autofocus?: boolean;
+  clipBehavior?: unknown;
+  statesController?: unknown;
   children?: FlutterElement | FlutterElement[];
 }
 
-export interface TextButtonProps {
-  onClick?: () => void;
-  onLongPress?: () => void;
+export interface ElevatedButtonThemeProps {
+  data: unknown;
   children?: FlutterElement | FlutterElement[];
 }
 
-export interface OutlinedButtonProps {
-  onClick?: () => void;
-  onLongPress?: () => void;
+export interface ExpandIconProps {
+  isExpanded?: boolean;
+  size?: number;
+  onClick: (value: boolean) => void;
+  padding?: number | [number, number] | [number, number, number, number];
+  color?: unknown;
+  disabledColor?: unknown;
+  expandedColor?: unknown;
+  splashColor?: unknown;
+  highlightColor?: unknown;
+}
+
+export interface ExpansionPanelListProps {
+  children?: unknown[];
+  expansionCallback?: (panelIndex: number, isExpanded: boolean) => void;
+  animationDuration?: unknown;
+  expandedHeaderPadding?: number | [number, number] | [number, number, number, number];
+  dividerColor?: unknown;
+  elevation?: number;
+  expandIconColor?: unknown;
+  materialGapSize?: number;
+}
+
+export interface ExpansionTileProps {
+  leading?: FlutterElement;
+  title: FlutterElement;
+  subtitle?: FlutterElement;
+  onExpansionChanged?: (value: boolean) => void;
+  trailing?: FlutterElement;
+  showTrailingIcon?: boolean;
+  initiallyExpanded?: boolean;
+  maintainState?: boolean;
+  tilePadding?: number | [number, number] | [number, number, number, number];
+  expandedCrossAxisAlignment?: 'start' | 'end' | 'center' | 'stretch' | 'baseline';
+  expandedAlignment?: string;
+  childrenPadding?: number | [number, number] | [number, number, number, number];
+  backgroundColor?: unknown;
+  collapsedBackgroundColor?: unknown;
+  textColor?: unknown;
+  collapsedTextColor?: unknown;
+  iconColor?: unknown;
+  collapsedIconColor?: unknown;
+  shape?: unknown;
+  collapsedShape?: unknown;
+  clipBehavior?: unknown;
+  controlAffinity?: 'leading' | 'trailing' | 'platform';
+  controller?: unknown;
+  dense?: boolean;
+  splashColor?: unknown;
+  visualDensity?: unknown;
+  minTileHeight?: number;
+  enableFeedback?: boolean;
+  enabled?: boolean;
+  expansionAnimationStyle?: unknown;
+  internalAddSemanticForOnTap?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ExpansionTileThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface FilledButtonProps {
+  onClick: unknown;
+  onLongPress?: unknown;
+  onHover?: (value: boolean) => void;
+  onFocusChange?: (value: boolean) => void;
+  style?: unknown;
+  focusNode?: unknown;
+  autofocus?: boolean;
+  clipBehavior?: unknown;
+  statesController?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface FilledButtonThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface FilterChipProps {
+  avatar?: FlutterElement;
+  label: FlutterElement;
+  labelStyle?: TextStyleProps;
+  labelPadding?: number | [number, number] | [number, number, number, number];
+  selected?: boolean;
+  onSelected: (value: boolean) => void;
+  deleteIcon?: FlutterElement;
+  onDeleted?: unknown;
+  deleteIconColor?: unknown;
+  deleteButtonTooltipMessage?: string;
+  pressElevation?: number;
+  disabledColor?: unknown;
+  selectedColor?: unknown;
+  tooltip?: string;
+  side?: unknown;
+  shape?: unknown;
+  clipBehavior?: unknown;
+  focusNode?: unknown;
+  autofocus?: boolean;
+  color?: unknown;
+  backgroundColor?: unknown;
+  padding?: number | [number, number] | [number, number, number, number];
+  visualDensity?: unknown;
+  materialTapTargetSize?: 'padded' | 'shrinkWrap';
+  elevation?: number;
+  shadowColor?: unknown;
+  surfaceTintColor?: unknown;
+  iconTheme?: unknown;
+  selectedShadowColor?: unknown;
+  showCheckmark?: boolean;
+  checkmarkColor?: unknown;
+  avatarBorder?: unknown;
+  avatarBoxConstraints?: unknown;
+  deleteIconBoxConstraints?: unknown;
+  chipAnimationStyle?: unknown;
+  mouseCursor?: unknown;
+}
+
+export interface FlexibleSpaceBarProps {
+  background?: FlutterElement;
+  centerTitle?: boolean;
+  titlePadding?: number | [number, number] | [number, number, number, number];
+  collapseMode?: 'parallax' | 'pin' | 'none';
+  stretchModes?: 'zoomBackground' | 'blurBackground' | 'fadeTitle'[];
+  expandedTitleScale?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface FlexibleSpaceBarSettingsProps {
+  toolbarOpacity: number;
+  minExtent: number;
+  maxExtent: number;
+  currentExtent: number;
+  isScrolledUnder?: boolean;
+  hasLeading?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface FloatingActionButtonProps {
+  tooltip?: string;
+  foregroundColor?: unknown;
+  backgroundColor?: unknown;
+  focusColor?: unknown;
+  hoverColor?: unknown;
+  splashColor?: unknown;
+  heroTag?: unknown;
+  elevation?: number;
+  focusElevation?: number;
+  hoverElevation?: number;
+  highlightElevation?: number;
+  disabledElevation?: number;
+  onClick: unknown;
+  mouseCursor?: unknown;
+  mini?: boolean;
+  shape?: unknown;
+  clipBehavior?: unknown;
+  focusNode?: unknown;
+  autofocus?: boolean;
+  materialTapTargetSize?: 'padded' | 'shrinkWrap';
+  isExtended?: boolean;
+  enableFeedback?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface FloatingActionButtonThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface GridTileProps {
+  header?: FlutterElement;
+  footer?: FlutterElement;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface GridTileBarProps {
+  backgroundColor?: unknown;
+  leading?: FlutterElement;
+  subtitle?: FlutterElement;
+  trailing?: FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface IconButtonProps {
-  icon: FlutterElement;
-  onClick?: () => void;
-  tooltip?: string;
   iconSize?: number;
-  color?: string;
+  visualDensity?: unknown;
+  padding?: number | [number, number] | [number, number, number, number];
+  alignment?: string;
+  splashRadius?: number;
+  color?: unknown;
+  focusColor?: unknown;
+  hoverColor?: unknown;
+  highlightColor?: unknown;
+  splashColor?: unknown;
+  disabledColor?: unknown;
+  onClick: unknown;
+  onHover?: (value: boolean) => void;
+  onLongPress?: unknown;
+  mouseCursor?: unknown;
+  focusNode?: unknown;
+  autofocus?: boolean;
+  tooltip?: string;
+  enableFeedback?: boolean;
+  constraints?: unknown;
+  style?: unknown;
+  isSelected?: boolean;
+  selectedIcon?: FlutterElement;
+  statesController?: unknown;
+  icon: FlutterElement;
 }
 
-export interface CardProps {
+export interface IconButtonThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface InkProps {
+  padding?: number | [number, number] | [number, number, number, number];
+  color?: unknown;
+  decoration?: unknown;
+  width?: number;
+  height?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface InkResponseProps {
+  onTap?: () => void;
+  onTapDown?: (details: unknown) => void;
+  onTapUp?: (details: unknown) => void;
+  onTapCancel?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
+  onLongPressUp?: () => void;
+  onSecondaryTap?: () => void;
+  onSecondaryTapUp?: (details: unknown) => void;
+  onSecondaryTapDown?: (details: unknown) => void;
+  onSecondaryTapCancel?: () => void;
+  onHighlightChanged?: (value: boolean) => void;
+  onHover?: (value: boolean) => void;
+  mouseCursor?: unknown;
+  containedInkWell?: boolean;
+  highlightShape?: 'rectangle' | 'circle';
+  radius?: number;
+  borderRadius?: unknown;
+  customBorder?: unknown;
+  focusColor?: unknown;
+  hoverColor?: unknown;
+  highlightColor?: unknown;
+  overlayColor?: unknown;
+  splashColor?: unknown;
+  splashFactory?: unknown;
+  enableFeedback?: boolean;
+  excludeFromSemantics?: boolean;
+  focusNode?: unknown;
+  canRequestFocus?: boolean;
+  onFocusChange?: (value: boolean) => void;
+  autofocus?: boolean;
+  statesController?: unknown;
+  hoverDuration?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface InkWellProps {
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
+  onLongPressUp?: () => void;
+  onTapDown?: (details: unknown) => void;
+  onTapUp?: (details: unknown) => void;
+  onTapCancel?: () => void;
+  onSecondaryTap?: () => void;
+  onSecondaryTapUp?: (details: unknown) => void;
+  onSecondaryTapDown?: (details: unknown) => void;
+  onSecondaryTapCancel?: () => void;
+  onHighlightChanged?: (value: boolean) => void;
+  onHover?: (value: boolean) => void;
+  mouseCursor?: unknown;
+  focusColor?: unknown;
+  hoverColor?: unknown;
+  highlightColor?: unknown;
+  overlayColor?: unknown;
+  splashColor?: unknown;
+  splashFactory?: unknown;
+  radius?: number;
+  borderRadius?: unknown;
+  customBorder?: unknown;
+  enableFeedback?: boolean;
+  excludeFromSemantics?: boolean;
+  focusNode?: unknown;
+  canRequestFocus?: boolean;
+  onFocusChange?: (value: boolean) => void;
+  autofocus?: boolean;
+  statesController?: unknown;
+  hoverDuration?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface InputChipProps {
+  avatar?: FlutterElement;
+  label: FlutterElement;
+  labelStyle?: TextStyleProps;
+  labelPadding?: number | [number, number] | [number, number, number, number];
+  selected?: boolean;
+  isEnabled?: boolean;
+  onSelected?: (value: boolean) => void;
+  deleteIcon?: FlutterElement;
+  onDeleted?: unknown;
+  deleteIconColor?: unknown;
+  deleteButtonTooltipMessage?: string;
+  onClick?: unknown;
+  pressElevation?: number;
+  disabledColor?: unknown;
+  selectedColor?: unknown;
+  tooltip?: string;
+  side?: unknown;
+  shape?: unknown;
+  clipBehavior?: unknown;
+  focusNode?: unknown;
+  autofocus?: boolean;
+  color?: unknown;
+  backgroundColor?: unknown;
+  padding?: number | [number, number] | [number, number, number, number];
+  visualDensity?: unknown;
+  materialTapTargetSize?: 'padded' | 'shrinkWrap';
   elevation?: number;
-  color?: string;
+  shadowColor?: unknown;
+  surfaceTintColor?: unknown;
+  iconTheme?: unknown;
+  selectedShadowColor?: unknown;
+  showCheckmark?: boolean;
+  checkmarkColor?: unknown;
+  avatarBorder?: unknown;
+  avatarBoxConstraints?: unknown;
+  deleteIconBoxConstraints?: unknown;
+  chipAnimationStyle?: unknown;
+  mouseCursor?: unknown;
+}
+
+export interface InputDatePickerFormFieldProps {
+  initialDate?: unknown;
+  firstDate: unknown;
+  lastDate: unknown;
+  onDateSubmitted?: (value: unknown) => void;
+  onDateSaved?: (value: unknown) => void;
+  selectableDayPredicate?: (day: unknown) => boolean;
+  errorFormatText?: string;
+  errorInvalidText?: string;
+  fieldHintText?: string;
+  fieldLabelText?: string;
+  keyboardType?: 'text' | 'number' | 'phone' | 'email' | 'url' | 'multiline';
+  autofocus?: boolean;
+  acceptEmptyDate?: boolean;
+  focusNode?: unknown;
+  calendarDelegate?: unknown;
+}
+
+export interface InputDecoratorProps {
+  decoration: unknown;
+  baseStyle?: TextStyleProps;
+  textAlign?: unknown;
+  textAlignVertical?: unknown;
+  isFocused?: boolean;
+  isHovering?: boolean;
+  expands?: boolean;
+  isEmpty?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface InputDecorationThemeProps {
+  labelStyle?: TextStyleProps;
+  floatingLabelStyle?: TextStyleProps;
+  helperStyle?: TextStyleProps;
+  helperMaxLines?: number;
+  hintStyle?: TextStyleProps;
+  hintFadeDuration?: unknown;
+  hintMaxLines?: number;
+  errorStyle?: TextStyleProps;
+  errorMaxLines?: number;
+  floatingLabelBehavior?: 'never' | 'auto' | 'always';
+  floatingLabelAlignment?: unknown;
+  isDense?: boolean;
+  contentPadding?: number | [number, number] | [number, number, number, number];
+  isCollapsed?: boolean;
+  iconColor?: unknown;
+  prefixStyle?: TextStyleProps;
+  prefixIconColor?: unknown;
+  prefixIconConstraints?: unknown;
+  suffixStyle?: TextStyleProps;
+  suffixIconColor?: unknown;
+  suffixIconConstraints?: unknown;
+  counterStyle?: TextStyleProps;
+  filled?: boolean;
+  fillColor?: unknown;
+  activeIndicatorBorder?: unknown;
+  outlineBorder?: unknown;
+  focusColor?: unknown;
+  hoverColor?: unknown;
+  errorBorder?: unknown;
+  focusedBorder?: unknown;
+  focusedErrorBorder?: unknown;
+  disabledBorder?: unknown;
+  enabledBorder?: unknown;
+  border?: unknown;
+  alignLabelWithHint?: boolean;
+  constraints?: unknown;
+  visualDensity?: unknown;
+  data?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ListTileProps {
+  leading?: FlutterElement;
+  subtitle?: FlutterElement;
+  trailing?: FlutterElement;
+  isThreeLine?: boolean;
+  dense?: boolean;
+  visualDensity?: unknown;
+  shape?: unknown;
+  style?: 'list' | 'drawer';
+  selectedColor?: unknown;
+  iconColor?: unknown;
+  textColor?: unknown;
+  titleTextStyle?: TextStyleProps;
+  subtitleTextStyle?: TextStyleProps;
+  leadingAndTrailingTextStyle?: TextStyleProps;
+  contentPadding?: number | [number, number] | [number, number, number, number];
+  enabled?: boolean;
+  onTap?: () => void;
+  onLongPress?: () => void;
+  onFocusChange?: (value: boolean) => void;
+  mouseCursor?: unknown;
+  selected?: boolean;
+  focusColor?: unknown;
+  hoverColor?: unknown;
+  splashColor?: unknown;
+  focusNode?: unknown;
+  autofocus?: boolean;
+  tileColor?: unknown;
+  selectedTileColor?: unknown;
+  enableFeedback?: boolean;
+  horizontalTitleGap?: number;
+  minVerticalPadding?: number;
+  minLeadingWidth?: number;
+  minTileHeight?: number;
+  titleAlignment?: 'threeLine' | 'titleHeight' | 'top' | 'center' | 'bottom';
+  internalAddSemanticForOnTap?: boolean;
+  statesController?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ListTileThemeProps {
+  data?: unknown;
+  dense?: boolean;
+  shape?: unknown;
+  style?: 'list' | 'drawer';
+  selectedColor?: unknown;
+  iconColor?: unknown;
+  textColor?: unknown;
+  contentPadding?: number | [number, number] | [number, number, number, number];
+  tileColor?: unknown;
+  selectedTileColor?: unknown;
+  enableFeedback?: boolean;
+  mouseCursor?: unknown;
+  horizontalTitleGap?: number;
+  minVerticalPadding?: number;
+  minLeadingWidth?: number;
+  controlAffinity?: 'leading' | 'trailing' | 'platform';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface TextMagnifierProps {
+  magnifierInfo: unknown;
+}
+
+export interface MagnifierProps {
+  additionalFocalPointOffset?: unknown;
+  borderRadius?: unknown;
+  filmColor?: unknown;
+  shadows?: unknown[];
+  clipBehavior?: unknown;
+  size?: unknown;
+}
+
+export interface MaterialProps {
+  type?: 'canvas' | 'card' | 'circle' | 'button' | 'transparency';
+  elevation?: number;
+  color?: unknown;
+  shadowColor?: unknown;
+  surfaceTintColor?: unknown;
+  textStyle?: TextStyleProps;
+  borderRadius?: unknown;
+  shape?: unknown;
+  borderOnForeground?: boolean;
+  clipBehavior?: unknown;
+  animationDuration?: unknown;
+  animateColor?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface MaterialButtonProps {
+  onClick: unknown;
+  onLongPress?: unknown;
+  onHighlightChanged?: (value: boolean) => void;
+  mouseCursor?: unknown;
+  textTheme?: 'normal' | 'accent' | 'primary';
+  textColor?: unknown;
+  disabledTextColor?: unknown;
+  color?: unknown;
+  disabledColor?: unknown;
+  focusColor?: unknown;
+  hoverColor?: unknown;
+  highlightColor?: unknown;
+  splashColor?: unknown;
+  colorBrightness?: unknown;
+  elevation?: number;
+  focusElevation?: number;
+  hoverElevation?: number;
+  highlightElevation?: number;
+  disabledElevation?: number;
+  padding?: number | [number, number] | [number, number, number, number];
+  visualDensity?: unknown;
+  shape?: unknown;
+  clipBehavior?: unknown;
+  focusNode?: unknown;
+  autofocus?: boolean;
+  materialTapTargetSize?: 'padded' | 'shrinkWrap';
+  animationDuration?: unknown;
+  minWidth?: number;
+  height?: number;
+  enableFeedback?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface MenuAnchorProps {
+  controller?: unknown;
+  childFocusNode?: unknown;
+  style?: unknown;
+  alignmentOffset?: unknown;
+  reservedPadding?: number | [number, number] | [number, number, number, number];
+  layerLink?: unknown;
+  clipBehavior?: unknown;
+  anchorTapClosesMenu?: boolean;
+  consumeOutsideTap?: boolean;
+  onOpen?: unknown;
+  onClose?: unknown;
+  crossAxisUnconstrained?: boolean;
+  useRootOverlay?: boolean;
+  menuChildren: FlutterElement[];
+  builder?: (controller: unknown, child: FlutterElement) => FlutterElement;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface MenuBarProps {
+  style?: unknown;
+  clipBehavior?: unknown;
+  controller?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface MenuItemButtonProps {
+  onClick?: unknown;
+  onHover?: (value: boolean) => void;
+  requestFocusOnHover?: boolean;
+  onFocusChange?: (value: boolean) => void;
+  focusNode?: unknown;
+  autofocus?: boolean;
+  shortcut?: unknown;
+  semanticsLabel?: string;
+  style?: unknown;
+  statesController?: unknown;
+  clipBehavior?: unknown;
+  leadingIcon?: FlutterElement;
+  trailingIcon?: FlutterElement;
+  closeOnActivate?: boolean;
+  overflowAxis?: 'horizontal' | 'vertical';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CheckboxMenuButtonProps {
+  value: boolean;
+  tristate?: boolean;
+  isError?: boolean;
+  onChange: (value: boolean) => void;
+  onHover?: (value: boolean) => void;
+  onFocusChange?: (value: boolean) => void;
+  focusNode?: unknown;
+  shortcut?: unknown;
+  style?: unknown;
+  statesController?: unknown;
+  clipBehavior?: unknown;
+  trailingIcon?: FlutterElement;
+  closeOnActivate?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface RadioMenuButtonProps {
+  value: unknown;
+  groupValue: unknown;
+  onChange: (value: unknown) => void;
+  toggleable?: boolean;
+  onHover?: (value: boolean) => void;
+  onFocusChange?: (value: boolean) => void;
+  focusNode?: unknown;
+  shortcut?: unknown;
+  style?: unknown;
+  statesController?: unknown;
+  clipBehavior?: unknown;
+  trailingIcon?: FlutterElement;
+  closeOnActivate?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SubmenuButtonProps {
+  onHover?: (value: boolean) => void;
+  onFocusChange?: (value: boolean) => void;
+  onOpen?: unknown;
+  onClose?: unknown;
+  controller?: unknown;
+  style?: unknown;
+  menuStyle?: unknown;
+  alignmentOffset?: unknown;
+  clipBehavior?: unknown;
+  focusNode?: unknown;
+  statesController?: unknown;
+  leadingIcon?: FlutterElement;
+  trailingIcon?: FlutterElement;
+  submenuIcon?: unknown;
+  useRootOverlay?: boolean;
+  menuChildren: FlutterElement[];
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface MenuAcceleratorCallbackBindingProps {
+  onInvoke?: unknown;
+  hasSubmenu?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface MenuAcceleratorLabelProps {
+  label: string;
+  builder?: (label: string, index: number) => FlutterElement;
+}
+
+export interface MenuBarThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface MenuButtonThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface MenuThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface MergeableMaterialProps {
+  mainAxis?: 'horizontal' | 'vertical';
+  elevation?: number;
+  hasDividers?: boolean;
+  children?: unknown[];
+  dividerColor?: unknown;
+}
+
+export interface NavigationBarProps {
+  animationDuration?: unknown;
+  selectedIndex?: number;
+  destinations: FlutterElement[];
+  onDestinationSelected?: (value: number) => void;
+  backgroundColor?: unknown;
+  elevation?: number;
+  shadowColor?: unknown;
+  surfaceTintColor?: unknown;
+  indicatorColor?: unknown;
+  indicatorShape?: unknown;
+  height?: number;
+  labelBehavior?: 'alwaysShow' | 'alwaysHide' | 'onlyShowSelected';
+  overlayColor?: unknown;
+  labelTextStyle?: unknown;
+  labelPadding?: number | [number, number] | [number, number, number, number];
+  maintainBottomViewPadding?: boolean;
+}
+
+export interface NavigationDestinationProps {
+  icon: FlutterElement;
+  selectedIcon?: FlutterElement;
+  label: string;
+  tooltip?: string;
+  enabled?: boolean;
+}
+
+export interface NavigationIndicatorProps {
+  animation: unknown;
+  color?: unknown;
+  width?: number;
+  height?: number;
+  borderRadius?: unknown;
+  shape?: unknown;
+}
+
+export interface NavigationBarThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface NavigationDrawerProps {
+  header?: FlutterElement;
+  footer?: FlutterElement;
+  backgroundColor?: unknown;
+  shadowColor?: unknown;
+  surfaceTintColor?: unknown;
+  elevation?: number;
+  indicatorColor?: unknown;
+  indicatorShape?: unknown;
+  onDestinationSelected?: (value: number) => void;
+  selectedIndex?: number;
+  tilePadding?: number | [number, number] | [number, number, number, number];
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface NavigationDrawerDestinationProps {
+  backgroundColor?: unknown;
+  icon: FlutterElement;
+  selectedIcon?: FlutterElement;
+  label: FlutterElement;
+  enabled?: boolean;
+}
+
+export interface NavigationDrawerThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface NavigationRailProps {
+  backgroundColor?: unknown;
+  extended?: boolean;
+  leading?: FlutterElement;
+  trailing?: FlutterElement;
+  destinations: unknown[];
+  selectedIndex: number;
+  onDestinationSelected?: (value: number) => void;
+  elevation?: number;
+  groupAlignment?: number;
+  labelType?: 'none' | 'selected' | 'all';
+  unselectedLabelTextStyle?: TextStyleProps;
+  selectedLabelTextStyle?: TextStyleProps;
+  unselectedIconTheme?: unknown;
+  selectedIconTheme?: unknown;
+  minWidth?: number;
+  minExtendedWidth?: number;
+  useIndicator?: boolean;
+  indicatorColor?: unknown;
+  indicatorShape?: unknown;
+  leadingAtTop?: boolean;
+  trailingAtBottom?: boolean;
+  scrollable?: boolean;
+}
+
+export interface NavigationRailThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface OutlinedButtonProps {
+  onClick: unknown;
+  onLongPress?: unknown;
+  onHover?: (value: boolean) => void;
+  onFocusChange?: (value: boolean) => void;
+  style?: unknown;
+  focusNode?: unknown;
+  autofocus?: boolean;
+  clipBehavior?: unknown;
+  statesController?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface OutlinedButtonThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface PaginatedDataTableProps {
+  header?: FlutterElement;
+  actions?: FlutterElement[];
+  columns: unknown[];
+  sortColumnIndex?: number;
+  sortAscending?: boolean;
+  onSelectAll?: (value: boolean) => void;
+  dataRowHeight?: number;
+  dataRowMinHeight?: number;
+  dataRowMaxHeight?: number;
+  headingRowHeight?: number;
+  horizontalMargin?: number;
+  columnSpacing?: number;
+  showCheckboxColumn?: boolean;
+  showFirstLastButtons?: boolean;
+  initialFirstRowIndex?: number;
+  onPageChanged?: (value: number) => void;
+  rowsPerPage?: number;
+  availableRowsPerPage?: number[];
+  onRowsPerPageChanged?: (value: number) => void;
+  dragStartBehavior?: string;
+  arrowHeadColor?: unknown;
+  source: unknown;
+  checkboxHorizontalMargin?: number;
+  controller?: unknown;
+  primary?: boolean;
+  headingRowColor?: unknown;
+  dividerThickness?: number;
+  showEmptyRows?: boolean;
+}
+
+export interface PopupMenuDividerProps {
+  height?: number;
+  thickness?: number;
+  indent?: number;
+  endIndent?: number;
+  radius?: unknown;
+  color?: unknown;
+}
+
+export interface PopupMenuItemProps {
+  value?: unknown;
+  onTap?: unknown;
+  enabled?: boolean;
+  height?: number;
+  padding?: number | [number, number] | [number, number, number, number];
+  textStyle?: TextStyleProps;
+  labelTextStyle?: unknown;
+  mouseCursor?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CheckedPopupMenuItemProps {
+  value?: unknown;
+  checked?: boolean;
+  enabled?: boolean;
+  padding?: number | [number, number] | [number, number, number, number];
+  height?: number;
+  labelTextStyle?: unknown;
+  mouseCursor?: unknown;
+  onTap?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface PopupMenuButtonProps {
+  itemBuilder: () => unknown[];
+  initialValue?: unknown;
+  onOpened?: unknown;
+  onSelected?: (value: unknown) => void;
+  onCanceled?: () => void;
+  tooltip?: string;
+  elevation?: number;
+  shadowColor?: unknown;
+  surfaceTintColor?: unknown;
+  padding?: number | [number, number] | [number, number, number, number];
+  menuPadding?: number | [number, number] | [number, number, number, number];
+  borderRadius?: unknown;
+  splashRadius?: number;
+  icon?: FlutterElement;
+  iconSize?: number;
+  offset?: unknown;
+  enabled?: boolean;
+  shape?: unknown;
+  color?: unknown;
+  iconColor?: unknown;
+  enableFeedback?: boolean;
+  constraints?: unknown;
+  position?: 'over' | 'under';
+  clipBehavior?: unknown;
+  useRootNavigator?: boolean;
+  popUpAnimationStyle?: unknown;
+  routeSettings?: unknown;
+  style?: unknown;
+  requestFocus?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface PopupMenuThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface LinearProgressIndicatorProps {
+  value?: number;
+  backgroundColor?: unknown;
+  color?: unknown;
+  valueColor?: unknown;
+  minHeight?: number;
+  semanticsLabel?: string;
+  semanticsValue?: string;
+  borderRadius?: unknown;
+  stopIndicatorColor?: unknown;
+  stopIndicatorRadius?: number;
+  trackGap?: number;
+  year2023?: boolean;
+  controller?: unknown;
+}
+
+export interface CircularProgressIndicatorProps {
+  value?: number;
+  backgroundColor?: unknown;
+  color?: unknown;
+  valueColor?: unknown;
+  strokeWidth?: number;
+  strokeAlign?: number;
+  semanticsLabel?: string;
+  semanticsValue?: string;
+  strokeCap?: unknown;
+  constraints?: unknown;
+  trackGap?: number;
+  year2023?: boolean;
+  padding?: number | [number, number] | [number, number, number, number];
+  controller?: unknown;
+}
+
+export interface RefreshProgressIndicatorProps {
+  value?: number;
+  backgroundColor?: unknown;
+  color?: unknown;
+  valueColor?: unknown;
+  strokeWidth?: number;
+  strokeAlign?: number;
+  semanticsLabel?: string;
+  semanticsValue?: string;
+  strokeCap?: unknown;
+  elevation?: number;
+  indicatorMargin?: number | [number, number] | [number, number, number, number];
+  indicatorPadding?: number | [number, number] | [number, number, number, number];
+}
+
+export interface ProgressIndicatorThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface RadioProps {
+  value: unknown;
+  groupValue?: unknown;
+  onChange?: (value: unknown) => void;
+  mouseCursor?: unknown;
+  toggleable?: boolean;
+  activeColor?: unknown;
+  fillColor?: unknown;
+  focusColor?: unknown;
+  hoverColor?: unknown;
+  overlayColor?: unknown;
+  splashRadius?: number;
+  materialTapTargetSize?: 'padded' | 'shrinkWrap';
+  visualDensity?: unknown;
+  focusNode?: unknown;
+  autofocus?: boolean;
+  enabled?: boolean;
+  groupRegistry?: unknown;
+  backgroundColor?: unknown;
+  side?: unknown;
+  innerRadius?: unknown;
+}
+
+export interface RadioListTileProps {
+  value: unknown;
+  groupValue?: unknown;
+  onChange?: (value: unknown) => void;
+  mouseCursor?: unknown;
+  toggleable?: boolean;
+  activeColor?: unknown;
+  fillColor?: unknown;
+  hoverColor?: unknown;
+  overlayColor?: unknown;
+  splashRadius?: number;
+  materialTapTargetSize?: 'padded' | 'shrinkWrap';
+  subtitle?: FlutterElement;
+  isThreeLine?: boolean;
+  dense?: boolean;
+  secondary?: FlutterElement;
+  selected?: boolean;
+  controlAffinity?: 'leading' | 'trailing' | 'platform';
+  autofocus?: boolean;
+  contentPadding?: number | [number, number] | [number, number, number, number];
+  shape?: unknown;
+  tileColor?: unknown;
+  selectedTileColor?: unknown;
+  visualDensity?: unknown;
+  focusNode?: unknown;
+  onFocusChange?: (value: boolean) => void;
+  enableFeedback?: boolean;
+  horizontalTitleGap?: number;
+  minVerticalPadding?: number;
+  minLeadingWidth?: number;
+  minTileHeight?: number;
+  radioScaleFactor?: number;
+  titleAlignment?: 'threeLine' | 'titleHeight' | 'top' | 'center' | 'bottom';
+  enabled?: boolean;
+  internalAddSemanticForOnTap?: boolean;
+  radioBackgroundColor?: unknown;
+  radioSide?: unknown;
+  radioInnerRadius?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface RadioThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface RangeSliderProps {
+  values: unknown;
+  onChange: (value: unknown) => void;
+  onChangeStart?: (value: unknown) => void;
+  onChangeEnd?: (value: unknown) => void;
+  min?: number;
+  max?: number;
+  divisions?: number;
+  labels?: unknown;
+  activeColor?: unknown;
+  inactiveColor?: unknown;
+  overlayColor?: unknown;
+  mouseCursor?: unknown;
+  semanticFormatterCallback?: (value: number) => string;
+  padding?: number | [number, number] | [number, number, number, number];
+  year2023?: boolean;
+}
+
+export interface RefreshIndicatorProps {
+  displacement?: number;
+  edgeOffset?: number;
+  onRefresh: () => Promise<void>;
+  color?: unknown;
+  backgroundColor?: unknown;
+  notificationPredicate?: (notification: unknown) => boolean;
+  semanticsLabel?: string;
+  semanticsValue?: string;
+  strokeWidth?: number;
+  triggerMode?: 'anywhere' | 'onEdge';
+  elevation?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ReorderableListViewProps {
+  onReorder: (oldIndex: number, newIndex: number) => void;
+  onReorderStart?: (index: number) => void;
+  onReorderEnd?: (index: number) => void;
+  itemExtent?: number;
+  itemExtentBuilder?: (index: number, dimensions: unknown) => number;
+  prototypeItem?: FlutterElement;
+  proxyDecorator?: (child: FlutterElement, index: number, animation: unknown) => FlutterElement;
+  buildDefaultDragHandles?: boolean;
+  padding?: number | [number, number] | [number, number, number, number];
+  header?: FlutterElement;
+  footer?: FlutterElement;
+  scrollDirection?: 'horizontal' | 'vertical';
+  reverse?: boolean;
+  scrollController?: unknown;
+  primary?: boolean;
+  physics?: unknown;
+  shrinkWrap?: boolean;
+  anchor?: number;
+  cacheExtent?: number;
+  dragStartBehavior?: string;
+  keyboardDismissBehavior?: 'manual' | 'onDrag';
+  restorationId?: string;
+  clipBehavior?: unknown;
+  autoScrollerVelocityScalar?: number;
+  dragBoundaryProvider?: () => unknown;
+  mouseCursor?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ScaffoldMessengerProps {
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ScaffoldProps {
+  appBar?: unknown;
+  floatingActionButton?: FlutterElement;
+  floatingActionButtonLocation?: unknown;
+  floatingActionButtonAnimator?: unknown;
+  persistentFooterButtons?: FlutterElement[];
+  persistentFooterAlignment?: string;
+  persistentFooterDecoration?: unknown;
+  drawer?: FlutterElement;
+  onDrawerChanged?: (isOpened: boolean) => void;
+  endDrawer?: FlutterElement;
+  onEndDrawerChanged?: (isOpened: boolean) => void;
+  bottomNavigationBar?: FlutterElement;
+  bottomSheet?: FlutterElement;
+  backgroundColor?: unknown;
+  resizeToAvoidBottomInset?: boolean;
+  primary?: boolean;
+  drawerDragStartBehavior?: string;
+  extendBody?: boolean;
+  drawerBarrierDismissible?: boolean;
+  extendBodyBehindAppBar?: boolean;
+  drawerScrimColor?: unknown;
+  bottomSheetScrimBuilder?: (p0: unknown) => FlutterElement;
+  drawerEdgeDragWidth?: number;
+  drawerEnableOpenDragGesture?: boolean;
+  endDrawerEnableOpenDragGesture?: boolean;
+  restorationId?: string;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ScrollbarProps {
+  controller?: unknown;
+  thumbVisibility?: boolean;
+  trackVisibility?: boolean;
+  thickness?: number;
+  radius?: unknown;
+  notificationPredicate?: (notification: unknown) => boolean;
+  interactive?: boolean;
+  scrollbarOrientation?: 'left' | 'right' | 'top' | 'bottom';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ScrollbarThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SearchAnchorProps {
+  isFullScreen?: boolean;
+  searchController?: unknown;
+  viewBuilder?: (suggestions: FlutterElement[]) => FlutterElement;
+  viewLeading?: FlutterElement;
+  viewTrailing?: FlutterElement[];
+  viewHintText?: string;
+  viewBackgroundColor?: unknown;
+  viewElevation?: number;
+  viewSurfaceTintColor?: unknown;
+  viewSide?: unknown;
+  viewShape?: unknown;
+  viewBarPadding?: number | [number, number] | [number, number, number, number];
+  headerHeight?: number;
+  headerTextStyle?: TextStyleProps;
+  headerHintStyle?: TextStyleProps;
+  dividerColor?: unknown;
+  viewConstraints?: unknown;
+  viewPadding?: number | [number, number] | [number, number, number, number];
+  shrinkWrap?: boolean;
+  textCapitalization?: 'words' | 'sentences' | 'characters' | 'none';
+  viewOnChanged?: (value: string) => void;
+  viewOnSubmitted?: (value: string) => void;
+  viewOnClose?: unknown;
+  viewOnOpen?: unknown;
+  builder: (controller: unknown) => FlutterElement;
+  suggestionsBuilder: (controller: unknown) => unknown;
+  textInputAction?: 'none' | 'unspecified' | 'done' | 'go' | 'search' | 'send' | 'next' | 'previous' | 'continueAction' | 'join' | 'route' | 'emergencyCall' | 'newline';
+  keyboardType?: 'text' | 'number' | 'phone' | 'email' | 'url' | 'multiline';
+  enabled?: boolean;
+  smartDashesType?: 'disabled' | 'enabled';
+  smartQuotesType?: 'disabled' | 'enabled';
+}
+
+export interface SearchBarProps {
+  controller?: unknown;
+  focusNode?: unknown;
+  hintText?: string;
+  leading?: FlutterElement;
+  trailing?: FlutterElement[];
+  onTap?: () => void;
+  onTapOutside?: (event: unknown) => void;
+  onChange?: (value: string) => void;
+  onSubmit?: (value: string) => void;
+  constraints?: unknown;
+  elevation?: unknown;
+  backgroundColor?: unknown;
+  shadowColor?: unknown;
+  surfaceTintColor?: unknown;
+  overlayColor?: unknown;
+  side?: unknown;
+  shape?: unknown;
+  padding?: unknown;
+  textStyle?: unknown;
+  hintStyle?: unknown;
+  textCapitalization?: 'words' | 'sentences' | 'characters' | 'none';
+  enabled?: boolean;
+  autoFocus?: boolean;
+  textInputAction?: 'none' | 'unspecified' | 'done' | 'go' | 'search' | 'send' | 'next' | 'previous' | 'continueAction' | 'join' | 'route' | 'emergencyCall' | 'newline';
+  keyboardType?: 'text' | 'number' | 'phone' | 'email' | 'url' | 'multiline';
+  scrollPadding?: number | [number, number] | [number, number, number, number];
+  contextMenuBuilder?: (editableTextState: unknown) => FlutterElement;
+  readOnly?: boolean;
+  smartDashesType?: 'disabled' | 'enabled';
+  smartQuotesType?: 'disabled' | 'enabled';
+}
+
+export interface SearchBarThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SearchViewThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SegmentedButtonProps {
+  segments: unknown[];
+  selected: Set<unknown>;
+  onSelectionChanged?: (p0: Set<unknown>) => void;
+  multiSelectionEnabled?: boolean;
+  emptySelectionAllowed?: boolean;
+  expandedInsets?: number | [number, number] | [number, number, number, number];
+  style?: unknown;
+  showSelectedIcon?: boolean;
+  selectedIcon?: FlutterElement;
+  direction?: 'horizontal' | 'vertical';
+}
+
+export interface SegmentedButtonThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SelectableTextProps {
+  data: string;
+  focusNode?: unknown;
+  style?: TextStyleProps;
+  strutStyle?: unknown;
+  textAlign?: unknown;
+  textDirection?: unknown;
+  textScaleFactor?: number;
+  textScaler?: unknown;
+  showCursor?: boolean;
+  autofocus?: boolean;
+  toolbarOptions?: unknown;
+  minLines?: number;
+  maxLines?: number;
+  cursorWidth?: number;
+  cursorHeight?: number;
+  cursorRadius?: unknown;
+  cursorColor?: unknown;
+  selectionColor?: unknown;
+  selectionHeightStyle?: unknown;
+  selectionWidthStyle?: unknown;
+  dragStartBehavior?: string;
+  enableInteractiveSelection?: boolean;
+  selectionControls?: unknown;
+  onTap?: () => void;
+  scrollPhysics?: unknown;
+  scrollBehavior?: unknown;
+  semanticsLabel?: string;
+  textHeightBehavior?: unknown;
+  textWidthBasis?: 'parent' | 'longestLine';
+  onSelectionChanged?: (selection: unknown, cause: 'tap' | 'doubleTap' | 'longPress' | 'forcePress' | 'keyboard' | 'toolbar' | 'drag' | 'stylusHandwriting') => void;
+  contextMenuBuilder?: (editableTextState: unknown) => FlutterElement;
+  magnifierConfiguration?: unknown;
+}
+
+export interface SelectionAreaProps {
+  focusNode?: unknown;
+  selectionControls?: unknown;
+  contextMenuBuilder?: (selectableRegionState: unknown) => FlutterElement;
+  magnifierConfiguration?: unknown;
+  onSelectionChanged?: (value: unknown) => void;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SliderProps {
+  value: number;
+  secondaryTrackValue?: number;
+  onChange: (value: number) => void;
+  onChangeStart?: (value: number) => void;
+  onChangeEnd?: (value: number) => void;
+  min?: number;
+  max?: number;
+  divisions?: number;
+  label?: string;
+  activeColor?: unknown;
+  inactiveColor?: unknown;
+  secondaryActiveColor?: unknown;
+  thumbColor?: unknown;
+  overlayColor?: unknown;
+  mouseCursor?: unknown;
+  semanticFormatterCallback?: (value: number) => string;
+  focusNode?: unknown;
+  autofocus?: boolean;
+  allowedInteraction?: 'tapAndSlide' | 'tapOnly' | 'slideOnly' | 'slideThumb';
+  padding?: number | [number, number] | [number, number, number, number];
+  showValueIndicator?: 'onlyForDiscrete' | 'onlyForContinuous' | 'always' | 'onDrag' | 'alwaysVisible' | 'never';
+  year2023?: boolean;
+}
+
+export interface SliderThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SnackBarActionProps {
+  textColor?: unknown;
+  disabledTextColor?: unknown;
+  backgroundColor?: unknown;
+  disabledBackgroundColor?: unknown;
+  label: string;
+  onClick: unknown;
+}
+
+export interface SnackBarProps {
+  content: FlutterElement;
+  backgroundColor?: unknown;
+  elevation?: number;
   margin?: number | [number, number] | [number, number, number, number];
+  padding?: number | [number, number] | [number, number, number, number];
+  width?: number;
+  shape?: unknown;
+  hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
+  behavior?: 'fixed' | 'floating';
+  action?: unknown;
+  actionOverflowThreshold?: number;
+  showCloseIcon?: boolean;
+  closeIconColor?: unknown;
+  duration?: unknown;
+  persist?: boolean;
+  animation?: unknown;
+  onVisible?: unknown;
+  dismissDirection?: 'vertical' | 'horizontal' | 'endToStart' | 'startToEnd' | 'up' | 'down' | 'none';
+  clipBehavior?: unknown;
+}
+
+export interface SnackBarThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SpellCheckSuggestionsToolbarProps {
+  anchor: unknown;
+  buttonItems: unknown[];
+}
+
+export interface StepperProps {
+  steps: unknown[];
+  controller?: unknown;
+  physics?: unknown;
+  type?: 'vertical' | 'horizontal';
+  currentStep?: number;
+  onStepTapped?: (value: number) => void;
+  onStepContinue?: unknown;
+  onStepCancel?: unknown;
+  controlsBuilder?: (details: unknown) => FlutterElement;
+  elevation?: number;
+  margin?: number | [number, number] | [number, number, number, number];
+  connectorColor?: unknown;
+  connectorThickness?: number;
+  stepIconBuilder?: (stepIndex: number, stepState: 'indexed' | 'editing' | 'complete' | 'disabled' | 'error') => FlutterElement;
+  stepIconHeight?: number;
+  stepIconWidth?: number;
+  stepIconMargin?: number | [number, number] | [number, number, number, number];
+  clipBehavior?: unknown;
+}
+
+export interface SwitchProps {
+  value: boolean;
+  onChange: (value: boolean) => void;
+  activeColor?: unknown;
+  activeThumbColor?: unknown;
+  activeTrackColor?: unknown;
+  inactiveThumbColor?: unknown;
+  inactiveTrackColor?: unknown;
+  activeThumbImage?: unknown;
+  onActiveThumbImageError?: (exception: unknown, stackTrace: unknown) => void;
+  inactiveThumbImage?: unknown;
+  onInactiveThumbImageError?: (exception: unknown, stackTrace: unknown) => void;
+  thumbColor?: unknown;
+  trackColor?: unknown;
+  trackOutlineColor?: unknown;
+  trackOutlineWidth?: unknown;
+  thumbIcon?: unknown;
+  materialTapTargetSize?: 'padded' | 'shrinkWrap';
+  dragStartBehavior?: string;
+  mouseCursor?: unknown;
+  focusColor?: unknown;
+  hoverColor?: unknown;
+  overlayColor?: unknown;
+  splashRadius?: number;
+  focusNode?: unknown;
+  onFocusChange?: (value: boolean) => void;
+  autofocus?: boolean;
+  padding?: number | [number, number] | [number, number, number, number];
+}
+
+export interface SwitchListTileProps {
+  value: boolean;
+  onChange: (value: boolean) => void;
+  activeColor?: unknown;
+  activeThumbColor?: unknown;
+  activeTrackColor?: unknown;
+  inactiveThumbColor?: unknown;
+  inactiveTrackColor?: unknown;
+  activeThumbImage?: unknown;
+  onActiveThumbImageError?: (exception: unknown, stackTrace: unknown) => void;
+  inactiveThumbImage?: unknown;
+  onInactiveThumbImageError?: (exception: unknown, stackTrace: unknown) => void;
+  thumbColor?: unknown;
+  trackColor?: unknown;
+  trackOutlineColor?: unknown;
+  thumbIcon?: unknown;
+  materialTapTargetSize?: 'padded' | 'shrinkWrap';
+  dragStartBehavior?: string;
+  mouseCursor?: unknown;
+  overlayColor?: unknown;
+  splashRadius?: number;
+  focusNode?: unknown;
+  onFocusChange?: (value: boolean) => void;
+  autofocus?: boolean;
+  tileColor?: unknown;
+  subtitle?: FlutterElement;
+  isThreeLine?: boolean;
+  dense?: boolean;
+  contentPadding?: number | [number, number] | [number, number, number, number];
+  secondary?: FlutterElement;
+  selected?: boolean;
+  controlAffinity?: 'leading' | 'trailing' | 'platform';
+  shape?: unknown;
+  selectedTileColor?: unknown;
+  visualDensity?: unknown;
+  enableFeedback?: boolean;
+  horizontalTitleGap?: number;
+  minVerticalPadding?: number;
+  minLeadingWidth?: number;
+  minTileHeight?: number;
+  hoverColor?: unknown;
+  internalAddSemanticForOnTap?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SwitchThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface TabBarThemeProps {
+  indicator?: unknown;
+  indicatorColor?: unknown;
+  indicatorSize?: 'tab' | 'label';
+  dividerColor?: unknown;
+  dividerHeight?: number;
+  labelColor?: unknown;
+  labelPadding?: number | [number, number] | [number, number, number, number];
+  labelStyle?: TextStyleProps;
+  unselectedLabelColor?: unknown;
+  unselectedLabelStyle?: TextStyleProps;
+  overlayColor?: unknown;
+  splashFactory?: unknown;
+  mouseCursor?: unknown;
+  tabAlignment?: 'start' | 'startOffset' | 'fill' | 'center';
+  textScaler?: unknown;
+  indicatorAnimation?: 'linear' | 'elastic';
+  data?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DefaultTabControllerProps {
+  length: number;
+  initialIndex?: number;
+  animationDuration?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface TabProps {
+  text?: string;
+  icon?: FlutterElement;
+  iconMargin?: number | [number, number] | [number, number, number, number];
+  height?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface TabBarProps {
+  tabs: FlutterElement[];
+  controller?: unknown;
+  isScrollable?: boolean;
+  padding?: number | [number, number] | [number, number, number, number];
+  indicatorColor?: unknown;
+  automaticIndicatorColorAdjustment?: boolean;
+  indicatorWeight?: number;
+  indicatorPadding?: number | [number, number] | [number, number, number, number];
+  indicator?: unknown;
+  indicatorSize?: 'tab' | 'label';
+  dividerColor?: unknown;
+  dividerHeight?: number;
+  labelColor?: unknown;
+  labelStyle?: TextStyleProps;
+  labelPadding?: number | [number, number] | [number, number, number, number];
+  unselectedLabelColor?: unknown;
+  unselectedLabelStyle?: TextStyleProps;
+  dragStartBehavior?: string;
+  overlayColor?: unknown;
+  mouseCursor?: unknown;
+  enableFeedback?: boolean;
+  onTap?: (value: number) => void;
+  onHover?: (value: boolean, index: number) => void;
+  onFocusChange?: (value: boolean, index: number) => void;
+  physics?: unknown;
+  splashFactory?: unknown;
+  splashBorderRadius?: unknown;
+  tabAlignment?: 'start' | 'startOffset' | 'fill' | 'center';
+  textScaler?: unknown;
+  indicatorAnimation?: 'linear' | 'elastic';
+}
+
+export interface TabBarViewProps {
+  controller?: unknown;
+  physics?: unknown;
+  dragStartBehavior?: string;
+  viewportFraction?: number;
+  clipBehavior?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface TabPageSelectorIndicatorProps {
+  backgroundColor: unknown;
+  borderColor: unknown;
+  size: number;
+  borderStyle?: 'none' | 'solid';
+}
+
+export interface TabPageSelectorProps {
+  controller?: unknown;
+  indicatorSize?: number;
+  color?: unknown;
+  selectedColor?: unknown;
+  borderStyle?: 'none' | 'solid';
+}
+
+export interface TextButtonProps {
+  onClick: unknown;
+  onLongPress?: unknown;
+  onHover?: (value: boolean) => void;
+  onFocusChange?: (value: boolean) => void;
+  style?: unknown;
+  focusNode?: unknown;
+  autofocus?: boolean;
+  clipBehavior?: unknown;
+  statesController?: unknown;
+  isSemanticButton?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface TextButtonThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface TextFieldProps {
+  groupId?: unknown;
+  controller?: unknown;
+  focusNode?: unknown;
+  undoController?: unknown;
+  decoration?: unknown;
+  keyboardType?: 'text' | 'number' | 'phone' | 'email' | 'url' | 'multiline';
+  textInputAction?: 'none' | 'unspecified' | 'done' | 'go' | 'search' | 'send' | 'next' | 'previous' | 'continueAction' | 'join' | 'route' | 'emergencyCall' | 'newline';
+  textCapitalization?: 'words' | 'sentences' | 'characters' | 'none';
+  style?: TextStyleProps;
+  strutStyle?: unknown;
+  textAlign?: unknown;
+  textAlignVertical?: unknown;
+  textDirection?: unknown;
+  readOnly?: boolean;
+  toolbarOptions?: unknown;
+  showCursor?: boolean;
+  autofocus?: boolean;
+  statesController?: unknown;
+  obscuringCharacter?: string;
+  obscureText?: boolean;
+  autocorrect?: boolean;
+  smartDashesType?: 'disabled' | 'enabled';
+  smartQuotesType?: 'disabled' | 'enabled';
+  enableSuggestions?: boolean;
+  maxLines?: number;
+  minLines?: number;
+  expands?: boolean;
+  maxLength?: number;
+  maxLengthEnforcement?: 'none' | 'enforced' | 'truncateAfterCompositionEnds';
+  onChange?: (value: string) => void;
+  onEditingComplete?: unknown;
+  onSubmit?: (value: string) => void;
+  onAppPrivateCommand?: (action: string, data: Record<string, unknown>) => void;
+  inputFormatters?: unknown[];
+  enabled?: boolean;
+  ignorePointers?: boolean;
+  cursorWidth?: number;
+  cursorHeight?: number;
+  cursorRadius?: unknown;
+  cursorOpacityAnimates?: boolean;
+  cursorColor?: unknown;
+  cursorErrorColor?: unknown;
+  selectionHeightStyle?: unknown;
+  selectionWidthStyle?: unknown;
+  keyboardAppearance?: unknown;
+  scrollPadding?: number | [number, number] | [number, number, number, number];
+  dragStartBehavior?: string;
+  enableInteractiveSelection?: boolean;
+  selectAllOnFocus?: boolean;
+  selectionControls?: unknown;
+  onTap?: () => void;
+  onTapAlwaysCalled?: boolean;
+  onTapOutside?: (event: unknown) => void;
+  onTapUpOutside?: (event: unknown) => void;
+  mouseCursor?: unknown;
+  buildCounter?: (currentLength: number, isFocused: boolean, maxLength: number) => FlutterElement;
+  scrollController?: unknown;
+  scrollPhysics?: unknown;
+  autofillHints?: string[];
+  contentInsertionConfiguration?: unknown;
+  clipBehavior?: unknown;
+  restorationId?: string;
+  scribbleEnabled?: boolean;
+  stylusHandwritingEnabled?: boolean;
+  enableIMEPersonalizedLearning?: boolean;
+  contextMenuBuilder?: (editableTextState: unknown) => FlutterElement;
+  canRequestFocus?: boolean;
+  spellCheckConfiguration?: unknown;
+  magnifierConfiguration?: unknown;
+  hintLocales?: unknown[];
+}
+
+export interface TextFormFieldProps {
+  groupId?: unknown;
+  controller?: unknown;
+  initialValue?: string;
+  focusNode?: unknown;
+  forceErrorText?: string;
+  decoration?: unknown;
+  keyboardType?: 'text' | 'number' | 'phone' | 'email' | 'url' | 'multiline';
+  textCapitalization?: 'words' | 'sentences' | 'characters' | 'none';
+  textInputAction?: 'none' | 'unspecified' | 'done' | 'go' | 'search' | 'send' | 'next' | 'previous' | 'continueAction' | 'join' | 'route' | 'emergencyCall' | 'newline';
+  style?: TextStyleProps;
+  strutStyle?: unknown;
+  textDirection?: unknown;
+  textAlign?: unknown;
+  textAlignVertical?: unknown;
+  autofocus?: boolean;
+  readOnly?: boolean;
+  toolbarOptions?: unknown;
+  showCursor?: boolean;
+  obscuringCharacter?: string;
+  obscureText?: boolean;
+  autocorrect?: boolean;
+  smartDashesType?: 'disabled' | 'enabled';
+  smartQuotesType?: 'disabled' | 'enabled';
+  enableSuggestions?: boolean;
+  maxLengthEnforcement?: 'none' | 'enforced' | 'truncateAfterCompositionEnds';
+  maxLines?: number;
+  minLines?: number;
+  expands?: boolean;
+  maxLength?: number;
+  onChange?: (value: string) => void;
+  onTap?: () => void;
+  onTapAlwaysCalled?: boolean;
+  onTapOutside?: (event: unknown) => void;
+  onTapUpOutside?: (event: unknown) => void;
+  onEditingComplete?: unknown;
+  onFieldSubmitted?: (value: string) => void;
+  onSaved?: (newValue: string) => void;
+  validator?: (value: string) => string;
+  errorBuilder?: (errorText: string) => FlutterElement;
+  inputFormatters?: unknown[];
+  enabled?: boolean;
+  ignorePointers?: boolean;
+  cursorWidth?: number;
+  cursorHeight?: number;
+  cursorRadius?: unknown;
+  cursorColor?: unknown;
+  cursorErrorColor?: unknown;
+  keyboardAppearance?: unknown;
+  scrollPadding?: number | [number, number] | [number, number, number, number];
+  enableInteractiveSelection?: boolean;
+  selectAllOnFocus?: boolean;
+  selectionControls?: unknown;
+  buildCounter?: (currentLength: number, isFocused: boolean, maxLength: number) => FlutterElement;
+  scrollPhysics?: unknown;
+  autofillHints?: string[];
+  autovalidateMode?: 'disabled' | 'always' | 'onUserInteraction' | 'onUnfocus' | 'onUserInteractionIfError';
+  scrollController?: unknown;
+  restorationId?: string;
+  enableIMEPersonalizedLearning?: boolean;
+  mouseCursor?: unknown;
+  contextMenuBuilder?: (editableTextState: unknown) => FlutterElement;
+  spellCheckConfiguration?: unknown;
+  magnifierConfiguration?: unknown;
+  undoController?: unknown;
+  onAppPrivateCommand?: (action: string, data: Record<string, unknown>) => void;
+  cursorOpacityAnimates?: boolean;
+  selectionHeightStyle?: unknown;
+  selectionWidthStyle?: unknown;
+  dragStartBehavior?: string;
+  contentInsertionConfiguration?: unknown;
+  statesController?: unknown;
+  clipBehavior?: unknown;
+  scribbleEnabled?: boolean;
+  stylusHandwritingEnabled?: boolean;
+  canRequestFocus?: boolean;
+  hintLocales?: unknown[];
+}
+
+export interface TextSelectionThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface TextSelectionToolbarProps {
+  anchorAbove: unknown;
+  anchorBelow: unknown;
+  toolbarBuilder?: (child: FlutterElement) => FlutterElement;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface TextSelectionToolbarTextButtonProps {
+  padding: number | [number, number] | [number, number, number, number];
+  onClick?: unknown;
+  alignment?: string;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ThemeProps {
+  data: Record<string, unknown>;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AnimatedThemeProps {
+  data: Record<string, unknown>;
+  curve?: unknown;
+  duration?: unknown;
+  onEnd?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface TimePickerDialogProps {
+  initialTime: unknown;
+  cancelText?: string;
+  confirmText?: string;
+  helpText?: string;
+  errorInvalidText?: string;
+  hourLabelText?: string;
+  minuteLabelText?: string;
+  restorationId?: string;
+  initialEntryMode?: 'dial' | 'input' | 'dialOnly' | 'inputOnly';
+  orientation?: 'portrait' | 'landscape';
+  onEntryModeChanged?: (mode: 'dial' | 'input' | 'dialOnly' | 'inputOnly') => void;
+  switchToInputEntryModeIcon?: unknown;
+  switchToTimerEntryModeIcon?: unknown;
+  emptyInitialInput?: boolean;
+}
+
+export interface TimePickerThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ToggleButtonsProps {
+  isSelected: boolean[];
+  onClick?: (index: number) => void;
+  mouseCursor?: unknown;
+  tapTargetSize?: 'padded' | 'shrinkWrap';
+  textStyle?: TextStyleProps;
+  constraints?: unknown;
+  color?: unknown;
+  selectedColor?: unknown;
+  disabledColor?: unknown;
+  fillColor?: unknown;
+  focusColor?: unknown;
+  highlightColor?: unknown;
+  hoverColor?: unknown;
+  splashColor?: unknown;
+  focusNodes?: unknown[];
+  renderBorder?: boolean;
+  borderColor?: unknown;
+  selectedBorderColor?: unknown;
+  disabledBorderColor?: unknown;
+  borderRadius?: unknown;
+  borderWidth?: number;
+  direction?: 'horizontal' | 'vertical';
+  verticalDirection?: 'up' | 'down';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ToggleButtonsThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface TooltipProps {
+  message?: string;
+  richMessage?: unknown;
+  height?: number;
+  constraints?: unknown;
+  padding?: number | [number, number] | [number, number, number, number];
+  margin?: number | [number, number] | [number, number, number, number];
+  verticalOffset?: number;
+  preferBelow?: boolean;
+  excludeFromSemantics?: boolean;
+  decoration?: unknown;
+  textStyle?: TextStyleProps;
+  textAlign?: unknown;
+  waitDuration?: unknown;
+  showDuration?: unknown;
+  exitDuration?: unknown;
+  enableTapToDismiss?: boolean;
+  triggerMode?: 'manual' | 'longPress' | 'tap';
+  enableFeedback?: boolean;
+  onTriggered?: unknown;
+  mouseCursor?: unknown;
+  ignorePointer?: boolean;
+  positionDelegate?: (context: unknown) => unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface TooltipThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface TooltipVisibilityProps {
+  visible: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface UserAccountsDrawerHeaderProps {
+  decoration?: unknown;
+  margin?: number | [number, number] | [number, number, number, number];
+  currentAccountPicture?: FlutterElement;
+  otherAccountsPictures?: FlutterElement[];
+  currentAccountPictureSize?: unknown;
+  otherAccountsPicturesSize?: unknown;
+  accountName: FlutterElement;
+  accountEmail: FlutterElement;
+  onDetailsPressed?: unknown;
+  arrowColor?: unknown;
+}
+
+export interface ActionListenerProps {
+  listener: (action: unknown) => void;
+  action: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ActionsProps {
+  dispatcher?: unknown;
+  actions: Record<string, unknown>;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface FocusableActionDetectorProps {
+  enabled?: boolean;
+  focusNode?: unknown;
+  autofocus?: boolean;
+  descendantsAreFocusable?: boolean;
+  descendantsAreTraversable?: boolean;
+  shortcuts?: Record<string, unknown>;
+  actions?: Record<string, unknown>;
+  onShowFocusHighlight?: (value: boolean) => void;
+  onShowHoverHighlight?: (value: boolean) => void;
+  onFocusChange?: (value: boolean) => void;
+  mouseCursor?: unknown;
+  includeFocusSemantics?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface RenderObjectToWidgetAdapterProps {
+  container: unknown;
+  debugShortDescription?: string;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AnimatedCrossFadeProps {
+  firstChild: FlutterElement;
+  secondChild: FlutterElement;
+  firstCurve?: unknown;
+  secondCurve?: unknown;
+  sizeCurve?: unknown;
+  alignment?: string;
+  crossFadeState: 'showFirst' | 'showSecond';
+  duration: unknown;
+  reverseDuration?: unknown;
+  layoutBuilder?: (topChild: FlutterElement, topChildKey: unknown, bottomChild: FlutterElement, bottomChildKey: unknown) => FlutterElement;
+  excludeBottomFocus?: boolean;
+}
+
+export interface AnimatedListProps {
+  itemBuilder: (index: number, animation: unknown) => FlutterElement;
+  initialItemCount?: number;
+  scrollDirection?: 'horizontal' | 'vertical';
+  reverse?: boolean;
+  controller?: unknown;
+  primary?: boolean;
+  physics?: unknown;
+  shrinkWrap?: boolean;
+  padding?: number | [number, number] | [number, number, number, number];
+  clipBehavior?: unknown;
+}
+
+export interface AnimatedGridProps {
+  itemBuilder: (index: number, animation: unknown) => FlutterElement;
+  gridDelegate: unknown;
+  initialItemCount?: number;
+  scrollDirection?: 'horizontal' | 'vertical';
+  reverse?: boolean;
+  controller?: unknown;
+  primary?: boolean;
+  physics?: unknown;
+  padding?: number | [number, number] | [number, number, number, number];
+  clipBehavior?: unknown;
+}
+
+export interface SliverAnimatedListProps {
+  itemBuilder: (index: number, animation: unknown) => FlutterElement;
+  findChildIndexCallback?: (key: unknown) => number;
+  initialItemCount?: number;
+}
+
+export interface SliverAnimatedGridProps {
+  itemBuilder: (index: number, animation: unknown) => FlutterElement;
+  gridDelegate: unknown;
+  findChildIndexCallback?: (key: unknown) => number;
+  initialItemCount?: number;
+}
+
+export interface AnimatedSizeProps {
+  alignment?: string;
+  curve?: unknown;
+  duration: unknown;
+  reverseDuration?: unknown;
+  clipBehavior?: unknown;
+  onEnd?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AnimatedSwitcherProps {
+  duration: unknown;
+  reverseDuration?: unknown;
+  switchInCurve?: unknown;
+  switchOutCurve?: unknown;
+  transitionBuilder?: (child: FlutterElement, animation: unknown) => FlutterElement;
+  layoutBuilder?: (currentChild: FlutterElement, previousChildren: FlutterElement[]) => FlutterElement;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AnnotatedRegionProps {
+  value: unknown;
+  sized?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface WidgetsAppProps {
+  navigatorKey?: unknown;
+  onGenerateRoute?: (settings: unknown) => unknown;
+  onGenerateInitialRoutes?: (initialRoute: string) => unknown[];
+  onUnknownRoute?: (settings: unknown) => unknown;
+  onNavigationNotification?: (notification: unknown) => boolean;
+  navigatorObservers?: unknown[];
+  initialRoute?: string;
+  pageRouteBuilder?: (settings: unknown, builder: () => FlutterElement) => unknown;
+  routes?: Record<string, () => FlutterElement>;
+  builder?: (child: FlutterElement) => FlutterElement;
+  title?: string;
+  onGenerateTitle?: () => string;
+  textStyle?: TextStyleProps;
+  color: unknown;
+  locale?: unknown;
+  localizationsDelegates?: unknown[];
+  localeListResolutionCallback?: (locales: unknown[], supportedLocales: unknown[]) => unknown;
+  localeResolutionCallback?: (locale: unknown, supportedLocales: unknown[]) => unknown;
+  supportedLocales?: unknown[];
+  showPerformanceOverlay?: boolean;
+  showSemanticsDebugger?: boolean;
+  debugShowWidgetInspector?: boolean;
+  debugShowCheckedModeBanner?: boolean;
+  exitWidgetSelectionButtonBuilder?: (key: unknown, onPressed: unknown, semanticsLabel: string) => FlutterElement;
+  moveExitWidgetSelectionButtonBuilder?: (onPressed: unknown, semanticsLabel: string, usesDefaultAlignment: boolean) => FlutterElement;
+  tapBehaviorButtonBuilder?: (onPressed: unknown, selectionOnTapEnabled: boolean, semanticsLabel: string) => FlutterElement;
+  shortcuts?: Record<string, unknown>;
+  actions?: Record<string, unknown>;
+  restorationScopeId?: string;
+  useInheritedMediaQuery?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface StreamBuilderProps {
+  initialData?: unknown;
+  stream: unknown;
+  builder: (snapshot: unknown) => FlutterElement;
+}
+
+export interface FutureBuilderProps {
+  future: Promise<unknown>;
+  initialData?: unknown;
+  builder: (snapshot: unknown) => FlutterElement;
+}
+
+export interface RawAutocompleteProps {
+  optionsViewBuilder: (onSelected: (option: unknown) => void, options: unknown[]) => FlutterElement;
+  optionsBuilder: (textEditingValue: unknown) => unknown;
+  optionsViewOpenDirection?: 'up' | 'down' | 'mostSpace';
+  displayStringForOption?: (option: unknown) => string;
+  fieldViewBuilder?: (textEditingController: unknown, focusNode: unknown, onFieldSubmitted: unknown) => FlutterElement;
+  focusNode?: unknown;
+  onSelected?: (option: unknown) => void;
+  textEditingController?: unknown;
+  initialValue?: unknown;
+}
+
+export interface AutocompleteHighlightedOptionProps {
+  highlightIndexNotifier: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AutofillGroupProps {
+  onDisposeAction?: 'commit' | 'cancel';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AutomaticKeepAliveProps {
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface BannerProps {
+  message: string;
+  textDirection?: unknown;
+  location: 'topStart' | 'topEnd' | 'bottomStart' | 'bottomEnd';
+  layoutDirection?: unknown;
+  color?: unknown;
+  textStyle?: TextStyleProps;
+  shadow?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CheckedModeBannerProps {
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DirectionalityProps {
+  textDirection: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface OpacityProps {
+  opacity: number;
+  alwaysIncludeSemantics?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ShaderMaskProps {
+  shaderCallback: (bounds: unknown) => unknown;
+  blendMode?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface BackdropGroupProps {
+  backdropKey?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface BackdropFilterProps {
+  filter?: unknown;
+  filterConfig?: unknown;
+  blendMode?: unknown;
+  enabled?: boolean;
+  backdropGroupKey?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CustomPaintProps {
+  painter?: unknown;
+  foregroundPainter?: unknown;
+  size?: unknown;
+  isComplex?: boolean;
+  willChange?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ClipRectProps {
+  clipper?: unknown;
+  clipBehavior?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ClipRRectProps {
+  borderRadius?: unknown;
+  clipper?: unknown;
+  clipBehavior?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ClipRSuperellipseProps {
+  borderRadius?: unknown;
+  clipper?: unknown;
+  clipBehavior?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ClipOvalProps {
+  clipper?: unknown;
+  clipBehavior?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ClipPathProps {
+  clipper?: unknown;
+  clipBehavior?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface PhysicalModelProps {
+  shape?: 'rectangle' | 'circle';
+  clipBehavior?: unknown;
+  borderRadius?: unknown;
+  elevation?: number;
+  color: unknown;
+  shadowColor?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface PhysicalShapeProps {
+  clipper: unknown;
+  clipBehavior?: unknown;
+  elevation?: number;
+  color: unknown;
+  shadowColor?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface TransformProps {
+  transform: unknown;
+  origin?: unknown;
+  alignment?: string;
+  transformHitTests?: boolean;
+  filterQuality?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CompositedTransformTargetProps {
+  link: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CompositedTransformFollowerProps {
+  link: unknown;
+  showWhenUnlinked?: boolean;
+  offset?: unknown;
+  targetAnchor?: string;
+  followerAnchor?: string;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface FittedBoxProps {
+  fit?: 'fill' | 'contain' | 'cover' | 'fitWidth' | 'fitHeight' | 'none' | 'scaleDown';
+  alignment?: string;
+  clipBehavior?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface FractionalTranslationProps {
+  translation: unknown;
+  transformHitTests?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface RotatedBoxProps {
+  quarterTurns: number;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface PaddingProps {
   padding: number | [number, number] | [number, number, number, number];
-  children?: FlutterElement | FlutterElement[];
-}
-
-export interface ExpandedProps {
-  flex?: number;
-  children?: FlutterElement | FlutterElement[];
-}
-
-export interface FlexibleProps {
-  flex?: number;
-  fit?: 'tight' | 'loose';
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -199,136 +3344,3101 @@ export interface AlignProps {
   children?: FlutterElement | FlutterElement[];
 }
 
+export interface CenterProps {
+  widthFactor?: number;
+  heightFactor?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CustomSingleChildLayoutProps {
+  delegate: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface LayoutIdProps {
+  id: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CustomMultiChildLayoutProps {
+  delegate: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
 export interface SizedBoxProps {
   width?: number;
   height?: number;
   children?: FlutterElement | FlutterElement[];
 }
 
-export interface WrapProps {
-  spacing?: number;
-  runSpacing?: number;
-  alignment?:
-    | 'start'
-    | 'end'
-    | 'center'
-    | 'spaceBetween'
-    | 'spaceAround'
-    | 'spaceEvenly';
-  direction?: 'horizontal' | 'vertical';
+export interface ConstrainedBoxProps {
+  constraints: unknown;
   children?: FlutterElement | FlutterElement[];
 }
 
-export interface ListTileProps {
-  title?: FlutterElement;
-  subtitle?: FlutterElement;
-  leading?: FlutterElement;
-  trailing?: FlutterElement;
-  onTap?: () => void;
+export interface ConstraintsTransformBoxProps {
+  textDirection?: unknown;
+  alignment?: string;
+  constraintsTransform: (constraints: unknown) => unknown;
+  clipBehavior?: unknown;
+  debugTransformType?: string;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface UnconstrainedBoxProps {
+  textDirection?: unknown;
+  alignment?: string;
+  constrainedAxis?: 'horizontal' | 'vertical';
+  clipBehavior?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface FractionallySizedBoxProps {
+  alignment?: string;
+  widthFactor?: number;
+  heightFactor?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface LimitedBoxProps {
+  maxWidth?: number;
+  maxHeight?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface OverflowBoxProps {
+  alignment?: string;
+  minWidth?: number;
+  maxWidth?: number;
+  minHeight?: number;
+  maxHeight?: number;
+  fit?: string;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SizedOverflowBoxProps {
+  size: unknown;
+  alignment?: string;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface OffstageProps {
+  offstage?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AspectRatioProps {
+  aspectRatio: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface IntrinsicWidthProps {
+  stepWidth?: number;
+  stepHeight?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface IntrinsicHeightProps {
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface BaselineProps {
+  baseline: number;
+  baselineType: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface IgnoreBaselineProps {
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SliverToBoxAdapterProps {
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SliverPaddingProps {
+  padding: number | [number, number] | [number, number, number, number];
+  sliver?: FlutterElement;
+}
+
+export interface SliverSemanticsProps {
+  sliver: FlutterElement;
+  container?: boolean;
+  explicitChildNodes?: boolean;
+  excludeSemantics?: boolean;
+  blockUserActions?: boolean;
+  enabled?: boolean;
+  checked?: boolean;
+  mixed?: boolean;
   selected?: boolean;
+  toggled?: boolean;
+  button?: boolean;
+  slider?: boolean;
+  keyboardKey?: boolean;
+  link?: boolean;
+  linkUrl?: unknown;
+  header?: boolean;
+  headingLevel?: number;
+  textField?: boolean;
+  readOnly?: boolean;
+  focusable?: boolean;
+  focused?: boolean;
+  accessibilityFocusBlockType?: string;
+  inMutuallyExclusiveGroup?: boolean;
+  obscured?: boolean;
+  multiline?: boolean;
+  scopesRoute?: boolean;
+  namesRoute?: boolean;
+  hidden?: boolean;
+  image?: boolean;
+  liveRegion?: boolean;
+  expanded?: boolean;
+  isRequired?: boolean;
+  maxValueLength?: number;
+  currentValueLength?: number;
+  identifier?: string;
+  traversalParentIdentifier?: unknown;
+  traversalChildIdentifier?: unknown;
+  label?: string;
+  attributedLabel?: unknown;
+  value?: string;
+  attributedValue?: unknown;
+  increasedValue?: string;
+  attributedIncreasedValue?: unknown;
+  decreasedValue?: string;
+  attributedDecreasedValue?: unknown;
+  hint?: string;
+  attributedHint?: unknown;
+  tooltip?: string;
+  onTapHint?: string;
+  onLongPressHint?: string;
+  textDirection?: unknown;
+  sortKey?: unknown;
+  tagForChildren?: unknown;
+  onTap?: unknown;
+  onLongPress?: unknown;
+  onScrollLeft?: unknown;
+  onScrollRight?: unknown;
+  onScrollUp?: unknown;
+  onScrollDown?: unknown;
+  onIncrease?: unknown;
+  onDecrease?: unknown;
+  onCopy?: unknown;
+  onCut?: unknown;
+  onPaste?: unknown;
+  onDismiss?: unknown;
+  onMoveCursorForwardByCharacter?: (extendSelection: boolean) => void;
+  onMoveCursorBackwardByCharacter?: (extendSelection: boolean) => void;
+  onSetSelection?: (selection: unknown) => void;
+  onSetText?: (text: string) => void;
+  onDidGainAccessibilityFocus?: unknown;
+  onDidLoseAccessibilityFocus?: unknown;
+  onFocus?: unknown;
+  onExpand?: unknown;
+  onCollapse?: unknown;
+  customSemanticsActions?: Record<string, unknown>;
+  role?: unknown;
+  controlsNodes?: Set<string>;
+  validationResult?: unknown;
+  hitTestBehavior?: unknown;
+  inputType?: unknown;
+  localeForSubtree?: unknown;
+  minValue?: string;
+  maxValue?: string;
 }
 
-export interface BottomNavigationBarProps {}
-
-export interface DrawerProps {
+export interface ListBodyProps {
+  mainAxis?: 'horizontal' | 'vertical';
+  reverse?: boolean;
   children?: FlutterElement | FlutterElement[];
 }
 
-export interface AlertDialogProps {
-  title?: FlutterElement;
-  content?: FlutterElement;
-  actions?: FlutterElement[];
+export interface StackProps {
+  alignment?: string;
+  textDirection?: unknown;
+  fit?: 'loose' | 'expand' | 'passthrough';
+  clipBehavior?: unknown;
+  children?: FlutterElement | FlutterElement[];
 }
 
-export interface ImageProps {
-  src: string;
+export interface IndexedStackProps {
+  alignment?: string;
+  textDirection?: unknown;
+  clipBehavior?: unknown;
+  sizing?: 'loose' | 'expand' | 'passthrough';
+  index?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface PositionedProps {
+  left?: number;
+  top?: number;
+  right?: number;
+  bottom?: number;
   width?: number;
   height?: number;
-  fit?:
-    | 'fill'
-    | 'contain'
-    | 'cover'
-    | 'fitWidth'
-    | 'fitHeight'
-    | 'none'
-    | 'scaleDown';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface PositionedDirectionalProps {
+  start?: number;
+  top?: number;
+  end?: number;
+  bottom?: number;
+  width?: number;
+  height?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface FlexProps {
+  direction: 'horizontal' | 'vertical';
+  mainAxisAlignment?: 'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly';
+  mainAxisSize?: 'min' | 'max';
+  crossAxisAlignment?: 'start' | 'end' | 'center' | 'stretch' | 'baseline';
+  textDirection?: unknown;
+  verticalDirection?: 'up' | 'down';
+  textBaseline?: unknown;
+  clipBehavior?: unknown;
+  spacing?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface RowProps {
+  mainAxisAlignment?: 'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly';
+  mainAxisSize?: 'min' | 'max';
+  crossAxisAlignment?: 'start' | 'end' | 'center' | 'stretch' | 'baseline';
+  textDirection?: unknown;
+  verticalDirection?: 'up' | 'down';
+  textBaseline?: unknown;
+  spacing?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ColumnProps {
+  mainAxisAlignment?: 'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly';
+  mainAxisSize?: 'min' | 'max';
+  crossAxisAlignment?: 'start' | 'end' | 'center' | 'stretch' | 'baseline';
+  textDirection?: unknown;
+  verticalDirection?: 'up' | 'down';
+  textBaseline?: unknown;
+  spacing?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface FlexibleProps {
+  flex?: number;
+  fit?: 'tight' | 'loose';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ExpandedProps {
+  flex?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface WrapProps {
+  direction?: 'horizontal' | 'vertical';
+  alignment?: 'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly';
+  spacing?: number;
+  runAlignment?: 'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly';
+  runSpacing?: number;
+  crossAxisAlignment?: 'start' | 'end' | 'center';
+  textDirection?: unknown;
+  verticalDirection?: 'up' | 'down';
+  clipBehavior?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface FlowProps {
+  delegate: unknown;
+  clipBehavior?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface RichTextProps {
+  text: unknown;
+  textAlign?: unknown;
+  textDirection?: unknown;
+  softWrap?: boolean;
+  overflow?: 'clip' | 'fade' | 'ellipsis' | 'visible';
+  textScaleFactor?: number;
+  textScaler?: unknown;
+  maxLines?: number;
+  locale?: unknown;
+  strutStyle?: unknown;
+  textWidthBasis?: 'parent' | 'longestLine';
+  textHeightBehavior?: unknown;
+  selectionRegistrar?: unknown;
+  selectionColor?: unknown;
+}
+
+export interface RawImageProps {
+  image?: unknown;
+  debugImageLabel?: string;
+  width?: number;
+  height?: number;
+  scale?: number;
+  color?: unknown;
+  opacity?: unknown;
+  colorBlendMode?: unknown;
+  fit?: 'fill' | 'contain' | 'cover' | 'fitWidth' | 'fitHeight' | 'none' | 'scaleDown';
+  alignment?: string;
+  repeat?: 'repeat' | 'repeatX' | 'repeatY' | 'noRepeat';
+  centerSlice?: unknown;
+  matchTextDirection?: boolean;
+  invertColors?: boolean;
+  filterQuality?: unknown;
+  isAntiAlias?: boolean;
+}
+
+export interface DefaultAssetBundleProps {
+  bundle: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface WidgetToRenderBoxAdapterProps {
+  renderBox: unknown;
+  onBuild?: unknown;
+  onUnmount?: unknown;
+}
+
+export interface ListenerProps {
+  onPointerDown?: (event: unknown) => void;
+  onPointerMove?: (event: unknown) => void;
+  onPointerUp?: (event: unknown) => void;
+  onPointerHover?: (event: unknown) => void;
+  onPointerCancel?: (event: unknown) => void;
+  onPointerPanZoomStart?: (event: unknown) => void;
+  onPointerPanZoomUpdate?: (event: unknown) => void;
+  onPointerPanZoomEnd?: (event: unknown) => void;
+  onPointerSignal?: (event: unknown) => void;
+  behavior?: 'deferToChild' | 'opaque' | 'translucent';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface MouseRegionProps {
+  onEnter?: (event: unknown) => void;
+  onExit?: (event: unknown) => void;
+  onHover?: (event: unknown) => void;
+  cursor?: unknown;
+  opaque?: boolean;
+  hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface RepaintBoundaryProps {
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface IgnorePointerProps {
+  ignoring?: boolean;
+  ignoringSemantics?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AbsorbPointerProps {
+  absorbing?: boolean;
+  ignoringSemantics?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface MetaDataProps {
+  metaData?: unknown;
+  behavior?: 'deferToChild' | 'opaque' | 'translucent';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SemanticsProps {
+  container?: boolean;
+  explicitChildNodes?: boolean;
+  excludeSemantics?: boolean;
+  blockUserActions?: boolean;
+  enabled?: boolean;
+  checked?: boolean;
+  mixed?: boolean;
+  selected?: boolean;
+  toggled?: boolean;
+  button?: boolean;
+  slider?: boolean;
+  keyboardKey?: boolean;
+  link?: boolean;
+  linkUrl?: unknown;
+  header?: boolean;
+  headingLevel?: number;
+  textField?: boolean;
+  readOnly?: boolean;
+  focusable?: boolean;
+  focused?: boolean;
+  accessibilityFocusBlockType?: string;
+  inMutuallyExclusiveGroup?: boolean;
+  obscured?: boolean;
+  multiline?: boolean;
+  scopesRoute?: boolean;
+  namesRoute?: boolean;
+  hidden?: boolean;
+  image?: boolean;
+  liveRegion?: boolean;
+  expanded?: boolean;
+  isRequired?: boolean;
+  maxValueLength?: number;
+  currentValueLength?: number;
+  identifier?: string;
+  traversalParentIdentifier?: unknown;
+  traversalChildIdentifier?: unknown;
+  label?: string;
+  attributedLabel?: unknown;
+  value?: string;
+  attributedValue?: unknown;
+  increasedValue?: string;
+  attributedIncreasedValue?: unknown;
+  decreasedValue?: string;
+  attributedDecreasedValue?: unknown;
+  hint?: string;
+  attributedHint?: unknown;
+  tooltip?: string;
+  onTapHint?: string;
+  onLongPressHint?: string;
+  textDirection?: unknown;
+  sortKey?: unknown;
+  tagForChildren?: unknown;
+  onTap?: unknown;
+  onLongPress?: unknown;
+  onScrollLeft?: unknown;
+  onScrollRight?: unknown;
+  onScrollUp?: unknown;
+  onScrollDown?: unknown;
+  onIncrease?: unknown;
+  onDecrease?: unknown;
+  onCopy?: unknown;
+  onCut?: unknown;
+  onPaste?: unknown;
+  onDismiss?: unknown;
+  onMoveCursorForwardByCharacter?: (extendSelection: boolean) => void;
+  onMoveCursorBackwardByCharacter?: (extendSelection: boolean) => void;
+  onSetSelection?: (selection: unknown) => void;
+  onSetText?: (text: string) => void;
+  onDidGainAccessibilityFocus?: unknown;
+  onDidLoseAccessibilityFocus?: unknown;
+  onFocus?: unknown;
+  onExpand?: unknown;
+  onCollapse?: unknown;
+  customSemanticsActions?: Record<string, unknown>;
+  role?: unknown;
+  controlsNodes?: Set<string>;
+  validationResult?: unknown;
+  hitTestBehavior?: unknown;
+  inputType?: unknown;
+  localeForSubtree?: unknown;
+  minValue?: string;
+  maxValue?: string;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface MergeSemanticsProps {
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface BlockSemanticsProps {
+  blocking?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ExcludeSemanticsProps {
+  excluding?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface IndexedSemanticsProps {
+  index: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface KeyedSubtreeProps {
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface BuilderProps {
+  builder: () => FlutterElement;
+}
+
+export interface StatefulBuilderProps {
+  builder: (setState: (fn: unknown) => void) => FlutterElement;
+}
+
+export interface ColoredBoxProps {
+  color: unknown;
+  isAntiAlias?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface RootWidgetProps {
+  debugShortDescription?: string;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ColorFilteredProps {
+  colorFilter: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DecoratedBoxProps {
+  decoration: unknown;
+  position?: 'background' | 'foreground';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ContainerProps {
+  alignment?: string;
+  padding?: number | [number, number] | [number, number, number, number];
+  color?: unknown;
+  isAntiAlias?: boolean;
+  decoration?: unknown;
+  foregroundDecoration?: unknown;
+  width?: number;
+  height?: number;
+  constraints?: unknown;
+  margin?: number | [number, number] | [number, number, number, number];
+  transform?: unknown;
+  transformAlignment?: string;
+  clipBehavior?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DecoratedSliverProps {
+  decoration: unknown;
+  position?: 'background' | 'foreground';
+  sliver?: FlutterElement;
+}
+
+export interface DefaultSelectionStyleProps {
+  cursorColor?: unknown;
+  selectionColor?: unknown;
+  mouseCursor?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DefaultTextEditingShortcutsProps {
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DismissibleProps {
+  background?: FlutterElement;
+  secondaryBackground?: FlutterElement;
+  confirmDismiss?: (direction: 'vertical' | 'horizontal' | 'endToStart' | 'startToEnd' | 'up' | 'down' | 'none') => Promise<boolean>;
+  onResize?: unknown;
+  onUpdate?: (details: unknown) => void;
+  onDismissed?: (direction: 'vertical' | 'horizontal' | 'endToStart' | 'startToEnd' | 'up' | 'down' | 'none') => void;
+  direction?: 'vertical' | 'horizontal' | 'endToStart' | 'startToEnd' | 'up' | 'down' | 'none';
+  resizeDuration?: unknown;
+  dismissThresholds?: Record<'vertical' | 'horizontal' | 'endToStart' | 'startToEnd' | 'up' | 'down' | 'none', number>;
+  movementDuration?: unknown;
+  crossAxisEndOffset?: number;
+  dragStartBehavior?: string;
+  behavior?: 'deferToChild' | 'opaque' | 'translucent';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DisplayFeatureSubScreenProps {
+  anchorPoint?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DragBoundaryProps {
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DraggableProps {
+  feedback: FlutterElement;
+  data?: unknown;
+  axis?: 'horizontal' | 'vertical';
+  childWhenDragging?: FlutterElement;
+  feedbackOffset?: unknown;
+  dragAnchorStrategy?: (draggable: unknown, position: unknown) => unknown;
+  affinity?: 'horizontal' | 'vertical';
+  maxSimultaneousDrags?: number;
+  onDragStarted?: unknown;
+  onDragUpdate?: (details: unknown) => void;
+  onDraggableCanceled?: (velocity: unknown, offset: unknown) => void;
+  onDragEnd?: (details: unknown) => void;
+  onDragCompleted?: unknown;
+  ignoringFeedbackSemantics?: boolean;
+  ignoringFeedbackPointer?: boolean;
+  rootOverlay?: boolean;
+  hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
+  allowedButtonsFilter?: (buttons: number) => boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface LongPressDraggableProps {
+  feedback: FlutterElement;
+  data?: unknown;
+  axis?: 'horizontal' | 'vertical';
+  childWhenDragging?: FlutterElement;
+  feedbackOffset?: unknown;
+  dragAnchorStrategy?: (draggable: unknown, position: unknown) => unknown;
+  maxSimultaneousDrags?: number;
+  onDragStarted?: unknown;
+  onDragUpdate?: (details: unknown) => void;
+  onDraggableCanceled?: (velocity: unknown, offset: unknown) => void;
+  onDragEnd?: (details: unknown) => void;
+  onDragCompleted?: unknown;
+  hapticFeedbackOnStart?: boolean;
+  ignoringFeedbackSemantics?: boolean;
+  ignoringFeedbackPointer?: boolean;
+  delay?: unknown;
+  allowedButtonsFilter?: (buttons: number) => boolean;
+  hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
+  rootOverlay?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DragTargetProps {
+  builder: (candidateData: unknown[], rejectedData: unknown[]) => FlutterElement;
+  onWillAccept?: (data: unknown) => boolean;
+  onWillAcceptWithDetails?: (details: unknown) => boolean;
+  onAccept?: (data: unknown) => void;
+  onAcceptWithDetails?: (details: unknown) => void;
+  onLeave?: (data: unknown) => void;
+  onMove?: (details: unknown) => void;
+  hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
+}
+
+export interface DraggableScrollableSheetProps {
+  initialChildSize?: number;
+  minChildSize?: number;
+  maxChildSize?: number;
+  expand?: boolean;
+  snap?: boolean;
+  snapSizes?: number[];
+  snapAnimationDuration?: unknown;
+  controller?: unknown;
+  shouldCloseOnMinExtent?: boolean;
+  builder: (scrollController: unknown) => FlutterElement;
+}
+
+export interface DraggableScrollableActuatorProps {
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DualTransitionBuilderProps {
+  animation: unknown;
+  forwardBuilder: (animation: unknown, child: FlutterElement) => FlutterElement;
+  reverseBuilder: (animation: unknown, child: FlutterElement) => FlutterElement;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface EditableTextProps {
+  controller: unknown;
+  focusNode: unknown;
+  readOnly?: boolean;
+  obscuringCharacter?: string;
+  obscureText?: boolean;
+  autocorrect?: boolean;
+  smartDashesType?: 'disabled' | 'enabled';
+  smartQuotesType?: 'disabled' | 'enabled';
+  enableSuggestions?: boolean;
+  style: TextStyleProps;
+  strutStyle?: unknown;
+  cursorColor: unknown;
+  backgroundCursorColor: unknown;
+  textAlign?: unknown;
+  textDirection?: unknown;
+  locale?: unknown;
+  textScaleFactor?: number;
+  textScaler?: unknown;
+  maxLines?: number;
+  minLines?: number;
+  expands?: boolean;
+  forceLine?: boolean;
+  textHeightBehavior?: unknown;
+  textWidthBasis?: 'parent' | 'longestLine';
+  autofocus?: boolean;
+  showCursor?: boolean;
+  showSelectionHandles?: boolean;
+  selectionColor?: unknown;
+  selectionControls?: unknown;
+  keyboardType?: 'text' | 'number' | 'phone' | 'email' | 'url' | 'multiline';
+  textInputAction?: 'none' | 'unspecified' | 'done' | 'go' | 'search' | 'send' | 'next' | 'previous' | 'continueAction' | 'join' | 'route' | 'emergencyCall' | 'newline';
+  textCapitalization?: 'words' | 'sentences' | 'characters' | 'none';
+  onChange?: (value: string) => void;
+  onEditingComplete?: unknown;
+  onSubmit?: (value: string) => void;
+  onAppPrivateCommand?: (action: string, data: Record<string, unknown>) => void;
+  onSelectionChanged?: (selection: unknown, cause: 'tap' | 'doubleTap' | 'longPress' | 'forcePress' | 'keyboard' | 'toolbar' | 'drag' | 'stylusHandwriting') => void;
+  onSelectionHandleTapped?: unknown;
+  groupId?: unknown;
+  onTapOutside?: (event: unknown) => void;
+  onTapUpOutside?: (event: unknown) => void;
+  inputFormatters?: unknown[];
+  mouseCursor?: unknown;
+  rendererIgnoresPointer?: boolean;
+  cursorWidth?: number;
+  cursorHeight?: number;
+  cursorRadius?: unknown;
+  cursorOpacityAnimates?: boolean;
+  cursorOffset?: unknown;
+  paintCursorAboveText?: boolean;
+  selectionHeightStyle?: unknown;
+  selectionWidthStyle?: unknown;
+  scrollPadding?: number | [number, number] | [number, number, number, number];
+  keyboardAppearance?: unknown;
+  dragStartBehavior?: string;
+  enableInteractiveSelection?: boolean;
+  selectAllOnFocus?: boolean;
+  scrollController?: unknown;
+  scrollPhysics?: unknown;
+  autocorrectionTextRectColor?: unknown;
+  toolbarOptions?: unknown;
+  autofillHints?: string[];
+  autofillClient?: unknown;
+  clipBehavior?: unknown;
+  restorationId?: string;
+  scrollBehavior?: unknown;
+  scribbleEnabled?: boolean;
+  stylusHandwritingEnabled?: boolean;
+  enableIMEPersonalizedLearning?: boolean;
+  contentInsertionConfiguration?: unknown;
+  contextMenuBuilder?: (editableTextState: unknown) => FlutterElement;
+  spellCheckConfiguration?: unknown;
+  magnifierConfiguration?: unknown;
+  undoController?: unknown;
+  hintLocales?: unknown[];
+}
+
+export interface ExpansibleProps {
+  headerBuilder: (animation: unknown) => FlutterElement;
+  bodyBuilder: (animation: unknown) => FlutterElement;
+  controller: unknown;
+  expansibleBuilder?: (header: FlutterElement, body: FlutterElement, animation: unknown) => FlutterElement;
+  animationStyle?: unknown;
+  duration?: unknown;
+  curve?: unknown;
+  reverseCurve?: unknown;
+  maintainState?: boolean;
+}
+
+export interface FadeInImageProps {
+  placeholder: unknown;
+  placeholderErrorBuilder?: (error: unknown, stackTrace: unknown) => FlutterElement;
+  image: unknown;
+  imageErrorBuilder?: (error: unknown, stackTrace: unknown) => FlutterElement;
+  excludeFromSemantics?: boolean;
+  imageSemanticLabel?: string;
+  fadeOutDuration?: unknown;
+  fadeOutCurve?: unknown;
+  fadeInDuration?: unknown;
+  fadeInCurve?: unknown;
+  color?: unknown;
+  colorBlendMode?: unknown;
+  placeholderColor?: unknown;
+  placeholderColorBlendMode?: unknown;
+  width?: number;
+  height?: number;
+  fit?: 'fill' | 'contain' | 'cover' | 'fitWidth' | 'fitHeight' | 'none' | 'scaleDown';
+  placeholderFit?: 'fill' | 'contain' | 'cover' | 'fitWidth' | 'fitHeight' | 'none' | 'scaleDown';
+  filterQuality?: unknown;
+  placeholderFilterQuality?: unknown;
+  alignment?: string;
+  repeat?: 'repeat' | 'repeatX' | 'repeatY' | 'noRepeat';
+  matchTextDirection?: boolean;
+}
+
+export interface FlutterLogoProps {
+  size?: number;
+  textColor?: unknown;
+  style?: 'markOnly' | 'horizontal' | 'stacked';
+  duration?: unknown;
+  curve?: unknown;
+}
+
+export interface FocusProps {
+  focusNode?: unknown;
+  parentNode?: unknown;
+  autofocus?: boolean;
+  onFocusChange?: (value: boolean) => void;
+  onKeyEvent?: (node: unknown, event: unknown) => 'handled' | 'ignored' | 'skipRemainingHandlers';
+  onKey?: (node: unknown, event: unknown) => 'handled' | 'ignored' | 'skipRemainingHandlers';
+  canRequestFocus?: boolean;
+  skipTraversal?: boolean;
+  descendantsAreFocusable?: boolean;
+  descendantsAreTraversable?: boolean;
+  includeSemantics?: boolean;
+  debugLabel?: string;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface FocusScopeProps {
+  node?: unknown;
+  parentNode?: unknown;
+  autofocus?: boolean;
+  onFocusChange?: (value: boolean) => void;
+  canRequestFocus?: boolean;
+  skipTraversal?: boolean;
+  onKeyEvent?: (node: unknown, event: unknown) => 'handled' | 'ignored' | 'skipRemainingHandlers';
+  onKey?: (node: unknown, event: unknown) => 'handled' | 'ignored' | 'skipRemainingHandlers';
+  debugLabel?: string;
+  includeSemantics?: boolean;
+  descendantsAreFocusable?: boolean;
+  descendantsAreTraversable?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ExcludeFocusProps {
+  excluding?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface FocusTraversalOrderProps {
+  order: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface FocusTraversalGroupProps {
+  policy?: unknown;
+  descendantsAreFocusable?: boolean;
+  descendantsAreTraversable?: boolean;
+  onFocusNodeCreated?: (p0: unknown) => void;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ExcludeFocusTraversalProps {
+  excluding?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface FormProps {
+  canPop?: boolean;
+  onPopInvoked?: (didPop: boolean) => void;
+  onPopInvokedWithResult?: (didPop: boolean, result: unknown) => void;
+  onWillPop?: () => Promise<boolean>;
+  onChange?: unknown;
+  autovalidateMode?: 'disabled' | 'always' | 'onUserInteraction' | 'onUnfocus' | 'onUserInteractionIfError';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface FormFieldProps {
+  builder: (field: unknown) => FlutterElement;
+  onSaved?: (newValue: unknown) => void;
+  onReset?: unknown;
+  forceErrorText?: string;
+  validator?: (value: unknown) => string;
+  errorBuilder?: (errorText: string) => FlutterElement;
+  initialValue?: unknown;
+  enabled?: boolean;
+  autovalidateMode?: 'disabled' | 'always' | 'onUserInteraction' | 'onUnfocus' | 'onUserInteractionIfError';
+  restorationId?: string;
+}
+
+export interface ErrorWidgetProps {
+  exception: unknown;
+}
+
+export interface GestureDetectorProps {
+  onTapDown?: (details: unknown) => void;
+  onTapUp?: (details: unknown) => void;
+  onTap?: () => void;
+  onTapMove?: (details: unknown) => void;
+  onTapCancel?: () => void;
+  onSecondaryTap?: () => void;
+  onSecondaryTapDown?: (details: unknown) => void;
+  onSecondaryTapUp?: (details: unknown) => void;
+  onSecondaryTapCancel?: () => void;
+  onTertiaryTapDown?: (details: unknown) => void;
+  onTertiaryTapUp?: (details: unknown) => void;
+  onTertiaryTapCancel?: () => void;
+  onDoubleTapDown?: (details: unknown) => void;
+  onDoubleTap?: () => void;
+  onDoubleTapCancel?: () => void;
+  onLongPressDown?: (details: unknown) => void;
+  onLongPressCancel?: () => void;
+  onLongPress?: () => void;
+  onLongPressStart?: (details: unknown) => void;
+  onLongPressMoveUpdate?: (details: unknown) => void;
+  onLongPressUp?: () => void;
+  onLongPressEnd?: (details: unknown) => void;
+  onSecondaryLongPressDown?: (details: unknown) => void;
+  onSecondaryLongPressCancel?: () => void;
+  onSecondaryLongPress?: () => void;
+  onSecondaryLongPressStart?: (details: unknown) => void;
+  onSecondaryLongPressMoveUpdate?: (details: unknown) => void;
+  onSecondaryLongPressUp?: () => void;
+  onSecondaryLongPressEnd?: (details: unknown) => void;
+  onTertiaryLongPressDown?: (details: unknown) => void;
+  onTertiaryLongPressCancel?: () => void;
+  onTertiaryLongPress?: () => void;
+  onTertiaryLongPressStart?: (details: unknown) => void;
+  onTertiaryLongPressMoveUpdate?: (details: unknown) => void;
+  onTertiaryLongPressUp?: () => void;
+  onTertiaryLongPressEnd?: (details: unknown) => void;
+  onVerticalDragDown?: (details: unknown) => void;
+  onVerticalDragStart?: (details: unknown) => void;
+  onVerticalDragUpdate?: (details: unknown) => void;
+  onVerticalDragEnd?: (details: unknown) => void;
+  onVerticalDragCancel?: () => void;
+  onHorizontalDragDown?: (details: unknown) => void;
+  onHorizontalDragStart?: (details: unknown) => void;
+  onHorizontalDragUpdate?: (details: unknown) => void;
+  onHorizontalDragEnd?: (details: unknown) => void;
+  onHorizontalDragCancel?: () => void;
+  onForcePressStart?: (details: unknown) => void;
+  onForcePressPeak?: (details: unknown) => void;
+  onForcePressUpdate?: (details: unknown) => void;
+  onForcePressEnd?: (details: unknown) => void;
+  onPanDown?: (details: unknown) => void;
+  onPanStart?: (details: unknown) => void;
+  onPanUpdate?: (details: unknown) => void;
+  onPanEnd?: (details: unknown) => void;
+  onPanCancel?: () => void;
+  onScaleStart?: (details: unknown) => void;
+  onScaleUpdate?: (details: unknown) => void;
+  onScaleEnd?: (details: unknown) => void;
+  behavior?: 'deferToChild' | 'opaque' | 'translucent';
+  excludeFromSemantics?: boolean;
+  dragStartBehavior?: string;
+  trackpadScrollCausesScale?: boolean;
+  trackpadScrollToScaleFactor?: unknown;
+  supportedDevices?: Set<unknown>;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface RawGestureDetectorProps {
+  gestures?: Record<string, unknown>;
+  behavior?: 'deferToChild' | 'opaque' | 'translucent';
+  excludeFromSemantics?: boolean;
+  semantics?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface GridPaperProps {
+  color?: unknown;
+  interval?: number;
+  divisions?: number;
+  subdivisions?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface HeroProps {
+  tag: unknown;
+  createRectTween?: (begin: unknown, end: unknown) => unknown;
+  flightShuttleBuilder?: (animation: unknown, flightDirection: 'push' | 'pop') => FlutterElement;
+  placeholderBuilder?: (heroSize: unknown, child: FlutterElement) => FlutterElement;
+  transitionOnUserGestures?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface HeroModeProps {
+  enabled?: boolean;
+  children?: FlutterElement | FlutterElement[];
 }
 
 export interface IconProps {
-  icon?: string;
+  icon: string;
   size?: number;
-  color?: string;
+  fill?: number;
+  weight?: number;
+  grade?: number;
+  opticalSize?: number;
+  color?: unknown;
+  shadows?: unknown[];
+  semanticLabel?: string;
+  textDirection?: unknown;
+  applyTextScaling?: boolean;
+  blendMode?: unknown;
+  fontWeight?: unknown;
+}
+
+export interface IconThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ImageProps {
+  image: unknown;
+  frameBuilder?: (child: FlutterElement, frame: number, wasSynchronouslyLoaded: boolean) => FlutterElement;
+  loadingBuilder?: (child: FlutterElement, loadingProgress: unknown) => FlutterElement;
+  errorBuilder?: (error: unknown, stackTrace: unknown) => FlutterElement;
+  semanticLabel?: string;
+  excludeFromSemantics?: boolean;
+  width?: number;
+  height?: number;
+  color?: unknown;
+  opacity?: unknown;
+  colorBlendMode?: unknown;
+  fit?: 'fill' | 'contain' | 'cover' | 'fitWidth' | 'fitHeight' | 'none' | 'scaleDown';
+  alignment?: string;
+  repeat?: 'repeat' | 'repeatX' | 'repeatY' | 'noRepeat';
+  centerSlice?: unknown;
+  matchTextDirection?: boolean;
+  gaplessPlayback?: boolean;
+  isAntiAlias?: boolean;
+  filterQuality?: unknown;
+}
+
+export interface ImageFilteredProps {
+  imageFilter: unknown;
+  enabled?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ImageIconProps {
+  image: unknown;
+  size?: number;
+  color?: unknown;
   semanticLabel?: string;
 }
 
-export interface TextFieldProps {
-  placeholder?: string;
+export interface AnimatedContainerProps {
+  alignment?: string;
+  padding?: number | [number, number] | [number, number, number, number];
+  color?: unknown;
+  decoration?: unknown;
+  foregroundDecoration?: unknown;
+  width?: number;
+  height?: number;
+  constraints?: unknown;
+  margin?: number | [number, number] | [number, number, number, number];
+  transform?: unknown;
+  transformAlignment?: string;
+  clipBehavior?: unknown;
+  curve?: unknown;
+  duration: unknown;
+  onEnd?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AnimatedPaddingProps {
+  padding: number | [number, number] | [number, number, number, number];
+  curve?: unknown;
+  duration: unknown;
+  onEnd?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AnimatedAlignProps {
+  alignment: string;
+  heightFactor?: number;
+  widthFactor?: number;
+  curve?: unknown;
+  duration: unknown;
+  onEnd?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AnimatedPositionedProps {
+  left?: number;
+  top?: number;
+  right?: number;
+  bottom?: number;
+  width?: number;
+  height?: number;
+  curve?: unknown;
+  duration: unknown;
+  onEnd?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AnimatedPositionedDirectionalProps {
+  start?: number;
+  top?: number;
+  end?: number;
+  bottom?: number;
+  width?: number;
+  height?: number;
+  curve?: unknown;
+  duration: unknown;
+  onEnd?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AnimatedScaleProps {
+  scale: number;
+  alignment?: string;
+  filterQuality?: unknown;
+  curve?: unknown;
+  duration: unknown;
+  onEnd?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AnimatedRotationProps {
+  turns: number;
+  alignment?: string;
+  filterQuality?: unknown;
+  curve?: unknown;
+  duration: unknown;
+  onEnd?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AnimatedSlideProps {
+  offset: unknown;
+  curve?: unknown;
+  duration: unknown;
+  onEnd?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AnimatedOpacityProps {
+  opacity: number;
+  curve?: unknown;
+  duration: unknown;
+  onEnd?: unknown;
+  alwaysIncludeSemantics?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SliverAnimatedOpacityProps {
+  sliver?: FlutterElement;
+  opacity: number;
+  curve?: unknown;
+  duration: unknown;
+  onEnd?: unknown;
+  alwaysIncludeSemantics?: boolean;
+}
+
+export interface AnimatedDefaultTextStyleProps {
+  style: TextStyleProps;
+  textAlign?: unknown;
+  softWrap?: boolean;
+  overflow?: 'clip' | 'fade' | 'ellipsis' | 'visible';
+  maxLines?: number;
+  textWidthBasis?: 'parent' | 'longestLine';
+  textHeightBehavior?: unknown;
+  curve?: unknown;
+  duration: unknown;
+  onEnd?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AnimatedPhysicalModelProps {
+  shape?: 'rectangle' | 'circle';
+  clipBehavior?: unknown;
+  borderRadius?: unknown;
+  elevation?: number;
+  color: unknown;
+  animateColor?: boolean;
+  shadowColor: unknown;
+  animateShadowColor?: boolean;
+  curve?: unknown;
+  duration: unknown;
+  onEnd?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AnimatedFractionallySizedBoxProps {
+  alignment?: string;
+  heightFactor?: number;
+  widthFactor?: number;
+  curve?: unknown;
+  duration: unknown;
+  onEnd?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface InteractiveViewerProps {
+  clipBehavior?: unknown;
+  panAxis?: 'horizontal' | 'vertical' | 'aligned' | 'free';
+  boundaryMargin?: number | [number, number] | [number, number, number, number];
+  constrained?: boolean;
+  maxScale?: number;
+  minScale?: number;
+  interactionEndFrictionCoefficient?: number;
+  onInteractionEnd?: (details: unknown) => void;
+  onInteractionStart?: (details: unknown) => void;
+  onInteractionUpdate?: (details: unknown) => void;
+  panEnabled?: boolean;
+  scaleEnabled?: boolean;
+  scaleFactor?: number;
+  transformationController?: unknown;
+  alignment?: string;
+  trackpadScrollCausesScale?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface KeyboardListenerProps {
+  focusNode: unknown;
+  autofocus?: boolean;
+  includeSemantics?: boolean;
+  onKeyEvent?: (value: unknown) => void;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface LayoutBuilderProps {
+  builder: (constraints: unknown) => FlutterElement;
+}
+
+export interface ListWheelScrollViewProps {
+  controller?: unknown;
+  physics?: unknown;
+  diameterRatio?: number;
+  perspective?: number;
+  offAxisFraction?: number;
+  useMagnifier?: boolean;
+  magnification?: number;
+  overAndUnderCenterOpacity?: number;
+  itemExtent: number;
+  squeeze?: number;
+  onSelectedItemChanged?: (value: number) => void;
+  renderChildrenOutsideViewport?: boolean;
+  clipBehavior?: unknown;
+  hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
+  restorationId?: string;
+  scrollBehavior?: unknown;
+  dragStartBehavior?: string;
+  changeReportingBehavior?: 'onScrollEnd' | 'onScrollUpdate';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ListWheelViewportProps {
+  diameterRatio?: number;
+  perspective?: number;
+  offAxisFraction?: number;
+  useMagnifier?: boolean;
+  magnification?: number;
+  overAndUnderCenterOpacity?: number;
+  itemExtent: number;
+  squeeze?: number;
+  renderChildrenOutsideViewport?: boolean;
+  offset: unknown;
+  childDelegate: unknown;
+  clipBehavior?: unknown;
+}
+
+export interface LocalizationsProps {
+  locale: unknown;
+  delegates: unknown[];
+  isApplicationLevel?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface LookupBoundaryProps {
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface RawMagnifierProps {
+  decoration?: unknown;
+  clipBehavior?: unknown;
+  focalPointOffset?: unknown;
+  magnificationScale?: number;
+  size: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface MediaQueryProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ModalBarrierProps {
+  color?: unknown;
+  dismissible?: boolean;
+  onDismiss?: unknown;
+  semanticsLabel?: string;
+  barrierSemanticsDismissible?: boolean;
+  clipDetailsNotifier?: unknown;
+  semanticsOnTapHint?: string;
+}
+
+export interface AnimatedModalBarrierProps {
+  color: unknown;
+  dismissible?: boolean;
+  semanticsLabel?: string;
+  barrierSemanticsDismissible?: boolean;
+  onDismiss?: unknown;
+  clipDetailsNotifier?: unknown;
+  semanticsOnTapHint?: string;
+}
+
+export interface NavigationToolbarProps {
+  leading?: FlutterElement;
+  middle?: FlutterElement;
+  trailing?: FlutterElement;
+  centerMiddle?: boolean;
+  middleSpacing?: number;
+}
+
+export interface HeroControllerScopeProps {
+  controller: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface NavigatorProps {
+  pages?: unknown[];
+  onPopPage?: (route: unknown, result: unknown) => boolean;
+  initialRoute?: string;
+  onGenerateInitialRoutes?: (navigator: unknown, initialRoute: string) => unknown[];
+  onGenerateRoute?: (settings: unknown) => unknown;
+  onUnknownRoute?: (settings: unknown) => unknown;
+  transitionDelegate?: unknown;
+  reportsRouteUpdateToEngine?: boolean;
+  clipBehavior?: unknown;
+  observers?: unknown[];
+  requestFocus?: boolean;
+  restorationScopeId?: string;
+  routeTraversalEdgeBehavior?: 'closedLoop' | 'leaveFlutterView' | 'parentScope' | 'stop';
+  routeDirectionalTraversalEdgeBehavior?: 'closedLoop' | 'leaveFlutterView' | 'parentScope' | 'stop';
+  onDidRemovePage?: (page: unknown) => void;
+}
+
+export interface NavigatorPopHandlerProps {
+  onPop?: unknown;
+  onPopWithResult?: (result: unknown) => void;
+  enabled?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface NestedScrollViewProps {
+  controller?: unknown;
+  scrollDirection?: 'horizontal' | 'vertical';
+  reverse?: boolean;
+  physics?: unknown;
+  headerSliverBuilder: (innerBoxIsScrolled: boolean) => FlutterElement[];
+  dragStartBehavior?: string;
+  floatHeaderSlivers?: boolean;
+  clipBehavior?: unknown;
+  hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
+  restorationId?: string;
+  scrollBehavior?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SliverOverlapAbsorberProps {
+  handle: unknown;
+  sliver?: FlutterElement;
+}
+
+export interface SliverOverlapInjectorProps {
+  handle: unknown;
+  sliver?: FlutterElement;
+}
+
+export interface NestedScrollViewViewportProps {
+  axisDirection?: 'up' | 'right' | 'down' | 'left';
+  crossAxisDirection?: 'up' | 'right' | 'down' | 'left';
+  anchor?: number;
+  offset: unknown;
+  center?: unknown;
+  slivers?: FlutterElement[];
+  handle: unknown;
+  clipBehavior?: unknown;
+}
+
+export interface NotificationListenerProps {
+  onNotification?: (notification: unknown) => boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface OrientationBuilderProps {
+  builder: (orientation: 'portrait' | 'landscape') => FlutterElement;
+}
+
+export interface DeviceOrientationBuilderProps {
+  builder: (orientation: 'portrait' | 'landscape') => FlutterElement;
+}
+
+export interface OverflowBarProps {
+  spacing?: number;
+  alignment?: 'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly';
+  overflowSpacing?: number;
+  overflowAlignment?: 'start' | 'end' | 'center';
+  overflowDirection?: 'up' | 'down';
+  textDirection?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface OverlayProps {
+  initialEntries?: unknown[];
+  clipBehavior?: unknown;
+}
+
+export interface OverlayPortalProps {
+  controller: unknown;
+  overlayChildBuilder: () => FlutterElement;
+  overlayLocation?: 'nearestOverlay' | 'rootOverlay';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface GlowingOverscrollIndicatorProps {
+  showLeading?: boolean;
+  showTrailing?: boolean;
+  axisDirection: 'up' | 'right' | 'down' | 'left';
+  color: unknown;
+  notificationPredicate?: (notification: unknown) => boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface StretchingOverscrollIndicatorProps {
+  axisDirection: 'up' | 'right' | 'down' | 'left';
+  notificationPredicate?: (notification: unknown) => boolean;
+  clipBehavior?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface PageStorageProps {
+  bucket: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface PageViewProps {
+  scrollDirection?: 'horizontal' | 'vertical';
+  reverse?: boolean;
+  controller?: unknown;
+  physics?: unknown;
+  pageSnapping?: boolean;
+  onPageChanged?: (value: number) => void;
+  dragStartBehavior?: string;
+  allowImplicitScrolling?: boolean;
+  restorationId?: string;
+  clipBehavior?: unknown;
+  hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
+  scrollBehavior?: unknown;
+  padEnds?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface PerformanceOverlayProps {
+  optionsMask?: number;
+}
+
+export interface PinnedHeaderSliverProps {
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface PlaceholderProps {
+  color?: unknown;
+  strokeWidth?: number;
+  fallbackWidth?: number;
+  fallbackHeight?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface PlatformMenuBarProps {
+  menus: unknown[];
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface PlatformSelectableRegionContextMenuProps {
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AndroidViewProps {
+  viewType: string;
+  onPlatformViewCreated?: (id: number) => void;
+  hitTestBehavior?: string;
+  layoutDirection?: unknown;
+  gestureRecognizers?: Set<unknown>;
+  creationParams?: unknown;
+  creationParamsCodec?: unknown;
+  clipBehavior?: unknown;
+}
+
+export interface UiKitViewProps {
+  viewType: string;
+  onPlatformViewCreated?: (id: number) => void;
+  hitTestBehavior?: string;
+  layoutDirection?: unknown;
+  creationParams?: unknown;
+  creationParamsCodec?: unknown;
+  gestureRecognizers?: Set<unknown>;
+}
+
+export interface AppKitViewProps {
+  viewType: string;
+  onPlatformViewCreated?: (id: number) => void;
+  hitTestBehavior?: string;
+  layoutDirection?: unknown;
+  creationParams?: unknown;
+  creationParamsCodec?: unknown;
+  gestureRecognizers?: Set<unknown>;
+}
+
+export interface HtmlElementViewProps {
+  viewType: string;
+  onPlatformViewCreated?: (id: number) => void;
+  creationParams?: unknown;
+  hitTestBehavior?: string;
+}
+
+export interface PlatformViewLinkProps {
+  surfaceFactory: (controller: unknown) => FlutterElement;
+  onCreatePlatformView: (params: unknown) => unknown;
+  viewType: string;
+}
+
+export interface PlatformViewSurfaceProps {
+  controller: unknown;
+  hitTestBehavior: string;
+  gestureRecognizers: Set<unknown>;
+}
+
+export interface AndroidViewSurfaceProps {
+  controller: unknown;
+  hitTestBehavior: string;
+  gestureRecognizers: Set<unknown>;
+}
+
+export interface PopScopeProps {
+  canPop?: boolean;
+  onPopInvokedWithResult?: (didPop: boolean, result: unknown) => void;
+  onPopInvoked?: (didPop: boolean) => void;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface PreferredSizeProps {
+  preferredSize: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface PrimaryScrollControllerProps {
+  controller: unknown;
+  automaticallyInheritForPlatforms?: Set<'android' | 'fuchsia' | 'iOS' | 'linux' | 'macOS' | 'windows'>;
+  scrollDirection?: 'horizontal' | 'vertical';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface RadioGroupProps {
+  groupValue?: unknown;
+  onChange: (value: unknown) => void;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface RawKeyboardListenerProps {
+  focusNode: unknown;
+  autofocus?: boolean;
+  includeSemantics?: boolean;
+  onKey?: (value: unknown) => void;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface RawMenuAnchorProps {
+  childFocusNode?: unknown;
+  consumeOutsideTaps?: boolean;
+  onOpen?: unknown;
+  onClose?: unknown;
+  onOpenRequested?: (position: unknown, showOverlay: unknown) => void;
+  onCloseRequested?: (hideOverlay: unknown) => void;
+  useRootOverlay?: boolean;
+  builder?: (controller: unknown, child: FlutterElement) => FlutterElement;
+  controller: unknown;
+  overlayBuilder: (info: unknown) => FlutterElement;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface RawMenuAnchorGroupProps {
+  controller: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface RawRadioProps {
+  value: unknown;
+  mouseCursor: unknown;
+  toggleable: boolean;
+  focusNode: unknown;
+  autofocus: boolean;
+  groupRegistry: unknown;
+  enabled: boolean;
+  builder: (state: unknown) => FlutterElement;
+}
+
+export interface RawTooltipProps {
+  semanticsTooltip: string;
+  tooltipBuilder: (animation: unknown) => FlutterElement;
+  hoverDelay?: unknown;
+  touchDelay?: unknown;
+  dismissDelay?: unknown;
+  enableTapToDismiss?: boolean;
+  triggerMode?: 'manual' | 'longPress' | 'tap';
+  enableFeedback?: boolean;
+  onTriggered?: unknown;
+  animationStyle?: unknown;
+  positionDelegate?: (context: unknown) => unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ReorderableListProps {
+  itemBuilder: (index: number) => FlutterElement;
+  itemCount: number;
+  onReorder: (oldIndex: number, newIndex: number) => void;
+  onReorderStart?: (index: number) => void;
+  onReorderEnd?: (index: number) => void;
+  itemExtent?: number;
+  itemExtentBuilder?: (index: number, dimensions: unknown) => number;
+  prototypeItem?: FlutterElement;
+  proxyDecorator?: (child: FlutterElement, index: number, animation: unknown) => FlutterElement;
+  padding?: number | [number, number] | [number, number, number, number];
+  scrollDirection?: 'horizontal' | 'vertical';
+  reverse?: boolean;
+  controller?: unknown;
+  primary?: boolean;
+  physics?: unknown;
+  shrinkWrap?: boolean;
+  anchor?: number;
+  cacheExtent?: number;
+  dragStartBehavior?: string;
+  keyboardDismissBehavior?: 'manual' | 'onDrag';
+  restorationId?: string;
+  clipBehavior?: unknown;
+  autoScrollerVelocityScalar?: number;
+  dragBoundaryProvider?: () => unknown;
+}
+
+export interface SliverReorderableListProps {
+  itemBuilder: (index: number) => FlutterElement;
+  findChildIndexCallback?: (key: unknown) => number;
+  itemCount: number;
+  onReorder: (oldIndex: number, newIndex: number) => void;
+  onReorderStart?: (p0: number) => void;
+  onReorderEnd?: (p0: number) => void;
+  itemExtent?: number;
+  itemExtentBuilder?: (index: number, dimensions: unknown) => number;
+  prototypeItem?: FlutterElement;
+  proxyDecorator?: (child: FlutterElement, index: number, animation: unknown) => FlutterElement;
+  dragBoundaryProvider?: () => unknown;
+  autoScrollerVelocityScalar?: number;
+}
+
+export interface ReorderableDragStartListenerProps {
+  index: number;
+  enabled?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ReorderableDelayedDragStartListenerProps {
+  index: number;
+  enabled?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface RepeatingAnimationBuilderProps {
+  animatable: unknown;
+  duration: unknown;
+  curve?: unknown;
+  repeatMode?: 'restart' | 'reverse';
+  paused?: boolean;
+  builder: (value: unknown, child: FlutterElement) => FlutterElement;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface RestorationScopeProps {
+  restorationId: string;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface UnmanagedRestorationScopeProps {
+  bucket?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface RootRestorationScopeProps {
+  restorationId: string;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface RouterProps {
+  routeInformationProvider?: unknown;
+  routeInformationParser?: unknown;
+  routerDelegate: unknown;
+  backButtonDispatcher?: unknown;
+  restorationScopeId?: string;
+}
+
+export interface BackButtonListenerProps {
+  onBackButtonPressed: () => Promise<boolean>;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SafeAreaProps {
+  left?: boolean;
+  top?: boolean;
+  right?: boolean;
+  bottom?: boolean;
+  minimum?: number | [number, number] | [number, number, number, number];
+  maintainBottomViewPadding?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SliverSafeAreaProps {
+  left?: boolean;
+  top?: boolean;
+  right?: boolean;
+  bottom?: boolean;
+  minimum?: number | [number, number] | [number, number, number, number];
+  sliver: FlutterElement;
+}
+
+export interface ScrollConfigurationProps {
+  behavior: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ScrollNotificationObserverProps {
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CustomScrollViewProps {
+  scrollDirection?: 'horizontal' | 'vertical';
+  reverse?: boolean;
+  controller?: unknown;
+  primary?: boolean;
+  physics?: unknown;
+  scrollBehavior?: unknown;
+  shrinkWrap?: boolean;
+  center?: unknown;
+  anchor?: number;
+  cacheExtent?: number;
+  paintOrder?: 'firstIsTop' | 'lastIsTop';
+  slivers?: FlutterElement[];
+  semanticChildCount?: number;
+  dragStartBehavior?: string;
+  keyboardDismissBehavior?: 'manual' | 'onDrag';
+  restorationId?: string;
+  clipBehavior?: unknown;
+  hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
+}
+
+export interface ListViewProps {
+  scrollDirection?: 'horizontal' | 'vertical';
+  reverse?: boolean;
+  controller?: unknown;
+  primary?: boolean;
+  physics?: unknown;
+  shrinkWrap?: boolean;
+  padding?: number | [number, number] | [number, number, number, number];
+  itemExtent?: number;
+  itemExtentBuilder?: (index: number, dimensions: unknown) => number;
+  prototypeItem?: FlutterElement;
+  addAutomaticKeepAlives?: boolean;
+  addRepaintBoundaries?: boolean;
+  addSemanticIndexes?: boolean;
+  cacheExtent?: number;
+  semanticChildCount?: number;
+  dragStartBehavior?: string;
+  keyboardDismissBehavior?: 'manual' | 'onDrag';
+  restorationId?: string;
+  clipBehavior?: unknown;
+  hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface GridViewProps {
+  scrollDirection?: 'horizontal' | 'vertical';
+  reverse?: boolean;
+  controller?: unknown;
+  primary?: boolean;
+  physics?: unknown;
+  shrinkWrap?: boolean;
+  padding?: number | [number, number] | [number, number, number, number];
+  gridDelegate: unknown;
+  addAutomaticKeepAlives?: boolean;
+  addRepaintBoundaries?: boolean;
+  addSemanticIndexes?: boolean;
+  cacheExtent?: number;
+  semanticChildCount?: number;
+  dragStartBehavior?: string;
+  clipBehavior?: unknown;
+  keyboardDismissBehavior?: 'manual' | 'onDrag';
+  restorationId?: string;
+  hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ScrollableProps {
+  axisDirection?: 'up' | 'right' | 'down' | 'left';
+  controller?: unknown;
+  physics?: unknown;
+  viewportBuilder: (position: unknown) => FlutterElement;
+  incrementCalculator?: (details: unknown) => number;
+  excludeFromSemantics?: boolean;
+  semanticChildCount?: number;
+  dragStartBehavior?: string;
+  restorationId?: string;
+  scrollBehavior?: unknown;
+  clipBehavior?: unknown;
+  hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
+}
+
+export interface TwoDimensionalScrollableProps {
+  horizontalDetails: unknown;
+  verticalDetails: unknown;
+  viewportBuilder: (verticalPosition: unknown, horizontalPosition: unknown) => FlutterElement;
+  incrementCalculator?: (details: unknown) => number;
+  restorationId?: string;
+  excludeFromSemantics?: boolean;
+  diagonalDragBehavior?: 'none' | 'weightedEvent' | 'weightedContinuous' | 'free';
+  dragStartBehavior?: string;
+  hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
+}
+
+export interface RawScrollbarProps {
+  controller?: unknown;
+  thumbVisibility?: boolean;
+  shape?: unknown;
+  radius?: unknown;
+  thickness?: number;
+  thumbColor?: unknown;
+  minThumbLength?: number;
+  minOverscrollLength?: number;
+  trackVisibility?: boolean;
+  trackRadius?: unknown;
+  trackColor?: unknown;
+  trackBorderColor?: unknown;
+  fadeDuration?: unknown;
+  timeToFade?: unknown;
+  pressDuration?: unknown;
+  notificationPredicate?: (notification: unknown) => boolean;
+  interactive?: boolean;
+  scrollbarOrientation?: 'left' | 'right' | 'top' | 'bottom';
+  mainAxisMargin?: number;
+  crossAxisMargin?: number;
+  padding?: number | [number, number] | [number, number, number, number];
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SelectableRegionProps {
+  contextMenuBuilder?: (selectableRegionState: unknown) => FlutterElement;
+  focusNode?: unknown;
+  magnifierConfiguration?: unknown;
+  onSelectionChanged?: (value: unknown) => void;
+  selectionControls: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SelectableRegionSelectionStatusScopeProps {
+}
+
+export interface SelectionListenerProps {
+  selectionNotifier: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SelectionContainerProps {
+  registrar?: unknown;
+  delegate: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SelectionRegistrarScopeProps {
+  registrar: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SemanticsDebuggerProps {
+  labelStyle?: TextStyleProps;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SensitiveContentProps {
+  sensitivity: 'autoSensitive' | 'sensitive' | 'notSensitive';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SharedAppDataProps {
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ShortcutsProps {
+  shortcuts: Record<string, unknown>;
+  debugLabel?: string;
+  includeSemantics?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CallbackShortcutsProps {
+  bindings: Record<string, unknown>;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ShortcutRegistrarProps {
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SingleChildScrollViewProps {
+  scrollDirection?: 'horizontal' | 'vertical';
+  reverse?: boolean;
+  padding?: number | [number, number] | [number, number, number, number];
+  primary?: boolean;
+  physics?: unknown;
+  controller?: unknown;
+  dragStartBehavior?: string;
+  clipBehavior?: unknown;
+  hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
+  restorationId?: string;
+  keyboardDismissBehavior?: 'manual' | 'onDrag';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SizeChangedLayoutNotifierProps {
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SliverListProps {
+  delegate: unknown;
+}
+
+export interface SliverFixedExtentListProps {
+  delegate: unknown;
+  itemExtent: number;
+}
+
+export interface SliverVariedExtentListProps {
+  delegate: unknown;
+  itemExtentBuilder: (index: number, dimensions: unknown) => number;
+}
+
+export interface SliverGridProps {
+  delegate: unknown;
+  gridDelegate: unknown;
+}
+
+export interface SliverOpacityProps {
+  opacity: number;
+  alwaysIncludeSemantics?: boolean;
+  sliver?: FlutterElement;
+}
+
+export interface SliverIgnorePointerProps {
+  ignoring?: boolean;
+  ignoringSemantics?: boolean;
+  sliver?: FlutterElement;
+}
+
+export interface SliverOffstageProps {
+  offstage?: boolean;
+  sliver?: FlutterElement;
+}
+
+export interface KeepAliveProps {
+  keepAlive: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SliverConstrainedCrossAxisProps {
+  maxExtent: number;
+  sliver: FlutterElement;
+}
+
+export interface SliverCrossAxisExpandedProps {
+  flex: number;
+  sliver: FlutterElement;
+}
+
+export interface SliverCrossAxisGroupProps {
+  slivers: FlutterElement[];
+}
+
+export interface SliverMainAxisGroupProps {
+  slivers: FlutterElement[];
+}
+
+export interface SliverEnsureSemanticsProps {
+  sliver: FlutterElement;
+}
+
+export interface SliverFillViewportProps {
+  delegate: unknown;
+  viewportFraction?: number;
+  padEnds?: boolean;
+}
+
+export interface SliverFillRemainingProps {
+  hasScrollBody?: boolean;
+  fillOverscroll?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SliverFloatingHeaderProps {
+  animationStyle?: unknown;
+  snapMode?: 'overlay' | 'scroll';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SliverLayoutBuilderProps {
+  builder: (constraints: unknown) => FlutterElement;
+}
+
+export interface SliverPersistentHeaderProps {
+  delegate: unknown;
+  pinned?: boolean;
+  floating?: boolean;
+}
+
+export interface SliverPrototypeExtentListProps {
+  delegate: unknown;
+  prototypeItem: FlutterElement;
+}
+
+export interface SliverResizingHeaderProps {
+  minExtentPrototype?: FlutterElement;
+  maxExtentPrototype?: FlutterElement;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface TreeSliverProps {
+  tree: unknown[];
+  treeNodeBuilder?: (node: unknown, animationStyle: unknown) => FlutterElement;
+  treeRowExtentBuilder?: (node: unknown, dimensions: unknown) => number;
+  controller?: unknown;
+  onNodeToggle?: (node: unknown) => void;
+  toggleAnimationStyle?: unknown;
+  indentation?: unknown;
+  addAutomaticKeepAlives?: boolean;
+  addRepaintBoundaries?: boolean;
+  addSemanticIndexes?: boolean;
+  semanticIndexCallback?: (widget: FlutterElement, localIndex: number) => number;
+  semanticIndexOffset?: number;
+  findChildIndexCallback?: (p0: unknown) => number;
+}
+
+export interface SnapshotWidgetProps {
+  mode?: 'permissive' | 'normal' | 'forced';
+  painter?: unknown;
+  autoresize?: boolean;
+  controller: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SpacerProps {
+  flex?: number;
+}
+
+export interface StretchEffectProps {
+  stretchStrength?: number;
+  axis: 'horizontal' | 'vertical';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SystemContextMenuProps {
+}
+
+export interface TableProps {
+  children?: unknown[];
+  columnWidths?: Record<number, unknown>;
+  defaultColumnWidth?: unknown;
+  textDirection?: unknown;
+  border?: unknown;
+  defaultVerticalAlignment?: 'top' | 'middle' | 'bottom' | 'baseline' | 'fill' | 'intrinsicHeight';
+  textBaseline?: unknown;
+}
+
+export interface TableCellProps {
+  verticalAlignment?: 'top' | 'middle' | 'bottom' | 'baseline' | 'fill' | 'intrinsicHeight';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface TapRegionSurfaceProps {
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface TapRegionProps {
+  enabled?: boolean;
+  behavior?: 'deferToChild' | 'opaque' | 'translucent';
+  onTapOutside?: (event: unknown) => void;
+  onTapInside?: (event: unknown) => void;
+  onTapUpOutside?: (event: unknown) => void;
+  onTapUpInside?: (event: unknown) => void;
+  groupId?: unknown;
+  consumeOutsideTaps?: boolean;
+  debugLabel?: string;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface TextFieldTapRegionProps {
+  enabled?: boolean;
+  onTapOutside?: (event: unknown) => void;
+  onTapInside?: (event: unknown) => void;
+  onTapUpOutside?: (event: unknown) => void;
+  onTapUpInside?: (event: unknown) => void;
+  consumeOutsideTaps?: boolean;
+  debugLabel?: string;
+  groupId?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DefaultTextStyleProps {
+  style: TextStyleProps;
+  textAlign?: unknown;
+  softWrap?: boolean;
+  overflow?: 'clip' | 'fade' | 'ellipsis' | 'visible';
+  maxLines?: number;
+  textWidthBasis?: 'parent' | 'longestLine';
+  textHeightBehavior?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DefaultTextHeightBehaviorProps {
+  textHeightBehavior: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface TextProps {
+  data: string;
+  style?: TextStyleProps;
+  strutStyle?: unknown;
+  textAlign?: unknown;
+  textDirection?: unknown;
+  locale?: unknown;
+  softWrap?: boolean;
+  overflow?: 'clip' | 'fade' | 'ellipsis' | 'visible';
+  textScaleFactor?: number;
+  textScaler?: unknown;
+  maxLines?: number;
+  semanticsLabel?: string;
+  semanticsIdentifier?: string;
+  textWidthBasis?: 'parent' | 'longestLine';
+  textHeightBehavior?: unknown;
+  selectionColor?: unknown;
+  children?: string | number;
+}
+
+export interface TextSelectionGestureDetectorProps {
+  onTapTrackStart?: unknown;
+  onTapTrackReset?: unknown;
+  onTapDown?: (details: unknown) => void;
+  onForcePressStart?: (details: unknown) => void;
+  onForcePressEnd?: (details: unknown) => void;
+  onSecondaryTap?: () => void;
+  onSecondaryTapDown?: (details: unknown) => void;
+  onSingleTapUp?: (details: unknown) => void;
+  onSingleTapCancel?: () => void;
+  onUserTap?: () => void;
+  onSingleLongTapStart?: (details: unknown) => void;
+  onSingleLongTapMoveUpdate?: (details: unknown) => void;
+  onSingleLongTapEnd?: (details: unknown) => void;
+  onSingleLongTapCancel?: () => void;
+  onDoubleTapDown?: (details: unknown) => void;
+  onTripleTapDown?: (details: unknown) => void;
+  onDragSelectionStart?: (details: unknown) => void;
+  onDragSelectionUpdate?: (details: unknown) => void;
+  onDragSelectionEnd?: (endDetails: unknown) => void;
+  onUserTapAlwaysCalled?: boolean;
+  behavior?: 'deferToChild' | 'opaque' | 'translucent';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface TextureProps {
+  textureId: number;
+  freeze?: boolean;
+  filterQuality?: unknown;
+}
+
+export interface TickerModeProps {
+  enabled: boolean;
+  forceFrames?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface TitleProps {
+  title?: string;
+  color: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SlideTransitionProps {
+  position: unknown;
+  transformHitTests?: boolean;
+  textDirection?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface MatrixTransitionProps {
+  animation: unknown;
+  onTransform: (animationValue: number) => unknown;
+  alignment?: string;
+  filterQuality?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ScaleTransitionProps {
+  scale: unknown;
+  alignment?: string;
+  filterQuality?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface RotationTransitionProps {
+  turns: unknown;
+  alignment?: string;
+  filterQuality?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SizeTransitionProps {
+  axis?: 'horizontal' | 'vertical';
+  sizeFactor: unknown;
+  axisAlignment?: number;
+  fixedCrossAxisSizeFactor?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface FadeTransitionProps {
+  opacity: unknown;
+  alwaysIncludeSemantics?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SliverFadeTransitionProps {
+  opacity: unknown;
+  alwaysIncludeSemantics?: boolean;
+  sliver?: FlutterElement;
+}
+
+export interface PositionedTransitionProps {
+  rect: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface RelativePositionedTransitionProps {
+  rect: unknown;
+  size: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DecoratedBoxTransitionProps {
+  decoration: unknown;
+  position?: 'background' | 'foreground';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AlignTransitionProps {
+  alignment: unknown;
+  widthFactor?: number;
+  heightFactor?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DefaultTextStyleTransitionProps {
+  style: unknown;
+  textAlign?: unknown;
+  softWrap?: boolean;
+  overflow?: 'clip' | 'fade' | 'ellipsis' | 'visible';
+  maxLines?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ListenableBuilderProps {
+  listenable: unknown;
+  builder: (child: FlutterElement) => FlutterElement;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface AnimatedBuilderProps {
+  animation: unknown;
+  builder: (child: FlutterElement) => FlutterElement;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface TweenAnimationBuilderProps {
+  tween: unknown;
+  duration: unknown;
+  curve?: unknown;
+  builder: (value: unknown, child: FlutterElement) => FlutterElement;
+  onEnd?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface UndoHistoryProps {
+  shouldChangeUndoStack?: (oldValue: unknown, newValue: unknown) => boolean;
+  value: unknown;
+  onTriggered: (value: unknown) => void;
+  focusNode: unknown;
+  undoStackModifier?: (value: unknown) => unknown;
+  controller?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ValueListenableBuilderProps {
+  valueListenable: unknown;
+  builder: (value: unknown, child: FlutterElement) => FlutterElement;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ViewProps {
+  view: unknown;
+  deprecatedDoNotUseWillBeRemovedWithoutNoticePipelineOwner?: unknown;
+  deprecatedDoNotUseWillBeRemovedWithoutNoticeRenderView?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface RawViewProps {
+  view: unknown;
+  deprecatedDoNotUseWillBeRemovedWithoutNoticePipelineOwner?: unknown;
+  deprecatedDoNotUseWillBeRemovedWithoutNoticeRenderView?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ViewCollectionProps {
+  views: FlutterElement[];
+}
+
+export interface ViewAnchorProps {
+  view?: FlutterElement;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface ViewportProps {
+  axisDirection?: 'up' | 'right' | 'down' | 'left';
+  crossAxisDirection?: 'up' | 'right' | 'down' | 'left';
+  anchor?: number;
+  offset: unknown;
+  center?: unknown;
+  cacheExtent?: number;
+  cacheExtentStyle?: string;
+  paintOrder?: 'firstIsTop' | 'lastIsTop';
+  clipBehavior?: unknown;
+  slivers?: FlutterElement[];
+}
+
+export interface ShrinkWrappingViewportProps {
+  axisDirection?: 'up' | 'right' | 'down' | 'left';
+  crossAxisDirection?: 'up' | 'right' | 'down' | 'left';
+  offset: unknown;
+  paintOrder?: 'firstIsTop' | 'lastIsTop';
+  clipBehavior?: unknown;
+  slivers?: FlutterElement[];
+}
+
+export interface VisibilityProps {
+  replacement?: FlutterElement;
+  visible?: boolean;
+  maintainState?: boolean;
+  maintainAnimation?: boolean;
+  maintainSize?: boolean;
+  maintainSemantics?: boolean;
+  maintainInteractivity?: boolean;
+  maintainFocusability?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface SliverVisibilityProps {
+  sliver: FlutterElement;
+  replacementSliver?: FlutterElement;
+  visible?: boolean;
+  maintainState?: boolean;
+  maintainAnimation?: boolean;
+  maintainSize?: boolean;
+  maintainSemantics?: boolean;
+  maintainInteractivity?: boolean;
+}
+
+export interface WidgetInspectorProps {
+  tapBehaviorButtonBuilder: (onPressed: unknown, selectionOnTapEnabled: boolean, semanticsLabel: string) => FlutterElement;
+  exitWidgetSelectionButtonBuilder: (key: unknown, onPressed: unknown, semanticsLabel: string) => FlutterElement;
+  moveExitWidgetSelectionButtonBuilder: (onPressed: unknown, semanticsLabel: string, usesDefaultAlignment: boolean) => FlutterElement;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface EnableWidgetInspectorScopeProps {
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface DisableWidgetInspectorScopeProps {
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface WillPopScopeProps {
+  onWillPop: () => Promise<boolean>;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoActivityIndicatorProps {
+  color?: unknown;
+  animating?: boolean;
+  radius?: number;
+}
+
+export interface CupertinoLinearActivityIndicatorProps {
+  progress: number;
+  height?: number;
+  color?: unknown;
+}
+
+export interface CupertinoAdaptiveTextSelectionToolbarProps {
+  anchors: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoAppProps {
+  navigatorKey?: unknown;
+  theme?: unknown;
+  routes?: Record<string, () => FlutterElement>;
+  initialRoute?: string;
+  onGenerateRoute?: (settings: unknown) => unknown;
+  onGenerateInitialRoutes?: (initialRoute: string) => unknown[];
+  onUnknownRoute?: (settings: unknown) => unknown;
+  onNavigationNotification?: (notification: unknown) => boolean;
+  navigatorObservers?: unknown[];
+  builder?: (child: FlutterElement) => FlutterElement;
+  title?: string;
+  onGenerateTitle?: () => string;
+  color?: unknown;
+  locale?: unknown;
+  localizationsDelegates?: unknown[];
+  localeListResolutionCallback?: (locales: unknown[], supportedLocales: unknown[]) => unknown;
+  localeResolutionCallback?: (locale: unknown, supportedLocales: unknown[]) => unknown;
+  supportedLocales?: unknown[];
+  showPerformanceOverlay?: boolean;
+  checkerboardRasterCacheImages?: boolean;
+  checkerboardOffscreenLayers?: boolean;
+  showSemanticsDebugger?: boolean;
+  debugShowCheckedModeBanner?: boolean;
+  shortcuts?: Record<string, unknown>;
+  actions?: Record<string, unknown>;
+  restorationScopeId?: string;
+  scrollBehavior?: unknown;
+  useInheritedMediaQuery?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoTabBarProps {
+  items: unknown[];
+  onTap?: (value: number) => void;
+  currentIndex?: number;
+  backgroundColor?: unknown;
+  activeColor?: unknown;
+  inactiveColor?: unknown;
+  iconSize?: number;
+  height?: number;
+  border?: unknown;
+}
+
+export interface CupertinoButtonProps {
+  sizeStyle?: 'small' | 'medium' | 'large';
+  padding?: number | [number, number] | [number, number, number, number];
+  color?: unknown;
+  foregroundColor?: unknown;
+  disabledColor?: unknown;
+  minSize?: number;
+  minimumSize?: unknown;
+  pressedOpacity?: number;
+  borderRadius?: unknown;
+  alignment?: string;
+  focusColor?: unknown;
+  focusNode?: unknown;
+  onFocusChange?: (value: boolean) => void;
+  autofocus?: boolean;
+  mouseCursor?: unknown;
+  onLongPress?: unknown;
+  onClick: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoCheckboxProps {
+  value: boolean;
+  tristate?: boolean;
+  onChange: (value: boolean) => void;
+  mouseCursor?: unknown;
+  activeColor?: unknown;
+  inactiveColor?: unknown;
+  fillColor?: unknown;
+  checkColor?: unknown;
+  focusColor?: unknown;
+  focusNode?: unknown;
+  autofocus?: boolean;
+  side?: unknown;
+  shape?: unknown;
+  tapTargetSize?: unknown;
+  semanticLabel?: string;
+}
+
+export interface CupertinoContextMenuProps {
+  actions: FlutterElement[];
+  enableHapticFeedback?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoContextMenuActionProps {
+  isDefaultAction?: boolean;
+  isDestructiveAction?: boolean;
+  onClick?: unknown;
+  trailingIcon?: string;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoFocusHaloProps {
+}
+
+export interface CupertinoDatePickerProps {
+  mode?: 'time' | 'date' | 'dateAndTime' | 'monthYear';
+  onDateTimeChanged: (value: unknown) => void;
+  initialDateTime?: unknown;
+  minimumDate?: unknown;
+  maximumDate?: unknown;
+  minimumYear?: number;
+  maximumYear?: number;
+  minuteInterval?: number;
+  use24hFormat?: boolean;
+  dateOrder?: 'dmy' | 'mdy' | 'ymd' | 'ydm';
+  backgroundColor?: unknown;
+  showDayOfWeek?: boolean;
+  showTimeSeparator?: boolean;
+  itemExtent?: number;
+  selectionOverlayBuilder?: (columnCount: number, selectedIndex: number) => FlutterElement;
+  selectableDayPredicate?: (day: unknown) => boolean;
+  changeReportingBehavior?: 'onScrollEnd' | 'onScrollUpdate';
+}
+
+export interface CupertinoTimerPickerProps {
+  mode?: 'hm' | 'ms' | 'hms';
+  initialTimerDuration?: unknown;
+  minuteInterval?: number;
+  secondInterval?: number;
+  alignment?: string;
+  backgroundColor?: unknown;
+  itemExtent?: number;
+  onTimerDurationChanged: (value: unknown) => void;
+  changeReportingBehavior?: 'onScrollEnd' | 'onScrollUpdate';
+  selectionOverlayBuilder?: (columnCount: number, selectedIndex: number) => FlutterElement;
+}
+
+export interface CupertinoDesktopTextSelectionToolbarProps {
+  anchor: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoDesktopTextSelectionToolbarButtonProps {
+  onClick: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoAlertDialogProps {
+  content?: FlutterElement;
+  actions?: FlutterElement[];
+  scrollController?: unknown;
+  actionScrollController?: unknown;
+  insetAnimationDuration?: unknown;
+  insetAnimationCurve?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoPopupSurfaceProps {
+  blurSigma?: number;
+  isSurfacePainted?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoActionSheetProps {
+  message?: FlutterElement;
+  actions?: FlutterElement[];
+  messageScrollController?: unknown;
+  actionScrollController?: unknown;
+  cancelButton?: FlutterElement;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoActionSheetActionProps {
+  onClick: unknown;
+  isDefaultAction?: boolean;
+  isDestructiveAction?: boolean;
+  mouseCursor?: unknown;
+  focusNode?: unknown;
+  focusColor?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoDialogActionProps {
+  onClick?: unknown;
+  isDefaultAction?: boolean;
+  isDestructiveAction?: boolean;
+  textStyle?: TextStyleProps;
+  mouseCursor?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoExpansionTileProps {
+  title: FlutterElement;
+  controller?: unknown;
+  transitionMode?: 'fade' | 'scroll';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoFormRowProps {
+  prefix?: FlutterElement;
+  padding?: number | [number, number] | [number, number, number, number];
+  helper?: FlutterElement;
+  error?: FlutterElement;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoFormSectionProps {
+  header?: FlutterElement;
+  footer?: FlutterElement;
+  margin?: number | [number, number] | [number, number, number, number];
+  backgroundColor?: unknown;
+  decoration?: unknown;
+  clipBehavior?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoUserInterfaceLevelProps {
+  data: 'base' | 'elevated';
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoListSectionProps {
+  header?: FlutterElement;
+  footer?: FlutterElement;
+  margin?: number | [number, number] | [number, number, number, number];
+  backgroundColor?: unknown;
+  decoration?: unknown;
+  clipBehavior?: unknown;
+  dividerMargin?: number;
+  additionalDividerMargin?: number;
+  topMargin?: number;
+  hasLeading?: boolean;
+  separatorColor?: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoListTileProps {
+  subtitle?: FlutterElement;
+  additionalInfo?: FlutterElement;
+  leading?: FlutterElement;
+  trailing?: FlutterElement;
+  onTap?: () => unknown;
+  backgroundColor?: unknown;
+  backgroundColorActivated?: unknown;
+  padding?: number | [number, number] | [number, number, number, number];
+  leadingSize?: number;
+  leadingToTitle?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoListTileChevronProps {
+}
+
+export interface CupertinoTextMagnifierProps {
+  animationCurve?: unknown;
+  controller: unknown;
+  dragResistance?: number;
+  hideBelowThreshold?: number;
+  horizontalScreenEdgePadding?: number;
+  magnifierInfo: unknown;
+}
+
+export interface CupertinoMagnifierProps {
+  size?: unknown;
+  borderRadius?: unknown;
+  additionalFocalPointOffset?: unknown;
+  shadows?: unknown[];
+  clipBehavior?: unknown;
+  borderSide?: unknown;
+  inOutAnimation?: unknown;
+  magnificationScale?: number;
+}
+
+export interface CupertinoNavigationBarProps {
+  leading?: FlutterElement;
+  automaticallyImplyLeading?: boolean;
+  automaticallyImplyMiddle?: boolean;
+  previousPageTitle?: string;
+  middle?: FlutterElement;
+  trailing?: FlutterElement;
+  border?: unknown;
+  backgroundColor?: unknown;
+  automaticBackgroundVisibility?: boolean;
+  enableBackgroundFilterBlur?: boolean;
+  brightness?: unknown;
+  padding?: number | [number, number] | [number, number, number, number];
+  transitionBetweenRoutes?: boolean;
+  heroTag?: unknown;
+  bottom?: unknown;
+}
+
+export interface CupertinoSliverNavigationBarProps {
+  largeTitle?: FlutterElement;
+  leading?: FlutterElement;
+  automaticallyImplyLeading?: boolean;
+  automaticallyImplyTitle?: boolean;
+  alwaysShowMiddle?: boolean;
+  previousPageTitle?: string;
+  middle?: FlutterElement;
+  trailing?: FlutterElement;
+  border?: unknown;
+  backgroundColor?: unknown;
+  automaticBackgroundVisibility?: boolean;
+  enableBackgroundFilterBlur?: boolean;
+  brightness?: unknown;
+  padding?: number | [number, number] | [number, number, number, number];
+  transitionBetweenRoutes?: boolean;
+  heroTag?: unknown;
+  stretch?: boolean;
+  bottom?: unknown;
+  bottomMode?: 'automatic' | 'always';
+}
+
+export interface CupertinoNavigationBarBackButtonProps {
+  color?: unknown;
+  previousPageTitle?: string;
+  onClick?: unknown;
+}
+
+export interface CupertinoPageScaffoldProps {
+  navigationBar?: unknown;
+  backgroundColor?: unknown;
+  resizeToAvoidBottomInset?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoPageScaffoldBackgroundColorProps {
+  color: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoPickerProps {
+  diameterRatio?: number;
+  backgroundColor?: unknown;
+  offAxisFraction?: number;
+  useMagnifier?: boolean;
+  magnification?: number;
+  scrollController?: unknown;
+  squeeze?: number;
+  changeReportingBehavior?: 'onScrollEnd' | 'onScrollUpdate';
+  itemExtent: number;
+  onSelectedItemChanged: (value: number) => void;
+  selectionOverlay?: FlutterElement;
+  looping?: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoPickerDefaultSelectionOverlayProps {
+  background?: unknown;
+  capStartEdge?: boolean;
+  capEndEdge?: boolean;
+}
+
+export interface CupertinoRadioProps {
+  value: unknown;
+  groupValue?: unknown;
+  onChange?: (value: unknown) => void;
+  mouseCursor?: unknown;
+  toggleable?: boolean;
+  activeColor?: unknown;
+  inactiveColor?: unknown;
+  fillColor?: unknown;
+  focusColor?: unknown;
+  focusNode?: unknown;
+  autofocus?: boolean;
+  useCheckmarkStyle?: boolean;
+  enabled?: boolean;
+  groupRegistry?: unknown;
+}
+
+export interface CupertinoSliverRefreshControlProps {
+  refreshTriggerPullDistance?: number;
+  refreshIndicatorExtent?: number;
+  builder?: (refreshState: 'inactive' | 'drag' | 'armed' | 'refresh' | 'done', pulledExtent: number, refreshTriggerPullDistance: number, refreshIndicatorExtent: number) => FlutterElement;
+  onRefresh?: () => Promise<void>;
+}
+
+export interface CupertinoPageTransitionProps {
+  primaryRouteAnimation: unknown;
+  secondaryRouteAnimation: unknown;
+  linearTransition: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoFullscreenDialogTransitionProps {
+  primaryRouteAnimation: unknown;
+  secondaryRouteAnimation: unknown;
+  linearTransition: boolean;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoScrollbarProps {
+  controller?: unknown;
+  thumbVisibility?: boolean;
+  thickness?: number;
+  thicknessWhileDragging?: number;
+  radius?: unknown;
+  radiusWhileDragging?: unknown;
+  notificationPredicate?: (notification: unknown) => boolean;
+  scrollbarOrientation?: 'left' | 'right' | 'top' | 'bottom';
+  mainAxisMargin?: number;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoSearchTextFieldProps {
+  controller?: unknown;
   onChange?: (value: string) => void;
   onSubmit?: (value: string) => void;
-  obscureText?: boolean;
-  maxLines?: number;
-  enabled?: boolean;
-  autofocus?: boolean;
+  style?: TextStyleProps;
+  placeholder?: string;
+  placeholderStyle?: TextStyleProps;
+  decoration?: unknown;
+  backgroundColor?: unknown;
+  borderRadius?: unknown;
   keyboardType?: 'text' | 'number' | 'phone' | 'email' | 'url' | 'multiline';
+  padding?: number | [number, number] | [number, number, number, number];
+  itemColor?: unknown;
+  itemSize?: number;
+  prefixInsets?: number | [number, number] | [number, number, number, number];
+  prefixIcon?: FlutterElement;
+  suffixInsets?: number | [number, number] | [number, number, number, number];
+  suffixIcon?: unknown;
+  suffixMode?: 'never' | 'editing' | 'notEditing' | 'always';
+  onSuffixTap?: unknown;
+  restorationId?: string;
+  focusNode?: unknown;
+  smartQuotesType?: 'disabled' | 'enabled';
+  smartDashesType?: 'disabled' | 'enabled';
+  enableIMEPersonalizedLearning?: boolean;
+  autofocus?: boolean;
+  onTap?: unknown;
+  autocorrect?: boolean;
+  enabled?: boolean;
+  cursorWidth?: number;
+  cursorHeight?: number;
+  cursorRadius?: unknown;
+  cursorOpacityAnimates?: boolean;
+  cursorColor?: unknown;
 }
 
-export interface SwitchProps {
-  value: boolean;
-  onChange?: (value: boolean) => void;
-  activeColor?: string;
+export interface CupertinoSegmentedControlProps {
+  children: Record<string, FlutterElement>;
+  onValueChanged: (value: unknown) => void;
+  groupValue?: unknown;
+  unselectedColor?: unknown;
+  selectedColor?: unknown;
+  borderColor?: unknown;
+  pressedColor?: unknown;
+  disabledColor?: unknown;
+  disabledTextColor?: unknown;
+  padding?: number | [number, number] | [number, number, number, number];
+  disabledChildren?: Set<unknown>;
 }
 
-export interface CheckboxProps {
-  value?: boolean;
-  onChange?: (value: boolean) => void;
-  activeColor?: string;
-  tristate?: boolean;
+export interface CupertinoSheetTransitionProps {
+  primaryRouteAnimation: unknown;
+  secondaryRouteAnimation: unknown;
+  linearTransition: boolean;
+  topGap?: number;
+  children?: FlutterElement | FlutterElement[];
 }
 
-export interface SliderProps {
+export interface CupertinoSliderProps {
   value: number;
-  onChange?: (value: number) => void;
+  onChange: (value: number) => void;
+  onChangeStart?: (value: number) => void;
+  onChangeEnd?: (value: number) => void;
   min?: number;
   max?: number;
   divisions?: number;
-  label?: string;
-  activeColor?: string;
+  activeColor?: unknown;
+  thumbColor?: unknown;
 }
 
-export interface CircularProgressIndicatorProps {
-  value?: number;
-  color?: string;
-  backgroundColor?: string;
-  strokeWidth?: number;
+export interface CupertinoSlidingSegmentedControlProps {
+  children: Record<string, FlutterElement>;
+  onValueChanged: (value: unknown) => void;
+  disabledChildren?: Set<unknown>;
+  groupValue?: unknown;
+  thumbColor?: unknown;
+  padding?: number | [number, number] | [number, number, number, number];
+  backgroundColor?: unknown;
+  proportionalWidth?: boolean;
+  isMomentary?: boolean;
 }
 
-export interface LinearProgressIndicatorProps {}
-
-export interface DividerProps {
-  height?: number;
-  thickness?: number;
-  color?: string;
-  indent?: number;
-  endIndent?: number;
+export interface CupertinoSpellCheckSuggestionsToolbarProps {
+  anchors: unknown;
+  buttonItems: unknown[];
 }
 
-export interface SnackBarProps {}
+export interface CupertinoSwitchProps {
+  value: boolean;
+  onChange: (value: boolean) => void;
+  activeColor?: unknown;
+  trackColor?: unknown;
+  activeTrackColor?: unknown;
+  inactiveTrackColor?: unknown;
+  thumbColor?: unknown;
+  inactiveThumbColor?: unknown;
+  applyTheme?: boolean;
+  focusColor?: unknown;
+  onLabelColor?: unknown;
+  offLabelColor?: unknown;
+  activeThumbImage?: unknown;
+  onActiveThumbImageError?: (exception: unknown, stackTrace: unknown) => void;
+  inactiveThumbImage?: unknown;
+  onInactiveThumbImageError?: (exception: unknown, stackTrace: unknown) => void;
+  trackOutlineColor?: unknown;
+  trackOutlineWidth?: unknown;
+  thumbIcon?: unknown;
+  mouseCursor?: unknown;
+  focusNode?: unknown;
+  onFocusChange?: (value: boolean) => void;
+  autofocus?: boolean;
+  dragStartBehavior?: string;
+}
 
-export interface BottomSheetProps {
+export interface CupertinoTabScaffoldProps {
+  tabBar: unknown;
+  tabBuilder: (index: number) => FlutterElement;
+  controller?: unknown;
+  backgroundColor?: unknown;
+  resizeToAvoidBottomInset?: boolean;
+  restorationId?: string;
+}
+
+export interface CupertinoTabViewProps {
+  builder?: () => FlutterElement;
+  navigatorKey?: unknown;
+  defaultTitle?: string;
+  routes?: Record<string, () => FlutterElement>;
+  onGenerateRoute?: (settings: unknown) => unknown;
+  onUnknownRoute?: (settings: unknown) => unknown;
+  navigatorObservers?: unknown[];
+  restorationScopeId?: string;
+}
+
+export interface CupertinoTextFieldProps {
+  groupId?: unknown;
+  controller?: unknown;
+  focusNode?: unknown;
+  undoController?: unknown;
+  decoration?: unknown;
+  padding?: number | [number, number] | [number, number, number, number];
+  placeholder?: string;
+  placeholderStyle?: TextStyleProps;
+  prefix?: FlutterElement;
+  prefixMode?: 'never' | 'editing' | 'notEditing' | 'always';
+  suffix?: FlutterElement;
+  suffixMode?: 'never' | 'editing' | 'notEditing' | 'always';
+  crossAxisAlignment?: 'start' | 'end' | 'center' | 'stretch' | 'baseline';
+  clearButtonMode?: 'never' | 'editing' | 'notEditing' | 'always';
+  clearButtonSemanticLabel?: string;
+  keyboardType?: 'text' | 'number' | 'phone' | 'email' | 'url' | 'multiline';
+  textInputAction?: 'none' | 'unspecified' | 'done' | 'go' | 'search' | 'send' | 'next' | 'previous' | 'continueAction' | 'join' | 'route' | 'emergencyCall' | 'newline';
+  textCapitalization?: 'words' | 'sentences' | 'characters' | 'none';
+  style?: TextStyleProps;
+  strutStyle?: unknown;
+  textAlign?: unknown;
+  textAlignVertical?: unknown;
+  textDirection?: unknown;
+  readOnly?: boolean;
+  toolbarOptions?: unknown;
+  showCursor?: boolean;
+  autofocus?: boolean;
+  obscuringCharacter?: string;
+  obscureText?: boolean;
+  autocorrect?: boolean;
+  smartDashesType?: 'disabled' | 'enabled';
+  smartQuotesType?: 'disabled' | 'enabled';
+  enableSuggestions?: boolean;
+  maxLines?: number;
+  minLines?: number;
+  expands?: boolean;
+  maxLength?: number;
+  maxLengthEnforcement?: 'none' | 'enforced' | 'truncateAfterCompositionEnds';
+  onChange?: (value: string) => void;
+  onEditingComplete?: unknown;
+  onSubmit?: (value: string) => void;
+  onTapOutside?: (event: unknown) => void;
+  onTapUpOutside?: (event: unknown) => void;
+  inputFormatters?: unknown[];
+  enabled?: boolean;
+  cursorWidth?: number;
+  cursorHeight?: number;
+  cursorRadius?: unknown;
+  cursorOpacityAnimates?: boolean;
+  cursorColor?: unknown;
+  selectionHeightStyle?: unknown;
+  selectionWidthStyle?: unknown;
+  keyboardAppearance?: unknown;
+  scrollPadding?: number | [number, number] | [number, number, number, number];
+  dragStartBehavior?: string;
+  enableInteractiveSelection?: boolean;
+  selectAllOnFocus?: boolean;
+  selectionControls?: unknown;
+  onTap?: () => void;
+  scrollController?: unknown;
+  scrollPhysics?: unknown;
+  autofillHints?: string[];
+  contentInsertionConfiguration?: unknown;
+  clipBehavior?: unknown;
+  restorationId?: string;
+  scribbleEnabled?: boolean;
+  stylusHandwritingEnabled?: boolean;
+  enableIMEPersonalizedLearning?: boolean;
+  contextMenuBuilder?: (editableTextState: unknown) => FlutterElement;
+  spellCheckConfiguration?: unknown;
+  magnifierConfiguration?: unknown;
+}
+
+export interface CupertinoTextFormFieldRowProps {
+  prefix?: FlutterElement;
+  padding?: number | [number, number] | [number, number, number, number];
+  controller?: unknown;
+  initialValue?: string;
+  focusNode?: unknown;
+  decoration?: unknown;
+  keyboardType?: 'text' | 'number' | 'phone' | 'email' | 'url' | 'multiline';
+  textCapitalization?: 'words' | 'sentences' | 'characters' | 'none';
+  textInputAction?: 'none' | 'unspecified' | 'done' | 'go' | 'search' | 'send' | 'next' | 'previous' | 'continueAction' | 'join' | 'route' | 'emergencyCall' | 'newline';
+  style?: TextStyleProps;
+  strutStyle?: unknown;
+  textDirection?: unknown;
+  textAlign?: unknown;
+  textAlignVertical?: unknown;
+  autofocus?: boolean;
+  readOnly?: boolean;
+  toolbarOptions?: unknown;
+  showCursor?: boolean;
+  obscuringCharacter?: string;
+  obscureText?: boolean;
+  autocorrect?: boolean;
+  smartDashesType?: 'disabled' | 'enabled';
+  smartQuotesType?: 'disabled' | 'enabled';
+  enableSuggestions?: boolean;
+  maxLines?: number;
+  minLines?: number;
+  expands?: boolean;
+  maxLength?: number;
+  onChange?: (value: string) => void;
+  onTap?: () => void;
+  onEditingComplete?: unknown;
+  onFieldSubmitted?: (value: string) => void;
+  onSaved?: (newValue: string) => void;
+  validator?: (value: string) => string;
+  inputFormatters?: unknown[];
+  enabled?: boolean;
+  cursorWidth?: number;
+  cursorHeight?: number;
+  cursorColor?: unknown;
+  keyboardAppearance?: unknown;
+  scrollPadding?: number | [number, number] | [number, number, number, number];
+  enableInteractiveSelection?: boolean;
+  selectionControls?: unknown;
+  scrollPhysics?: unknown;
+  autofillHints?: string[];
+  autovalidateMode?: 'disabled' | 'always' | 'onUserInteraction' | 'onUnfocus' | 'onUserInteractionIfError';
+  placeholder?: string;
+  placeholderStyle?: TextStyleProps;
+  contextMenuBuilder?: (editableTextState: unknown) => FlutterElement;
+  spellCheckConfiguration?: unknown;
+  selectionHeightStyle?: unknown;
+  selectionWidthStyle?: unknown;
+  restorationId?: string;
+}
+
+export interface CupertinoTextSelectionToolbarProps {
+  anchorAbove: unknown;
+  anchorBelow: unknown;
+  toolbarBuilder?: (anchorAbove: unknown, anchorBelow: unknown, child: FlutterElement) => FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
-export interface NavigationBarProps {}
-
-export interface TabBarProps {}
-
-export interface TabBarViewProps {
+export interface CupertinoTextSelectionToolbarButtonProps {
+  onClick?: unknown;
   children?: FlutterElement | FlutterElement[];
 }
 
-export interface FloatingActionButtonProps {
-  onClick?: () => void;
-  tooltip?: string;
-  backgroundColor?: string;
+export interface CupertinoThemeProps {
+  data: unknown;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface InheritedCupertinoThemeProps {
+  theme: unknown;
   children?: FlutterElement | FlutterElement[];
 }
