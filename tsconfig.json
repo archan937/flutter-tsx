@@ -15,8 +15,17 @@
     "moduleDetection": "force",
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "paths": {
+      "@src/*": ["./src/*"]
+    }
   },
-  "include": ["src/**/*", "bin/**/*", "scripts/**/*", "types/**/*"],
+  "include": [
+    "src/**/*",
+    "bin/**/*",
+    "scripts/**/*",
+    "types/**/*",
+    "test/**/*"
+  ],
   "exclude": ["node_modules", "dist"]
 }

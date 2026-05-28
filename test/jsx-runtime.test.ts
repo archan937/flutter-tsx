@@ -1,7 +1,6 @@
+import type { WidgetNode } from '@src/core/widget-node.js';
+import { Fragment, jsx, jsxDEV, jsxs } from '@src/jsx-runtime.js';
 import { describe, expect, it } from 'bun:test';
-
-import type { WidgetNode } from './core/widget-node.js';
-import { Fragment, jsx, jsxDEV, jsxs } from './jsx-runtime.js';
 
 describe('jsx', () => {
   it('creates a WidgetNode from a string type', () => {

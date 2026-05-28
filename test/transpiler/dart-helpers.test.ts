@@ -1,5 +1,3 @@
-import { describe, expect, it } from 'bun:test';
-
 import {
   dartString,
   escapeDartString,
@@ -8,7 +6,8 @@ import {
   transformColor,
   transformPadding,
   transformTextStyle,
-} from './dart-helpers.js';
+} from '@src/transpiler/dart-helpers.js';
+import { describe, expect, it } from 'bun:test';
 
 describe('transformColor', () => {
   it('passes through Colors.* values', () => {

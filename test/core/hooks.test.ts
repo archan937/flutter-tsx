@@ -1,6 +1,5 @@
+import { useEffect, useState } from '@src/core/hooks.js';
 import { describe, expect, it } from 'bun:test';
-
-import { useEffect, useState } from './hooks.js';
 
 describe('useState', () => {
   it('returns initial value and a setter', () => {

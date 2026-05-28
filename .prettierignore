@@ -3,3 +3,4 @@ node_modules/
 ref/
 src/generated/
 types/jsx.d.ts
+.claude/

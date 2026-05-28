@@ -1,12 +1,11 @@
-import { describe, expect, it } from 'bun:test';
-import ts from 'typescript';
-
 import {
   getFunctionBody,
   getReturnJSX,
   parseFile,
   parseSource,
-} from './parser.js';
+} from '@src/transpiler/parser.js';
+import { describe, expect, it } from 'bun:test';
+import ts from 'typescript';
 
 describe('parseSource', () => {
   it('parses a function declaration component', () => {

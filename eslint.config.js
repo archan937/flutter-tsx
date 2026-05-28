@@ -9,6 +9,7 @@ export default [
   {
     ignores: [
       'eslint.config.js',
+      '.claude/',
       'dist/',
       'node_modules/',
       'src/generated/',

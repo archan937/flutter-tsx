@@ -1,7 +1,9 @@
+import {
+  generateDartFile,
+  generateDartFileResult,
+} from '@src/transpiler/codegen.js';
+import { parseSource } from '@src/transpiler/parser.js';
 import { describe, expect, it } from 'bun:test';
-
-import { generateDartFile, generateDartFileResult } from './codegen.js';
-import { parseSource } from './parser.js';
 
 // ─── Custom matcher ───────────────────────────────────────────────────────────
 

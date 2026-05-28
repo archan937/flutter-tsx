@@ -51,7 +51,10 @@ export const devCmd = defineCommand({
     // 1. Ensure flutter project (initial scaffold with config.dependencies only)
     logger.start('Preparing Flutter project...');
     try {
-      await ensureFlutterProject(flutterDir, config, { flutterBin });
+      await ensureFlutterProject(flutterDir, config, {
+        flutterBin,
+        projectRoot: root,
+      });
       logger.success('Flutter project ready');
     } catch (err) {
       logger.error('Failed to prepare Flutter project:', err);
@@ -76,6 +79,7 @@ export const devCmd = defineCommand({
         await ensureFlutterProject(flutterDir, config, {
           flutterBin,
           extraDeps: detectedPackages,
+          projectRoot: root,
         });
         logger.success('Plugin packages installed');
       } catch (err) {

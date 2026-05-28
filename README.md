@@ -111,6 +111,34 @@ If `fsx dev --target=macos` prints xcodebuild warnings and no window opens:
 
 ---
 
+### Brand Assets
+
+Drop a 1024×1024 `icons/icon.png` in your project root and you're done — every platform's launcher icon, web favicon, PWA icons, macOS dock icon, Windows .ico, Linux desktop icon, and a splash screen centering your icon on white are all generated automatically on the next `fsx dev` run.
+
+```
+my-app/
+└── icons/
+    ├── icon.png         1024×1024 — the brand mark (home screen, favicon, PWA, dock, …)
+    ├── splash.png       1024×1024 — splash centerpiece (falls back to icon.png)
+    ├── background.png   any size  — brand background for adaptive icon + splash
+    ├── monochrome.png   1024×1024 — silhouette for Android 13+ themed icons + notifications
+    └── dark/            dark-mode variants — same four filenames
+        ├── icon.png
+        ├── splash.png
+        ├── background.png
+        └── monochrome.png
+```
+
+- **Filename = brand intent**, not platform target. One file drives multiple platform artifacts.
+- **Cascade defaults**: `splash.png` absent → splash uses `icon.png`. `background.png` absent → white `#ffffff`. `monochrome.png` absent → Android themed icon simply not configured.
+- **Hash-cached**: `fsx dev` only re-runs the icon/splash generators when file content changes. Identical files → instant start.
+- **`icons/dark/`** mirrors the same four filenames for dark-mode variants — the subdirectory is the modifier.
+- **Zero floor**: no `icons/` directory at all → Flutter default logo everywhere, no errors.
+
+Powered by [`flutter_launcher_icons`](https://pub.dev/packages/flutter_launcher_icons) and [`flutter_native_splash`](https://pub.dev/packages/flutter_native_splash) — both added to `dev_dependencies` automatically when the trigger files are detected.
+
+---
+
 ### `bun run define` — the author pipeline (not exposed to end-developers)
 
 This command is for the `flutter-tsx` package author to regenerate widget type definitions when the Flutter API changes. It is **not** registered in the `fsx` CLI binary.
