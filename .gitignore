@@ -9,3 +9,4 @@ scripts/dart-extractor/.dart_tool/
 
 # Test coverage artifacts
 coverage/
+.claude/
