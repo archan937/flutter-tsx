@@ -46,6 +46,24 @@ class MainApp extends StatelessWidget {
 
 ---
 
+## How it works
+
+Drop named files into your project root — `fsx dev` handles the rest.
+
+![Flutter.tsx — project surface → engines → platform artifacts](docs/infogram.svg)
+
+| Color     | Category       | Files                                        |
+| --------- | -------------- | -------------------------------------------- |
+| 🔵 Blue   | Identity       | `app.toml` — name, bundleId, version, target |
+| 🟣 Purple | Brand          | `icons/`, `fonts/`, `theme.toml`             |
+| 🟢 Green  | UX             | `permissions.toml`, `locales/`, `links.toml` |
+| 🟠 Orange | Comms          | `push/`                                      |
+| ⚫ Gray   | Config / Legal | `.env`, `signing/`, `legal/`                 |
+
+Every directory is optional. The minimum shippable app is `app.toml` + `src/`. Every additional file you drop in unlocks another artifact column — without touching any platform-specific config files by hand.
+
+---
+
 ## Repository Layout
 
 ```

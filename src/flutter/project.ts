@@ -134,15 +134,14 @@ export const scaffoldUserProject = async (
     target: string;
   },
 ): Promise<void> => {
-  const { appTsx } = await import('../templates/app-tsx.js');
   const { appToml } = await import('../templates/app-toml.js');
+  const { appTsx } = await import('../templates/app-tsx.js');
   const { userPackageJson } = await import('../templates/user-package-json.js');
   const { userTsconfig } = await import('../templates/user-tsconfig.js');
   const { gitignore } = await import('../templates/gitignore.js');
 
   const srcDir = join(projectDir, 'src');
   const testDir = join(projectDir, 'tests');
-
   mkdirSync(srcDir, { recursive: true });
   mkdirSync(testDir, { recursive: true });
 
