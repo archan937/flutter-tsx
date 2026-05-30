@@ -1,6 +1,7 @@
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { basename, dirname, join } from 'path';
 
+import { HOOK_PERMISSIONS } from '../flutter/permissions.js';
 import { PLUGIN_MAP } from '../generated/plugin-map.js';
 import { generateDartFileResult } from './codegen.js';
 import { parseFile } from './parser.js';
@@ -8,6 +9,8 @@ import { parseFile } from './parser.js';
 export interface TranspileResult {
   path: string;
   packages: string[];
+  /** Permission capabilities inferred from the plugin hooks the file uses. */
+  capabilities: string[];
 }
 
 export interface TranspileOptions {
@@ -23,7 +26,7 @@ export const transpileFile = async (
   const parsed = parseFile(tsxPath);
 
   if (parsed.exports.length === 0) {
-    return { path: '', packages: [] };
+    return { path: '', packages: [], capabilities: [] };
   }
 
   const { code: dartCode, imports } = generateDartFileResult(
@@ -46,7 +49,8 @@ export const transpileFile = async (
   writeFileSync(dartPath, dartCode, 'utf-8');
 
   const packages = collectPackages(imports);
-  return { path: dartPath, packages };
+  const capabilities = collectCapabilities(imports);
+  return { path: dartPath, packages, capabilities };
 };
 
 const FLUTTER_BASE_PACKAGES = new Set([
@@ -73,6 +77,30 @@ const collectPackages = (imports: Set<string>): string[] => {
   }
 
   return [...pubspecDeps];
+};
+
+/**
+ * Permission capabilities inferred from the plugin packages a file imports —
+ * `package:camera` (useCamera) → `camera`, etc. (see HOOK_PERMISSIONS).
+ */
+const collectCapabilities = (imports: Set<string>): string[] => {
+  const capabilities = new Set<string>();
+
+  for (const imp of imports) {
+    if (!imp.startsWith('package:')) continue;
+    const bare = imp.replace('package:', '');
+
+    for (const plugin of PLUGIN_MAP.values()) {
+      if (plugin.dartImport.includes(`package:${bare}`)) {
+        for (const cap of HOOK_PERMISSIONS[plugin.tsxName] ?? []) {
+          capabilities.add(cap);
+        }
+        break;
+      }
+    }
+  }
+
+  return [...capabilities];
 };
 
 export const transpileAll = async (

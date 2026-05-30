@@ -7,7 +7,7 @@ import type { Theme } from '../../config.js';
 import { envToDartDefines } from '../../flutter/env.js';
 import { ensureFlutterProject } from '../../flutter/project.js';
 import { FlutterRunner } from '../../flutter/runner.js';
-import { loadSurfaceConfig } from '../../flutter/surface.js';
+import { applyPermissions, loadSurfaceConfig } from '../../flutter/surface.js';
 import { themeToMaterialAppProps } from '../../flutter/theme.js';
 import { transpileAll, transpileFile } from '../../transpiler/index.js';
 import { readConfig } from '../utils/config.js';
@@ -74,9 +74,13 @@ export const devCmd = defineCommand({
     // 2. Initial transpile — collect detected plugin packages
     logger.start('Transpiling TSX → Dart...');
     let detectedPackages: string[] = [];
+    let detectedCapabilities: string[] = [];
     try {
       const results = await transpileAll(srcDir, outDir, transpileOptions);
       detectedPackages = [...new Set(results.flatMap((r) => r.packages))];
+      detectedCapabilities = [
+        ...new Set(results.flatMap((r) => r.capabilities)),
+      ];
       logger.success(`Transpiled ${results.length} file(s)`);
     } catch (err) {
       logger.error('Transpile error:', err);
@@ -96,6 +100,13 @@ export const devCmd = defineCommand({
         logger.error('Failed to install plugin packages:', err);
       }
     }
+
+    // 2c. Apply permissions surface: inferred capabilities + optional
+    // config/permissions.ts descriptions → Info.plist / AndroidManifest.
+    const permissionDescriptions =
+      (await loadSurfaceConfig<Record<string, string>>(root, 'permissions')) ??
+      {};
+    applyPermissions(flutterDir, detectedCapabilities, permissionDescriptions);
 
     // 3. Start flutter runner — surface env (config/env.ts) → --dart-define flags
     const envConfig =

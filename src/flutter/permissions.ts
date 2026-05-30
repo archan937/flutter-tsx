@@ -1,8 +1,3 @@
-import { existsSync, readFileSync } from 'fs';
-import { join } from 'path';
-
-import { logger } from '../cli/utils/logger.js';
-
 export interface PermissionMapping {
   ios?: string[];
   android?: string[];
@@ -71,36 +66,38 @@ const FSX_END = '<!-- fsx:permissions:end -->';
 const FSX_PRIVACY_BEGIN = '<!-- fsx:privacy:begin -->';
 const FSX_PRIVACY_END = '<!-- fsx:privacy:end -->';
 
-export const loadPermissions = (
-  projectRoot: string,
-): Record<string, string> => {
-  const path = join(projectRoot, 'permissions.toml');
-  if (!existsSync(path)) return {};
-
-  const content = readFileSync(path, 'utf-8');
-  const result: Record<string, string> = {};
-
-  for (const rawLine of content.split('\n')) {
-    const line = rawLine.trim();
-    if (line === '' || line.startsWith('#')) continue;
-
-    const match = /^([A-Za-z_][A-Za-z0-9_]*)\s*=\s*"([^"]*)"$/.exec(line);
-    if (!match) continue;
-
-    const [, key, value] = match;
-    if (!(key in PERMISSION_MAP)) {
-      logger.warn(`permissions.toml: unknown key "${key}" ignored`);
-      continue;
-    }
-    if (value === '') {
-      logger.error(`permissions.toml: ${key} has empty usage description`);
-      continue;
-    }
-    result[key] = value;
-  }
-
-  return result;
+/**
+ * Plugin hook → required permission capabilities. Permissions are *inferred*
+ * from the hooks an app uses (`useCamera()` ⇒ camera), so the common case needs
+ * zero config; `config/permissions.ts` only customizes the iOS usage string or
+ * declares a permission no hook implies.
+ */
+export const HOOK_PERMISSIONS: Record<string, string[]> = {
+  useCamera: ['camera'],
+  useImagePicker: ['photos', 'camera'],
+  useLocation: ['location'],
+  useMapController: ['location'],
+  useBiometrics: ['face_id'],
+  useNotifications: ['notifications'],
 };
+
+/** Sensible default iOS usage description for an inferred capability. */
+const DEFAULT_DESCRIPTIONS: Record<string, string> = {
+  camera: 'This app uses the camera.',
+  microphone: 'This app uses the microphone.',
+  location: 'This app uses your location.',
+  location_always: 'This app uses your location.',
+  photos: 'This app accesses your photo library.',
+  contacts: 'This app accesses your contacts.',
+  calendar: 'This app accesses your calendar.',
+  bluetooth: 'This app uses Bluetooth.',
+  notifications: 'This app sends notifications.',
+  face_id: 'This app uses Face ID to authenticate you.',
+  tracking: 'This app uses tracking to improve your experience.',
+};
+
+export const defaultPermissionDescription = (capability: string): string =>
+  DEFAULT_DESCRIPTIONS[capability] ?? 'This app requires this permission.';
 
 const escapeXml = (str: string): string =>
   str

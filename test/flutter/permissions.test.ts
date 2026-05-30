@@ -1,13 +1,10 @@
-import { afterEach, beforeEach, describe, expect, it, spyOn } from 'bun:test';
-import { mkdtempSync, rmSync, writeFileSync } from 'fs';
-import { tmpdir } from 'os';
-import { join } from 'path';
+import { describe, expect, it } from 'bun:test';
 
-import * as loggerModule from '@src/cli/utils/logger.js';
-import { loadPermissions, PERMISSION_MAP } from '@src/flutter/permissions.js';
-
-const makeTmp = (): string =>
-  mkdtempSync(join(tmpdir(), 'fsx-permissions-test-'));
+import {
+  defaultPermissionDescription,
+  HOOK_PERMISSIONS,
+  PERMISSION_MAP,
+} from '@src/flutter/permissions.js';
 
 describe('PERMISSION_MAP', () => {
   it('contains all expected permission keys', () => {
@@ -50,70 +47,30 @@ describe('PERMISSION_MAP', () => {
   });
 });
 
-describe('loadPermissions', () => {
-  let tmp: string;
-
-  beforeEach(() => {
-    tmp = makeTmp();
-  });
-  afterEach(() => {
-    rmSync(tmp, { recursive: true, force: true });
+describe('HOOK_PERMISSIONS', () => {
+  it('maps useCamera to the camera capability', () => {
+    expect(HOOK_PERMISSIONS['useCamera']).toEqual(['camera']);
   });
 
-  it('returns {} when permissions.toml missing', () => {
-    expect(loadPermissions(tmp)).toEqual({});
+  it('maps useImagePicker to photos + camera', () => {
+    expect(HOOK_PERMISSIONS['useImagePicker']).toEqual(['photos', 'camera']);
   });
 
-  it('returns {} for empty file', () => {
-    writeFileSync(join(tmp, 'permissions.toml'), '');
-    expect(loadPermissions(tmp)).toEqual({});
-  });
-
-  it('loads a single permission', () => {
-    writeFileSync(
-      join(tmp, 'permissions.toml'),
-      'camera = "We use your camera to scan QR codes"\n',
-    );
-    expect(loadPermissions(tmp)).toEqual({
-      camera: 'We use your camera to scan QR codes',
-    });
-  });
-
-  it('loads all known keys when present', () => {
-    const toml = Object.keys(PERMISSION_MAP)
-      .map((k) => `${k} = "usage for ${k}"`)
-      .join('\n');
-    writeFileSync(join(tmp, 'permissions.toml'), toml + '\n');
-    const perms = loadPermissions(tmp);
-    for (const key of Object.keys(PERMISSION_MAP)) {
-      expect(perms[key]).toBe(`usage for ${key}`);
+  it('only references capabilities that exist in PERMISSION_MAP', () => {
+    for (const caps of Object.values(HOOK_PERMISSIONS)) {
+      for (const cap of caps) {
+        expect(PERMISSION_MAP[cap]).toBeDefined();
+      }
     }
   });
+});
 
-  it('warns on unknown key but keeps the rest', () => {
-    const toml = ['camera = "QR scanning"', 'flux = "magnetic flux"'].join(
-      '\n',
-    );
-    writeFileSync(join(tmp, 'permissions.toml'), toml + '\n');
-    const warnSpy = spyOn(loggerModule.logger, 'warn').mockImplementation(
-      ((..._args: unknown[]) => void _args) as never,
-    );
-    const perms = loadPermissions(tmp);
-    expect(warnSpy).toHaveBeenCalled();
-    expect(warnSpy.mock.calls.flat().join(' ')).toContain('flux');
-    expect(perms['camera']).toBe('QR scanning');
-    expect(perms['flux']).toBeUndefined();
-    warnSpy.mockRestore();
+describe('defaultPermissionDescription', () => {
+  it('returns a capability-specific default', () => {
+    expect(defaultPermissionDescription('camera')).toContain('camera');
   });
 
-  it('logs error and drops a key with empty value', () => {
-    writeFileSync(join(tmp, 'permissions.toml'), 'camera = ""\n');
-    const errorSpy = spyOn(loggerModule.logger, 'error').mockImplementation(
-      ((..._args: unknown[]) => void _args) as never,
-    );
-    const perms = loadPermissions(tmp);
-    expect(errorSpy).toHaveBeenCalled();
-    expect(perms['camera']).toBeUndefined();
-    errorSpy.mockRestore();
+  it('falls back to a generic message for unknown capabilities', () => {
+    expect(defaultPermissionDescription('unknown')).toBeTruthy();
   });
 });

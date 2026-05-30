@@ -41,6 +41,22 @@ describe('transpileFile', () => {
     const result = await transpileFile(join(src, 'Cam.tsx'), join(dir, 'out'));
     expect(result.packages.some((p) => p.startsWith('camera:'))).toBe(true);
   });
+
+  it('infers permission capabilities from used plugin hooks', async () => {
+    const dir = mkTmp();
+    const src = join(dir, 'src');
+    writeSrc(
+      src,
+      'Cam.tsx',
+      `import { useCamera } from 'flutter-tsx';\n` +
+        `export const Cam = () => {\n` +
+        `  const cam = useCamera();\n` +
+        `  return <Center />;\n` +
+        `};\n`,
+    );
+    const result = await transpileFile(join(src, 'Cam.tsx'), join(dir, 'out'));
+    expect(result.capabilities).toContain('camera');
+  });
 });
 
 describe('transpileAll', () => {
