@@ -1,10 +1,9 @@
 import { describe, expect, it } from 'bun:test';
 
+import type { AppConfig } from '@src/config.js';
 import type { DetectedAssets } from '@src/flutter/assets.js';
 import type { FontMap } from '@src/flutter/fonts.js';
 import { pubspecYaml } from '@src/templates/pubspec-yaml.js';
-
-import type { AppConfig } from '../../types/app-toml.js';
 
 const baseConfig: AppConfig = {
   name: 'my_app',

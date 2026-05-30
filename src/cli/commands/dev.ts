@@ -38,7 +38,7 @@ export const devCmd = defineCommand({
     }
 
     const root = resolve(args.root ?? process.cwd());
-    const config = readConfig(root);
+    const config = await readConfig(root);
     const target = (args.target as string | undefined) ?? config.target;
 
     const flutterDir = join(root, '.fsx', 'flutter');

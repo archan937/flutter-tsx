@@ -1,4 +1,4 @@
-import type { AppConfig } from '../../types/app-toml.js';
+import type { AppConfig } from '../config.js';
 import type { DetectedAssets } from '../flutter/assets.js';
 import { type FontMap, fontsToPubspecBlock } from '../flutter/fonts.js';
 import type { LegalConfig } from '../flutter/legal.js';

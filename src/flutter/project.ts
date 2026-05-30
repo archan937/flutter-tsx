@@ -2,7 +2,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { homedir } from 'os';
 import { join } from 'path';
 
-import type { AppConfig } from '../../types/app-toml.js';
+import type { AppConfig } from '../config.js';
 import { mainDart } from '../templates/main-dart.js';
 import { pubspecYaml } from '../templates/pubspec-yaml.js';
 import { detectAssets, generateAssets, hashFile } from './assets.js';
@@ -134,7 +134,7 @@ export const scaffoldUserProject = async (
     target: string;
   },
 ): Promise<void> => {
-  const { appToml } = await import('../templates/app-toml.js');
+  const { appConfig } = await import('../templates/app-config.js');
   const { appTsx } = await import('../templates/app-tsx.js');
   const { userPackageJson } = await import('../templates/user-package-json.js');
   const { userTsconfig } = await import('../templates/user-tsconfig.js');
@@ -142,14 +142,16 @@ export const scaffoldUserProject = async (
 
   const srcDir = join(projectDir, 'src');
   const testDir = join(projectDir, 'tests');
+  const configDir = join(projectDir, 'config');
   mkdirSync(srcDir, { recursive: true });
   mkdirSync(testDir, { recursive: true });
+  mkdirSync(configDir, { recursive: true });
 
   writeFileSync(join(srcDir, 'App.tsx'), appTsx(config.name), 'utf-8');
 
   writeFileSync(
-    join(projectDir, 'app.toml'),
-    appToml(config.name, config.bundleId, config.target),
+    join(configDir, 'app.ts'),
+    appConfig(config.name, config.bundleId, config.target),
     'utf-8',
   );
 

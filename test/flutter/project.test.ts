@@ -3,9 +3,8 @@ import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
 
+import type { AppConfig } from '@src/config.js';
 import { ensureFlutterProject } from '@src/flutter/project.js';
-
-import type { AppConfig } from '../../types/app-toml.js';
 
 const baseConfig: AppConfig = { name: 'test_app' };
 

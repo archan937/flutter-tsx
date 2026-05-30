@@ -1,9 +1,7 @@
-import { defu } from 'defu';
-import { existsSync, readFileSync } from 'fs';
+import { existsSync } from 'fs';
 import { join } from 'path';
-import { parse as parseToml } from 'smol-toml';
 
-import type { AppConfig } from '../../../types/app-toml.js';
+import type { AppConfig } from '../../config.js';
 
 const DEFAULTS: AppConfig = {
   name: 'my-flutter-app',
@@ -15,15 +13,25 @@ const DEFAULTS: AppConfig = {
   outDir: '.fsx/flutter/lib',
 };
 
-export const readConfig = (root: string): AppConfig => {
-  const configPath = join(root, 'app.toml');
+/**
+ * Loads `config/app.ts` (a typed module exporting `defineConfig({...})`) from
+ * the project root and merges it over the defaults. fsx runs on Bun, so the
+ * TypeScript config is imported directly — no parser, no second config format.
+ */
+export const readConfig = async (root: string): Promise<AppConfig> => {
+  const configPath = join(root, 'config', 'app.ts');
 
   if (!existsSync(configPath)) {
     return { ...DEFAULTS };
   }
 
-  const raw = readFileSync(configPath, 'utf-8');
-  const parsed = parseToml(raw) as Partial<AppConfig>;
+  const mod = (await import(configPath)) as {
+    default?: Partial<AppConfig>;
+    config?: Partial<AppConfig>;
+  };
+  const userConfig = mod.default ?? mod.config ?? {};
 
-  return defu(parsed, DEFAULTS) as AppConfig;
+  // Shallow, user-wins merge: a value the developer sets replaces the default
+  // outright (arrays are not concatenated). The config is intentionally flat.
+  return { ...DEFAULTS, ...userConfig };
 };
