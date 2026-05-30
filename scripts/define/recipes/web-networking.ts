@@ -162,8 +162,8 @@ const share: FunctionRecipe = {
   version: '^10.1.4',
   pubspecDep: 'share_plus: ^10.1.4',
   dartImport: "import 'package:share_plus/share_plus.dart';",
-  tsxExample: `await share('Check out @tsx/flutter!', subject: 'Flutter TSX');`,
-  dartExample: `await Share.share('Check out @tsx/flutter!', subject: 'Flutter TSX')`,
+  tsxExample: `await share('Check out flutter-tsx!', subject: 'Flutter TSX');`,
+  dartExample: `await Share.share('Check out flutter-tsx!', subject: 'Flutter TSX')`,
   args: [
     { name: 'text', tsType: 'string', required: true },
     { name: 'subject', tsType: 'string', required: false },

@@ -5471,7 +5471,7 @@ export interface DefaultTextHeightBehaviorProps {
 }
 
 export interface TextProps {
-  data: string;
+  data?: string;
   style?: TextStyleProps;
   strutStyle?: unknown;
   textAlign?: unknown;

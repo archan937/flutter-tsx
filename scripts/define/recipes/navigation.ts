@@ -13,7 +13,7 @@ const router: WidgetPluginRecipe = {
   version: '^14.6.3',
   pubspecDep: 'go_router: ^14.6.3',
   dartImport: "import 'package:go_router/go_router.dart';",
-  tsxExample: `import { Router, Route } from '@tsx/flutter';
+  tsxExample: `import { Router, Route } from 'flutter-tsx';
 
 export function App() {
   return (

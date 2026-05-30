@@ -84,6 +84,13 @@ function genWidgetInterfaces(widgets: WidgetDef[]): string {
 
     for (const prop of widget.props) {
       if (prop.name === widget.defaultChildSlot) continue;
+      // Text.data is supplied positionally via JSX children (see
+      // childrenPropLine), so it must be optional here — otherwise
+      // `<Text>hi</Text>` fails to type-check ("data is missing").
+      if (widget.name === 'Text' && prop.name === 'data') {
+        lines.push('  data?: string;');
+        continue;
+      }
       lines.push(propToTsOptional(prop));
     }
 

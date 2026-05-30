@@ -306,8 +306,8 @@
     "package": "share_plus",
     "pubspecDep": "share_plus: ^10.1.4",
     "dartImport": "import 'package:share_plus/share_plus.dart';",
-    "tsxExample": "await share('Check out @tsx/flutter!', subject: 'Flutter TSX');",
-    "dartExample": "await Share.share('Check out @tsx/flutter!', subject: 'Flutter TSX')"
+    "tsxExample": "await share('Check out flutter-tsx!', subject: 'Flutter TSX');",
+    "dartExample": "await Share.share('Check out flutter-tsx!', subject: 'Flutter TSX')"
   },
   {
     "name": "useGoogleSignIn",
@@ -342,7 +342,7 @@
     "package": "go_router",
     "pubspecDep": "go_router: ^14.6.3",
     "dartImport": "import 'package:go_router/go_router.dart';",
-    "tsxExample": "import { Router, Route } from '@tsx/flutter';\n\nexport function App() {\n  return (\n    <Router>\n      <Route path=\"/\" component={HomeScreen} />\n      <Route path=\"/profile/:id\" component={ProfileScreen} />\n    </Router>\n  );\n}",
+    "tsxExample": "import { Router, Route } from 'flutter-tsx';\n\nexport function App() {\n  return (\n    <Router>\n      <Route path=\"/\" component={HomeScreen} />\n      <Route path=\"/profile/:id\" component={ProfileScreen} />\n    </Router>\n  );\n}",
     "dartExample": "MaterialApp.router(\n  routerConfig: GoRouter(\n    routes: [\n      GoRoute(path: '/', builder: (ctx, state) => const HomeScreen()),\n      GoRoute(path: '/profile/:id', builder: (ctx, state) => ProfileScreen(id: state.pathParameters['id']!)),\n    ],\n  ),\n)"
   },
   {
