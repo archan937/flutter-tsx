@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 418" role="img" aria-labelledby="infogram-title infogram-desc">
   <title id="infogram-title">Flutter.tsx — How it works</title>
-  <desc id="infogram-desc">Three rows: project files (src/, app.toml, icons/, fonts/, theme.toml, permissions.toml, locales/, links.toml, push/, .env, signing/, legal/) flow through fsx dev engines (TSX→Dart transpiler, flutter_launcher_icons, flutter_native_splash, pubspec.yaml writer, gen-l10n, Info.plist mutator, AndroidManifest mutator, key.properties writer, dart-define injector) into platform artifacts (iOS, Android, Web, macOS, Windows, Linux).</desc>
+  <desc id="infogram-desc">Three rows: project surface (src/, config/app.ts, icons/, fonts/, config/theme.ts, config/permissions.ts, locales/, config/links.ts, config/release.ts, config/env.ts, secrets/, legal/) flows through fsx dev engines (TSX→Dart transpiler, flutter_launcher_icons, flutter_native_splash, pubspec.yaml writer, gen-l10n, Info.plist mutator, AndroidManifest mutator, key.properties writer, dart-define injector) into platform artifacts (iOS, Android, Web, macOS, Windows, Linux).</desc>
 
   <style>
     :root {
@@ -53,10 +53,10 @@
   <rect width="1200" height="418" rx="14" fill="var(--bg)"/>
 
   <!-- ═══════════════════════════════════════════════════
-       ROW 1 — Project Files
+       ROW 1 — Project Surface
        12 boxes: start-x=42, box-w=82, gap=12, stride=94, y=30, h=64
   ═══════════════════════════════════════════════════ -->
-  <text x="600" y="22" text-anchor="middle" class="row-label">PROJECT FILES</text>
+  <text x="600" y="22" text-anchor="middle" class="row-label">PROJECT SURFACE</text>
 
   <!-- ── Code: src/ ── -->
   <g transform="translate(42,30)">
@@ -65,15 +65,15 @@
     <text x="41" y="37" text-anchor="middle" class="box-label mono">src/</text>
   </g>
 
-  <!-- ── Identity: app.toml ── -->
+  <!-- ── Identity: config/app.ts ── -->
   <g transform="translate(136,30)">
     <rect width="82" height="64" rx="5" fill="var(--box-bg)" stroke="var(--cat-identity)" stroke-width="1.5"/>
     <rect width="82" height="5" rx="2" fill="var(--cat-identity)"/>
-    <text x="41" y="31" text-anchor="middle" class="box-label mono">app</text>
-    <text x="41" y="44" text-anchor="middle" class="box-label mono">.toml</text>
+    <text x="41" y="31" text-anchor="middle" class="box-label mono">config/</text>
+    <text x="41" y="44" text-anchor="middle" class="box-label mono">app.ts</text>
   </g>
 
-  <!-- ── Brand: icons/, fonts/, theme.toml ── -->
+  <!-- ── Brand: icons/, fonts/, config/theme.ts ── -->
   <g transform="translate(230,30)">
     <rect width="82" height="64" rx="5" fill="var(--box-bg)" stroke="var(--cat-brand)" stroke-width="1.5"/>
     <rect width="82" height="5" rx="2" fill="var(--cat-brand)"/>
@@ -87,16 +87,16 @@
   <g transform="translate(418,30)">
     <rect width="82" height="64" rx="5" fill="var(--box-bg)" stroke="var(--cat-brand)" stroke-width="1.5"/>
     <rect width="82" height="5" rx="2" fill="var(--cat-brand)"/>
-    <text x="41" y="31" text-anchor="middle" class="box-label mono">theme</text>
-    <text x="41" y="44" text-anchor="middle" class="box-label mono">.toml</text>
+    <text x="41" y="31" text-anchor="middle" class="box-label mono">config/</text>
+    <text x="41" y="44" text-anchor="middle" class="box-label mono">theme.ts</text>
   </g>
 
-  <!-- ── UX: permissions.toml, locales/, links.toml ── -->
+  <!-- ── UX: config/permissions.ts, locales/, config/links.ts ── -->
   <g transform="translate(512,30)">
     <rect width="82" height="64" rx="5" fill="var(--box-bg)" stroke="var(--cat-ux)" stroke-width="1.5"/>
     <rect width="82" height="5" rx="2" fill="var(--cat-ux)"/>
-    <text x="41" y="29" text-anchor="middle" font-size="9" class="mono" fill="var(--ink)">permissions</text>
-    <text x="41" y="41" text-anchor="middle" font-size="9" class="mono" fill="var(--ink)">.toml</text>
+    <text x="41" y="31" text-anchor="middle" class="box-label mono">config/</text>
+    <text x="41" y="43" text-anchor="middle" font-size="8.5" class="mono" fill="var(--ink)">permissions.ts</text>
   </g>
   <g transform="translate(606,30)">
     <rect width="82" height="64" rx="5" fill="var(--box-bg)" stroke="var(--cat-ux)" stroke-width="1.5"/>
@@ -106,27 +106,30 @@
   <g transform="translate(700,30)">
     <rect width="82" height="64" rx="5" fill="var(--box-bg)" stroke="var(--cat-ux)" stroke-width="1.5"/>
     <rect width="82" height="5" rx="2" fill="var(--cat-ux)"/>
-    <text x="41" y="31" text-anchor="middle" class="box-label mono">links</text>
-    <text x="41" y="44" text-anchor="middle" class="box-label mono">.toml</text>
+    <text x="41" y="31" text-anchor="middle" class="box-label mono">config/</text>
+    <text x="41" y="44" text-anchor="middle" class="box-label mono">links.ts</text>
   </g>
 
-  <!-- ── Comms: push/ ── -->
+  <!-- ── Comms: config/release.ts (signing + push) ── -->
   <g transform="translate(794,30)">
     <rect width="82" height="64" rx="5" fill="var(--box-bg)" stroke="var(--cat-comms)" stroke-width="1.5"/>
     <rect width="82" height="5" rx="2" fill="var(--cat-comms)"/>
-    <text x="41" y="37" text-anchor="middle" class="box-label mono">push/</text>
+    <text x="41" y="31" text-anchor="middle" class="box-label mono">config/</text>
+    <text x="41" y="44" text-anchor="middle" class="box-label mono">release.ts</text>
   </g>
 
-  <!-- ── Config/Legal: .env, signing/, legal/ ── -->
+  <!-- ── Config/Legal: config/env.ts, secrets/, legal/ ── -->
   <g transform="translate(888,30)">
     <rect width="82" height="64" rx="5" fill="var(--box-bg)" stroke="var(--cat-config)" stroke-width="1.5"/>
     <rect width="82" height="5" rx="2" fill="var(--cat-config)"/>
-    <text x="41" y="37" text-anchor="middle" class="box-label mono">.env</text>
+    <text x="41" y="31" text-anchor="middle" class="box-label mono">config/</text>
+    <text x="41" y="44" text-anchor="middle" class="box-label mono">env.ts</text>
   </g>
   <g transform="translate(982,30)">
     <rect width="82" height="64" rx="5" fill="var(--box-bg)" stroke="var(--cat-config)" stroke-width="1.5"/>
     <rect width="82" height="5" rx="2" fill="var(--cat-config)"/>
-    <text x="41" y="37" text-anchor="middle" class="box-label mono">signing/</text>
+    <text x="41" y="34" text-anchor="middle" class="box-label mono">secrets/</text>
+    <text x="41" y="47" text-anchor="middle" font-size="7.5" class="mono" fill="var(--muted)">gitignored</text>
   </g>
   <g transform="translate(1076,30)">
     <rect width="82" height="64" rx="5" fill="var(--box-bg)" stroke="var(--cat-config)" stroke-width="1.5"/>
@@ -145,7 +148,7 @@
     <circle r="4" cx="177" cy="4" fill="var(--cat-ux)"/>
     <text x="184" y="8" class="cat-label">UX</text>
     <circle r="4" cx="204" cy="4" fill="var(--cat-comms)"/>
-    <text x="211" y="8" class="cat-label">comms</text>
+    <text x="211" y="8" class="cat-label">release</text>
     <circle r="4" cx="261" cy="4" fill="var(--cat-config)"/>
     <text x="268" y="8" class="cat-label">config / legal</text>
   </g>
