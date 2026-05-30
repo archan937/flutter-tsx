@@ -1,7 +1,8 @@
+import { describe, expect, it } from 'bun:test';
+
 import type { DetectedAssets } from '@src/flutter/assets.js';
 import type { FontMap } from '@src/flutter/fonts.js';
 import { pubspecYaml } from '@src/templates/pubspec-yaml.js';
-import { describe, expect, it } from 'bun:test';
 
 import type { AppConfig } from '../../types/app-toml.js';
 

@@ -1,5 +1,6 @@
-import { envToDartDefines } from '@src/flutter/env.js';
 import { describe, expect, it } from 'bun:test';
+
+import { envToDartDefines } from '@src/flutter/env.js';
 
 describe('envToDartDefines', () => {
   it('returns [] for empty env', () => {

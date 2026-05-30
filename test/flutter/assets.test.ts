@@ -1,3 +1,8 @@
+import { afterEach, beforeEach, describe, expect, it, spyOn } from 'bun:test';
+import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'fs';
+import { tmpdir } from 'os';
+import { join } from 'path';
+
 import * as loggerModule from '@src/cli/utils/logger.js';
 import {
   detectAssets,
@@ -6,10 +11,6 @@ import {
   ICON_SLOTS,
   readPngDimensions,
 } from '@src/flutter/assets.js';
-import { afterEach, beforeEach, describe, expect, it, spyOn } from 'bun:test';
-import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'fs';
-import { tmpdir } from 'os';
-import { join } from 'path';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 

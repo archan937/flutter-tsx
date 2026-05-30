@@ -1,9 +1,10 @@
+import { describe, expect, it } from 'bun:test';
+
 import {
   type FlutterElement,
   isWidgetNode,
   type WidgetNode,
 } from '@src/core/widget-node.js';
-import { describe, expect, it } from 'bun:test';
 
 describe('isWidgetNode', () => {
   it('returns true for a valid WidgetNode', () => {

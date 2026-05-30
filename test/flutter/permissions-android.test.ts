@@ -1,5 +1,6 @@
-import { applyToAndroidManifest } from '@src/flutter/permissions.js';
 import { describe, expect, it } from 'bun:test';
+
+import { applyToAndroidManifest } from '@src/flutter/permissions.js';
 
 const emptyManifest = `<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"

@@ -1,5 +1,6 @@
-import { applyLinksToAndroidManifest } from '@src/flutter/links.js';
 import { describe, expect, it } from 'bun:test';
+
+import { applyLinksToAndroidManifest } from '@src/flutter/links.js';
 
 const baseManifest = `<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"

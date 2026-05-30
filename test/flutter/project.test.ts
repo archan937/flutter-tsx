@@ -1,8 +1,9 @@
-import { ensureFlutterProject } from '@src/flutter/project.js';
 import { describe, expect, it } from 'bun:test';
 import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
+
+import { ensureFlutterProject } from '@src/flutter/project.js';
 
 import type { AppConfig } from '../../types/app-toml.js';
 

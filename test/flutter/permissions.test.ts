@@ -1,9 +1,10 @@
-import * as loggerModule from '@src/cli/utils/logger.js';
-import { loadPermissions, PERMISSION_MAP } from '@src/flutter/permissions.js';
 import { afterEach, beforeEach, describe, expect, it, spyOn } from 'bun:test';
 import { mkdtempSync, rmSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
+
+import * as loggerModule from '@src/cli/utils/logger.js';
+import { loadPermissions, PERMISSION_MAP } from '@src/flutter/permissions.js';
 
 const makeTmp = (): string =>
   mkdtempSync(join(tmpdir(), 'fsx-permissions-test-'));

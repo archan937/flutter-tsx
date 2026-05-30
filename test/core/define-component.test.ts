@@ -1,5 +1,6 @@
-import { defineComponent } from '@src/core/define-component.js';
 import { describe, expect, it } from 'bun:test';
+
+import { defineComponent } from '@src/core/define-component.js';
 
 describe('defineComponent', () => {
   it('returns a function that produces a WidgetNode', () => {

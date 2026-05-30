@@ -1,9 +1,10 @@
-import * as loggerModule from '@src/cli/utils/logger.js';
-import { detectSigning } from '@src/flutter/signing.js';
 import { afterEach, beforeEach, describe, expect, it, spyOn } from 'bun:test';
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
+
+import * as loggerModule from '@src/cli/utils/logger.js';
+import { detectSigning } from '@src/flutter/signing.js';
 
 const makeTmp = (): string => mkdtempSync(join(tmpdir(), 'fsx-signing-test-'));
 

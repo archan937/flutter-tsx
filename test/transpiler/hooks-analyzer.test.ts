@@ -1,11 +1,12 @@
+import { describe, expect, it } from 'bun:test';
+import ts from 'typescript';
+
 import {
   analyzeHooks,
   type HooksAnalysis,
   type PluginUsage,
 } from '@src/transpiler/hooks-analyzer.js';
 import { getFunctionBody, parseSource } from '@src/transpiler/parser.js';
-import { describe, expect, it } from 'bun:test';
-import ts from 'typescript';
 
 const analyze = (src: string): HooksAnalysis => {
   const { exports, sourceFile } = parseSource(`

@@ -1,9 +1,10 @@
-import * as loggerModule from '@src/cli/utils/logger.js';
-import { detectLegal } from '@src/flutter/legal.js';
 import { afterEach, beforeEach, describe, expect, it, spyOn } from 'bun:test';
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
+
+import * as loggerModule from '@src/cli/utils/logger.js';
+import { detectLegal } from '@src/flutter/legal.js';
 
 const makeTmp = (): string => mkdtempSync(join(tmpdir(), 'fsx-legal-test-'));
 

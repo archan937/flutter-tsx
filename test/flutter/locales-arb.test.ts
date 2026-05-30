@@ -1,5 +1,6 @@
-import { localesToArb } from '@src/flutter/locales.js';
 import { describe, expect, it } from 'bun:test';
+
+import { localesToArb } from '@src/flutter/locales.js';
 
 describe('localesToArb', () => {
   it('emits a basic ARB file with @@locale metadata', () => {
