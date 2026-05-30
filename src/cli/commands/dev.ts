@@ -3,8 +3,10 @@ import { defineCommand } from 'citty';
 import { existsSync } from 'fs';
 import { join, resolve } from 'path';
 
+import { envToDartDefines } from '../../flutter/env.js';
 import { ensureFlutterProject } from '../../flutter/project.js';
 import { FlutterRunner } from '../../flutter/runner.js';
+import { loadSurfaceConfig } from '../../flutter/surface.js';
 import { transpileAll, transpileFile } from '../../transpiler/index.js';
 import { readConfig } from '../utils/config.js';
 import { logger } from '../utils/logger.js';
@@ -87,8 +89,15 @@ export const devCmd = defineCommand({
       }
     }
 
-    // 3. Start flutter runner
-    const runner = new FlutterRunner(flutterDir, target, flutterBin);
+    // 3. Start flutter runner — surface env (config/env.ts) → --dart-define flags
+    const envConfig =
+      (await loadSurfaceConfig<Record<string, string>>(root, 'env')) ?? {};
+    const dartDefines = envToDartDefines(envConfig);
+    const runner = new FlutterRunner(flutterDir, {
+      target,
+      flutterBin,
+      dartDefines,
+    });
     try {
       await runner.start();
     } catch (err) {

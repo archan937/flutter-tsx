@@ -1,5 +1,14 @@
 import type { Subprocess } from 'bun';
 
+export interface FlutterRunnerOptions {
+  /** Flutter target device, e.g. "web" | "ios" | "macos" (default "web"). */
+  target?: string;
+  /** Path to the flutter binary (default "flutter"). */
+  flutterBin?: string;
+  /** Extra `--dart-define=…` flags from config/env.ts. */
+  dartDefines?: string[];
+}
+
 /**
  * Manages a running `flutter run` process.
  * Sends hot-reload signals via stdin.
@@ -14,6 +23,7 @@ export class FlutterRunner {
   private flutterDir: string;
   private target: string;
   private flutterBin: string;
+  private dartDefines: string[];
 
   private static readonly DEVICE_IDS: Partial<Record<string, string>> = {
     web: 'chrome',
@@ -22,10 +32,21 @@ export class FlutterRunner {
     windows: 'windows',
   };
 
-  constructor(flutterDir: string, target = 'web', flutterBin = 'flutter') {
+  constructor(flutterDir: string, options: FlutterRunnerOptions = {}) {
     this.flutterDir = flutterDir;
-    this.target = target;
-    this.flutterBin = flutterBin;
+    this.target = options.target ?? 'web';
+    this.flutterBin = options.flutterBin ?? 'flutter';
+    this.dartDefines = options.dartDefines ?? [];
+  }
+
+  /** Assembles the `flutter run` argv (pure — exposed for testing). */
+  static buildRunArgs(
+    flutterBin: string,
+    target: string,
+    dartDefines: string[],
+  ): string[] {
+    const deviceId = FlutterRunner.DEVICE_IDS[target] ?? target;
+    return [flutterBin, 'run', '-d', deviceId, ...dartDefines];
   }
 
   /** macOS arch that Xcode actually has a destination for (avoids "Unable to find a device matching arch"). */
@@ -93,8 +114,11 @@ export class FlutterRunner {
       throw new Error('FlutterRunner already started');
     }
 
-    const deviceId = FlutterRunner.DEVICE_IDS[this.target] ?? this.target;
-    const args = [this.flutterBin, 'run', '-d', deviceId];
+    const args = FlutterRunner.buildRunArgs(
+      this.flutterBin,
+      this.target,
+      this.dartDefines,
+    );
 
     let env: Record<string, string> | undefined;
     if (this.target === 'macos') {
