@@ -16,7 +16,7 @@ import {
 } from '../../flutter/surface.js';
 import { themeToMaterialAppProps } from '../../flutter/theme.js';
 import { transpileAll, transpileFile } from '../../transpiler/index.js';
-import { readConfig } from '../utils/config.js';
+import { readConfig, resolveTarget } from '../utils/config.js';
 import { logger } from '../utils/logger.js';
 import { FLUTTER_BIN } from './install.js';
 
@@ -29,7 +29,6 @@ export const devCmd = defineCommand({
     target: {
       type: 'string',
       description: 'Flutter target device (web, ios, android, macos, linux)',
-      default: '',
     },
     root: {
       type: 'string',
@@ -49,7 +48,10 @@ export const devCmd = defineCommand({
 
     const root = resolve(args.root ?? process.cwd());
     const config = await readConfig(root);
-    const target = (args.target as string | undefined) ?? config.target;
+    const target = resolveTarget(
+      args.target as string | undefined,
+      config.target,
+    );
 
     const flutterDir = join(root, '.fsx', 'flutter');
     const srcDir = join(root, 'src');

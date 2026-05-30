@@ -3,7 +3,7 @@ import { mkdirSync, mkdtempSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
 
-import { readConfig } from '@src/cli/utils/config.js';
+import { readConfig, resolveTarget } from '@src/cli/utils/config.js';
 
 const mkProject = (appTs: string | null): string => {
   const root = mkdtempSync(join(tmpdir(), 'fsx-config-'));
@@ -52,5 +52,33 @@ describe('readConfig', () => {
     );
     const cfg = await readConfig(root);
     expect(cfg.watch).toEqual(['lib/**/*.tsx']);
+  });
+});
+
+describe('resolveTarget', () => {
+  it('uses the explicit flag target when provided', () => {
+    expect(resolveTarget('ios', 'web')).toBe('ios');
+  });
+
+  it('falls back to the config target when the flag is undefined', () => {
+    expect(resolveTarget(undefined, 'web')).toBe('web');
+  });
+
+  it('falls back to the config target when the flag is an empty string', () => {
+    // Regression: a citty `default: ''` must not defeat the config fallback,
+    // otherwise `flutter run` gets no device and exits on an ambiguous match.
+    expect(resolveTarget('', 'web')).toBe('web');
+  });
+
+  it('treats a whitespace-only flag as unset', () => {
+    expect(resolveTarget('   ', 'macos')).toBe('macos');
+  });
+
+  it('trims a provided flag target', () => {
+    expect(resolveTarget(' android ', 'web')).toBe('android');
+  });
+
+  it('returns undefined when neither flag nor config provides a target', () => {
+    expect(resolveTarget('', undefined)).toBeUndefined();
   });
 });

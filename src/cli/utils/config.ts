@@ -35,3 +35,20 @@ export const readConfig = async (root: string): Promise<AppConfig> => {
   // outright (arrays are not concatenated). The config is intentionally flat.
   return { ...DEFAULTS, ...userConfig };
 };
+
+/**
+ * Resolves the Flutter target device: an explicit `--target` flag wins, but an
+ * empty/whitespace flag (citty defaults string args to `''`) is treated as
+ * unset so the `config/app.ts` target is used. Returns `undefined` only when
+ * neither source provides one.
+ */
+export const resolveTarget = (
+  flagTarget: string | undefined,
+  configTarget: string | undefined,
+): string | undefined => {
+  const trimmed = flagTarget?.trim();
+  if (trimmed) {
+    return trimmed;
+  }
+  return configTarget;
+};
