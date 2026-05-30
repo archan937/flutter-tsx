@@ -89,12 +89,78 @@ describe('generateDartFile — header', () => {
     );
   });
 
-  it('emits only the header for an empty component list', () => {
-    const { sourceFile } = parseSource('const x = 1;');
+  it('emits only the header (plus any module data) for an empty component list', () => {
+    const { sourceFile } = parseSource('');
     const out = generateDartFile(sourceFile, []);
     expect(out.trimEnd()).toBe(
       `// GENERATED — do not edit. Source: virtual.tsx\nimport 'package:flutter/material.dart';`,
     );
+  });
+
+  it('emits module-level const data as a top-level Dart final', () => {
+    const { sourceFile } = parseSource(`const ITEMS = ['a', 'b'];`);
+    const out = generateDartFile(sourceFile, []);
+    expect(out).toContain(`final ITEMS = ['a', 'b'];`);
+  });
+});
+
+describe('generateDartFile — cross-file component imports', () => {
+  it('emits a Dart import when a locally-imported component is referenced', () => {
+    const src = `
+      import { HomeScreen } from './screens/HomeScreen.js';
+      export const App = () => (
+        <Center>
+          <HomeScreen />
+        </Center>
+      );
+    `;
+    const { sourceFile, exports, localComponents } = parseSource(src);
+    const { code, imports } = generateDartFileResult(
+      sourceFile,
+      exports,
+      localComponents,
+    );
+    expect(imports.has('HomeScreen.dart')).toBe(true);
+    expect(code).toContain("import 'HomeScreen.dart';");
+    expect(code).toContain('HomeScreen()');
+  });
+
+  it('does not emit an import for an unknown, non-imported tag', () => {
+    const src = `
+      export const App = () => (
+        <Center>
+          <Mystery />
+        </Center>
+      );
+    `;
+    const { sourceFile, exports, localComponents } = parseSource(src);
+    const { code, imports } = generateDartFileResult(
+      sourceFile,
+      exports,
+      localComponents,
+    );
+    expect([...imports].some((i) => i.endsWith('.dart') && i !== '')).toBe(
+      true,
+    );
+    expect(code).not.toContain("import 'Mystery.dart';");
+    // unknown tag still passes through as a constructor call
+    expect(code).toContain('Mystery()');
+  });
+
+  it('does not import a known built-in widget even if a same-name local import exists', () => {
+    // Center is a real widget; it must never be treated as a local component.
+    const src = `
+      import { Center } from './shadow/Center.js';
+      export const App = () => <Center />;
+    `;
+    const { sourceFile, exports, localComponents } = parseSource(src);
+    const { code, imports } = generateDartFileResult(
+      sourceFile,
+      exports,
+      localComponents,
+    );
+    expect(imports.has('Center.dart')).toBe(false);
+    expect(code).not.toContain("import 'Center.dart';");
   });
 });
 
@@ -331,7 +397,7 @@ describe('generateDartFile — slot system', () => {
         const App({super.key});
         @override
         Widget build(BuildContext context) {
-          return Scaffold(appBar: AppBar(title: 'My App'), body: Center());
+          return Scaffold(appBar: AppBar(title: Text('My App')), body: Center());
         }
       }
     `);
@@ -636,7 +702,7 @@ describe('generateDartFile — multiple components', () => {
         const Header({super.key});
         @override
         Widget build(BuildContext context) {
-          return AppBar(title: 'App');
+          return AppBar(title: Text('App'));
         }
       }
 
@@ -1378,7 +1444,7 @@ describe('Phase E — examples compile without raw-JS leakage', () => {
         int tab = 0;
         @override
         Widget build(BuildContext context) {
-          return MaterialApp(title: 'Multi Screen', home: Scaffold(appBar: AppBar(title: 'Multi Screen'), body: Column(children: [Center(child: Text('Screen' + '\${tab}')), Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [ElevatedButton(onPressed: () { setState(() { tab = 0; }); }, child: Text('Home')), ElevatedButton(onPressed: () { setState(() { tab = 1; }); }, child: Text('Profile'))])])));
+          return MaterialApp(title: 'Multi Screen', home: Scaffold(appBar: AppBar(title: Text('Multi Screen')), body: Column(children: [Center(child: Text('Screen' + '\${tab}')), Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [ElevatedButton(onPressed: () { setState(() { tab = 0; }); }, child: Text('Home')), ElevatedButton(onPressed: () { setState(() { tab = 1; }); }, child: Text('Profile'))])])));
         }
       }
     `);
@@ -1405,7 +1471,7 @@ describe('Phase E — examples compile without raw-JS leakage', () => {
         const DrawerApp({super.key});
         @override
         Widget build(BuildContext context) {
-          return MaterialApp(title: 'Drawer Demo', home: Scaffold(appBar: AppBar(title: 'Drawer Demo'), drawer: Drawer(child: DrawerHeader(child: Text('Menu'))), body: Center(child: Text('Main content'))));
+          return MaterialApp(title: 'Drawer Demo', home: Scaffold(appBar: AppBar(title: Text('Drawer Demo')), drawer: Drawer(child: DrawerHeader(child: Text('Menu'))), body: Center(child: Text('Main content'))));
         }
       }
     `);

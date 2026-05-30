@@ -4,6 +4,13 @@ export interface ParsedFile {
   sourceFile: ts.SourceFile;
   program: ts.Program;
   exports: ExportedComponent[];
+  /**
+   * Identifiers imported from relative modules, mapped to the Dart file that
+   * the transpiler emits for them (e.g. `HomeScreen` → `HomeScreen.dart`).
+   * Used by codegen to emit cross-file Dart `import` statements when a local
+   * component is referenced in JSX. Bare-package imports are excluded.
+   */
+  localComponents: Map<string, string>;
 }
 
 export interface ExportedComponent {
@@ -83,6 +90,45 @@ const extractExports = (sourceFile: ts.SourceFile): ExportedComponent[] => {
   return exports;
 };
 
+// Maps a relative module specifier to the Dart file the transpiler emits for
+// it. Output is flat + keeps the source basename (e.g. App.tsx → App.dart), so
+// `./screens/HomeScreen.js` resolves to `HomeScreen.dart`.
+const specifierToDartFile = (specifier: string): string => {
+  const base = specifier.replace(/^.*\//, '').replace(/\.(tsx?|jsx?)$/, '');
+  return `${base}.dart`;
+};
+
+const extractLocalComponents = (
+  sourceFile: ts.SourceFile,
+): Map<string, string> => {
+  const localComponents = new Map<string, string>();
+
+  for (const statement of sourceFile.statements) {
+    if (!ts.isImportDeclaration(statement)) continue;
+    if (!ts.isStringLiteral(statement.moduleSpecifier)) continue;
+
+    const specifier = statement.moduleSpecifier.text;
+    if (!specifier.startsWith('.')) continue; // relative imports only
+
+    const dartFile = specifierToDartFile(specifier);
+    const { importClause } = statement;
+    if (!importClause) continue;
+
+    if (importClause.name) {
+      localComponents.set(importClause.name.getText(sourceFile), dartFile);
+    }
+
+    const { namedBindings } = importClause;
+    if (namedBindings && ts.isNamedImports(namedBindings)) {
+      for (const element of namedBindings.elements) {
+        localComponents.set(element.name.getText(sourceFile), dartFile);
+      }
+    }
+  }
+
+  return localComponents;
+};
+
 export const parseFile = (filePath: string): ParsedFile => {
   const program = ts.createProgram([filePath], COMPILER_OPTIONS);
   const sourceFile = program.getSourceFile(filePath);
@@ -91,7 +137,12 @@ export const parseFile = (filePath: string): ParsedFile => {
     throw new Error(`Could not parse file: ${filePath}`);
   }
 
-  return { sourceFile, program, exports: extractExports(sourceFile) };
+  return {
+    sourceFile,
+    program,
+    exports: extractExports(sourceFile),
+    localComponents: extractLocalComponents(sourceFile),
+  };
 };
 
 export const parseSource = (
@@ -118,7 +169,12 @@ export const parseSource = (
 
   const program = ts.createProgram([fileName], COMPILER_OPTIONS, host);
 
-  return { sourceFile, program, exports: extractExports(sourceFile) };
+  return {
+    sourceFile,
+    program,
+    exports: extractExports(sourceFile),
+    localComponents: extractLocalComponents(sourceFile),
+  };
 };
 
 export const getFunctionBody = (

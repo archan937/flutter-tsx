@@ -50,6 +50,40 @@ describe('parseSource', () => {
     expect(exports[0].name).toBe('Visible');
   });
 
+  it('captures relative named imports as local components', () => {
+    const src = `
+      import { useState } from 'flutter-tsx';
+      import { HomeScreen } from './screens/HomeScreen.js';
+      import { DiscoverScreen } from './screens/DiscoverScreen.js';
+      export const App = () => <HomeScreen />;
+    `;
+    const { localComponents } = parseSource(src);
+    expect(localComponents.get('HomeScreen')).toBe('HomeScreen.dart');
+    expect(localComponents.get('DiscoverScreen')).toBe('DiscoverScreen.dart');
+    // bare-package import is excluded
+    expect(localComponents.has('useState')).toBe(false);
+  });
+
+  it('captures multiple bindings and default imports from relative modules', () => {
+    const src = `
+      import Widget, { Helper, Other } from './lib/Widget.tsx';
+      export const App = () => <Widget />;
+    `;
+    const { localComponents } = parseSource(src);
+    expect(localComponents.get('Widget')).toBe('Widget.dart');
+    expect(localComponents.get('Helper')).toBe('Widget.dart');
+    expect(localComponents.get('Other')).toBe('Widget.dart');
+  });
+
+  it('handles relative specifiers without an extension', () => {
+    const src = `
+      import { Card } from './widgets/Card';
+      export const App = () => <Card />;
+    `;
+    const { localComponents } = parseSource(src);
+    expect(localComponents.get('Card')).toBe('Card.dart');
+  });
+
   it('ignores non-function exports', () => {
     const src = `
       export const VALUE = 42;

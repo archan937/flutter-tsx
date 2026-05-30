@@ -163,3 +163,8 @@ export const escapeDartString = (value: string): string =>
 
 export const dartString = (value: string): string =>
   `'${escapeDartString(value)}'`;
+
+// Dart has no strict-equality operators; map JS `===`/`!==` to `==`/`!=`.
+// Order matters: rewrite `!==` before `===` (both contain `==`).
+export const normalizeOperators = (text: string): string =>
+  text.replace(/!==/g, '!=').replace(/===/g, '==');

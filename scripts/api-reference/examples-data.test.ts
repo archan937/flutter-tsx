@@ -99,7 +99,7 @@ describe('examples-data — Dart output anchors', () => {
         const App({super.key});
         @override
         Widget build(BuildContext context) {
-          return MaterialApp(title: 'My App', home: Scaffold(appBar: AppBar(title: 'My App'), body: Center(child: Text('Hello, World!'))));
+          return MaterialApp(title: 'My App', home: Scaffold(appBar: AppBar(title: Text('My App')), body: Center(child: Text('Hello, World!'))));
         }
       }
     `);
@@ -311,7 +311,7 @@ describe('examples-data — Dart output anchors', () => {
         int tab = 0;
         @override
         Widget build(BuildContext context) {
-          return MaterialApp(title: 'Multi Screen', home: Scaffold(appBar: AppBar(title: 'Multi Screen'), body: Column(children: [Center(child: Text('Screen' + '\${tab}')), Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [ElevatedButton(onPressed: () { setState(() { tab = 0; }); }, child: Text('Home')), ElevatedButton(onPressed: () { setState(() { tab = 1; }); }, child: Text('Profile'))])])));
+          return MaterialApp(title: 'Multi Screen', home: Scaffold(appBar: AppBar(title: Text('Multi Screen')), body: Column(children: [Center(child: Text('Screen' + '\${tab}')), Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [ElevatedButton(onPressed: () { setState(() { tab = 0; }); }, child: Text('Home')), ElevatedButton(onPressed: () { setState(() { tab = 1; }); }, child: Text('Profile'))])])));
         }
       }
     `);
@@ -325,7 +325,7 @@ describe('examples-data — Dart output anchors', () => {
         const DrawerApp({super.key});
         @override
         Widget build(BuildContext context) {
-          return MaterialApp(title: 'Drawer Demo', home: Scaffold(appBar: AppBar(title: 'Drawer Demo'), drawer: Drawer(child: DrawerHeader(child: Text('Menu'))), body: Center(child: Text('Main content'))));
+          return MaterialApp(title: 'Drawer Demo', home: Scaffold(appBar: AppBar(title: Text('Drawer Demo')), drawer: Drawer(child: DrawerHeader(child: Text('Menu'))), body: Center(child: Text('Main content'))));
         }
       }
     `);

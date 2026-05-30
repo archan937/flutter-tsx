@@ -23,6 +23,7 @@ export const transpileFile = async (
   const { code: dartCode, imports } = generateDartFileResult(
     parsed.sourceFile,
     parsed.exports,
+    parsed.localComponents,
   );
 
   const inputBaseName = basename(tsxPath, '.tsx');

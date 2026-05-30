@@ -1,5 +1,7 @@
 import ts from 'typescript';
 
+import { normalizeOperators } from './dart-helpers.js';
+
 type VisitJSX = (
   node: ts.JsxElement | ts.JsxSelfClosingElement | ts.JsxFragment,
 ) => string;
@@ -95,7 +97,7 @@ export const tryTransformTernary = (
 
   if (!thenJsx && !elseJsx) return null;
 
-  const condText = expr.condition.getText(sourceFile);
+  const condText = normalizeOperators(expr.condition.getText(sourceFile));
 
   const dartThen = thenJsx
     ? visitJSX(thenJsx)
@@ -123,7 +125,7 @@ export const tryTransformAndExpression = (
   const jsxNode = findJSXInExpr(expr.right);
   if (!jsxNode) return null;
 
-  const condText = expr.left.getText(sourceFile);
+  const condText = normalizeOperators(expr.left.getText(sourceFile));
   const dartWidget = visitJSX(jsxNode);
 
   return `if (${condText}) ${dartWidget}`;

@@ -100,6 +100,7 @@ export class CodegenContext {
   private sourceFile: ts.SourceFile;
   private stateVarNames = new Set<string>();
   private stateSetterNames = new Set<string>();
+  private stateSetterToVar = new Map<string, string>();
   readonly imports = new Set<string>(['package:flutter/material.dart']);
   private pluginFields: string[] = [];
   private pluginInitState: string[] = [];
@@ -107,9 +108,14 @@ export class CodegenContext {
   private pluginVarNames = new Set<string>();
   private pluginMethods = new Map<string, Record<string, string>>();
   private handlerFunctionNames = new Set<string>();
+  private readonly localComponents: Map<string, string>;
 
-  constructor(sourceFile: ts.SourceFile) {
+  constructor(
+    sourceFile: ts.SourceFile,
+    localComponents = new Map<string, string>(),
+  ) {
     this.sourceFile = sourceFile;
+    this.localComponents = localComponents;
   }
 
   // -------------------------------------------------------------------------
@@ -127,6 +133,7 @@ export class CodegenContext {
       for (const sv of analysis.stateVars) {
         this.stateVarNames.add(sv.name);
         this.stateSetterNames.add(sv.setter);
+        this.stateSetterToVar.set(sv.setter, sv.name);
       }
 
       for (const h of analysis.handlerFunctions) {
@@ -343,6 +350,14 @@ export class CodegenContext {
     attributes: ts.JsxAttributes,
     children: ts.JsxChild[],
   ): string {
+    // A reference to a component imported from a relative module needs a Dart
+    // import so the generated file can construct it. Output is flat, so the
+    // import path is just the basename .dart file.
+    const localDartFile = this.localComponents.get(tagName);
+    if (localDartFile && !WIDGET_MAP.has(tagName)) {
+      this.imports.add(localDartFile);
+    }
+
     const props = this.extractProps(attributes, tagName);
     const parts: string[] = [];
 
@@ -600,7 +615,11 @@ export class CodegenContext {
       if (ts.isJsxExpression(initializer)) {
         const expr = initializer.expression;
         if (!expr) continue;
-        result[dartParam] = this.transformExprProp(tsxName, expr);
+        result[dartParam] = this.transformExprProp(
+          tsxName,
+          expr,
+          propDef?.transform === 'widget',
+        );
       }
     }
 
@@ -618,6 +637,16 @@ export class CodegenContext {
       propName === 'activeColor'
     ) {
       return transformColor(value);
+    }
+
+    // A string assigned to a Widget-typed prop (e.g. AppBar.title,
+    // ListTile.title) must be wrapped in a Text widget.
+    const widgetTypedDef = WIDGET_MAP.get(tagName);
+    const widgetTypedProp =
+      widgetTypedDef?.props.find((p) => p.tsxProp === propName) ??
+      widgetTypedDef?.styling.find((p) => p.tsxProp === propName);
+    if (widgetTypedProp?.transform === 'widget') {
+      return `Text(${dartString(value)})`;
     }
 
     // TextField label convenience prop → InputDecoration(labelText: ...)
@@ -642,8 +671,38 @@ export class CodegenContext {
     return dartString(value);
   }
 
-  private transformExprProp(propName: string, expr: ts.Expression): string {
+  private transformExprProp(
+    propName: string,
+    expr: ts.Expression,
+    isWidgetTyped = false,
+  ): string {
     const raw = expr.getText(this.sourceFile);
+
+    // JSX passed as a prop value (e.g. icon={<Icon name="home" />}) must be
+    // transpiled to its Dart widget, not emitted as raw TSX.
+    if (
+      ts.isJsxElement(expr) ||
+      ts.isJsxSelfClosingElement(expr) ||
+      ts.isJsxFragment(expr)
+    ) {
+      return this.visitJSX(expr, null);
+    }
+
+    // A non-JSX value bound to a Widget-typed prop (e.g. ListTile title={item})
+    // is a string-ish value that must be wrapped in a Text widget.
+    if (
+      isWidgetTyped &&
+      (ts.isIdentifier(expr) ||
+        ts.isPropertyAccessExpression(expr) ||
+        ts.isStringLiteral(expr) ||
+        ts.isTemplateExpression(expr))
+    ) {
+      if (ts.isStringLiteral(expr)) return `Text(${dartString(expr.text)})`;
+      if (ts.isTemplateExpression(expr)) {
+        return `Text(${this.transformTemplateLiteral(expr)})`;
+      }
+      return `Text(${raw})`;
+    }
 
     if (
       propName.toLowerCase().includes('color') ||
@@ -709,10 +768,17 @@ export class CodegenContext {
         : `() { ${transformed} }`;
     }
 
-    // Identifier: local handler → _handlerName; otherwise pass-through
+    // Identifier: local handler → _handlerName; a bare useState setter passed
+    // as a callback (e.g. onChanged={setName}) becomes a setState updater that
+    // assigns the callback's argument; otherwise pass-through.
     if (ts.isIdentifier(expr)) {
       const name = expr.getText(src);
-      return this.handlerFunctionNames.has(name) ? `_${name}` : name;
+      if (this.handlerFunctionNames.has(name)) return `_${name}`;
+      const stateVar = this.stateSetterToVar.get(name);
+      if (stateVar) {
+        return `(value) { setState(() { ${stateVar} = value; }); }`;
+      }
+      return name;
     }
 
     return `() { ${expr.getText(src)}; }`;
@@ -891,11 +957,72 @@ export class CodegenContext {
 // File-level codegen
 // ---------------------------------------------------------------------------
 
+// Render a literal data element (string / number / boolean) to Dart. String
+// literals go through dartString so `$` is escaped (Dart treats `$` as string
+// interpolation). Returns null for anything that isn't a simple literal.
+const literalToDart = (expr: ts.Expression): string | null => {
+  if (ts.isStringLiteral(expr) || ts.isNoSubstitutionTemplateLiteral(expr)) {
+    return dartString(expr.text);
+  }
+  if (ts.isNumericLiteral(expr)) return expr.text;
+  if (expr.kind === ts.SyntaxKind.TrueKeyword) return 'true';
+  if (expr.kind === ts.SyntaxKind.FalseKeyword) return 'false';
+  if (
+    ts.isPrefixUnaryExpression(expr) &&
+    expr.operator === ts.SyntaxKind.MinusToken &&
+    ts.isNumericLiteral(expr.operand)
+  ) {
+    return `-${expr.operand.text}`;
+  }
+  return null;
+};
+
+// Module-level `const NAME = [...]` data used by components (e.g. lists fed to
+// .map()) is otherwise dropped, leaving undefined names in the Dart output.
+// Emit such declarations as top-level Dart `final`s. Only simple primitives and
+// arrays of primitives are supported; other shapes are skipped (the component
+// author must inline them).
+const collectDataConsts = (
+  sourceFile: ts.SourceFile,
+  componentNames: Set<string>,
+): string[] => {
+  const lines: string[] = [];
+
+  for (const statement of sourceFile.statements) {
+    if (!ts.isVariableStatement(statement)) continue;
+    for (const decl of statement.declarationList.declarations) {
+      if (!ts.isIdentifier(decl.name) || !decl.initializer) continue;
+      const name = decl.name.getText(sourceFile);
+      if (componentNames.has(name)) continue;
+
+      const init = decl.initializer;
+      const primitive = literalToDart(init);
+      if (primitive) {
+        lines.push(`final ${name} = ${primitive};`);
+        continue;
+      }
+
+      if (ts.isArrayLiteralExpression(init)) {
+        const elements = init.elements.map(literalToDart);
+        if (elements.every((e): e is string => e !== null)) {
+          lines.push(`final ${name} = [${elements.join(', ')}];`);
+        }
+      }
+    }
+  }
+
+  return lines;
+};
+
 const buildDartOutput = (
   sourceFile: ts.SourceFile,
   components: ExportedComponent[],
+  localComponents?: Map<string, string>,
 ): { code: string; ctx: CodegenContext } => {
-  const ctx = new CodegenContext(sourceFile);
+  const ctx = new CodegenContext(sourceFile, localComponents);
+
+  const componentNames = new Set(components.map((c) => c.name));
+  const dataConsts = collectDataConsts(sourceFile, componentNames);
 
   const componentBodies = components
     .map((c) => ctx.generateComponent(c))
@@ -907,6 +1034,7 @@ const buildDartOutput = (
     `// GENERATED — do not edit. Source: ${sourceFile.fileName}`,
     importLines,
     ``,
+    ...(dataConsts.length > 0 ? [dataConsts.join('\n'), ''] : []),
     ...componentBodies.flatMap((body, idx) =>
       idx < componentBodies.length - 1 ? [body, ''] : [body],
     ),
@@ -919,7 +1047,8 @@ const buildDartOutput = (
 export const generateDartFile = (
   sourceFile: ts.SourceFile,
   components: ExportedComponent[],
-): string => buildDartOutput(sourceFile, components).code;
+  localComponents?: Map<string, string>,
+): string => buildDartOutput(sourceFile, components, localComponents).code;
 
 export interface DartFileResult {
   code: string;
@@ -929,7 +1058,12 @@ export interface DartFileResult {
 export const generateDartFileResult = (
   sourceFile: ts.SourceFile,
   components: ExportedComponent[],
+  localComponents?: Map<string, string>,
 ): DartFileResult => {
-  const { code, ctx } = buildDartOutput(sourceFile, components);
+  const { code, ctx } = buildDartOutput(
+    sourceFile,
+    components,
+    localComponents,
+  );
   return { code, imports: ctx.imports };
 };
