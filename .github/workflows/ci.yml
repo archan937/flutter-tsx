@@ -1,0 +1,114 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+# The skeleton harness imports create-flutter-tsx as a sibling
+# (test/transpiler/skeletons.test.ts → ../../../create-flutter-tsx). Every job
+# that runs the tests checks both repos out into a shared packages/ layout.
+env:
+  SIBLING_REPO: archan937/create-flutter-tsx
+
+jobs:
+  quality:
+    name: quality (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: packages/flutter-tsx
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ env.SIBLING_REPO }}
+          path: packages/create-flutter-tsx
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install
+        working-directory: packages/flutter-tsx
+      - run: bun install
+        working-directory: packages/create-flutter-tsx
+      - run: bun run quality
+        working-directory: packages/flutter-tsx
+
+  templates:
+    name: skeleton dart-analyze
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: packages/flutter-tsx
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ env.SIBLING_REPO }}
+          path: packages/create-flutter-tsx
+      - uses: oven-sh/setup-bun@v2
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - run: bun install
+        working-directory: packages/flutter-tsx
+      - run: bun install
+        working-directory: packages/create-flutter-tsx
+      # Tier 2 looks for the SDK at ~/.fsx/flutter/bin/dart — point it at the
+      # flutter the action installed (which is at <sdk>/bin/flutter).
+      - name: Link Flutter SDK into ~/.fsx
+        run: |
+          mkdir -p ~/.fsx
+          ln -s "$(dirname "$(dirname "$(which flutter)")")" ~/.fsx/flutter
+      - name: dart analyze every skeleton (Tier 2)
+        run: FSX_E2E=1 bun test test/transpiler/skeletons.test.ts
+        working-directory: packages/flutter-tsx
+
+  build:
+    name: build ${{ matrix.target }} (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-latest, target: web }
+          - { os: ubuntu-latest, target: android }
+          - { os: ubuntu-latest, target: linux }
+          - { os: macos-latest, target: ios }
+          - { os: macos-latest, target: macos }
+          - { os: windows-latest, target: windows }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: packages/flutter-tsx
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ env.SIBLING_REPO }}
+          path: packages/create-flutter-tsx
+      - uses: oven-sh/setup-bun@v2
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - if: matrix.target == 'android'
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - if: matrix.target == 'linux'
+        run: sudo apt-get update && sudo apt-get install -y ninja-build libgtk-3-dev clang cmake pkg-config
+      - name: Build flutter-tsx (produces the fsx binary)
+        run: bun install && bun run build
+        working-directory: packages/flutter-tsx
+      - run: bun install
+        working-directory: packages/create-flutter-tsx
+      # Scaffold a blank app for this target, point its flutter-tsx dependency at
+      # the local build, then build the real artifact with `fsx build`.
+      - name: Scaffold + fsx build ${{ matrix.target }}
+        shell: bash
+        run: |
+          bun packages/create-flutter-tsx/bin/create-flutter-tsx.ts demo \
+            --target=${{ matrix.target }} --template=blank --bundleId=com.example.demo
+          cd demo
+          bun add "$GITHUB_WORKSPACE/packages/flutter-tsx"
+          bun ./node_modules/flutter-tsx/dist/bin/fsx.js build --target=${{ matrix.target }}
