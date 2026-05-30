@@ -56,3 +56,53 @@ export interface AppConfig {
  * giving the developer full type-checking and autocomplete.
  */
 export const defineConfig = (config: AppConfig): AppConfig => config;
+
+// ---------------------------------------------------------------------------
+// Surface config — semantic, platform-agnostic. One declaration fans out to
+// the platform-specific native files (Info.plist, AndroidManifest, …) invisibly.
+// ---------------------------------------------------------------------------
+
+/** Material color roles (hex, e.g. "#54a4ff"). */
+export interface ThemeColors {
+  primary?: string;
+  secondary?: string;
+  tertiary?: string;
+  error?: string;
+  background?: string;
+  surface?: string;
+}
+
+/** `config/theme.ts` — brand colors → generated Material 3 ThemeData. */
+export interface Theme {
+  light: ThemeColors;
+  dark?: ThemeColors;
+}
+
+/** `config/links.ts` — deep links + universal links (one declaration → both platforms). */
+export interface Links {
+  /** Custom URL scheme, e.g. "myapp" (→ myapp://…). */
+  scheme?: string;
+  /** Verified domains for universal/app links, e.g. ["example.com"]. */
+  domains?: string[];
+}
+
+/** `config/env.ts` — build-time defines (→ `--dart-define`). May read `process.env`. */
+export type EnvConfig = Record<string, string>;
+
+/**
+ * `config/permissions.ts` — capability → human-readable iOS usage description.
+ * Usually unnecessary: permissions are inferred from the plugin hooks you use
+ * (`useCamera()` → camera). Provide this only to customize the description
+ * string or declare a permission no hook implies.
+ */
+export type Permissions = Record<string, string>;
+
+/** Identity helper for `config/theme.ts`. */
+export const defineTheme = (theme: Theme): Theme => theme;
+/** Identity helper for `config/links.ts`. */
+export const defineLinks = (links: Links): Links => links;
+/** Identity helper for `config/env.ts`. */
+export const defineEnv = (env: EnvConfig): EnvConfig => env;
+/** Identity helper for `config/permissions.ts`. */
+export const definePermissions = (permissions: Permissions): Permissions =>
+  permissions;

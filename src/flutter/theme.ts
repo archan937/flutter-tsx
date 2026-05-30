@@ -2,20 +2,13 @@ import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
 import { logger } from '../cli/utils/logger.js';
+import type { Theme, ThemeColors } from '../config.js';
 
-export interface ThemeColors {
-  primary?: string;
-  secondary?: string;
-  tertiary?: string;
-  error?: string;
-  background?: string;
-  surface?: string;
-}
-
-export interface ProjectTheme {
-  light: ThemeColors;
-  dark?: ThemeColors;
-}
+// `ProjectTheme` is the internal alias for the public `Theme` type (defined
+// canonically in config.ts so the developer-facing `defineTheme` and the
+// codegen share one source of truth).
+export type ProjectTheme = Theme;
+export type { ThemeColors };
 
 const VALID_KEYS = new Set<keyof ThemeColors>([
   'primary',

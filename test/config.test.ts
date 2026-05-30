@@ -4,7 +4,13 @@ import { tmpdir } from 'os';
 import { join } from 'path';
 
 import { readConfig } from '@src/cli/utils/config.js';
-import { defineConfig } from '@src/config.js';
+import {
+  defineConfig,
+  defineEnv,
+  defineLinks,
+  definePermissions,
+  defineTheme,
+} from '@src/config.js';
 
 const mkProject = (appTs: string | null): string => {
   const root = mkdtempSync(join(tmpdir(), 'fsx-config-'));
@@ -23,6 +29,25 @@ describe('defineConfig', () => {
       target: 'ios' as const,
     };
     expect(defineConfig(cfg)).toBe(cfg);
+  });
+});
+
+describe('surface define* helpers (identity)', () => {
+  it('defineTheme returns its input', () => {
+    const t = { light: { primary: '#54a4ff' } };
+    expect(defineTheme(t)).toBe(t);
+  });
+  it('defineLinks returns its input', () => {
+    const l = { scheme: 'myapp', domains: ['example.com'] };
+    expect(defineLinks(l)).toBe(l);
+  });
+  it('defineEnv returns its input', () => {
+    const e = { API_URL: 'https://api.example.com' };
+    expect(defineEnv(e)).toBe(e);
+  });
+  it('definePermissions returns its input', () => {
+    const p = { camera: 'Scan QR codes' };
+    expect(definePermissions(p)).toBe(p);
   });
 });
 
