@@ -5,6 +5,7 @@ import { join } from 'path';
 
 import {
   applyLinks,
+  applyLocales,
   applyPermissions,
   loadSurfaceConfig,
 } from '@src/flutter/surface.js';
@@ -130,5 +131,28 @@ describe('applyLinks', () => {
     expect(readFileSync(plistPath(dir), 'utf-8')).not.toContain(
       'fsx:links:begin',
     );
+  });
+});
+
+describe('applyLocales', () => {
+  it('generates l10n.dart with a global t() from locales/', () => {
+    const root = mkdtempSync(join(tmpdir(), 'fsx-locales-'));
+    mkdirSync(join(root, 'locales'), { recursive: true });
+    writeFileSync(
+      join(root, 'locales', 'en.json'),
+      JSON.stringify({ 'app.title': 'My App', greeting: 'Hi $name' }),
+    );
+    const outDir = join(root, 'out');
+    const wrote = applyLocales(root, outDir);
+    expect(wrote).toBe(true);
+    const dart = readFileSync(join(outDir, 'l10n.dart'), 'utf-8');
+    expect(dart).toContain('String t(String key)');
+    expect(dart).toContain("'app.title': 'My App'");
+    expect(dart).toContain('\\$name'); // $ escaped for Dart
+  });
+
+  it('returns false when there are no locales', () => {
+    const root = mkdtempSync(join(tmpdir(), 'fsx-locales-'));
+    expect(applyLocales(root, join(root, 'out'))).toBe(false);
   });
 });

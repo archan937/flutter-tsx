@@ -11,6 +11,8 @@ export interface ParsedFile {
    * component is referenced in JSX. Bare-package imports are excluded.
    */
   localComponents: Map<string, string>;
+  /** Whether the file imports `useTranslations` (→ import generated l10n.dart). */
+  usesTranslations: boolean;
 }
 
 export interface ExportedComponent {
@@ -129,6 +131,19 @@ const extractLocalComponents = (
   return localComponents;
 };
 
+const usesTranslationsHook = (sourceFile: ts.SourceFile): boolean => {
+  for (const statement of sourceFile.statements) {
+    if (!ts.isImportDeclaration(statement)) continue;
+    const bindings = statement.importClause?.namedBindings;
+    if (bindings && ts.isNamedImports(bindings)) {
+      for (const el of bindings.elements) {
+        if (el.name.getText(sourceFile) === 'useTranslations') return true;
+      }
+    }
+  }
+  return false;
+};
+
 export const parseFile = (filePath: string): ParsedFile => {
   const program = ts.createProgram([filePath], COMPILER_OPTIONS);
   const sourceFile = program.getSourceFile(filePath);
@@ -142,6 +157,7 @@ export const parseFile = (filePath: string): ParsedFile => {
     program,
     exports: extractExports(sourceFile),
     localComponents: extractLocalComponents(sourceFile),
+    usesTranslations: usesTranslationsHook(sourceFile),
   };
 };
 
@@ -174,6 +190,7 @@ export const parseSource = (
     program,
     exports: extractExports(sourceFile),
     localComponents: extractLocalComponents(sourceFile),
+    usesTranslations: usesTranslationsHook(sourceFile),
   };
 };
 

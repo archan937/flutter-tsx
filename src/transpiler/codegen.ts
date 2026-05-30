@@ -104,6 +104,8 @@ export interface CodegenOptions {
    * call when the developer hasn't set them — sourced from config/theme.ts.
    */
   materialAppProps?: Record<string, string>;
+  /** File uses `useTranslations` → import the generated `l10n.dart` (global `t`). */
+  usesTranslations?: boolean;
 }
 
 export class CodegenContext {
@@ -125,6 +127,7 @@ export class CodegenContext {
     this.sourceFile = sourceFile;
     this.localComponents = options.localComponents ?? new Map();
     this.materialAppProps = options.materialAppProps ?? {};
+    if (options.usesTranslations) this.imports.add('l10n.dart');
   }
 
   // -------------------------------------------------------------------------

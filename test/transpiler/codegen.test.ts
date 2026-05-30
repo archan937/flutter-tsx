@@ -193,6 +193,25 @@ describe('generateDartFile — MaterialApp theme injection', () => {
   });
 });
 
+describe('generateDartFile — translations', () => {
+  it('imports l10n.dart when the file uses translations', () => {
+    const { sourceFile, exports } = parseSource(
+      `export const App = () => <Center />;`,
+    );
+    const out = generateDartFile(sourceFile, exports, {
+      usesTranslations: true,
+    });
+    expect(out).toContain("import 'l10n.dart';");
+  });
+
+  it('does not import l10n.dart otherwise', () => {
+    const { sourceFile, exports } = parseSource(
+      `export const App = () => <Center />;`,
+    );
+    expect(generateDartFile(sourceFile, exports)).not.toContain('l10n.dart');
+  });
+});
+
 describe('generateDartFile — StatelessWidget', () => {
   it('generates a StatelessWidget from a self-closing tag', () => {
     expect(getBody(`export function App() { return <Center />; }`)).toResemble(`

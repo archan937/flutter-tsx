@@ -76,6 +76,16 @@ describe('parseSource', () => {
     expect(localComponents.get('Other')).toBe('Widget.dart');
   });
 
+  it('detects the useTranslations hook import', () => {
+    const yes = parseSource(
+      `import { useTranslations } from 'flutter-tsx';
+       export const App = () => <Center />;`,
+    );
+    expect(yes.usesTranslations).toBe(true);
+    const no = parseSource(`export const App = () => <Center />;`);
+    expect(no.usesTranslations).toBe(false);
+  });
+
   it('handles relative specifiers without an extension', () => {
     const src = `
       import { Card } from './widgets/Card';

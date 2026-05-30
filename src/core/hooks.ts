@@ -19,3 +19,18 @@ export const useEffect = (
   void effect;
   void deps;
 };
+
+/**
+ * Returns a translation function `t(key)` resolving a key from the project's
+ * `locales/*.json`. The transpiler generates a Dart `lib/l10n.dart` with a
+ * global `t(key)` and imports it into files that use this hook.
+ *
+ * ```tsx
+ * const t = useTranslations();
+ * <Text>{t('app.title')}</Text>
+ * ```
+ */
+export const useTranslations =
+  (): ((key: string) => string) =>
+  (key: string): string =>
+    key;

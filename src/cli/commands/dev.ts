@@ -9,6 +9,7 @@ import { ensureFlutterProject } from '../../flutter/project.js';
 import { FlutterRunner } from '../../flutter/runner.js';
 import {
   applyLinks,
+  applyLocales,
   applyPermissions,
   loadSurfaceConfig,
 } from '../../flutter/surface.js';
@@ -116,6 +117,9 @@ export const devCmd = defineCommand({
     // AndroidManifest (custom scheme + universal/app link domains).
     const links = await loadSurfaceConfig<Links>(root, 'links');
     if (links) applyLinks(flutterDir, links);
+
+    // 2e. Locales surface: locales/*.json → generated <outDir>/l10n.dart (global `t`).
+    applyLocales(root, outDir);
 
     // 3. Start flutter runner — surface env (config/env.ts) → --dart-define flags
     const envConfig =

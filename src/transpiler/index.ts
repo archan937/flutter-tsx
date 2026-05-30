@@ -35,6 +35,7 @@ export const transpileFile = async (
     {
       localComponents: parsed.localComponents,
       materialAppProps: options.materialAppProps,
+      usesTranslations: parsed.usesTranslations,
     },
   );
 

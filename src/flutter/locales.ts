@@ -2,6 +2,7 @@ import { existsSync, readdirSync, readFileSync } from 'fs';
 import { join } from 'path';
 
 import { logger } from '../cli/utils/logger.js';
+import { dartString } from '../transpiler/dart-helpers.js';
 
 export interface LocaleData {
   default: string;
@@ -111,4 +112,39 @@ export const localesToArb = (
   }
 
   return result;
+};
+
+/**
+ * Generates `lib/l10n.dart` — a self-contained translations table plus a global
+ * `t(key)` resolver — from the project's locale files. Keys are arbitrary
+ * strings (looked up at runtime), so they need not be valid Dart identifiers.
+ * `t` falls back to the default locale, then the key itself.
+ */
+export const localesToL10nDart = (data: LocaleData): string => {
+  const localeEntries = Object.entries(data.locales).map(([code, entries]) => {
+    const pairs = Object.keys(entries)
+      .sort()
+      .map((key) => `    ${dartString(key)}: ${dartString(entries[key])},`)
+      .join('\n');
+    return `  ${dartString(code)}: {\n${pairs}\n  },`;
+  });
+
+  return [
+    '// GENERATED — do not edit. Source: locales/',
+    '',
+    `String _fsxLocale = ${dartString(data.default)};`,
+    '',
+    '// ignore: unused_element',
+    'void setLocale(String locale) => _fsxLocale = locale;',
+    '',
+    'const Map<String, Map<String, String>> _fsxTranslations = {',
+    ...localeEntries,
+    '};',
+    '',
+    'String t(String key) =>',
+    `    _fsxTranslations[_fsxLocale]?[key] ??`,
+    `    _fsxTranslations[${dartString(data.default)}]?[key] ??`,
+    '    key;',
+    '',
+  ].join('\n');
 };

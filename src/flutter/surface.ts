@@ -1,5 +1,5 @@
-import { existsSync, readFileSync, writeFileSync } from 'fs';
-import { join } from 'path';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
+import { dirname, join } from 'path';
 
 import type { Links } from '../config.js';
 import {
@@ -8,6 +8,7 @@ import {
   applyLinksToInfoPlist,
   normalizeLinks,
 } from './links.js';
+import { loadLocales, localesToL10nDart } from './locales.js';
 import {
   applyToAndroidManifest,
   applyToInfoPlist,
@@ -84,4 +85,19 @@ export const applyLinks = (flutterDir: string, links: Links): void => {
     join(flutterDir, 'android', 'app', 'src', 'main', 'AndroidManifest.xml'),
     (xml) => applyLinksToAndroidManifest(xml, normalized),
   );
+};
+
+/**
+ * Generates `<outDir>/l10n.dart` (the global `t(key)` resolver) from the
+ * project's `locales/*.json`, so `useTranslations()` works. Returns true when a
+ * file was written (i.e. locales exist).
+ */
+export const applyLocales = (projectRoot: string, outDir: string): boolean => {
+  const data = loadLocales(projectRoot);
+  if (!data) return false;
+  const outPath = join(outDir, 'l10n.dart');
+  if (!existsSync(dirname(outPath)))
+    mkdirSync(dirname(outPath), { recursive: true });
+  writeFileSync(outPath, localesToL10nDart(data), 'utf-8');
+  return true;
 };
