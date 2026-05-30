@@ -3,11 +3,15 @@ import { defineCommand } from 'citty';
 import { existsSync } from 'fs';
 import { join, resolve } from 'path';
 
-import type { Theme } from '../../config.js';
+import type { Links, Theme } from '../../config.js';
 import { envToDartDefines } from '../../flutter/env.js';
 import { ensureFlutterProject } from '../../flutter/project.js';
 import { FlutterRunner } from '../../flutter/runner.js';
-import { applyPermissions, loadSurfaceConfig } from '../../flutter/surface.js';
+import {
+  applyLinks,
+  applyPermissions,
+  loadSurfaceConfig,
+} from '../../flutter/surface.js';
 import { themeToMaterialAppProps } from '../../flutter/theme.js';
 import { transpileAll, transpileFile } from '../../transpiler/index.js';
 import { readConfig } from '../utils/config.js';
@@ -107,6 +111,11 @@ export const devCmd = defineCommand({
       (await loadSurfaceConfig<Record<string, string>>(root, 'permissions')) ??
       {};
     applyPermissions(flutterDir, detectedCapabilities, permissionDescriptions);
+
+    // 2d. Apply links surface: config/links.ts → Info.plist / entitlements /
+    // AndroidManifest (custom scheme + universal/app link domains).
+    const links = await loadSurfaceConfig<Links>(root, 'links');
+    if (links) applyLinks(flutterDir, links);
 
     // 3. Start flutter runner — surface env (config/env.ts) → --dart-define flags
     const envConfig =

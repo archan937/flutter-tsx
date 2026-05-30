@@ -3,7 +3,11 @@ import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
 
-import { applyPermissions, loadSurfaceConfig } from '@src/flutter/surface.js';
+import {
+  applyLinks,
+  applyPermissions,
+  loadSurfaceConfig,
+} from '@src/flutter/surface.js';
 
 const mkProject = (name: string, content: string | null): string => {
   const root = mkdtempSync(join(tmpdir(), 'fsx-surface-'));
@@ -33,11 +37,22 @@ const plistPath = (dir: string): string =>
 const manifestPath = (dir: string): string =>
   join(dir, 'android', 'app', 'src', 'main', 'AndroidManifest.xml');
 
+const EMPTY_ENTITLEMENTS = `<?xml version="1.0" encoding="UTF-8"?>
+<plist version="1.0">
+<dict>
+</dict>
+</plist>
+`;
+
+const entitlementsPath = (dir: string): string =>
+  join(dir, 'ios', 'Runner', 'Runner.entitlements');
+
 const mkFlutterDir = (): string => {
   const dir = mkdtempSync(join(tmpdir(), 'fsx-applyperms-'));
   mkdirSync(join(dir, 'ios', 'Runner'), { recursive: true });
   mkdirSync(join(dir, 'android', 'app', 'src', 'main'), { recursive: true });
   writeFileSync(plistPath(dir), EMPTY_PLIST);
+  writeFileSync(entitlementsPath(dir), EMPTY_ENTITLEMENTS);
   writeFileSync(manifestPath(dir), EMPTY_MANIFEST);
   return dir;
 };
@@ -94,6 +109,26 @@ describe('applyPermissions', () => {
     applyPermissions(dir, [], {});
     expect(readFileSync(plistPath(dir), 'utf-8')).not.toContain(
       'NSCameraUsageDescription',
+    );
+  });
+});
+
+describe('applyLinks', () => {
+  it('writes scheme into Info.plist + AndroidManifest and domains into entitlements', () => {
+    const dir = mkFlutterDir();
+    applyLinks(dir, { scheme: 'myapp', domains: ['example.com'] });
+    expect(readFileSync(plistPath(dir), 'utf-8')).toContain('myapp');
+    expect(readFileSync(manifestPath(dir), 'utf-8')).toContain('myapp');
+    expect(readFileSync(entitlementsPath(dir), 'utf-8')).toContain(
+      'example.com',
+    );
+  });
+
+  it('does nothing for an empty/invalid links config', () => {
+    const dir = mkFlutterDir();
+    applyLinks(dir, { scheme: 'https' });
+    expect(readFileSync(plistPath(dir), 'utf-8')).not.toContain(
+      'fsx:links:begin',
     );
   });
 });

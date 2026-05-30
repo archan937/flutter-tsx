@@ -1,7 +1,5 @@
-import { existsSync, readFileSync } from 'fs';
-import { join } from 'path';
-
 import { logger } from '../cli/utils/logger.js';
+import type { Links } from '../config.js';
 
 export interface AppLinks {
   scheme: string | null;
@@ -37,67 +35,28 @@ const stripFsxBlock = (
   return content.slice(0, lineStart) + content.slice(lineEnd);
 };
 
-const parseTomlArray = (raw: string): string[] | null => {
-  const trimmed = raw.trim();
-  if (!trimmed.startsWith('[') || !trimmed.endsWith(']')) return null;
-  const inner = trimmed.slice(1, -1).trim();
-  if (inner === '') return [];
-  const result: string[] = [];
-  for (const part of inner.split(',')) {
-    const piece = part.trim();
-    const match = /^"([^"]*)"$/.exec(piece);
-    if (!match) return null;
-    result.push(match[1]);
-  }
-  return result;
-};
+/**
+ * Validates + normalizes a typed `config/links.ts` into `AppLinks`. Invalid
+ * schemes/domains are dropped with a warning (rather than producing broken
+ * native config). Returns null when nothing valid remains.
+ */
+export const normalizeLinks = (links: Links): AppLinks | null => {
+  const { scheme: rawScheme, domains: rawDomains = [] } = links;
 
-export const loadLinks = (projectRoot: string): AppLinks | null => {
-  const path = join(projectRoot, 'links.toml');
-  if (!existsSync(path)) return null;
-
-  const content = readFileSync(path, 'utf-8');
   let scheme: string | null = null;
-  let domainsRaw: string[] = [];
-  let hadValidationError = false;
-
-  for (const rawLine of content.split('\n')) {
-    const line = rawLine.trim();
-    if (line === '' || line.startsWith('#')) continue;
-
-    const schemeMatch = /^scheme\s*=\s*"([^"]*)"$/.exec(line);
-    if (schemeMatch) {
-      const value = schemeMatch[1];
-      if (!SCHEME_RE.test(value) || RESERVED_SCHEMES.has(value)) {
-        logger.error(`links.toml: invalid scheme "${value}"`);
-        hadValidationError = true;
-        continue;
-      }
-      scheme = value;
-      continue;
+  if (rawScheme !== undefined) {
+    if (SCHEME_RE.test(rawScheme) && !RESERVED_SCHEMES.has(rawScheme)) {
+      scheme = rawScheme;
+    } else {
+      logger.warn(`config/links.ts: invalid scheme "${rawScheme}" ignored`);
     }
-
-    const domainsMatch = /^domains\s*=\s*(.+)$/.exec(line);
-    if (domainsMatch) {
-      const parsed = parseTomlArray(domainsMatch[1]);
-      if (parsed === null) {
-        logger.error(`links.toml: invalid domains value`);
-        hadValidationError = true;
-        continue;
-      }
-      domainsRaw = parsed;
-    }
-  }
-
-  if (hadValidationError && scheme === null && domainsRaw.length === 0) {
-    return null;
   }
 
   const domains: string[] = [];
   const seen = new Set<string>();
-  for (const domain of domainsRaw) {
+  for (const domain of rawDomains) {
     if (!DOMAIN_RE.test(domain)) {
-      logger.error(`links.toml: invalid domain "${domain}"`);
+      logger.warn(`config/links.ts: invalid domain "${domain}" ignored`);
       continue;
     }
     if (seen.has(domain)) continue;
@@ -106,7 +65,6 @@ export const loadLinks = (projectRoot: string): AppLinks | null => {
   }
 
   if (scheme === null && domains.length === 0) return null;
-
   return { scheme, domains };
 };
 

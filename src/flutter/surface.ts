@@ -1,6 +1,13 @@
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
+import type { Links } from '../config.js';
+import {
+  applyLinksToAndroidManifest,
+  applyLinksToEntitlements,
+  applyLinksToInfoPlist,
+  normalizeLinks,
+} from './links.js';
 import {
   applyToAndroidManifest,
   applyToInfoPlist,
@@ -55,5 +62,26 @@ export const applyPermissions = (
   mutateFile(
     join(flutterDir, 'android', 'app', 'src', 'main', 'AndroidManifest.xml'),
     (xml) => applyToAndroidManifest(xml, permissions),
+  );
+};
+
+/**
+ * Applies deep links + universal/app links (config/links.ts) to the native
+ * projects: iOS CFBundleURLTypes (Info.plist) + associated-domains
+ * (entitlements), and Android intent-filters (AndroidManifest). Idempotent.
+ */
+export const applyLinks = (flutterDir: string, links: Links): void => {
+  const normalized = normalizeLinks(links);
+  if (!normalized) return;
+
+  mutateFile(join(flutterDir, 'ios', 'Runner', 'Info.plist'), (xml) =>
+    applyLinksToInfoPlist(xml, normalized),
+  );
+  mutateFile(join(flutterDir, 'ios', 'Runner', 'Runner.entitlements'), (xml) =>
+    applyLinksToEntitlements(xml, normalized),
+  );
+  mutateFile(
+    join(flutterDir, 'android', 'app', 'src', 'main', 'AndroidManifest.xml'),
+    (xml) => applyLinksToAndroidManifest(xml, normalized),
   );
 };
