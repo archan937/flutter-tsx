@@ -40,9 +40,18 @@ function write(filePath: string, content: string) {
   console.log(`  Written: ${filePath.replace(ROOT + '/', '')}`);
 }
 
-const propToTsOptional = (prop: PropDef): string => {
-  const optional = prop.required ? '' : '?';
-  return `  ${prop.tsxProp}${optional}: ${prop.tsType};`;
+// The transpiler wraps a string assigned to a Widget-typed prop in `Text(...)`
+// (see codegen `transform === 'widget'`), so a widget prop accepts a string
+// convenience in addition to a FlutterElement. Array widget props (e.g.
+// `actions: FlutterElement[]`) are not widened — you pass elements, not a string.
+const tsTypeFor = (prop: PropDef): string =>
+  prop.transform === 'widget' && prop.tsType === 'FlutterElement'
+    ? 'string | FlutterElement'
+    : prop.tsType;
+
+const propToTsOptional = (prop: PropDef, forceOptional = false): string => {
+  const optional = forceOptional || !prop.required ? '?' : '';
+  return `  ${prop.tsxProp}${optional}: ${tsTypeFor(prop)};`;
 };
 
 function childrenPropLine(widget: WidgetDef): string {
@@ -83,7 +92,15 @@ function genWidgetInterfaces(widgets: WidgetDef[]): string {
     lines.push(`export interface ${widget.name}Props {`);
 
     for (const prop of widget.props) {
-      if (prop.name === widget.defaultChildSlot) continue;
+      // The default-child-slot prop (e.g. AppBar.title) can also be supplied via
+      // JSX children, so it must be OPTIONAL — but it is still exposed as a prop
+      // so the attribute form (`<AppBar title="My App" />`, the README example)
+      // type-checks. Previously it was dropped entirely, breaking that usage.
+      const isDefaultSlot = prop.name === widget.defaultChildSlot;
+      // When the slot prop is literally named `children` (e.g. Column.children),
+      // the canonical `children?` line below already covers it — skip to avoid a
+      // duplicate `children` member.
+      if (isDefaultSlot && prop.tsxProp === 'children') continue;
       // Text.data is supplied positionally via JSX children (see
       // childrenPropLine), so it must be optional here — otherwise
       // `<Text>hi</Text>` fails to type-check ("data is missing").
@@ -91,7 +108,7 @@ function genWidgetInterfaces(widgets: WidgetDef[]): string {
         lines.push('  data?: string;');
         continue;
       }
-      lines.push(propToTsOptional(prop));
+      lines.push(propToTsOptional(prop, isDefaultSlot));
     }
 
     for (const style of widget.styling) {

@@ -14,10 +14,11 @@ export interface TextStyleProps {
 }
 
 export interface AboutListTileProps {
-  icon?: FlutterElement;
+  icon?: string | FlutterElement;
+  child?: string | FlutterElement;
   applicationName?: string;
   applicationVersion?: string;
-  applicationIcon?: FlutterElement;
+  applicationIcon?: string | FlutterElement;
   applicationLegalese?: string;
   aboutBoxChildren?: FlutterElement[];
   dense?: boolean;
@@ -27,7 +28,7 @@ export interface AboutListTileProps {
 export interface AboutDialogProps {
   applicationName?: string;
   applicationVersion?: string;
-  applicationIcon?: FlutterElement;
+  applicationIcon?: string | FlutterElement;
   applicationLegalese?: string;
   children?: FlutterElement | FlutterElement[];
 }
@@ -35,7 +36,7 @@ export interface AboutDialogProps {
 export interface LicensePageProps {
   applicationName?: string;
   applicationVersion?: string;
-  applicationIcon?: FlutterElement;
+  applicationIcon?: string | FlutterElement;
   applicationLegalese?: string;
 }
 
@@ -76,8 +77,8 @@ export interface EndDrawerButtonProps {
 }
 
 export interface ActionChipProps {
-  avatar?: FlutterElement;
-  label: FlutterElement;
+  avatar?: string | FlutterElement;
+  label: string | FlutterElement;
   labelStyle?: TextStyleProps;
   labelPadding?: number | [number, number] | [number, number, number, number];
   onClick?: unknown;
@@ -105,6 +106,7 @@ export interface ActionChipProps {
 
 export interface ActionIconThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -125,6 +127,7 @@ export interface AnimatedIconProps {
 export interface MaterialAppProps {
   navigatorKey?: unknown;
   scaffoldMessengerKey?: unknown;
+  home?: string | FlutterElement;
   routes?: Record<string, () => FlutterElement>;
   initialRoute?: string;
   onGenerateRoute?: (settings: unknown) => unknown;
@@ -164,11 +167,12 @@ export interface MaterialAppProps {
 }
 
 export interface AppBarProps {
-  leading?: FlutterElement;
+  leading?: string | FlutterElement;
   automaticallyImplyLeading?: boolean;
+  title?: string | FlutterElement;
   actions?: FlutterElement[];
   automaticallyImplyActions?: boolean;
-  flexibleSpace?: FlutterElement;
+  flexibleSpace?: string | FlutterElement;
   bottom?: unknown;
   elevation?: number;
   scrolledUnderElevation?: number;
@@ -200,11 +204,12 @@ export interface AppBarProps {
 }
 
 export interface SliverAppBarProps {
-  leading?: FlutterElement;
+  leading?: string | FlutterElement;
   automaticallyImplyLeading?: boolean;
+  title?: string | FlutterElement;
   actions?: FlutterElement[];
   automaticallyImplyActions?: boolean;
-  flexibleSpace?: FlutterElement;
+  flexibleSpace?: string | FlutterElement;
   bottom?: unknown;
   elevation?: number;
   scrolledUnderElevation?: number;
@@ -260,6 +265,7 @@ export interface AppBarThemeProps {
   systemOverlayStyle?: unknown;
   actionsPadding?: number | [number, number] | [number, number, number, number];
   data?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -285,22 +291,24 @@ export interface BadgeProps {
   padding?: number | [number, number] | [number, number, number, number];
   alignment?: string;
   offset?: unknown;
-  label?: FlutterElement;
+  label?: string | FlutterElement;
   isLabelVisible?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface BadgeThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface MaterialBannerProps {
-  content: FlutterElement;
+  content: string | FlutterElement;
   contentTextStyle?: TextStyleProps;
   actions: FlutterElement[];
   elevation?: number;
-  leading?: FlutterElement;
+  leading?: string | FlutterElement;
   backgroundColor?: unknown;
   surfaceTintColor?: unknown;
   shadowColor?: unknown;
@@ -317,6 +325,7 @@ export interface MaterialBannerProps {
 
 export interface MaterialBannerThemeProps {
   data?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -326,6 +335,7 @@ export interface BottomAppBarProps {
   shape?: unknown;
   clipBehavior?: unknown;
   notchMargin?: number;
+  child?: string | FlutterElement;
   padding?: number | [number, number] | [number, number, number, number];
   surfaceTintColor?: unknown;
   shadowColor?: unknown;
@@ -342,6 +352,7 @@ export interface BottomAppBarThemeProps {
   shadowColor?: unknown;
   padding?: number | [number, number] | [number, number, number, number];
   data?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -372,6 +383,7 @@ export interface BottomNavigationBarProps {
 
 export interface BottomNavigationBarThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -418,6 +430,7 @@ export interface RawMaterialButtonProps {
   focusNode?: unknown;
   autofocus?: boolean;
   materialTapTargetSize?: 'padded' | 'shrinkWrap';
+  child?: string | FlutterElement;
   enableFeedback?: boolean;
   children?: FlutterElement | FlutterElement[];
 }
@@ -438,6 +451,7 @@ export interface ButtonBarProps {
 
 export interface ButtonBarThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -457,6 +471,7 @@ export interface ButtonThemeProps {
   splashColor?: unknown;
   colorScheme?: unknown;
   materialTapTargetSize?: 'padded' | 'shrinkWrap';
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -492,6 +507,7 @@ export interface CardProps {
   borderOnForeground?: boolean;
   margin?: number | [number, number] | [number, number, number, number];
   clipBehavior?: unknown;
+  child?: string | FlutterElement;
   semanticContainer?: boolean;
   children?: FlutterElement | FlutterElement[];
 }
@@ -505,6 +521,7 @@ export interface CardThemeProps {
   margin?: number | [number, number] | [number, number, number, number];
   shape?: unknown;
   data?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -528,6 +545,7 @@ export interface CarouselViewProps {
 
 export interface CarouselViewThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -572,10 +590,11 @@ export interface CheckboxListTileProps {
   isError?: boolean;
   enabled?: boolean;
   tileColor?: unknown;
-  subtitle?: FlutterElement;
+  title?: string | FlutterElement;
+  subtitle?: string | FlutterElement;
   isThreeLine?: boolean;
   dense?: boolean;
-  secondary?: FlutterElement;
+  secondary?: string | FlutterElement;
   selected?: boolean;
   controlAffinity?: 'leading' | 'trailing' | 'platform';
   contentPadding?: number | [number, number] | [number, number, number, number];
@@ -597,15 +616,16 @@ export interface CheckboxListTileProps {
 
 export interface CheckboxThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ChipProps {
-  avatar?: FlutterElement;
-  label: FlutterElement;
+  avatar?: string | FlutterElement;
+  label: string | FlutterElement;
   labelStyle?: TextStyleProps;
   labelPadding?: number | [number, number] | [number, number, number, number];
-  deleteIcon?: FlutterElement;
+  deleteIcon?: string | FlutterElement;
   onDeleted?: unknown;
   deleteIconColor?: unknown;
   deleteButtonTooltipMessage?: string;
@@ -631,13 +651,13 @@ export interface ChipProps {
 
 export interface RawChipProps {
   defaultProperties?: unknown;
-  avatar?: FlutterElement;
-  label: FlutterElement;
+  avatar?: string | FlutterElement;
+  label: string | FlutterElement;
   labelStyle?: TextStyleProps;
   padding?: number | [number, number] | [number, number, number, number];
   visualDensity?: unknown;
   labelPadding?: number | [number, number] | [number, number, number, number];
-  deleteIcon?: FlutterElement;
+  deleteIcon?: string | FlutterElement;
   onDeleted?: unknown;
   deleteIconColor?: unknown;
   deleteButtonTooltipMessage?: string;
@@ -674,12 +694,13 @@ export interface RawChipProps {
 
 export interface ChipThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ChoiceChipProps {
-  avatar?: FlutterElement;
-  label: FlutterElement;
+  avatar?: string | FlutterElement;
+  label: string | FlutterElement;
   labelStyle?: TextStyleProps;
   labelPadding?: number | [number, number] | [number, number, number, number];
   onSelected?: (value: boolean) => void;
@@ -712,6 +733,7 @@ export interface ChoiceChipProps {
 }
 
 export interface CircleAvatarProps {
+  child?: string | FlutterElement;
   backgroundColor?: unknown;
   backgroundImage?: unknown;
   foregroundImage?: unknown;
@@ -750,6 +772,7 @@ export interface DataTableProps {
 }
 
 export interface TableRowInkWellProps {
+  child?: string | FlutterElement;
   onTap?: () => void;
   onDoubleTap?: () => void;
   onLongPress?: () => void;
@@ -764,6 +787,7 @@ export interface TableRowInkWellProps {
 
 export interface DataTableThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -818,6 +842,7 @@ export interface DateRangePickerDialogProps {
 
 export interface DatePickerThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -828,6 +853,7 @@ export interface DesktopTextSelectionToolbarProps {
 
 export interface DesktopTextSelectionToolbarButtonProps {
   onClick: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -842,18 +868,20 @@ export interface DialogProps {
   clipBehavior?: unknown;
   shape?: unknown;
   alignment?: string;
+  child?: string | FlutterElement;
   semanticsRole?: unknown;
   constraints?: unknown;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface AlertDialogProps {
-  icon?: FlutterElement;
+  icon?: string | FlutterElement;
   iconPadding?: number | [number, number] | [number, number, number, number];
   iconColor?: unknown;
+  title?: string | FlutterElement;
   titlePadding?: number | [number, number] | [number, number, number, number];
   titleTextStyle?: TextStyleProps;
-  content?: FlutterElement;
+  content?: string | FlutterElement;
   contentPadding?: number | [number, number] | [number, number, number, number];
   contentTextStyle?: TextStyleProps;
   actions?: FlutterElement[];
@@ -880,11 +908,12 @@ export interface AlertDialogProps {
 export interface SimpleDialogOptionProps {
   onClick?: unknown;
   padding?: number | [number, number] | [number, number, number, number];
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SimpleDialogProps {
-  title?: FlutterElement;
+  title?: string | FlutterElement;
   titlePadding?: number | [number, number] | [number, number, number, number];
   titleTextStyle?: TextStyleProps;
   contentPadding?: number | [number, number] | [number, number, number, number];
@@ -916,6 +945,7 @@ export interface DialogThemeProps {
   insetPadding?: number | [number, number] | [number, number, number, number];
   clipBehavior?: unknown;
   data?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -939,6 +969,7 @@ export interface VerticalDividerProps {
 
 export interface DividerThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -949,12 +980,14 @@ export interface DrawerProps {
   surfaceTintColor?: unknown;
   shape?: unknown;
   width?: number;
+  child?: string | FlutterElement;
   semanticLabel?: string;
   clipBehavior?: unknown;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface DrawerControllerProps {
+  child?: string | FlutterElement;
   alignment: 'start' | 'end';
   isDrawerOpen?: boolean;
   drawerCallback?: (isOpened: boolean) => void;
@@ -972,11 +1005,13 @@ export interface DrawerHeaderProps {
   padding?: number | [number, number] | [number, number, number, number];
   duration?: unknown;
   curve?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface DrawerThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -985,10 +1020,12 @@ export interface DropdownMenuItemProps {
   value?: unknown;
   enabled?: boolean;
   alignment?: string;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface DropdownButtonHideUnderlineProps {
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -996,14 +1033,14 @@ export interface DropdownButtonProps {
   items: unknown[];
   selectedItemBuilder?: () => FlutterElement[];
   value?: unknown;
-  hint?: FlutterElement;
-  disabledHint?: FlutterElement;
+  hint?: string | FlutterElement;
+  disabledHint?: string | FlutterElement;
   onChange: (value: unknown) => void;
   onTap?: unknown;
   elevation?: number;
   style?: TextStyleProps;
-  underline?: FlutterElement;
-  icon?: FlutterElement;
+  underline?: string | FlutterElement;
+  icon?: string | FlutterElement;
   iconDisabledColor?: unknown;
   iconEnabledColor?: unknown;
   iconSize?: number;
@@ -1030,13 +1067,13 @@ export interface DropdownButtonFormFieldProps {
   selectedItemBuilder?: () => FlutterElement[];
   value?: unknown;
   initialValue?: unknown;
-  hint?: FlutterElement;
-  disabledHint?: FlutterElement;
+  hint?: string | FlutterElement;
+  disabledHint?: string | FlutterElement;
   onChange: (value: unknown) => void;
   onTap?: unknown;
   elevation?: number;
   style?: TextStyleProps;
-  icon?: FlutterElement;
+  icon?: string | FlutterElement;
   iconDisabledColor?: unknown;
   iconEnabledColor?: unknown;
   iconSize?: number;
@@ -1067,15 +1104,15 @@ export interface DropdownMenuProps {
   enabled?: boolean;
   width?: number;
   menuHeight?: number;
-  leadingIcon?: FlutterElement;
-  trailingIcon?: FlutterElement;
+  leadingIcon?: string | FlutterElement;
+  trailingIcon?: string | FlutterElement;
   showTrailingIcon?: boolean;
   trailingIconFocusNode?: unknown;
-  label?: FlutterElement;
+  label?: string | FlutterElement;
   hintText?: string;
   helperText?: string;
   errorText?: string;
-  selectedTrailingIcon?: FlutterElement;
+  selectedTrailingIcon?: string | FlutterElement;
   enableFilter?: boolean;
   enableSearch?: boolean;
   keyboardType?: 'text' | 'number' | 'phone' | 'email' | 'url' | 'multiline';
@@ -1108,12 +1145,12 @@ export interface DropdownMenuFormFieldProps {
   enabled?: boolean;
   width?: number;
   menuHeight?: number;
-  leadingIcon?: FlutterElement;
-  trailingIcon?: FlutterElement;
-  label?: FlutterElement;
+  leadingIcon?: string | FlutterElement;
+  trailingIcon?: string | FlutterElement;
+  label?: string | FlutterElement;
   hintText?: string;
   helperText?: string;
-  selectedTrailingIcon?: FlutterElement;
+  selectedTrailingIcon?: string | FlutterElement;
   enableFilter?: boolean;
   enableSearch?: boolean;
   keyboardType?: 'text' | 'number' | 'phone' | 'email' | 'url' | 'multiline';
@@ -1146,6 +1183,7 @@ export interface DropdownMenuFormFieldProps {
 
 export interface DropdownMenuThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1159,11 +1197,13 @@ export interface ElevatedButtonProps {
   autofocus?: boolean;
   clipBehavior?: unknown;
   statesController?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ElevatedButtonThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1191,11 +1231,11 @@ export interface ExpansionPanelListProps {
 }
 
 export interface ExpansionTileProps {
-  leading?: FlutterElement;
-  title: FlutterElement;
-  subtitle?: FlutterElement;
+  leading?: string | FlutterElement;
+  title: string | FlutterElement;
+  subtitle?: string | FlutterElement;
   onExpansionChanged?: (value: boolean) => void;
-  trailing?: FlutterElement;
+  trailing?: string | FlutterElement;
   showTrailingIcon?: boolean;
   initiallyExpanded?: boolean;
   maintainState?: boolean;
@@ -1227,6 +1267,7 @@ export interface ExpansionTileProps {
 
 export interface ExpansionTileThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1240,22 +1281,24 @@ export interface FilledButtonProps {
   autofocus?: boolean;
   clipBehavior?: unknown;
   statesController?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface FilledButtonThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface FilterChipProps {
-  avatar?: FlutterElement;
-  label: FlutterElement;
+  avatar?: string | FlutterElement;
+  label: string | FlutterElement;
   labelStyle?: TextStyleProps;
   labelPadding?: number | [number, number] | [number, number, number, number];
   selected?: boolean;
   onSelected: (value: boolean) => void;
-  deleteIcon?: FlutterElement;
+  deleteIcon?: string | FlutterElement;
   onDeleted?: unknown;
   deleteIconColor?: unknown;
   deleteButtonTooltipMessage?: string;
@@ -1288,7 +1331,8 @@ export interface FilterChipProps {
 }
 
 export interface FlexibleSpaceBarProps {
-  background?: FlutterElement;
+  title?: string | FlutterElement;
+  background?: string | FlutterElement;
   centerTitle?: boolean;
   titlePadding?: number | [number, number] | [number, number, number, number];
   collapseMode?: 'parallax' | 'pin' | 'none';
@@ -1302,12 +1346,14 @@ export interface FlexibleSpaceBarSettingsProps {
   minExtent: number;
   maxExtent: number;
   currentExtent: number;
+  child?: string | FlutterElement;
   isScrolledUnder?: boolean;
   hasLeading?: boolean;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface FloatingActionButtonProps {
+  child?: string | FlutterElement;
   tooltip?: string;
   foregroundColor?: unknown;
   backgroundColor?: unknown;
@@ -1335,20 +1381,23 @@ export interface FloatingActionButtonProps {
 
 export interface FloatingActionButtonThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface GridTileProps {
-  header?: FlutterElement;
-  footer?: FlutterElement;
+  header?: string | FlutterElement;
+  footer?: string | FlutterElement;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface GridTileBarProps {
   backgroundColor?: unknown;
-  leading?: FlutterElement;
-  subtitle?: FlutterElement;
-  trailing?: FlutterElement;
+  leading?: string | FlutterElement;
+  title?: string | FlutterElement;
+  subtitle?: string | FlutterElement;
+  trailing?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1375,13 +1424,14 @@ export interface IconButtonProps {
   constraints?: unknown;
   style?: unknown;
   isSelected?: boolean;
-  selectedIcon?: FlutterElement;
+  selectedIcon?: string | FlutterElement;
   statesController?: unknown;
-  icon: FlutterElement;
+  icon: string | FlutterElement;
 }
 
 export interface IconButtonThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1391,10 +1441,12 @@ export interface InkProps {
   decoration?: unknown;
   width?: number;
   height?: number;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface InkResponseProps {
+  child?: string | FlutterElement;
   onTap?: () => void;
   onTapDown?: (details: unknown) => void;
   onTapUp?: (details: unknown) => void;
@@ -1432,6 +1484,7 @@ export interface InkResponseProps {
 }
 
 export interface InkWellProps {
+  child?: string | FlutterElement;
   onTap?: () => void;
   onDoubleTap?: () => void;
   onLongPress?: () => void;
@@ -1467,14 +1520,14 @@ export interface InkWellProps {
 }
 
 export interface InputChipProps {
-  avatar?: FlutterElement;
-  label: FlutterElement;
+  avatar?: string | FlutterElement;
+  label: string | FlutterElement;
   labelStyle?: TextStyleProps;
   labelPadding?: number | [number, number] | [number, number, number, number];
   selected?: boolean;
   isEnabled?: boolean;
   onSelected?: (value: boolean) => void;
-  deleteIcon?: FlutterElement;
+  deleteIcon?: string | FlutterElement;
   onDeleted?: unknown;
   deleteIconColor?: unknown;
   deleteButtonTooltipMessage?: string;
@@ -1534,6 +1587,7 @@ export interface InputDecoratorProps {
   isHovering?: boolean;
   expands?: boolean;
   isEmpty?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1576,13 +1630,15 @@ export interface InputDecorationThemeProps {
   constraints?: unknown;
   visualDensity?: unknown;
   data?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ListTileProps {
-  leading?: FlutterElement;
-  subtitle?: FlutterElement;
-  trailing?: FlutterElement;
+  leading?: string | FlutterElement;
+  title?: string | FlutterElement;
+  subtitle?: string | FlutterElement;
+  trailing?: string | FlutterElement;
   isThreeLine?: boolean;
   dense?: boolean;
   visualDensity?: unknown;
@@ -1636,6 +1692,7 @@ export interface ListTileThemeProps {
   minVerticalPadding?: number;
   minLeadingWidth?: number;
   controlAffinity?: 'leading' | 'trailing' | 'platform';
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1664,6 +1721,7 @@ export interface MaterialProps {
   borderOnForeground?: boolean;
   clipBehavior?: unknown;
   animationDuration?: unknown;
+  child?: string | FlutterElement;
   animateColor?: boolean;
   children?: FlutterElement | FlutterElement[];
 }
@@ -1699,6 +1757,7 @@ export interface MaterialButtonProps {
   minWidth?: number;
   height?: number;
   enableFeedback?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1718,6 +1777,7 @@ export interface MenuAnchorProps {
   useRootOverlay?: boolean;
   menuChildren: FlutterElement[];
   builder?: (controller: unknown, child: FlutterElement) => FlutterElement;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1740,10 +1800,11 @@ export interface MenuItemButtonProps {
   style?: unknown;
   statesController?: unknown;
   clipBehavior?: unknown;
-  leadingIcon?: FlutterElement;
-  trailingIcon?: FlutterElement;
+  leadingIcon?: string | FlutterElement;
+  trailingIcon?: string | FlutterElement;
   closeOnActivate?: boolean;
   overflowAxis?: 'horizontal' | 'vertical';
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1759,8 +1820,9 @@ export interface CheckboxMenuButtonProps {
   style?: unknown;
   statesController?: unknown;
   clipBehavior?: unknown;
-  trailingIcon?: FlutterElement;
+  trailingIcon?: string | FlutterElement;
   closeOnActivate?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1776,8 +1838,9 @@ export interface RadioMenuButtonProps {
   style?: unknown;
   statesController?: unknown;
   clipBehavior?: unknown;
-  trailingIcon?: FlutterElement;
+  trailingIcon?: string | FlutterElement;
   closeOnActivate?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1793,17 +1856,19 @@ export interface SubmenuButtonProps {
   clipBehavior?: unknown;
   focusNode?: unknown;
   statesController?: unknown;
-  leadingIcon?: FlutterElement;
-  trailingIcon?: FlutterElement;
+  leadingIcon?: string | FlutterElement;
+  trailingIcon?: string | FlutterElement;
   submenuIcon?: unknown;
   useRootOverlay?: boolean;
   menuChildren: FlutterElement[];
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface MenuAcceleratorCallbackBindingProps {
   onInvoke?: unknown;
   hasSubmenu?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1814,16 +1879,19 @@ export interface MenuAcceleratorLabelProps {
 
 export interface MenuBarThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface MenuButtonThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface MenuThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1855,8 +1923,8 @@ export interface NavigationBarProps {
 }
 
 export interface NavigationDestinationProps {
-  icon: FlutterElement;
-  selectedIcon?: FlutterElement;
+  icon: string | FlutterElement;
+  selectedIcon?: string | FlutterElement;
   label: string;
   tooltip?: string;
   enabled?: boolean;
@@ -1873,12 +1941,13 @@ export interface NavigationIndicatorProps {
 
 export interface NavigationBarThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface NavigationDrawerProps {
-  header?: FlutterElement;
-  footer?: FlutterElement;
+  header?: string | FlutterElement;
+  footer?: string | FlutterElement;
   backgroundColor?: unknown;
   shadowColor?: unknown;
   surfaceTintColor?: unknown;
@@ -1893,22 +1962,23 @@ export interface NavigationDrawerProps {
 
 export interface NavigationDrawerDestinationProps {
   backgroundColor?: unknown;
-  icon: FlutterElement;
-  selectedIcon?: FlutterElement;
-  label: FlutterElement;
+  icon: string | FlutterElement;
+  selectedIcon?: string | FlutterElement;
+  label: string | FlutterElement;
   enabled?: boolean;
 }
 
 export interface NavigationDrawerThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface NavigationRailProps {
   backgroundColor?: unknown;
   extended?: boolean;
-  leading?: FlutterElement;
-  trailing?: FlutterElement;
+  leading?: string | FlutterElement;
+  trailing?: string | FlutterElement;
   destinations: unknown[];
   selectedIndex: number;
   onDestinationSelected?: (value: number) => void;
@@ -1931,6 +2001,7 @@ export interface NavigationRailProps {
 
 export interface NavigationRailThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1944,16 +2015,18 @@ export interface OutlinedButtonProps {
   autofocus?: boolean;
   clipBehavior?: unknown;
   statesController?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface OutlinedButtonThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface PaginatedDataTableProps {
-  header?: FlutterElement;
+  header?: string | FlutterElement;
   actions?: FlutterElement[];
   columns: unknown[];
   sortColumnIndex?: number;
@@ -2001,6 +2074,7 @@ export interface PopupMenuItemProps {
   textStyle?: TextStyleProps;
   labelTextStyle?: unknown;
   mouseCursor?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2012,6 +2086,7 @@ export interface CheckedPopupMenuItemProps {
   height?: number;
   labelTextStyle?: unknown;
   mouseCursor?: unknown;
+  child?: string | FlutterElement;
   onTap?: unknown;
   children?: FlutterElement | FlutterElement[];
 }
@@ -2028,9 +2103,10 @@ export interface PopupMenuButtonProps {
   surfaceTintColor?: unknown;
   padding?: number | [number, number] | [number, number, number, number];
   menuPadding?: number | [number, number] | [number, number, number, number];
+  child?: string | FlutterElement;
   borderRadius?: unknown;
   splashRadius?: number;
-  icon?: FlutterElement;
+  icon?: string | FlutterElement;
   iconSize?: number;
   offset?: unknown;
   enabled?: boolean;
@@ -2051,6 +2127,7 @@ export interface PopupMenuButtonProps {
 
 export interface PopupMenuThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2104,6 +2181,7 @@ export interface RefreshProgressIndicatorProps {
 
 export interface ProgressIndicatorThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2142,10 +2220,11 @@ export interface RadioListTileProps {
   overlayColor?: unknown;
   splashRadius?: number;
   materialTapTargetSize?: 'padded' | 'shrinkWrap';
-  subtitle?: FlutterElement;
+  title?: string | FlutterElement;
+  subtitle?: string | FlutterElement;
   isThreeLine?: boolean;
   dense?: boolean;
-  secondary?: FlutterElement;
+  secondary?: string | FlutterElement;
   selected?: boolean;
   controlAffinity?: 'leading' | 'trailing' | 'platform';
   autofocus?: boolean;
@@ -2173,6 +2252,7 @@ export interface RadioListTileProps {
 
 export interface RadioThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2206,6 +2286,7 @@ export interface RefreshIndicatorProps {
   strokeWidth?: number;
   triggerMode?: 'anywhere' | 'onEdge';
   elevation?: number;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2215,12 +2296,12 @@ export interface ReorderableListViewProps {
   onReorderEnd?: (index: number) => void;
   itemExtent?: number;
   itemExtentBuilder?: (index: number, dimensions: unknown) => number;
-  prototypeItem?: FlutterElement;
+  prototypeItem?: string | FlutterElement;
   proxyDecorator?: (child: FlutterElement, index: number, animation: unknown) => FlutterElement;
   buildDefaultDragHandles?: boolean;
   padding?: number | [number, number] | [number, number, number, number];
-  header?: FlutterElement;
-  footer?: FlutterElement;
+  header?: string | FlutterElement;
+  footer?: string | FlutterElement;
   scrollDirection?: 'horizontal' | 'vertical';
   reverse?: boolean;
   scrollController?: unknown;
@@ -2240,23 +2321,25 @@ export interface ReorderableListViewProps {
 }
 
 export interface ScaffoldMessengerProps {
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ScaffoldProps {
   appBar?: unknown;
-  floatingActionButton?: FlutterElement;
+  body?: string | FlutterElement;
+  floatingActionButton?: string | FlutterElement;
   floatingActionButtonLocation?: unknown;
   floatingActionButtonAnimator?: unknown;
   persistentFooterButtons?: FlutterElement[];
   persistentFooterAlignment?: string;
   persistentFooterDecoration?: unknown;
-  drawer?: FlutterElement;
+  drawer?: string | FlutterElement;
   onDrawerChanged?: (isOpened: boolean) => void;
-  endDrawer?: FlutterElement;
+  endDrawer?: string | FlutterElement;
   onEndDrawerChanged?: (isOpened: boolean) => void;
-  bottomNavigationBar?: FlutterElement;
-  bottomSheet?: FlutterElement;
+  bottomNavigationBar?: string | FlutterElement;
+  bottomSheet?: string | FlutterElement;
   backgroundColor?: unknown;
   resizeToAvoidBottomInset?: boolean;
   primary?: boolean;
@@ -2274,6 +2357,7 @@ export interface ScaffoldProps {
 }
 
 export interface ScrollbarProps {
+  child?: string | FlutterElement;
   controller?: unknown;
   thumbVisibility?: boolean;
   trackVisibility?: boolean;
@@ -2287,6 +2371,7 @@ export interface ScrollbarProps {
 
 export interface ScrollbarThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2294,7 +2379,7 @@ export interface SearchAnchorProps {
   isFullScreen?: boolean;
   searchController?: unknown;
   viewBuilder?: (suggestions: FlutterElement[]) => FlutterElement;
-  viewLeading?: FlutterElement;
+  viewLeading?: string | FlutterElement;
   viewTrailing?: FlutterElement[];
   viewHintText?: string;
   viewBackgroundColor?: unknown;
@@ -2328,7 +2413,7 @@ export interface SearchBarProps {
   controller?: unknown;
   focusNode?: unknown;
   hintText?: string;
-  leading?: FlutterElement;
+  leading?: string | FlutterElement;
   trailing?: FlutterElement[];
   onTap?: () => void;
   onTapOutside?: (event: unknown) => void;
@@ -2359,11 +2444,13 @@ export interface SearchBarProps {
 
 export interface SearchBarThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SearchViewThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2376,12 +2463,13 @@ export interface SegmentedButtonProps {
   expandedInsets?: number | [number, number] | [number, number, number, number];
   style?: unknown;
   showSelectedIcon?: boolean;
-  selectedIcon?: FlutterElement;
+  selectedIcon?: string | FlutterElement;
   direction?: 'horizontal' | 'vertical';
 }
 
 export interface SegmentedButtonThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2426,6 +2514,7 @@ export interface SelectionAreaProps {
   contextMenuBuilder?: (selectableRegionState: unknown) => FlutterElement;
   magnifierConfiguration?: unknown;
   onSelectionChanged?: (value: unknown) => void;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2456,6 +2545,7 @@ export interface SliderProps {
 
 export interface SliderThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2469,7 +2559,7 @@ export interface SnackBarActionProps {
 }
 
 export interface SnackBarProps {
-  content: FlutterElement;
+  content: string | FlutterElement;
   backgroundColor?: unknown;
   elevation?: number;
   margin?: number | [number, number] | [number, number, number, number];
@@ -2492,6 +2582,7 @@ export interface SnackBarProps {
 
 export interface SnackBarThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2576,11 +2667,12 @@ export interface SwitchListTileProps {
   onFocusChange?: (value: boolean) => void;
   autofocus?: boolean;
   tileColor?: unknown;
-  subtitle?: FlutterElement;
+  title?: string | FlutterElement;
+  subtitle?: string | FlutterElement;
   isThreeLine?: boolean;
   dense?: boolean;
   contentPadding?: number | [number, number] | [number, number, number, number];
-  secondary?: FlutterElement;
+  secondary?: string | FlutterElement;
   selected?: boolean;
   controlAffinity?: 'leading' | 'trailing' | 'platform';
   shape?: unknown;
@@ -2598,6 +2690,7 @@ export interface SwitchListTileProps {
 
 export interface SwitchThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2619,21 +2712,24 @@ export interface TabBarThemeProps {
   textScaler?: unknown;
   indicatorAnimation?: 'linear' | 'elastic';
   data?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface DefaultTabControllerProps {
   length: number;
   initialIndex?: number;
+  child?: string | FlutterElement;
   animationDuration?: unknown;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface TabProps {
   text?: string;
-  icon?: FlutterElement;
+  icon?: string | FlutterElement;
   iconMargin?: number | [number, number] | [number, number, number, number];
   height?: number;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2705,11 +2801,13 @@ export interface TextButtonProps {
   clipBehavior?: unknown;
   statesController?: unknown;
   isSemanticButton?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface TextButtonThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2867,6 +2965,7 @@ export interface TextFormFieldProps {
 
 export interface TextSelectionThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2878,6 +2977,7 @@ export interface TextSelectionToolbarProps {
 }
 
 export interface TextSelectionToolbarTextButtonProps {
+  child?: string | FlutterElement;
   padding: number | [number, number] | [number, number, number, number];
   onClick?: unknown;
   alignment?: string;
@@ -2886,6 +2986,7 @@ export interface TextSelectionToolbarTextButtonProps {
 
 export interface ThemeProps {
   data: Record<string, unknown>;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2894,6 +2995,7 @@ export interface AnimatedThemeProps {
   curve?: unknown;
   duration?: unknown;
   onEnd?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2916,6 +3018,7 @@ export interface TimePickerDialogProps {
 
 export interface TimePickerThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2948,6 +3051,7 @@ export interface ToggleButtonsProps {
 
 export interface ToggleButtonsThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2974,28 +3078,31 @@ export interface TooltipProps {
   mouseCursor?: unknown;
   ignorePointer?: boolean;
   positionDelegate?: (context: unknown) => unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface TooltipThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface TooltipVisibilityProps {
   visible: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface UserAccountsDrawerHeaderProps {
   decoration?: unknown;
   margin?: number | [number, number] | [number, number, number, number];
-  currentAccountPicture?: FlutterElement;
+  currentAccountPicture?: string | FlutterElement;
   otherAccountsPictures?: FlutterElement[];
   currentAccountPictureSize?: unknown;
   otherAccountsPicturesSize?: unknown;
-  accountName: FlutterElement;
-  accountEmail: FlutterElement;
+  accountName: string | FlutterElement;
+  accountEmail: string | FlutterElement;
   onDetailsPressed?: unknown;
   arrowColor?: unknown;
 }
@@ -3003,12 +3110,14 @@ export interface UserAccountsDrawerHeaderProps {
 export interface ActionListenerProps {
   listener: (action: unknown) => void;
   action: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ActionsProps {
   dispatcher?: unknown;
   actions: Record<string, unknown>;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3025,18 +3134,20 @@ export interface FocusableActionDetectorProps {
   onFocusChange?: (value: boolean) => void;
   mouseCursor?: unknown;
   includeFocusSemantics?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface RenderObjectToWidgetAdapterProps {
+  child?: string | FlutterElement;
   container: unknown;
   debugShortDescription?: string;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface AnimatedCrossFadeProps {
-  firstChild: FlutterElement;
-  secondChild: FlutterElement;
+  firstChild: string | FlutterElement;
+  secondChild: string | FlutterElement;
   firstCurve?: unknown;
   secondCurve?: unknown;
   sizeCurve?: unknown;
@@ -3088,6 +3199,7 @@ export interface SliverAnimatedGridProps {
 }
 
 export interface AnimatedSizeProps {
+  child?: string | FlutterElement;
   alignment?: string;
   curve?: unknown;
   duration: unknown;
@@ -3098,6 +3210,7 @@ export interface AnimatedSizeProps {
 }
 
 export interface AnimatedSwitcherProps {
+  child?: string | FlutterElement;
   duration: unknown;
   reverseDuration?: unknown;
   switchInCurve?: unknown;
@@ -3108,6 +3221,7 @@ export interface AnimatedSwitcherProps {
 }
 
 export interface AnnotatedRegionProps {
+  child?: string | FlutterElement;
   value: unknown;
   sized?: boolean;
   children?: FlutterElement | FlutterElement[];
@@ -3122,6 +3236,7 @@ export interface WidgetsAppProps {
   navigatorObservers?: unknown[];
   initialRoute?: string;
   pageRouteBuilder?: (settings: unknown, builder: () => FlutterElement) => unknown;
+  home?: string | FlutterElement;
   routes?: Record<string, () => FlutterElement>;
   builder?: (child: FlutterElement) => FlutterElement;
   title?: string;
@@ -3173,19 +3288,23 @@ export interface RawAutocompleteProps {
 
 export interface AutocompleteHighlightedOptionProps {
   highlightIndexNotifier: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface AutofillGroupProps {
+  child?: string | FlutterElement;
   onDisposeAction?: 'commit' | 'cancel';
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface AutomaticKeepAliveProps {
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface BannerProps {
+  child?: string | FlutterElement;
   message: string;
   textDirection?: unknown;
   location: 'topStart' | 'topEnd' | 'bottomStart' | 'bottomEnd';
@@ -3197,27 +3316,32 @@ export interface BannerProps {
 }
 
 export interface CheckedModeBannerProps {
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface DirectionalityProps {
   textDirection: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface OpacityProps {
   opacity: number;
   alwaysIncludeSemantics?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ShaderMaskProps {
   shaderCallback: (bounds: unknown) => unknown;
   blendMode?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface BackdropGroupProps {
+  child?: string | FlutterElement;
   backdropKey?: unknown;
   children?: FlutterElement | FlutterElement[];
 }
@@ -3225,6 +3349,7 @@ export interface BackdropGroupProps {
 export interface BackdropFilterProps {
   filter?: unknown;
   filterConfig?: unknown;
+  child?: string | FlutterElement;
   blendMode?: unknown;
   enabled?: boolean;
   backdropGroupKey?: unknown;
@@ -3237,12 +3362,14 @@ export interface CustomPaintProps {
   size?: unknown;
   isComplex?: boolean;
   willChange?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ClipRectProps {
   clipper?: unknown;
   clipBehavior?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3250,6 +3377,7 @@ export interface ClipRRectProps {
   borderRadius?: unknown;
   clipper?: unknown;
   clipBehavior?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3257,18 +3385,21 @@ export interface ClipRSuperellipseProps {
   borderRadius?: unknown;
   clipper?: unknown;
   clipBehavior?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ClipOvalProps {
   clipper?: unknown;
   clipBehavior?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ClipPathProps {
   clipper?: unknown;
   clipBehavior?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3279,6 +3410,7 @@ export interface PhysicalModelProps {
   elevation?: number;
   color: unknown;
   shadowColor?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3288,6 +3420,7 @@ export interface PhysicalShapeProps {
   elevation?: number;
   color: unknown;
   shadowColor?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3297,11 +3430,13 @@ export interface TransformProps {
   alignment?: string;
   transformHitTests?: boolean;
   filterQuality?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CompositedTransformTargetProps {
   link: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3311,6 +3446,7 @@ export interface CompositedTransformFollowerProps {
   offset?: unknown;
   targetAnchor?: string;
   followerAnchor?: string;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3318,22 +3454,26 @@ export interface FittedBoxProps {
   fit?: 'fill' | 'contain' | 'cover' | 'fitWidth' | 'fitHeight' | 'none' | 'scaleDown';
   alignment?: string;
   clipBehavior?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface FractionalTranslationProps {
   translation: unknown;
   transformHitTests?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface RotatedBoxProps {
   quarterTurns: number;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface PaddingProps {
   padding: number | [number, number] | [number, number, number, number];
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3341,22 +3481,26 @@ export interface AlignProps {
   alignment?: string;
   widthFactor?: number;
   heightFactor?: number;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CenterProps {
   widthFactor?: number;
   heightFactor?: number;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CustomSingleChildLayoutProps {
   delegate: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface LayoutIdProps {
   id: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3368,15 +3512,18 @@ export interface CustomMultiChildLayoutProps {
 export interface SizedBoxProps {
   width?: number;
   height?: number;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ConstrainedBoxProps {
   constraints: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ConstraintsTransformBoxProps {
+  child?: string | FlutterElement;
   textDirection?: unknown;
   alignment?: string;
   constraintsTransform: (constraints: unknown) => unknown;
@@ -3386,6 +3533,7 @@ export interface ConstraintsTransformBoxProps {
 }
 
 export interface UnconstrainedBoxProps {
+  child?: string | FlutterElement;
   textDirection?: unknown;
   alignment?: string;
   constrainedAxis?: 'horizontal' | 'vertical';
@@ -3397,12 +3545,14 @@ export interface FractionallySizedBoxProps {
   alignment?: string;
   widthFactor?: number;
   heightFactor?: number;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface LimitedBoxProps {
   maxWidth?: number;
   maxHeight?: number;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3413,56 +3563,65 @@ export interface OverflowBoxProps {
   minHeight?: number;
   maxHeight?: number;
   fit?: string;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SizedOverflowBoxProps {
   size: unknown;
   alignment?: string;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface OffstageProps {
   offstage?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface AspectRatioProps {
   aspectRatio: number;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface IntrinsicWidthProps {
   stepWidth?: number;
   stepHeight?: number;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface IntrinsicHeightProps {
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface BaselineProps {
   baseline: number;
   baselineType: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface IgnoreBaselineProps {
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SliverToBoxAdapterProps {
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SliverPaddingProps {
   padding: number | [number, number] | [number, number, number, number];
-  sliver?: FlutterElement;
+  sliver?: string | FlutterElement;
 }
 
 export interface SliverSemanticsProps {
-  sliver: FlutterElement;
+  sliver: string | FlutterElement;
   container?: boolean;
   explicitChildNodes?: boolean;
   excludeSemantics?: boolean;
@@ -3577,6 +3736,7 @@ export interface PositionedProps {
   bottom?: number;
   width?: number;
   height?: number;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3587,6 +3747,7 @@ export interface PositionedDirectionalProps {
   bottom?: number;
   width?: number;
   height?: number;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3628,11 +3789,13 @@ export interface ColumnProps {
 export interface FlexibleProps {
   flex?: number;
   fit?: 'tight' | 'loose';
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ExpandedProps {
   flex?: number;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3693,6 +3856,7 @@ export interface RawImageProps {
 
 export interface DefaultAssetBundleProps {
   bundle: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3713,6 +3877,7 @@ export interface ListenerProps {
   onPointerPanZoomEnd?: (event: unknown) => void;
   onPointerSignal?: (event: unknown) => void;
   behavior?: 'deferToChild' | 'opaque' | 'translucent';
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3723,32 +3888,38 @@ export interface MouseRegionProps {
   cursor?: unknown;
   opaque?: boolean;
   hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface RepaintBoundaryProps {
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface IgnorePointerProps {
   ignoring?: boolean;
   ignoringSemantics?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface AbsorbPointerProps {
   absorbing?: boolean;
   ignoringSemantics?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface MetaDataProps {
   metaData?: unknown;
   behavior?: 'deferToChild' | 'opaque' | 'translucent';
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SemanticsProps {
+  child?: string | FlutterElement;
   container?: boolean;
   explicitChildNodes?: boolean;
   excludeSemantics?: boolean;
@@ -3835,25 +4006,30 @@ export interface SemanticsProps {
 }
 
 export interface MergeSemanticsProps {
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface BlockSemanticsProps {
   blocking?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ExcludeSemanticsProps {
   excluding?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface IndexedSemanticsProps {
   index: number;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface KeyedSubtreeProps {
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3868,22 +4044,26 @@ export interface StatefulBuilderProps {
 export interface ColoredBoxProps {
   color: unknown;
   isAntiAlias?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface RootWidgetProps {
+  child?: string | FlutterElement;
   debugShortDescription?: string;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ColorFilteredProps {
   colorFilter: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface DecoratedBoxProps {
   decoration: unknown;
   position?: 'background' | 'foreground';
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3900,6 +4080,7 @@ export interface ContainerProps {
   margin?: number | [number, number] | [number, number, number, number];
   transform?: unknown;
   transformAlignment?: string;
+  child?: string | FlutterElement;
   clipBehavior?: unknown;
   children?: FlutterElement | FlutterElement[];
 }
@@ -3907,23 +4088,26 @@ export interface ContainerProps {
 export interface DecoratedSliverProps {
   decoration: unknown;
   position?: 'background' | 'foreground';
-  sliver?: FlutterElement;
+  sliver?: string | FlutterElement;
 }
 
 export interface DefaultSelectionStyleProps {
   cursorColor?: unknown;
   selectionColor?: unknown;
   mouseCursor?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface DefaultTextEditingShortcutsProps {
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface DismissibleProps {
-  background?: FlutterElement;
-  secondaryBackground?: FlutterElement;
+  child?: string | FlutterElement;
+  background?: string | FlutterElement;
+  secondaryBackground?: string | FlutterElement;
   confirmDismiss?: (direction: 'vertical' | 'horizontal' | 'endToStart' | 'startToEnd' | 'up' | 'down' | 'none') => Promise<boolean>;
   onResize?: unknown;
   onUpdate?: (details: unknown) => void;
@@ -3940,18 +4124,21 @@ export interface DismissibleProps {
 
 export interface DisplayFeatureSubScreenProps {
   anchorPoint?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface DragBoundaryProps {
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface DraggableProps {
-  feedback: FlutterElement;
+  child?: string | FlutterElement;
+  feedback: string | FlutterElement;
   data?: unknown;
   axis?: 'horizontal' | 'vertical';
-  childWhenDragging?: FlutterElement;
+  childWhenDragging?: string | FlutterElement;
   feedbackOffset?: unknown;
   dragAnchorStrategy?: (draggable: unknown, position: unknown) => unknown;
   affinity?: 'horizontal' | 'vertical';
@@ -3970,10 +4157,11 @@ export interface DraggableProps {
 }
 
 export interface LongPressDraggableProps {
-  feedback: FlutterElement;
+  child?: string | FlutterElement;
+  feedback: string | FlutterElement;
   data?: unknown;
   axis?: 'horizontal' | 'vertical';
-  childWhenDragging?: FlutterElement;
+  childWhenDragging?: string | FlutterElement;
   feedbackOffset?: unknown;
   dragAnchorStrategy?: (draggable: unknown, position: unknown) => unknown;
   maxSimultaneousDrags?: number;
@@ -4017,6 +4205,7 @@ export interface DraggableScrollableSheetProps {
 }
 
 export interface DraggableScrollableActuatorProps {
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4024,6 +4213,7 @@ export interface DualTransitionBuilderProps {
   animation: unknown;
   forwardBuilder: (animation: unknown, child: FlutterElement) => FlutterElement;
   reverseBuilder: (animation: unknown, child: FlutterElement) => FlutterElement;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4152,6 +4342,7 @@ export interface FlutterLogoProps {
 }
 
 export interface FocusProps {
+  child?: string | FlutterElement;
   focusNode?: unknown;
   parentNode?: unknown;
   autofocus?: boolean;
@@ -4170,6 +4361,7 @@ export interface FocusProps {
 export interface FocusScopeProps {
   node?: unknown;
   parentNode?: unknown;
+  child?: string | FlutterElement;
   autofocus?: boolean;
   onFocusChange?: (value: boolean) => void;
   canRequestFocus?: boolean;
@@ -4185,11 +4377,13 @@ export interface FocusScopeProps {
 
 export interface ExcludeFocusProps {
   excluding?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface FocusTraversalOrderProps {
   order: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4198,15 +4392,18 @@ export interface FocusTraversalGroupProps {
   descendantsAreFocusable?: boolean;
   descendantsAreTraversable?: boolean;
   onFocusNodeCreated?: (p0: unknown) => void;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ExcludeFocusTraversalProps {
   excluding?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface FormProps {
+  child?: string | FlutterElement;
   canPop?: boolean;
   onPopInvoked?: (didPop: boolean) => void;
   onPopInvokedWithResult?: (didPop: boolean, result: unknown) => void;
@@ -4234,6 +4431,7 @@ export interface ErrorWidgetProps {
 }
 
 export interface GestureDetectorProps {
+  child?: string | FlutterElement;
   onTapDown?: (details: unknown) => void;
   onTapUp?: (details: unknown) => void;
   onTap?: () => void;
@@ -4302,6 +4500,7 @@ export interface GestureDetectorProps {
 }
 
 export interface RawGestureDetectorProps {
+  child?: string | FlutterElement;
   gestures?: Record<string, unknown>;
   behavior?: 'deferToChild' | 'opaque' | 'translucent';
   excludeFromSemantics?: boolean;
@@ -4314,6 +4513,7 @@ export interface GridPaperProps {
   interval?: number;
   divisions?: number;
   subdivisions?: number;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4323,10 +4523,12 @@ export interface HeroProps {
   flightShuttleBuilder?: (animation: unknown, flightDirection: 'push' | 'pop') => FlutterElement;
   placeholderBuilder?: (heroSize: unknown, child: FlutterElement) => FlutterElement;
   transitionOnUserGestures?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface HeroModeProps {
+  child?: string | FlutterElement;
   enabled?: boolean;
   children?: FlutterElement | FlutterElement[];
 }
@@ -4349,6 +4551,7 @@ export interface IconProps {
 
 export interface IconThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4376,6 +4579,7 @@ export interface ImageProps {
 
 export interface ImageFilteredProps {
   imageFilter: unknown;
+  child?: string | FlutterElement;
   enabled?: boolean;
   children?: FlutterElement | FlutterElement[];
 }
@@ -4399,6 +4603,7 @@ export interface AnimatedContainerProps {
   margin?: number | [number, number] | [number, number, number, number];
   transform?: unknown;
   transformAlignment?: string;
+  child?: string | FlutterElement;
   clipBehavior?: unknown;
   curve?: unknown;
   duration: unknown;
@@ -4408,6 +4613,7 @@ export interface AnimatedContainerProps {
 
 export interface AnimatedPaddingProps {
   padding: number | [number, number] | [number, number, number, number];
+  child?: string | FlutterElement;
   curve?: unknown;
   duration: unknown;
   onEnd?: unknown;
@@ -4416,6 +4622,7 @@ export interface AnimatedPaddingProps {
 
 export interface AnimatedAlignProps {
   alignment: string;
+  child?: string | FlutterElement;
   heightFactor?: number;
   widthFactor?: number;
   curve?: unknown;
@@ -4425,6 +4632,7 @@ export interface AnimatedAlignProps {
 }
 
 export interface AnimatedPositionedProps {
+  child?: string | FlutterElement;
   left?: number;
   top?: number;
   right?: number;
@@ -4438,6 +4646,7 @@ export interface AnimatedPositionedProps {
 }
 
 export interface AnimatedPositionedDirectionalProps {
+  child?: string | FlutterElement;
   start?: number;
   top?: number;
   end?: number;
@@ -4451,6 +4660,7 @@ export interface AnimatedPositionedDirectionalProps {
 }
 
 export interface AnimatedScaleProps {
+  child?: string | FlutterElement;
   scale: number;
   alignment?: string;
   filterQuality?: unknown;
@@ -4461,6 +4671,7 @@ export interface AnimatedScaleProps {
 }
 
 export interface AnimatedRotationProps {
+  child?: string | FlutterElement;
   turns: number;
   alignment?: string;
   filterQuality?: unknown;
@@ -4471,6 +4682,7 @@ export interface AnimatedRotationProps {
 }
 
 export interface AnimatedSlideProps {
+  child?: string | FlutterElement;
   offset: unknown;
   curve?: unknown;
   duration: unknown;
@@ -4479,6 +4691,7 @@ export interface AnimatedSlideProps {
 }
 
 export interface AnimatedOpacityProps {
+  child?: string | FlutterElement;
   opacity: number;
   curve?: unknown;
   duration: unknown;
@@ -4488,7 +4701,7 @@ export interface AnimatedOpacityProps {
 }
 
 export interface SliverAnimatedOpacityProps {
-  sliver?: FlutterElement;
+  sliver?: string | FlutterElement;
   opacity: number;
   curve?: unknown;
   duration: unknown;
@@ -4497,6 +4710,7 @@ export interface SliverAnimatedOpacityProps {
 }
 
 export interface AnimatedDefaultTextStyleProps {
+  child?: string | FlutterElement;
   style: TextStyleProps;
   textAlign?: unknown;
   softWrap?: boolean;
@@ -4511,6 +4725,7 @@ export interface AnimatedDefaultTextStyleProps {
 }
 
 export interface AnimatedPhysicalModelProps {
+  child?: string | FlutterElement;
   shape?: 'rectangle' | 'circle';
   clipBehavior?: unknown;
   borderRadius?: unknown;
@@ -4527,6 +4742,7 @@ export interface AnimatedPhysicalModelProps {
 
 export interface AnimatedFractionallySizedBoxProps {
   alignment?: string;
+  child?: string | FlutterElement;
   heightFactor?: number;
   widthFactor?: number;
   curve?: unknown;
@@ -4552,6 +4768,7 @@ export interface InteractiveViewerProps {
   transformationController?: unknown;
   alignment?: string;
   trackpadScrollCausesScale?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4560,6 +4777,7 @@ export interface KeyboardListenerProps {
   autofocus?: boolean;
   includeSemantics?: boolean;
   onKeyEvent?: (value: unknown) => void;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4607,15 +4825,18 @@ export interface ListWheelViewportProps {
 export interface LocalizationsProps {
   locale: unknown;
   delegates: unknown[];
+  child?: string | FlutterElement;
   isApplicationLevel?: boolean;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface LookupBoundaryProps {
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface RawMagnifierProps {
+  child?: string | FlutterElement;
   decoration?: unknown;
   clipBehavior?: unknown;
   focalPointOffset?: unknown;
@@ -4626,6 +4847,7 @@ export interface RawMagnifierProps {
 
 export interface MediaQueryProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4650,15 +4872,16 @@ export interface AnimatedModalBarrierProps {
 }
 
 export interface NavigationToolbarProps {
-  leading?: FlutterElement;
-  middle?: FlutterElement;
-  trailing?: FlutterElement;
+  leading?: string | FlutterElement;
+  middle?: string | FlutterElement;
+  trailing?: string | FlutterElement;
   centerMiddle?: boolean;
   middleSpacing?: number;
 }
 
 export interface HeroControllerScopeProps {
   controller: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4684,6 +4907,7 @@ export interface NavigatorPopHandlerProps {
   onPop?: unknown;
   onPopWithResult?: (result: unknown) => void;
   enabled?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4693,6 +4917,7 @@ export interface NestedScrollViewProps {
   reverse?: boolean;
   physics?: unknown;
   headerSliverBuilder: (innerBoxIsScrolled: boolean) => FlutterElement[];
+  body?: string | FlutterElement;
   dragStartBehavior?: string;
   floatHeaderSlivers?: boolean;
   clipBehavior?: unknown;
@@ -4704,12 +4929,12 @@ export interface NestedScrollViewProps {
 
 export interface SliverOverlapAbsorberProps {
   handle: unknown;
-  sliver?: FlutterElement;
+  sliver?: string | FlutterElement;
 }
 
 export interface SliverOverlapInjectorProps {
   handle: unknown;
-  sliver?: FlutterElement;
+  sliver?: string | FlutterElement;
 }
 
 export interface NestedScrollViewViewportProps {
@@ -4724,6 +4949,7 @@ export interface NestedScrollViewViewportProps {
 }
 
 export interface NotificationListenerProps {
+  child?: string | FlutterElement;
   onNotification?: (notification: unknown) => boolean;
   children?: FlutterElement | FlutterElement[];
 }
@@ -4755,6 +4981,7 @@ export interface OverlayPortalProps {
   controller: unknown;
   overlayChildBuilder: () => FlutterElement;
   overlayLocation?: 'nearestOverlay' | 'rootOverlay';
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4764,6 +4991,7 @@ export interface GlowingOverscrollIndicatorProps {
   axisDirection: 'up' | 'right' | 'down' | 'left';
   color: unknown;
   notificationPredicate?: (notification: unknown) => boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4771,11 +4999,13 @@ export interface StretchingOverscrollIndicatorProps {
   axisDirection: 'up' | 'right' | 'down' | 'left';
   notificationPredicate?: (notification: unknown) => boolean;
   clipBehavior?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface PageStorageProps {
   bucket: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4801,6 +5031,7 @@ export interface PerformanceOverlayProps {
 }
 
 export interface PinnedHeaderSliverProps {
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4809,15 +5040,18 @@ export interface PlaceholderProps {
   strokeWidth?: number;
   fallbackWidth?: number;
   fallbackHeight?: number;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface PlatformMenuBarProps {
   menus: unknown[];
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface PlatformSelectableRegionContextMenuProps {
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4878,6 +5112,7 @@ export interface AndroidViewSurfaceProps {
 }
 
 export interface PopScopeProps {
+  child?: string | FlutterElement;
   canPop?: boolean;
   onPopInvokedWithResult?: (didPop: boolean, result: unknown) => void;
   onPopInvoked?: (didPop: boolean) => void;
@@ -4886,6 +5121,7 @@ export interface PopScopeProps {
 
 export interface PreferredSizeProps {
   preferredSize: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4893,12 +5129,14 @@ export interface PrimaryScrollControllerProps {
   controller: unknown;
   automaticallyInheritForPlatforms?: Set<'android' | 'fuchsia' | 'iOS' | 'linux' | 'macOS' | 'windows'>;
   scrollDirection?: 'horizontal' | 'vertical';
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface RadioGroupProps {
   groupValue?: unknown;
   onChange: (value: unknown) => void;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4907,6 +5145,7 @@ export interface RawKeyboardListenerProps {
   autofocus?: boolean;
   includeSemantics?: boolean;
   onKey?: (value: unknown) => void;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4921,10 +5160,12 @@ export interface RawMenuAnchorProps {
   builder?: (controller: unknown, child: FlutterElement) => FlutterElement;
   controller: unknown;
   overlayBuilder: (info: unknown) => FlutterElement;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface RawMenuAnchorGroupProps {
+  child?: string | FlutterElement;
   controller: unknown;
   children?: FlutterElement | FlutterElement[];
 }
@@ -4952,6 +5193,7 @@ export interface RawTooltipProps {
   onTriggered?: unknown;
   animationStyle?: unknown;
   positionDelegate?: (context: unknown) => unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4963,7 +5205,7 @@ export interface ReorderableListProps {
   onReorderEnd?: (index: number) => void;
   itemExtent?: number;
   itemExtentBuilder?: (index: number, dimensions: unknown) => number;
-  prototypeItem?: FlutterElement;
+  prototypeItem?: string | FlutterElement;
   proxyDecorator?: (child: FlutterElement, index: number, animation: unknown) => FlutterElement;
   padding?: number | [number, number] | [number, number, number, number];
   scrollDirection?: 'horizontal' | 'vertical';
@@ -4991,19 +5233,21 @@ export interface SliverReorderableListProps {
   onReorderEnd?: (p0: number) => void;
   itemExtent?: number;
   itemExtentBuilder?: (index: number, dimensions: unknown) => number;
-  prototypeItem?: FlutterElement;
+  prototypeItem?: string | FlutterElement;
   proxyDecorator?: (child: FlutterElement, index: number, animation: unknown) => FlutterElement;
   dragBoundaryProvider?: () => unknown;
   autoScrollerVelocityScalar?: number;
 }
 
 export interface ReorderableDragStartListenerProps {
+  child?: string | FlutterElement;
   index: number;
   enabled?: boolean;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ReorderableDelayedDragStartListenerProps {
+  child?: string | FlutterElement;
   index: number;
   enabled?: boolean;
   children?: FlutterElement | FlutterElement[];
@@ -5016,21 +5260,25 @@ export interface RepeatingAnimationBuilderProps {
   repeatMode?: 'restart' | 'reverse';
   paused?: boolean;
   builder: (value: unknown, child: FlutterElement) => FlutterElement;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface RestorationScopeProps {
   restorationId: string;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface UnmanagedRestorationScopeProps {
   bucket?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface RootRestorationScopeProps {
   restorationId: string;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5043,6 +5291,7 @@ export interface RouterProps {
 }
 
 export interface BackButtonListenerProps {
+  child?: string | FlutterElement;
   onBackButtonPressed: () => Promise<boolean>;
   children?: FlutterElement | FlutterElement[];
 }
@@ -5054,6 +5303,7 @@ export interface SafeAreaProps {
   bottom?: boolean;
   minimum?: number | [number, number] | [number, number, number, number];
   maintainBottomViewPadding?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5063,15 +5313,17 @@ export interface SliverSafeAreaProps {
   right?: boolean;
   bottom?: boolean;
   minimum?: number | [number, number] | [number, number, number, number];
-  sliver: FlutterElement;
+  sliver: string | FlutterElement;
 }
 
 export interface ScrollConfigurationProps {
   behavior: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ScrollNotificationObserverProps {
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5106,7 +5358,7 @@ export interface ListViewProps {
   padding?: number | [number, number] | [number, number, number, number];
   itemExtent?: number;
   itemExtentBuilder?: (index: number, dimensions: unknown) => number;
-  prototypeItem?: FlutterElement;
+  prototypeItem?: string | FlutterElement;
   addAutomaticKeepAlives?: boolean;
   addRepaintBoundaries?: boolean;
   addSemanticIndexes?: boolean;
@@ -5170,6 +5422,7 @@ export interface TwoDimensionalScrollableProps {
 }
 
 export interface RawScrollbarProps {
+  child?: string | FlutterElement;
   controller?: unknown;
   thumbVisibility?: boolean;
   shape?: unknown;
@@ -5200,6 +5453,7 @@ export interface SelectableRegionProps {
   magnifierConfiguration?: unknown;
   onSelectionChanged?: (value: unknown) => void;
   selectionControls: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5208,36 +5462,43 @@ export interface SelectableRegionSelectionStatusScopeProps {
 
 export interface SelectionListenerProps {
   selectionNotifier: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SelectionContainerProps {
   registrar?: unknown;
   delegate: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SelectionRegistrarScopeProps {
   registrar: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SemanticsDebuggerProps {
+  child?: string | FlutterElement;
   labelStyle?: TextStyleProps;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SensitiveContentProps {
   sensitivity: 'autoSensitive' | 'sensitive' | 'notSensitive';
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SharedAppDataProps {
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ShortcutsProps {
   shortcuts: Record<string, unknown>;
+  child?: string | FlutterElement;
   debugLabel?: string;
   includeSemantics?: boolean;
   children?: FlutterElement | FlutterElement[];
@@ -5245,10 +5506,12 @@ export interface ShortcutsProps {
 
 export interface CallbackShortcutsProps {
   bindings: Record<string, unknown>;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ShortcutRegistrarProps {
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5259,6 +5522,7 @@ export interface SingleChildScrollViewProps {
   primary?: boolean;
   physics?: unknown;
   controller?: unknown;
+  child?: string | FlutterElement;
   dragStartBehavior?: string;
   clipBehavior?: unknown;
   hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
@@ -5268,6 +5532,7 @@ export interface SingleChildScrollViewProps {
 }
 
 export interface SizeChangedLayoutNotifierProps {
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5293,33 +5558,34 @@ export interface SliverGridProps {
 export interface SliverOpacityProps {
   opacity: number;
   alwaysIncludeSemantics?: boolean;
-  sliver?: FlutterElement;
+  sliver?: string | FlutterElement;
 }
 
 export interface SliverIgnorePointerProps {
   ignoring?: boolean;
   ignoringSemantics?: boolean;
-  sliver?: FlutterElement;
+  sliver?: string | FlutterElement;
 }
 
 export interface SliverOffstageProps {
   offstage?: boolean;
-  sliver?: FlutterElement;
+  sliver?: string | FlutterElement;
 }
 
 export interface KeepAliveProps {
   keepAlive: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SliverConstrainedCrossAxisProps {
   maxExtent: number;
-  sliver: FlutterElement;
+  sliver: string | FlutterElement;
 }
 
 export interface SliverCrossAxisExpandedProps {
   flex: number;
-  sliver: FlutterElement;
+  sliver: string | FlutterElement;
 }
 
 export interface SliverCrossAxisGroupProps {
@@ -5331,7 +5597,7 @@ export interface SliverMainAxisGroupProps {
 }
 
 export interface SliverEnsureSemanticsProps {
-  sliver: FlutterElement;
+  sliver: string | FlutterElement;
 }
 
 export interface SliverFillViewportProps {
@@ -5341,6 +5607,7 @@ export interface SliverFillViewportProps {
 }
 
 export interface SliverFillRemainingProps {
+  child?: string | FlutterElement;
   hasScrollBody?: boolean;
   fillOverscroll?: boolean;
   children?: FlutterElement | FlutterElement[];
@@ -5349,6 +5616,7 @@ export interface SliverFillRemainingProps {
 export interface SliverFloatingHeaderProps {
   animationStyle?: unknown;
   snapMode?: 'overlay' | 'scroll';
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5364,12 +5632,13 @@ export interface SliverPersistentHeaderProps {
 
 export interface SliverPrototypeExtentListProps {
   delegate: unknown;
-  prototypeItem: FlutterElement;
+  prototypeItem: string | FlutterElement;
 }
 
 export interface SliverResizingHeaderProps {
-  minExtentPrototype?: FlutterElement;
-  maxExtentPrototype?: FlutterElement;
+  minExtentPrototype?: string | FlutterElement;
+  maxExtentPrototype?: string | FlutterElement;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5394,6 +5663,7 @@ export interface SnapshotWidgetProps {
   painter?: unknown;
   autoresize?: boolean;
   controller: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5404,6 +5674,7 @@ export interface SpacerProps {
 export interface StretchEffectProps {
   stretchStrength?: number;
   axis: 'horizontal' | 'vertical';
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5422,14 +5693,17 @@ export interface TableProps {
 
 export interface TableCellProps {
   verticalAlignment?: 'top' | 'middle' | 'bottom' | 'baseline' | 'fill' | 'intrinsicHeight';
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface TapRegionSurfaceProps {
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface TapRegionProps {
+  child?: string | FlutterElement;
   enabled?: boolean;
   behavior?: 'deferToChild' | 'opaque' | 'translucent';
   onTapOutside?: (event: unknown) => void;
@@ -5443,6 +5717,7 @@ export interface TapRegionProps {
 }
 
 export interface TextFieldTapRegionProps {
+  child?: string | FlutterElement;
   enabled?: boolean;
   onTapOutside?: (event: unknown) => void;
   onTapInside?: (event: unknown) => void;
@@ -5462,11 +5737,13 @@ export interface DefaultTextStyleProps {
   maxLines?: number;
   textWidthBasis?: 'parent' | 'longestLine';
   textHeightBehavior?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface DefaultTextHeightBehaviorProps {
   textHeightBehavior: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5512,6 +5789,7 @@ export interface TextSelectionGestureDetectorProps {
   onDragSelectionEnd?: (endDetails: unknown) => void;
   onUserTapAlwaysCalled?: boolean;
   behavior?: 'deferToChild' | 'opaque' | 'translucent';
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5523,6 +5801,7 @@ export interface TextureProps {
 
 export interface TickerModeProps {
   enabled: boolean;
+  child?: string | FlutterElement;
   forceFrames?: boolean;
   children?: FlutterElement | FlutterElement[];
 }
@@ -5530,6 +5809,7 @@ export interface TickerModeProps {
 export interface TitleProps {
   title?: string;
   color: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5537,6 +5817,7 @@ export interface SlideTransitionProps {
   position: unknown;
   transformHitTests?: boolean;
   textDirection?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5545,6 +5826,7 @@ export interface MatrixTransitionProps {
   onTransform: (animationValue: number) => unknown;
   alignment?: string;
   filterQuality?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5552,6 +5834,7 @@ export interface ScaleTransitionProps {
   scale: unknown;
   alignment?: string;
   filterQuality?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5559,6 +5842,7 @@ export interface RotationTransitionProps {
   turns: unknown;
   alignment?: string;
   filterQuality?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5567,40 +5851,46 @@ export interface SizeTransitionProps {
   sizeFactor: unknown;
   axisAlignment?: number;
   fixedCrossAxisSizeFactor?: number;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface FadeTransitionProps {
   opacity: unknown;
   alwaysIncludeSemantics?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SliverFadeTransitionProps {
   opacity: unknown;
   alwaysIncludeSemantics?: boolean;
-  sliver?: FlutterElement;
+  sliver?: string | FlutterElement;
 }
 
 export interface PositionedTransitionProps {
   rect: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface RelativePositionedTransitionProps {
   rect: unknown;
   size: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface DecoratedBoxTransitionProps {
   decoration: unknown;
   position?: 'background' | 'foreground';
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface AlignTransitionProps {
   alignment: unknown;
+  child?: string | FlutterElement;
   widthFactor?: number;
   heightFactor?: number;
   children?: FlutterElement | FlutterElement[];
@@ -5608,6 +5898,7 @@ export interface AlignTransitionProps {
 
 export interface DefaultTextStyleTransitionProps {
   style: unknown;
+  child?: string | FlutterElement;
   textAlign?: unknown;
   softWrap?: boolean;
   overflow?: 'clip' | 'fade' | 'ellipsis' | 'visible';
@@ -5618,12 +5909,14 @@ export interface DefaultTextStyleTransitionProps {
 export interface ListenableBuilderProps {
   listenable: unknown;
   builder: (child: FlutterElement) => FlutterElement;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface AnimatedBuilderProps {
   animation: unknown;
   builder: (child: FlutterElement) => FlutterElement;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5633,6 +5926,7 @@ export interface TweenAnimationBuilderProps {
   curve?: unknown;
   builder: (value: unknown, child: FlutterElement) => FlutterElement;
   onEnd?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5643,12 +5937,14 @@ export interface UndoHistoryProps {
   focusNode: unknown;
   undoStackModifier?: (value: unknown) => unknown;
   controller?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ValueListenableBuilderProps {
   valueListenable: unknown;
   builder: (value: unknown, child: FlutterElement) => FlutterElement;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5656,6 +5952,7 @@ export interface ViewProps {
   view: unknown;
   deprecatedDoNotUseWillBeRemovedWithoutNoticePipelineOwner?: unknown;
   deprecatedDoNotUseWillBeRemovedWithoutNoticeRenderView?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5663,6 +5960,7 @@ export interface RawViewProps {
   view: unknown;
   deprecatedDoNotUseWillBeRemovedWithoutNoticePipelineOwner?: unknown;
   deprecatedDoNotUseWillBeRemovedWithoutNoticeRenderView?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5671,7 +5969,8 @@ export interface ViewCollectionProps {
 }
 
 export interface ViewAnchorProps {
-  view?: FlutterElement;
+  view?: string | FlutterElement;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5698,7 +5997,8 @@ export interface ShrinkWrappingViewportProps {
 }
 
 export interface VisibilityProps {
-  replacement?: FlutterElement;
+  child?: string | FlutterElement;
+  replacement?: string | FlutterElement;
   visible?: boolean;
   maintainState?: boolean;
   maintainAnimation?: boolean;
@@ -5710,8 +6010,8 @@ export interface VisibilityProps {
 }
 
 export interface SliverVisibilityProps {
-  sliver: FlutterElement;
-  replacementSliver?: FlutterElement;
+  sliver: string | FlutterElement;
+  replacementSliver?: string | FlutterElement;
   visible?: boolean;
   maintainState?: boolean;
   maintainAnimation?: boolean;
@@ -5721,6 +6021,7 @@ export interface SliverVisibilityProps {
 }
 
 export interface WidgetInspectorProps {
+  child?: string | FlutterElement;
   tapBehaviorButtonBuilder: (onPressed: unknown, selectionOnTapEnabled: boolean, semanticsLabel: string) => FlutterElement;
   exitWidgetSelectionButtonBuilder: (key: unknown, onPressed: unknown, semanticsLabel: string) => FlutterElement;
   moveExitWidgetSelectionButtonBuilder: (onPressed: unknown, semanticsLabel: string, usesDefaultAlignment: boolean) => FlutterElement;
@@ -5728,14 +6029,17 @@ export interface WidgetInspectorProps {
 }
 
 export interface EnableWidgetInspectorScopeProps {
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface DisableWidgetInspectorScopeProps {
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface WillPopScopeProps {
+  child?: string | FlutterElement;
   onWillPop: () => Promise<boolean>;
   children?: FlutterElement | FlutterElement[];
 }
@@ -5759,6 +6063,7 @@ export interface CupertinoAdaptiveTextSelectionToolbarProps {
 
 export interface CupertinoAppProps {
   navigatorKey?: unknown;
+  home?: string | FlutterElement;
   theme?: unknown;
   routes?: Record<string, () => FlutterElement>;
   initialRoute?: string;
@@ -5802,6 +6107,7 @@ export interface CupertinoTabBarProps {
 }
 
 export interface CupertinoButtonProps {
+  child?: string | FlutterElement;
   sizeStyle?: 'small' | 'medium' | 'large';
   padding?: number | [number, number] | [number, number, number, number];
   color?: unknown;
@@ -5842,11 +6148,13 @@ export interface CupertinoCheckboxProps {
 
 export interface CupertinoContextMenuProps {
   actions: FlutterElement[];
+  child?: string | FlutterElement;
   enableHapticFeedback?: boolean;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CupertinoContextMenuActionProps {
+  child?: string | FlutterElement;
   isDefaultAction?: boolean;
   isDestructiveAction?: boolean;
   onClick?: unknown;
@@ -5897,11 +6205,13 @@ export interface CupertinoDesktopTextSelectionToolbarProps {
 
 export interface CupertinoDesktopTextSelectionToolbarButtonProps {
   onClick: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CupertinoAlertDialogProps {
-  content?: FlutterElement;
+  title?: string | FlutterElement;
+  content?: string | FlutterElement;
   actions?: FlutterElement[];
   scrollController?: unknown;
   actionScrollController?: unknown;
@@ -5913,15 +6223,17 @@ export interface CupertinoAlertDialogProps {
 export interface CupertinoPopupSurfaceProps {
   blurSigma?: number;
   isSurfacePainted?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CupertinoActionSheetProps {
-  message?: FlutterElement;
+  title?: string | FlutterElement;
+  message?: string | FlutterElement;
   actions?: FlutterElement[];
   messageScrollController?: unknown;
   actionScrollController?: unknown;
-  cancelButton?: FlutterElement;
+  cancelButton?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5932,6 +6244,7 @@ export interface CupertinoActionSheetActionProps {
   mouseCursor?: unknown;
   focusNode?: unknown;
   focusColor?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5941,27 +6254,30 @@ export interface CupertinoDialogActionProps {
   isDestructiveAction?: boolean;
   textStyle?: TextStyleProps;
   mouseCursor?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CupertinoExpansionTileProps {
-  title: FlutterElement;
+  title: string | FlutterElement;
+  child?: string | FlutterElement;
   controller?: unknown;
   transitionMode?: 'fade' | 'scroll';
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CupertinoFormRowProps {
-  prefix?: FlutterElement;
+  child?: string | FlutterElement;
+  prefix?: string | FlutterElement;
   padding?: number | [number, number] | [number, number, number, number];
-  helper?: FlutterElement;
-  error?: FlutterElement;
+  helper?: string | FlutterElement;
+  error?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CupertinoFormSectionProps {
-  header?: FlutterElement;
-  footer?: FlutterElement;
+  header?: string | FlutterElement;
+  footer?: string | FlutterElement;
   margin?: number | [number, number] | [number, number, number, number];
   backgroundColor?: unknown;
   decoration?: unknown;
@@ -5971,12 +6287,13 @@ export interface CupertinoFormSectionProps {
 
 export interface CupertinoUserInterfaceLevelProps {
   data: 'base' | 'elevated';
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CupertinoListSectionProps {
-  header?: FlutterElement;
-  footer?: FlutterElement;
+  header?: string | FlutterElement;
+  footer?: string | FlutterElement;
   margin?: number | [number, number] | [number, number, number, number];
   backgroundColor?: unknown;
   decoration?: unknown;
@@ -5990,10 +6307,11 @@ export interface CupertinoListSectionProps {
 }
 
 export interface CupertinoListTileProps {
-  subtitle?: FlutterElement;
-  additionalInfo?: FlutterElement;
-  leading?: FlutterElement;
-  trailing?: FlutterElement;
+  title?: string | FlutterElement;
+  subtitle?: string | FlutterElement;
+  additionalInfo?: string | FlutterElement;
+  leading?: string | FlutterElement;
+  trailing?: string | FlutterElement;
   onTap?: () => unknown;
   backgroundColor?: unknown;
   backgroundColorActivated?: unknown;
@@ -6027,12 +6345,12 @@ export interface CupertinoMagnifierProps {
 }
 
 export interface CupertinoNavigationBarProps {
-  leading?: FlutterElement;
+  leading?: string | FlutterElement;
   automaticallyImplyLeading?: boolean;
   automaticallyImplyMiddle?: boolean;
   previousPageTitle?: string;
-  middle?: FlutterElement;
-  trailing?: FlutterElement;
+  middle?: string | FlutterElement;
+  trailing?: string | FlutterElement;
   border?: unknown;
   backgroundColor?: unknown;
   automaticBackgroundVisibility?: boolean;
@@ -6045,14 +6363,14 @@ export interface CupertinoNavigationBarProps {
 }
 
 export interface CupertinoSliverNavigationBarProps {
-  largeTitle?: FlutterElement;
-  leading?: FlutterElement;
+  largeTitle?: string | FlutterElement;
+  leading?: string | FlutterElement;
   automaticallyImplyLeading?: boolean;
   automaticallyImplyTitle?: boolean;
   alwaysShowMiddle?: boolean;
   previousPageTitle?: string;
-  middle?: FlutterElement;
-  trailing?: FlutterElement;
+  middle?: string | FlutterElement;
+  trailing?: string | FlutterElement;
   border?: unknown;
   backgroundColor?: unknown;
   automaticBackgroundVisibility?: boolean;
@@ -6076,10 +6394,12 @@ export interface CupertinoPageScaffoldProps {
   navigationBar?: unknown;
   backgroundColor?: unknown;
   resizeToAvoidBottomInset?: boolean;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CupertinoPageScaffoldBackgroundColorProps {
+  child?: string | FlutterElement;
   color: unknown;
   children?: FlutterElement | FlutterElement[];
 }
@@ -6095,7 +6415,7 @@ export interface CupertinoPickerProps {
   changeReportingBehavior?: 'onScrollEnd' | 'onScrollUpdate';
   itemExtent: number;
   onSelectedItemChanged: (value: number) => void;
-  selectionOverlay?: FlutterElement;
+  selectionOverlay?: string | FlutterElement;
   looping?: boolean;
   children?: FlutterElement | FlutterElement[];
 }
@@ -6133,6 +6453,7 @@ export interface CupertinoSliverRefreshControlProps {
 export interface CupertinoPageTransitionProps {
   primaryRouteAnimation: unknown;
   secondaryRouteAnimation: unknown;
+  child?: string | FlutterElement;
   linearTransition: boolean;
   children?: FlutterElement | FlutterElement[];
 }
@@ -6140,11 +6461,13 @@ export interface CupertinoPageTransitionProps {
 export interface CupertinoFullscreenDialogTransitionProps {
   primaryRouteAnimation: unknown;
   secondaryRouteAnimation: unknown;
+  child?: string | FlutterElement;
   linearTransition: boolean;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CupertinoScrollbarProps {
+  child?: string | FlutterElement;
   controller?: unknown;
   thumbVisibility?: boolean;
   thickness?: number;
@@ -6172,7 +6495,7 @@ export interface CupertinoSearchTextFieldProps {
   itemColor?: unknown;
   itemSize?: number;
   prefixInsets?: number | [number, number] | [number, number, number, number];
-  prefixIcon?: FlutterElement;
+  prefixIcon?: string | FlutterElement;
   suffixInsets?: number | [number, number] | [number, number, number, number];
   suffixIcon?: unknown;
   suffixMode?: 'never' | 'editing' | 'notEditing' | 'always';
@@ -6210,6 +6533,7 @@ export interface CupertinoSegmentedControlProps {
 export interface CupertinoSheetTransitionProps {
   primaryRouteAnimation: unknown;
   secondaryRouteAnimation: unknown;
+  child?: string | FlutterElement;
   linearTransition: boolean;
   topGap?: number;
   children?: FlutterElement | FlutterElement[];
@@ -6300,9 +6624,9 @@ export interface CupertinoTextFieldProps {
   padding?: number | [number, number] | [number, number, number, number];
   placeholder?: string;
   placeholderStyle?: TextStyleProps;
-  prefix?: FlutterElement;
+  prefix?: string | FlutterElement;
   prefixMode?: 'never' | 'editing' | 'notEditing' | 'always';
-  suffix?: FlutterElement;
+  suffix?: string | FlutterElement;
   suffixMode?: 'never' | 'editing' | 'notEditing' | 'always';
   crossAxisAlignment?: 'start' | 'end' | 'center' | 'stretch' | 'baseline';
   clearButtonMode?: 'never' | 'editing' | 'notEditing' | 'always';
@@ -6366,7 +6690,7 @@ export interface CupertinoTextFieldProps {
 }
 
 export interface CupertinoTextFormFieldRowProps {
-  prefix?: FlutterElement;
+  prefix?: string | FlutterElement;
   padding?: number | [number, number] | [number, number, number, number];
   controller?: unknown;
   initialValue?: string;
@@ -6430,15 +6754,18 @@ export interface CupertinoTextSelectionToolbarProps {
 
 export interface CupertinoTextSelectionToolbarButtonProps {
   onClick?: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CupertinoThemeProps {
   data: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface InheritedCupertinoThemeProps {
   theme: unknown;
+  child?: string | FlutterElement;
   children?: FlutterElement | FlutterElement[];
 }
