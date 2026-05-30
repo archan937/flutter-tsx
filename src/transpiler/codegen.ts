@@ -425,8 +425,9 @@ export class CodegenContext {
         );
         parts.push(...slottedArgs);
         if (unslottedChildren.length > 1) {
-          console.warn(
-            `[fsx] ${tagName}: slot '${childSlot}' accepts one child but got ${unslottedChildren.length}; extra children dropped`,
+          throw new Error(
+            `[fsx] <${tagName}> accepts a single child (slot '${childSlot}') but received ${unslottedChildren.length}. ` +
+              `Wrap them in a layout widget such as <Column>, <Row>, or <ListView>.`,
           );
         }
         if (unslottedChildren.length > 0) {

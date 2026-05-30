@@ -65,7 +65,15 @@ describe('skeleton catalog — transpiles to Dart (Tier 1)', () => {
         const tsxCount = collectTsxFiles(srcDir).length;
         expect(tsxCount).toBeGreaterThan(0);
 
-        const results = await transpileAll(srcDir, outDir);
+        // Guard: a single-child widget given multiple children now throws
+        // (instead of silently dropping them). transpileAll surfacing an error
+        // here means a skeleton ships incomplete UI — fail with its name.
+        let results;
+        try {
+          results = await transpileAll(srcDir, outDir);
+        } catch (err) {
+          throw new Error(`${cat}/${name} failed to transpile: ${String(err)}`);
+        }
         expect(results.length).toBe(tsxCount);
 
         for (const { file, code } of readAllDart(outDir)) {

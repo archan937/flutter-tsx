@@ -105,6 +105,41 @@ describe('generateDartFile — header', () => {
   });
 });
 
+describe('generateDartFile — single-child slot enforcement', () => {
+  it('throws when a single-child slot receives multiple children', () => {
+    // Fail-fast: silently dropping extra children ships incomplete UI.
+    expect(() =>
+      transpile(
+        `export const App = () => (<Center><Text>a</Text><Text>b</Text></Center>);`,
+      ),
+    ).toThrow(/Center.*single child/i);
+  });
+
+  it('error names a layout widget the author can wrap with', () => {
+    expect(() =>
+      transpile(
+        `export const App = () => (<Center><Text>a</Text><Text>b</Text></Center>);`,
+      ),
+    ).toThrow(/Column|Row|ListView/);
+  });
+
+  it('accepts a single child in a single-child slot', () => {
+    expect(() =>
+      transpile(`export const App = () => (<Center><Text>a</Text></Center>);`),
+    ).not.toThrow();
+  });
+
+  it('self-slotted siblings do not count as extra children', () => {
+    // Scaffold: AppBar fills appBar:, the remaining single child fills body —
+    // must not be mistaken for two children in the body slot.
+    expect(() =>
+      transpile(
+        `export const App = () => (<Scaffold><AppBar title="x" /><Center><Text>a</Text></Center></Scaffold>);`,
+      ),
+    ).not.toThrow();
+  });
+});
+
 describe('generateDartFile — cross-file component imports', () => {
   it('emits a Dart import when a locally-imported component is referenced', () => {
     const src = `
