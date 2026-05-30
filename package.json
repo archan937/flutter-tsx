@@ -62,7 +62,7 @@
     "format": "prettier --write .",
     "lint": "eslint .",
     "test": "bun test",
-    "test:coverage": "bun test --coverage --coverage-threshold=0.9975",
+    "test:coverage": "bun scripts/check-coverage.ts",
     "quality": "bun run typecheck && bun run format && bun run lint && bun run test:coverage",
     "prepublishOnly": "bun run build"
   },

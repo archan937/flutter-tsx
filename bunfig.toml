@@ -3,6 +3,9 @@ exact = false
 
 [test]
 timeout = 30000
+# Coverage is enforced by scripts/check-coverage.ts (bun 1.3.x does not honor
+# coverageThreshold / coveragePathIgnorePatterns), which gates owned src/ files.
+coverageSkipTestFiles = true
 
 [build]
 target = "bun"
