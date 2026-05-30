@@ -1,0 +1,54 @@
+# Guide — working with flutter-tsx
+
+Write your app in TSX; `fsx` transpiles it to idiomatic Dart and drives Flutter. You never write Dart by hand, and one codebase ships to all six targets (web · iOS · Android · macOS · Windows · Linux).
+
+## 1. Scaffold
+
+```sh
+bun create flutter-tsx my-app   # interactive: target → app kind
+cd my-app && bun install
+```
+
+You get a typed `config/`, a skeleton `src/App.tsx`, brand `icons/`, `locales/`, and tooling. See [`create-flutter-tsx`](../../create-flutter-tsx/README.md) for the skeleton catalog.
+
+## 2. Develop
+
+```sh
+bun run dev            # fsx dev — uses config/app.ts target
+bun run dev:ios        # or pick a target explicitly
+```
+
+`fsx dev` scaffolds the Flutter project under `.fsx/flutter/`, transpiles `src/**/*.tsx` → Dart, applies your config surfaces (theme, permissions, links, locales), and runs Flutter with hot-reload on save.
+
+## 3. Configure
+
+Config is **typed TypeScript** (`satisfies` a type from `flutter-tsx/config`) — autocomplete + compile-time checks, no native conventions to memorize.
+
+- **Cross-platform** values live once and fan out: `config/app.ts` (identity), `config/theme.ts`, `config/links.ts`, `config/permissions.ts` (usually unneeded — permissions are inferred from hooks), `config/env.ts`.
+- **OS-specific** bits go in `config/platforms/<os>.ts` (signing, `deploymentTarget`, FCM).
+
+See **[config-mapping.md](./config-mapping.md)** for exactly which native files each key produces, per platform.
+
+## 4. Build & sign
+
+```sh
+bun run build              # fsx build — release artifact for config/app.ts target
+bun run build:macos        # or a specific target
+```
+
+`fsx build` is the non-interactive path (transpile → apply surfaces → `flutter build <target>`, exits with the build's code). Signing is driven by `config/platforms/<os>.ts`:
+
+- **android** → `key.properties` from a keystore (password via env var).
+- **macos** → `codesign` + notarize (Developer ID + Apple notary).
+- **windows** → Authenticode `signtool`.
+
+Credential files live in a **gitignored `signing/<os>/`** directory, referenced by path from the platform config; passwords come from environment variables, never source.
+
+## CLI reference
+
+| command                | does                                                    |
+| ---------------------- | ------------------------------------------------------- |
+| `fsx install`          | download the Flutter SDK to `~/.fsx/flutter/`           |
+| `fsx init`             | scaffold a minimal project (`config/app.ts` + `src/`)   |
+| `fsx dev [--target]`   | watch + transpile + run Flutter with hot-reload         |
+| `fsx build [--target]` | transpile + `flutter build` a release artifact (+ sign) |

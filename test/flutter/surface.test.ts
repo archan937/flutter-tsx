@@ -95,7 +95,7 @@ describe('loadSurfaceConfig', () => {
 describe('applyPermissions', () => {
   it('writes inferred capabilities into Info.plist and AndroidManifest', () => {
     const dir = mkFlutterDir();
-    applyPermissions(dir, ['camera'], {});
+    applyPermissions(dir, ['camera']);
     const plist = readFileSync(plistPath(dir), 'utf-8');
     const manifest = readFileSync(manifestPath(dir), 'utf-8');
     expect(plist).toContain('NSCameraUsageDescription');
@@ -105,13 +105,15 @@ describe('applyPermissions', () => {
 
   it('uses a custom description from config when provided', () => {
     const dir = mkFlutterDir();
-    applyPermissions(dir, ['camera'], { camera: 'Scan QR codes' });
+    applyPermissions(dir, ['camera'], {
+      descriptions: { camera: 'Scan QR codes' },
+    });
     expect(readFileSync(plistPath(dir), 'utf-8')).toContain('Scan QR codes');
   });
 
-  it('wires macOS: usage string in Info.plist + sandbox entitlement', () => {
+  it('wires macOS: usage string in Info.plist + sandbox entitlement (signing on)', () => {
     const dir = mkFlutterDir();
-    applyPermissions(dir, ['camera'], {});
+    applyPermissions(dir, ['camera'], { macosEntitlements: true });
     expect(readFileSync(macosPlistPath(dir), 'utf-8')).toContain(
       'NSCameraUsageDescription',
     );
@@ -122,10 +124,23 @@ describe('applyPermissions', () => {
     }
   });
 
+  it('writes macOS Info.plist but SKIPS entitlements when signing is off (build-safe default)', () => {
+    const dir = mkFlutterDir();
+    applyPermissions(dir, ['camera']);
+    expect(readFileSync(macosPlistPath(dir), 'utf-8')).toContain(
+      'NSCameraUsageDescription',
+    );
+    for (const p of macosEntitlementsPaths(dir)) {
+      expect(readFileSync(p, 'utf-8')).not.toContain(
+        'com.apple.security.device.camera',
+      );
+    }
+  });
+
   it('is idempotent — re-running does not duplicate entries', () => {
     const dir = mkFlutterDir();
-    applyPermissions(dir, ['camera'], {});
-    applyPermissions(dir, ['camera'], {});
+    applyPermissions(dir, ['camera']);
+    applyPermissions(dir, ['camera']);
     const plist = readFileSync(plistPath(dir), 'utf-8');
     const count = plist.split('NSCameraUsageDescription').length - 1;
     expect(count).toBe(1);
@@ -133,7 +148,7 @@ describe('applyPermissions', () => {
 
   it('does nothing when there are no capabilities', () => {
     const dir = mkFlutterDir();
-    applyPermissions(dir, [], {});
+    applyPermissions(dir, []);
     expect(readFileSync(plistPath(dir), 'utf-8')).not.toContain(
       'NSCameraUsageDescription',
     );
@@ -151,10 +166,23 @@ describe('applyLinks', () => {
     );
   });
 
-  it('wires macOS: scheme in Info.plist + domains in entitlements', () => {
+  it('wires macOS: scheme in Info.plist always + domains in entitlements when signing on', () => {
     const dir = mkFlutterDir();
     applyLinks(dir, { scheme: 'myapp', domains: ['example.com'] });
+    // Info.plist (scheme) always written...
     expect(readFileSync(macosPlistPath(dir), 'utf-8')).toContain('myapp');
+    // ...but associated-domains entitlement skipped without signing.
+    for (const p of macosEntitlementsPaths(dir)) {
+      expect(readFileSync(p, 'utf-8')).not.toContain('example.com');
+    }
+    // With signing on, the entitlement is written.
+    applyLinks(
+      dir,
+      { scheme: 'myapp', domains: ['example.com'] },
+      {
+        macosEntitlements: true,
+      },
+    );
     for (const p of macosEntitlementsPaths(dir)) {
       expect(readFileSync(p, 'utf-8')).toContain('example.com');
     }

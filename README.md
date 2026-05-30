@@ -50,6 +50,8 @@ class MainApp extends StatelessWidget {
 
 Configure your app in **typed `config/*.ts`** and drop **semantic asset files** — `fsx dev` fans them out to the platform-specific native files (Info.plist, AndroidManifest, entitlements, gradle) so you never touch them by hand.
 
+> 📖 **[Guide](docs/guide.md)** · **[Config mapping](docs/config-mapping.md)** (every fsx config key → its native output, per platform).
+
 ![Flutter.tsx — project surface → engines → platform artifacts](docs/infogram.svg)
 
 | Category     | Surface                                                                                                                                              |

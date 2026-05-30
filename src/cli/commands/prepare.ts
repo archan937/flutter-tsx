@@ -1,13 +1,14 @@
 import { existsSync } from 'fs';
 import { join } from 'path';
 
-import type { AppConfig, Links, Theme } from '../../config.js';
+import type { AppConfig, Links, MacosConfig, Theme } from '../../config.js';
 import { envToDartDefines } from '../../flutter/env.js';
 import { ensureFlutterProject } from '../../flutter/project.js';
 import {
   applyLinks,
   applyLocales,
   applyPermissions,
+  loadPlatformConfig,
   loadSurfaceConfig,
 } from '../../flutter/surface.js';
 import { themeToMaterialAppProps } from '../../flutter/theme.js';
@@ -102,16 +103,25 @@ export const prepareProject = async (
     }
   }
 
+  // macOS entitlements require a signing cert to build, so only write them when
+  // config/platforms/macos.ts configures signing (else an unsigned `flutter
+  // build macos` fails). Info.plist usage strings / URL schemes are unaffected.
+  const macosCfg = await loadPlatformConfig<MacosConfig>(root, 'macos');
+  const surfaceOpts = { macosEntitlements: Boolean(macosCfg?.signing) };
+
   // Permissions: inferred capabilities + optional config/permissions.ts strings.
   const permissionDescriptions =
     (await loadSurfaceConfig<Record<string, string>>(root, 'permissions')) ??
     {};
-  applyPermissions(flutterDir, detectedCapabilities, permissionDescriptions);
+  applyPermissions(flutterDir, detectedCapabilities, {
+    descriptions: permissionDescriptions,
+    ...surfaceOpts,
+  });
 
   // Links + locales surfaces. (Signing/release is build-time only — applied by
   // `fsx build` from config/platforms/<os>.ts, not in this shared dev/build prelude.)
   const links = await loadSurfaceConfig<Links>(root, 'links');
-  if (links) applyLinks(flutterDir, links);
+  if (links) applyLinks(flutterDir, links, surfaceOpts);
 
   applyLocales(root, outDir);
 

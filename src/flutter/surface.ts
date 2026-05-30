@@ -69,10 +69,25 @@ const mutateFile = (path: string, fn: (xml: string) => string): void => {
  * sensible defaults otherwise. Idempotent — the appliers use `<!-- fsx -->`
  * markers, so re-running replaces the managed block cleanly.
  */
+/**
+ * Options controlling platform-specific surface application.
+ * `macosEntitlements`: write macOS sandbox/associated-domains entitlements.
+ * macOS entitlements REQUIRE code signing to build, so they are written only
+ * when `config/platforms/macos.ts` configures signing — otherwise an unsigned
+ * `flutter build macos` fails ("entitlements require a development certificate").
+ * The Info.plist usage strings / URL schemes are always safe and always written.
+ */
+export interface SurfaceOptions {
+  macosEntitlements?: boolean;
+}
+
 export const applyPermissions = (
   flutterDir: string,
   capabilities: string[],
-  descriptions: Record<string, string> = {},
+  {
+    descriptions = {},
+    macosEntitlements = false,
+  }: SurfaceOptions & { descriptions?: Record<string, string> } = {},
 ): void => {
   const caps = new Set([...capabilities, ...Object.keys(descriptions)]);
   if (caps.size === 0) return;
@@ -90,15 +105,18 @@ export const applyPermissions = (
     (xml) => applyToAndroidManifest(xml, permissions),
   );
 
-  // macOS: the same NS*UsageDescription strings + sandbox entitlements.
-  const macosCaps = Object.keys(permissions);
+  // macOS: the NS*UsageDescription strings always; sandbox entitlements only
+  // when signing is configured (they require a signing cert to build).
   mutateFile(join(flutterDir, 'macos', 'Runner', 'Info.plist'), (xml) =>
     applyToInfoPlist(xml, permissions),
   );
-  for (const file of MACOS_ENTITLEMENT_FILES) {
-    mutateFile(join(flutterDir, 'macos', 'Runner', file), (xml) =>
-      applyToMacosEntitlements(xml, macosCaps),
-    );
+  if (macosEntitlements) {
+    const macosCaps = Object.keys(permissions);
+    for (const file of MACOS_ENTITLEMENT_FILES) {
+      mutateFile(join(flutterDir, 'macos', 'Runner', file), (xml) =>
+        applyToMacosEntitlements(xml, macosCaps),
+      );
+    }
   }
   // Windows/Linux: the OS does not gate capabilities behind a manifest, so
   // there is intentionally nothing to write (see config-mapping docs).
@@ -109,7 +127,11 @@ export const applyPermissions = (
  * projects: iOS CFBundleURLTypes (Info.plist) + associated-domains
  * (entitlements), and Android intent-filters (AndroidManifest). Idempotent.
  */
-export const applyLinks = (flutterDir: string, links: Links): void => {
+export const applyLinks = (
+  flutterDir: string,
+  links: Links,
+  { macosEntitlements = false }: SurfaceOptions = {},
+): void => {
   const normalized = normalizeLinks(links);
   if (!normalized) return;
 
@@ -124,14 +146,17 @@ export const applyLinks = (flutterDir: string, links: Links): void => {
     (xml) => applyLinksToAndroidManifest(xml, normalized),
   );
 
-  // macOS: same CFBundleURLTypes (Info.plist) + associated-domains (entitlements).
+  // macOS: CFBundleURLTypes (Info.plist) always; associated-domains entitlement
+  // only when signing is configured (it requires a signing cert to build).
   mutateFile(join(flutterDir, 'macos', 'Runner', 'Info.plist'), (xml) =>
     applyLinksToInfoPlist(xml, normalized),
   );
-  for (const file of MACOS_ENTITLEMENT_FILES) {
-    mutateFile(join(flutterDir, 'macos', 'Runner', file), (xml) =>
-      applyLinksToEntitlements(xml, normalized),
-    );
+  if (macosEntitlements) {
+    for (const file of MACOS_ENTITLEMENT_FILES) {
+      mutateFile(join(flutterDir, 'macos', 'Runner', file), (xml) =>
+        applyLinksToEntitlements(xml, normalized),
+      );
+    }
   }
 
   // Windows/Linux custom-scheme registration (install-time artifacts fsx emits).
