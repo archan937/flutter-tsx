@@ -15,6 +15,37 @@ export interface EnsureFlutterProjectOptions {
   dartBin?: string;
 }
 
+/**
+ * The Flutter targets fsx scaffolds. Passed to `flutter create --platforms` so
+ * every platform folder (ios/android/web/macos/windows/linux) always exists —
+ * otherwise `flutter build <desktop>` fails when the SDK hasn't locally enabled
+ * that desktop platform.
+ */
+export const SUPPORTED_PLATFORMS = [
+  'web',
+  'ios',
+  'android',
+  'macos',
+  'windows',
+  'linux',
+] as const;
+
+/** Assembles the `flutter create` argv (pure — exposed for testing). */
+export const flutterCreateArgs = (
+  flutterBin: string,
+  appName: string,
+  flutterDir: string,
+): string[] => [
+  flutterBin,
+  'create',
+  '--project-name',
+  appName,
+  '--platforms',
+  SUPPORTED_PLATFORMS.join(','),
+  '--no-pub',
+  flutterDir,
+];
+
 export const ensureFlutterProject = async (
   flutterDir: string,
   config: AppConfig,
@@ -33,10 +64,10 @@ export const ensureFlutterProject = async (
 
   if (needsInit) {
     const appName = config.name.toLowerCase().replace(/[^a-z0-9_]/g, '_');
-    const proc = Bun.spawn(
-      [flutterBin, 'create', '--project-name', appName, '--no-pub', flutterDir],
-      { stdout: 'pipe', stderr: 'pipe' },
-    );
+    const proc = Bun.spawn(flutterCreateArgs(flutterBin, appName, flutterDir), {
+      stdout: 'pipe',
+      stderr: 'pipe',
+    });
     await proc.exited;
     if (proc.exitCode !== 0) {
       const err = await new Response(proc.stderr).text();

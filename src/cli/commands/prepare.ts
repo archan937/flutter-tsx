@@ -1,14 +1,13 @@
 import { existsSync } from 'fs';
 import { join } from 'path';
 
-import type { AppConfig, Links, ReleaseConfig, Theme } from '../../config.js';
+import type { AppConfig, Links, Theme } from '../../config.js';
 import { envToDartDefines } from '../../flutter/env.js';
 import { ensureFlutterProject } from '../../flutter/project.js';
 import {
   applyLinks,
   applyLocales,
   applyPermissions,
-  applyRelease,
   loadSurfaceConfig,
 } from '../../flutter/surface.js';
 import { themeToMaterialAppProps } from '../../flutter/theme.js';
@@ -109,14 +108,12 @@ export const prepareProject = async (
     {};
   applyPermissions(flutterDir, detectedCapabilities, permissionDescriptions);
 
-  // Links, locales, release surfaces.
+  // Links + locales surfaces. (Signing/release is build-time only — applied by
+  // `fsx build` from config/platforms/<os>.ts, not in this shared dev/build prelude.)
   const links = await loadSurfaceConfig<Links>(root, 'links');
   if (links) applyLinks(flutterDir, links);
 
   applyLocales(root, outDir);
-
-  const release = await loadSurfaceConfig<ReleaseConfig>(root, 'release');
-  if (release) applyRelease(root, flutterDir, release);
 
   // config/env.ts → --dart-define flags.
   const envConfig =

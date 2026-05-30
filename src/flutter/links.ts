@@ -120,6 +120,40 @@ export const applyLinksToEntitlements = (
   return stripped.slice(0, lineStart) + block + stripped.slice(lineStart);
 };
 
+/**
+ * Linux registers a custom URI scheme via a `.desktop` entry's
+ * `x-scheme-handler/<scheme>` MIME type. fsx emits the entry; wiring it into the
+ * desktop database is an install-time step (handled by the packager).
+ */
+export const linuxDesktopEntry = (scheme: string, appName = scheme): string =>
+  [
+    '[Desktop Entry]',
+    'Type=Application',
+    `Name=${appName}`,
+    `Exec=${appName} %u`,
+    'NoDisplay=true',
+    `MimeType=x-scheme-handler/${scheme};`,
+    '',
+  ].join('\n');
+
+/**
+ * Windows registers a custom URI scheme under `HKCU\Software\Classes\<scheme>`
+ * with a `URL Protocol` value. fsx emits the `.reg`; importing it (or doing the
+ * equivalent write from the installer) is an install-time step.
+ */
+export const windowsSchemeReg = (scheme: string, appName = scheme): string =>
+  [
+    'Windows Registry Editor Version 5.00',
+    '',
+    `[HKEY_CURRENT_USER\\Software\\Classes\\${scheme}]`,
+    `@="URL:${appName} Protocol"`,
+    '"URL Protocol"=""',
+    '',
+    `[HKEY_CURRENT_USER\\Software\\Classes\\${scheme}\\shell\\open\\command]`,
+    `@="\\"${appName}.exe\\" \\"%1\\""`,
+    '',
+  ].join('\n');
+
 export const applyLinksToAndroidManifest = (
   manifestXml: string,
   links: AppLinks,

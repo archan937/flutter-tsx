@@ -1,26 +1,27 @@
-import {
-  copyFileSync,
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  writeFileSync,
-} from 'fs';
-import { dirname, isAbsolute, join, resolve } from 'path';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
+import { dirname, join } from 'path';
 
-import { logger } from '../cli/utils/logger.js';
-import type { Links, ReleaseConfig } from '../config.js';
+import type { Links } from '../config.js';
 import {
   applyLinksToAndroidManifest,
   applyLinksToEntitlements,
   applyLinksToInfoPlist,
+  linuxDesktopEntry,
   normalizeLinks,
+  windowsSchemeReg,
 } from './links.js';
 import { loadLocales, localesToL10nDart } from './locales.js';
 import {
   applyToAndroidManifest,
   applyToInfoPlist,
+  applyToMacosEntitlements,
   defaultPermissionDescription,
 } from './permissions.js';
+
+const MACOS_ENTITLEMENT_FILES = [
+  'DebugProfile.entitlements',
+  'Release.entitlements',
+];
 
 /**
  * Imports a typed surface config module — `config/<name>.ts` (e.g. `env`,
@@ -33,6 +34,23 @@ export const loadSurfaceConfig = async <T>(
   name: string,
 ): Promise<T | null> => {
   const configPath = join(root, 'config', `${name}.ts`);
+  if (!existsSync(configPath)) return null;
+
+  const mod = (await import(configPath)) as { default?: T };
+  return mod.default ?? null;
+};
+
+/**
+ * Imports the optional platform escape-hatch config `config/platforms/<os>.ts`
+ * (OS-specific build knobs + signing). Returns its default export, or null when
+ * absent. Cross-platform values live in `config/app.ts` / the semantic surfaces
+ * (which win); this fills only the irreducibly-OS-specific leftovers.
+ */
+export const loadPlatformConfig = async <T>(
+  root: string,
+  os: string,
+): Promise<T | null> => {
+  const configPath = join(root, 'config', 'platforms', `${os}.ts`);
   if (!existsSync(configPath)) return null;
 
   const mod = (await import(configPath)) as { default?: T };
@@ -71,6 +89,19 @@ export const applyPermissions = (
     join(flutterDir, 'android', 'app', 'src', 'main', 'AndroidManifest.xml'),
     (xml) => applyToAndroidManifest(xml, permissions),
   );
+
+  // macOS: the same NS*UsageDescription strings + sandbox entitlements.
+  const macosCaps = Object.keys(permissions);
+  mutateFile(join(flutterDir, 'macos', 'Runner', 'Info.plist'), (xml) =>
+    applyToInfoPlist(xml, permissions),
+  );
+  for (const file of MACOS_ENTITLEMENT_FILES) {
+    mutateFile(join(flutterDir, 'macos', 'Runner', file), (xml) =>
+      applyToMacosEntitlements(xml, macosCaps),
+    );
+  }
+  // Windows/Linux: the OS does not gate capabilities behind a manifest, so
+  // there is intentionally nothing to write (see config-mapping docs).
 };
 
 /**
@@ -92,6 +123,35 @@ export const applyLinks = (flutterDir: string, links: Links): void => {
     join(flutterDir, 'android', 'app', 'src', 'main', 'AndroidManifest.xml'),
     (xml) => applyLinksToAndroidManifest(xml, normalized),
   );
+
+  // macOS: same CFBundleURLTypes (Info.plist) + associated-domains (entitlements).
+  mutateFile(join(flutterDir, 'macos', 'Runner', 'Info.plist'), (xml) =>
+    applyLinksToInfoPlist(xml, normalized),
+  );
+  for (const file of MACOS_ENTITLEMENT_FILES) {
+    mutateFile(join(flutterDir, 'macos', 'Runner', file), (xml) =>
+      applyLinksToEntitlements(xml, normalized),
+    );
+  }
+
+  // Windows/Linux custom-scheme registration (install-time artifacts fsx emits).
+  if (normalized.scheme !== null) {
+    writeIfDirExists(
+      join(flutterDir, 'linux'),
+      `${normalized.scheme}.desktop`,
+      linuxDesktopEntry(normalized.scheme),
+    );
+    writeIfDirExists(
+      join(flutterDir, 'windows'),
+      `${normalized.scheme}.reg`,
+      windowsSchemeReg(normalized.scheme),
+    );
+  }
+};
+
+const writeIfDirExists = (dir: string, file: string, content: string): void => {
+  if (!existsSync(dir)) return;
+  writeFileSync(join(dir, file), content, 'utf-8');
 };
 
 /**
@@ -107,64 +167,4 @@ export const applyLocales = (projectRoot: string, outDir: string): boolean => {
     mkdirSync(dirname(outPath), { recursive: true });
   writeFileSync(outPath, localesToL10nDart(data), 'utf-8');
   return true;
-};
-
-/**
- * Applies release/signing + push config (config/release.ts) to the native
- * projects: writes Android `key.properties` (passwords read from env vars, not
- * source) and copies the FCM config files into place.
- *
- * NOTE: the gradle `signingConfig` reference and the iOS `DEVELOPMENT_TEAM`
- * still need the standard one-time edits to build.gradle / the Xcode project —
- * those mutations are platform-version-specific and not auto-applied here.
- * This step prepares the credentials; it is not end-to-end verified (it needs
- * real keystores/certificates).
- */
-export const applyRelease = (
-  projectRoot: string,
-  flutterDir: string,
-  release: ReleaseConfig,
-): void => {
-  const abs = (p: string): string =>
-    isAbsolute(p) ? p : resolve(projectRoot, p);
-
-  if (release.android) {
-    const { keystore, keyAlias, storePasswordEnv, keyPasswordEnv } =
-      release.android;
-    const storePassword = storePasswordEnv
-      ? (process.env[storePasswordEnv] ?? '')
-      : '';
-    const keyPassword = keyPasswordEnv
-      ? (process.env[keyPasswordEnv] ?? '')
-      : storePassword;
-    const keyProps = [
-      `storeFile=${abs(keystore)}`,
-      `keyAlias=${keyAlias}`,
-      `storePassword=${storePassword}`,
-      `keyPassword=${keyPassword}`,
-      '',
-    ].join('\n');
-    writeFileSync(join(flutterDir, 'android', 'key.properties'), keyProps);
-  }
-
-  const copyInto = (src: string | undefined, dest: string): void => {
-    if (!src) return;
-    const from = abs(src);
-    if (!existsSync(from)) {
-      logger.warn(`config/release.ts: file not found, skipped: ${src}`);
-      return;
-    }
-    if (!existsSync(dirname(dest)))
-      mkdirSync(dirname(dest), { recursive: true });
-    copyFileSync(from, dest);
-  };
-
-  copyInto(
-    release.push?.firebaseAndroid,
-    join(flutterDir, 'android', 'app', 'google-services.json'),
-  );
-  copyInto(
-    release.push?.firebaseIos,
-    join(flutterDir, 'ios', 'Runner', 'GoogleService-Info.plist'),
-  );
 };

@@ -19,17 +19,6 @@
  * `fsx` imports these modules at dev/build time — no second config language.
  */
 
-/** Per-platform build settings (rare overrides; sensible defaults otherwise). */
-export interface IosConfig {
-  /** Minimum iOS deployment target, e.g. "13.0". */
-  deploymentTarget?: string;
-}
-
-export interface AndroidConfig {
-  /** Minimum Android SDK level, e.g. 21. */
-  minSdk?: number;
-}
-
 export interface AppConfig {
   /** Name of the Flutter app (used in pubspec.yaml and as the window title). */
   name: string;
@@ -47,10 +36,6 @@ export interface AppConfig {
   outDir?: string;
   /** Flutter asset paths to include in pubspec.yaml flutter: assets: section. */
   assets?: string[];
-  /** iOS-specific build overrides. */
-  ios?: IosConfig;
-  /** Android-specific build overrides. */
-  android?: AndroidConfig;
 }
 
 // ---------------------------------------------------------------------------
@@ -93,31 +78,79 @@ export type EnvConfig = Record<string, string>;
  */
 export type Permissions = Record<string, string>;
 
-/**
- * `config/release.ts` — signing + push credentials. The ONLY genuinely
- * platform-bound surface (an Apple profile vs an Android keystore can't be
- * merged). Reference credential files by path (keep them gitignored, e.g. under
- * `secrets/`); never hand-edit key.properties / Xcode / gradle. Passwords come
- * from environment variables, not source.
- */
-export interface ReleaseConfig {
-  android?: {
-    /** Path to the keystore file, e.g. "secrets/app.keystore". */
-    keystore: string;
-    keyAlias: string;
-    /** Env var name holding the keystore password (read at build time). */
-    storePasswordEnv?: string;
-    /** Env var name holding the key password (defaults to storePasswordEnv). */
-    keyPasswordEnv?: string;
-  };
-  ios?: {
-    /** Apple Developer Team ID used for signing. */
-    teamId?: string;
-  };
-  push?: {
-    /** Path to google-services.json (Android FCM). */
-    firebaseAndroid?: string;
-    /** Path to GoogleService-Info.plist (iOS FCM). */
-    firebaseIos?: string;
-  };
+// ---------------------------------------------------------------------------
+// Platform config — `config/platforms/<os>.ts`. The escape hatch for the
+// irreducibly OS-specific bits (build knobs, signing, FCM files) that have no
+// cross-platform/semantic equivalent. Cross-platform values stay in app.ts /
+// the semantic surfaces above; app.ts wins, platform files fill the leftovers.
+// Credential FILES live in gitignored `signing/<os>/`, referenced by path;
+// passwords come from environment variables, never source.
+// ---------------------------------------------------------------------------
+
+/** Android release keystore (paths into `signing/android/`). */
+export interface AndroidSigning {
+  /** Path to the keystore, e.g. "signing/android/release.jks". */
+  keystore: string;
+  keyAlias: string;
+  /** Env var name holding the keystore password (read at build time). */
+  storePasswordEnv?: string;
+  /** Env var name holding the key password (defaults to storePasswordEnv). */
+  keyPasswordEnv?: string;
+}
+
+/** macOS notarization (Apple notary service). */
+export interface MacosNotarize {
+  /** Apple Developer Team ID. */
+  teamId: string;
+  /** Env var name holding the Apple ID. */
+  appleIdEnv?: string;
+  /** Env var name holding the app-specific password. */
+  passwordEnv?: string;
+}
+
+/** macOS Developer ID signing + optional notarization. */
+export interface MacosSigning {
+  /** Signing identity, e.g. "Developer ID Application: Acme (TEAMID)". */
+  identity: string;
+  notarize?: MacosNotarize;
+}
+
+/** Windows Authenticode signing (path into `signing/windows/`). */
+export interface WindowsSigning {
+  /** Path to the .pfx certificate, e.g. "signing/windows/cert.pfx". */
+  certificate: string;
+  /** Env var name holding the certificate password. */
+  passwordEnv?: string;
+}
+
+export interface IosConfig {
+  /** Minimum iOS deployment target, e.g. "13.0". */
+  deploymentTarget?: string;
+  /** Apple Developer Team ID used for signing. */
+  teamId?: string;
+  /** Path to GoogleService-Info.plist (iOS FCM). */
+  firebase?: string;
+}
+
+export interface AndroidConfig {
+  /** Minimum Android SDK level, e.g. 21. */
+  minSdk?: number;
+  /** Path to google-services.json (Android FCM). */
+  firebase?: string;
+  signing?: AndroidSigning;
+}
+
+export interface MacosConfig {
+  /** Minimum macOS deployment target, e.g. "10.15". */
+  deploymentTarget?: string;
+  signing?: MacosSigning;
+}
+
+export interface WindowsConfig {
+  signing?: WindowsSigning;
+}
+
+export interface LinuxConfig {
+  /** Env var name holding a GPG key id for optional artifact signing. */
+  signing?: { gpgKeyEnv?: string };
 }

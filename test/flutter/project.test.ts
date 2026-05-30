@@ -4,9 +4,51 @@ import { tmpdir } from 'os';
 import { join } from 'path';
 
 import type { AppConfig } from '@src/config.js';
-import { ensureFlutterProject } from '@src/flutter/project.js';
+import {
+  ensureFlutterProject,
+  flutterCreateArgs,
+  SUPPORTED_PLATFORMS,
+} from '@src/flutter/project.js';
 
 const baseConfig: AppConfig = { name: 'test_app' };
+
+describe('flutterCreateArgs', () => {
+  it('scaffolds all six platform folders via --platforms', () => {
+    const args = flutterCreateArgs('flutter', 'demo_app', '/tmp/proj');
+    const i = args.indexOf('--platforms');
+    expect(i).toBeGreaterThan(-1);
+    const list = args[i + 1].split(',');
+    expect([...list].sort()).toEqual([
+      'android',
+      'ios',
+      'linux',
+      'macos',
+      'web',
+      'windows',
+    ]);
+  });
+
+  it('passes project name, --no-pub, and the target dir', () => {
+    const args = flutterCreateArgs('/opt/flutter', 'demo_app', '/tmp/proj');
+    expect(args[0]).toBe('/opt/flutter');
+    expect(args[1]).toBe('create');
+    expect(args).toContain('--project-name');
+    expect(args[args.indexOf('--project-name') + 1]).toBe('demo_app');
+    expect(args).toContain('--no-pub');
+    expect(args[args.length - 1]).toBe('/tmp/proj');
+  });
+
+  it('SUPPORTED_PLATFORMS lists the six Flutter targets', () => {
+    expect([...SUPPORTED_PLATFORMS].sort()).toEqual([
+      'android',
+      'ios',
+      'linux',
+      'macos',
+      'web',
+      'windows',
+    ]);
+  });
+});
 
 const makeTmp = (): string => mkdtempSync(join(tmpdir(), 'fsx-project-test-'));
 

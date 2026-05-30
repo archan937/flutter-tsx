@@ -7,7 +7,6 @@ import {
   applyLinks,
   applyLocales,
   applyPermissions,
-  applyRelease,
   loadSurfaceConfig,
 } from '@src/flutter/surface.js';
 
@@ -49,13 +48,26 @@ const EMPTY_ENTITLEMENTS = `<?xml version="1.0" encoding="UTF-8"?>
 const entitlementsPath = (dir: string): string =>
   join(dir, 'ios', 'Runner', 'Runner.entitlements');
 
+const macosPlistPath = (dir: string): string =>
+  join(dir, 'macos', 'Runner', 'Info.plist');
+const macosEntitlementsPaths = (dir: string): string[] => [
+  join(dir, 'macos', 'Runner', 'DebugProfile.entitlements'),
+  join(dir, 'macos', 'Runner', 'Release.entitlements'),
+];
+
 const mkFlutterDir = (): string => {
   const dir = mkdtempSync(join(tmpdir(), 'fsx-applyperms-'));
   mkdirSync(join(dir, 'ios', 'Runner'), { recursive: true });
   mkdirSync(join(dir, 'android', 'app', 'src', 'main'), { recursive: true });
+  mkdirSync(join(dir, 'macos', 'Runner'), { recursive: true });
+  mkdirSync(join(dir, 'linux'), { recursive: true });
+  mkdirSync(join(dir, 'windows'), { recursive: true });
   writeFileSync(plistPath(dir), EMPTY_PLIST);
   writeFileSync(entitlementsPath(dir), EMPTY_ENTITLEMENTS);
   writeFileSync(manifestPath(dir), EMPTY_MANIFEST);
+  writeFileSync(macosPlistPath(dir), EMPTY_PLIST);
+  for (const p of macosEntitlementsPaths(dir))
+    writeFileSync(p, EMPTY_ENTITLEMENTS);
   return dir;
 };
 
@@ -97,6 +109,19 @@ describe('applyPermissions', () => {
     expect(readFileSync(plistPath(dir), 'utf-8')).toContain('Scan QR codes');
   });
 
+  it('wires macOS: usage string in Info.plist + sandbox entitlement', () => {
+    const dir = mkFlutterDir();
+    applyPermissions(dir, ['camera'], {});
+    expect(readFileSync(macosPlistPath(dir), 'utf-8')).toContain(
+      'NSCameraUsageDescription',
+    );
+    for (const p of macosEntitlementsPaths(dir)) {
+      expect(readFileSync(p, 'utf-8')).toContain(
+        'com.apple.security.device.camera',
+      );
+    }
+  });
+
   it('is idempotent — re-running does not duplicate entries', () => {
     const dir = mkFlutterDir();
     applyPermissions(dir, ['camera'], {});
@@ -123,6 +148,26 @@ describe('applyLinks', () => {
     expect(readFileSync(manifestPath(dir), 'utf-8')).toContain('myapp');
     expect(readFileSync(entitlementsPath(dir), 'utf-8')).toContain(
       'example.com',
+    );
+  });
+
+  it('wires macOS: scheme in Info.plist + domains in entitlements', () => {
+    const dir = mkFlutterDir();
+    applyLinks(dir, { scheme: 'myapp', domains: ['example.com'] });
+    expect(readFileSync(macosPlistPath(dir), 'utf-8')).toContain('myapp');
+    for (const p of macosEntitlementsPaths(dir)) {
+      expect(readFileSync(p, 'utf-8')).toContain('example.com');
+    }
+  });
+
+  it('emits Linux .desktop + Windows .reg scheme registration', () => {
+    const dir = mkFlutterDir();
+    applyLinks(dir, { scheme: 'myapp', domains: [] });
+    expect(
+      readFileSync(join(dir, 'linux', 'myapp.desktop'), 'utf-8'),
+    ).toContain('x-scheme-handler/myapp;');
+    expect(readFileSync(join(dir, 'windows', 'myapp.reg'), 'utf-8')).toContain(
+      'Software\\Classes\\myapp',
     );
   });
 
@@ -155,44 +200,5 @@ describe('applyLocales', () => {
   it('returns false when there are no locales', () => {
     const root = mkdtempSync(join(tmpdir(), 'fsx-locales-'));
     expect(applyLocales(root, join(root, 'out'))).toBe(false);
-  });
-});
-
-describe('applyRelease', () => {
-  it('writes android/key.properties with env-sourced passwords', () => {
-    const root = mkdtempSync(join(tmpdir(), 'fsx-release-'));
-    writeFileSync(join(root, 'app.keystore'), 'KEYSTOREBYTES');
-    mkdirSync(join(root, 'flutter', 'android'), { recursive: true });
-    process.env.TEST_STORE_PW = 's3cret';
-    applyRelease(root, join(root, 'flutter'), {
-      android: {
-        keystore: 'app.keystore',
-        keyAlias: 'app',
-        storePasswordEnv: 'TEST_STORE_PW',
-      },
-    });
-    delete process.env.TEST_STORE_PW;
-    const props = readFileSync(
-      join(root, 'flutter', 'android', 'key.properties'),
-      'utf-8',
-    );
-    expect(props).toContain('keyAlias=app');
-    expect(props).toContain('storePassword=s3cret');
-    expect(props).toContain(join(root, 'app.keystore')); // absolute storeFile
-  });
-
-  it('copies the Android FCM config into place', () => {
-    const root = mkdtempSync(join(tmpdir(), 'fsx-release-'));
-    writeFileSync(join(root, 'google-services.json'), '{}');
-    mkdirSync(join(root, 'flutter', 'android', 'app'), { recursive: true });
-    applyRelease(root, join(root, 'flutter'), {
-      push: { firebaseAndroid: 'google-services.json' },
-    });
-    expect(
-      readFileSync(
-        join(root, 'flutter', 'android', 'app', 'google-services.json'),
-        'utf-8',
-      ),
-    ).toBe('{}');
   });
 });

@@ -61,10 +61,30 @@ export const PERMISSION_MAP: Record<string, PermissionMapping> = {
   },
 };
 
+/**
+ * Capability → macOS sandbox entitlement keys. macOS gates capabilities behind
+ * `com.apple.security.*` entitlements (boolean `<true/>` entries) *in addition*
+ * to the same `NS*UsageDescription` strings iOS uses (those are reused via
+ * `applyToInfoPlist` on `macos/Runner/Info.plist`). Capabilities with no macOS
+ * sandbox equivalent (notifications, face_id, tracking) are intentionally absent.
+ */
+export const MACOS_ENTITLEMENT_MAP: Record<string, string[]> = {
+  camera: ['com.apple.security.device.camera'],
+  microphone: ['com.apple.security.device.audio-input'],
+  location: ['com.apple.security.personal-information.location'],
+  location_always: ['com.apple.security.personal-information.location'],
+  photos: ['com.apple.security.files.user-selected.read-write'],
+  contacts: ['com.apple.security.personal-information.addressbook'],
+  calendar: ['com.apple.security.personal-information.calendars'],
+  bluetooth: ['com.apple.security.device.bluetooth'],
+};
+
 const FSX_BEGIN = '<!-- fsx:permissions:begin -->';
 const FSX_END = '<!-- fsx:permissions:end -->';
 const FSX_PRIVACY_BEGIN = '<!-- fsx:privacy:begin -->';
 const FSX_PRIVACY_END = '<!-- fsx:privacy:end -->';
+const FSX_ENT_BEGIN = '<!-- fsx:entitlements:begin -->';
+const FSX_ENT_END = '<!-- fsx:entitlements:end -->';
 
 /**
  * Plugin hook → required permission capabilities. Permissions are *inferred*
@@ -187,6 +207,31 @@ export const applyToPrivacyManifest = (
       ]),
       `</array>`,
       FSX_PRIVACY_END,
+    ].join('\n') + '\n';
+
+  const dictCloseIdx = stripped.lastIndexOf('</dict>');
+  if (dictCloseIdx < 0) return stripped;
+  const lineStart = findLineStart(stripped, dictCloseIdx);
+  return stripped.slice(0, lineStart) + block + stripped.slice(lineStart);
+};
+
+export const applyToMacosEntitlements = (
+  entXml: string,
+  capabilities: string[],
+): string => {
+  const stripped = stripFsxBlock(entXml, FSX_ENT_BEGIN, FSX_ENT_END);
+
+  const keys = new Set<string>();
+  for (const capability of capabilities) {
+    for (const key of MACOS_ENTITLEMENT_MAP[capability] ?? []) keys.add(key);
+  }
+  if (keys.size === 0) return stripped;
+
+  const block =
+    [
+      FSX_ENT_BEGIN,
+      ...[...keys].sort().flatMap((key) => [`<key>${key}</key>`, `<true/>`]),
+      FSX_ENT_END,
     ].join('\n') + '\n';
 
   const dictCloseIdx = stripped.lastIndexOf('</dict>');
