@@ -52,19 +52,19 @@ Configure your app in **typed `config/*.ts`** and drop **semantic asset files** 
 
 ![Flutter.tsx — project surface → engines → platform artifacts](docs/infogram.svg)
 
-| Category     | Surface                                                                                                             |
-| ------------ | ------------------------------------------------------------------------------------------------------------------- |
-| Identity     | `config/app.ts` — name, bundleId, target                                                                            |
-| Theme        | `config/theme.ts` → generated Material 3 theme on your `MaterialApp`                                                |
-| Permissions  | **inferred** from the hooks you use (`useCamera()` → camera); `config/permissions.ts` only for custom usage strings |
-| Links        | `config/links.ts` → deep links + universal/app links (both platforms)                                               |
-| Env          | `config/env.ts` → `--dart-define` build values (may read `process.env`)                                             |
-| i18n         | `locales/*.json` → `const t = useTranslations()`                                                                    |
-| Brand assets | `icons/`, `fonts/` — one file, every platform format generated                                                      |
-| Release      | `config/release.ts` → Android signing + push (credentials in `secrets/`)                                            |
-| Legal        | `legal/privacy.md`, `legal/terms.md`                                                                                |
+| Category     | Surface                                                                                                                                              |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Identity     | `config/app.ts` — name, bundleId, target                                                                                                             |
+| Theme        | `config/theme.ts` → generated Material 3 theme on your `MaterialApp`                                                                                 |
+| Permissions  | **inferred** from the hooks you use (`useCamera()` → camera) → iOS + Android + macOS; `config/permissions.ts` only for custom usage strings          |
+| Links        | `config/links.ts` → deep links + universal/app links (iOS · Android · macOS · Windows · Linux)                                                       |
+| Env          | `config/env.ts` → `--dart-define` build values (may read `process.env`)                                                                              |
+| i18n         | `locales/*.json` → `const t = useTranslations()`                                                                                                     |
+| Brand assets | `icons/`, `fonts/` — one file, every platform format generated                                                                                       |
+| Platform     | `config/platforms/<os>.ts` → the OS-specific escape hatch (signing/notarize, deploymentTarget, FCM) — credentials live in gitignored `signing/<os>/` |
+| Legal        | `legal/privacy.md`, `legal/terms.md`                                                                                                                 |
 
-Everything except `config/app.ts` + `src/` is optional. Config is typed (`satisfies` a type from `flutter-tsx/config`), so you get autocomplete and compile-time checks — no platform conventions to memorize.
+Everything except `config/app.ts` + `src/` is optional. Cross-platform values live once in `config/app.ts` + the semantic surfaces and fan out to every target; only the irreducibly OS-specific bits go in `config/platforms/<os>.ts`. Config is typed (`satisfies` a type from `flutter-tsx/config`), so you get autocomplete and compile-time checks — no platform conventions to memorize. All six targets (web · iOS · Android · macOS · Windows · Linux) are first-class.
 
 ---
 
@@ -124,7 +124,7 @@ Scaffolds a new project interactively:
 
 > For a richer, target-aware starter (skeleton picker + full project surface), use the dedicated scaffolder: `bun create flutter-tsx my-app`. See [`create-flutter-tsx`](../create-flutter-tsx).
 
-#### `fsx dev [--target=web|ios|android|macos|linux]`
+#### `fsx dev [--target=web|ios|android|macos|windows|linux]`
 
 The main development loop:
 

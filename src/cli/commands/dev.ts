@@ -15,7 +15,8 @@ export const devCmd = defineCommand({
   args: {
     target: {
       type: 'string',
-      description: 'Flutter target device (web, ios, android, macos, linux)',
+      description:
+        'Flutter target device (web, ios, android, macos, windows, linux)',
     },
     root: {
       type: 'string',

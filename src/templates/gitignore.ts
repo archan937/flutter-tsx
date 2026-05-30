@@ -11,6 +11,11 @@ build/
 .flutter-plugins-dependencies
 .packages
 
+# Signing credentials — referenced by config/platforms/<os>.ts, never committed
+.env
+.env.*
+signing/
+
 # OS
 .DS_Store
 Thumbs.db
