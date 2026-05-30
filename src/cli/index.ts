@@ -1,5 +1,6 @@
 import { defineCommand, runMain } from 'citty';
 
+import { buildCmd } from './commands/build.js';
 import { devCmd } from './commands/dev.js';
 import { initCmd } from './commands/init.js';
 import { installCmd } from './commands/install.js';
@@ -14,6 +15,7 @@ export const main = defineCommand({
     install: installCmd,
     init: initCmd,
     dev: devCmd,
+    build: buildCmd,
   },
 });
 

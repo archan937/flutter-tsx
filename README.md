@@ -74,7 +74,7 @@ Everything except `config/app.ts` + `src/` is optional. Config is typed (`satisf
 flutter-tsx/
 ├── bin/            fsx CLI entry point
 ├── src/
-│   ├── cli/        fsx commands (install · init · dev)
+│   ├── cli/        fsx commands (install · init · dev · build)
 │   ├── core/       WidgetNode, defineComponent, useState/useEffect stubs
 │   ├── transpiler/ TSX → Dart compiler (parser, codegen, hooks-analyzer, …)
 │   ├── flutter/    project scaffolding, brand assets, the dev runner
@@ -103,7 +103,7 @@ When a developer runs `bun add flutter-tsx` (or `npm install flutter-tsx`), they
 | `flutter-tsx`                 | Widget components + hooks (`Text`, `Column`, `useState`, …)   |
 | `flutter-tsx/jsx-runtime`     | JSX factory (auto-imported by TypeScript's `jsxImportSource`) |
 | `flutter-tsx/jsx-dev-runtime` | Same, for development builds                                  |
-| `fsx` binary                  | CLI with `install`, `init`, and `dev` commands                |
+| `fsx` binary                  | CLI with `install`, `init`, `dev`, and `build` commands       |
 
 The `jsxImportSource: "flutter-tsx"` setting in `tsconfig.json` is all that's needed for full IDE autocomplete — TypeScript reads `types/jsx.d.ts` which declares `JSX.IntrinsicElements` with one typed entry per widget.
 
@@ -146,6 +146,19 @@ If `fsx dev --target=macos` prints xcodebuild warnings and no window opens:
 3. **Xcode device noise** — the DVTBuildVersion / `DTDKRemoteDeviceData` messages are filtered from fsx output; they often come from iOS device tooling and are usually harmless.
 4. **Clean and retry** — from the project root: `cd .fsx/flutter && flutter clean && flutter pub get`, then `fsx dev --target=macos` again.
 5. **macOS desktop enabled** — run `flutter config --enable-macos-desktop` and `flutter doctor -v` to confirm macOS is ✓.
+
+#### `fsx build [--target=web|ios|android|macos|windows|linux]`
+
+The non-interactive counterpart to `fsx dev` — produces a release artifact and exits (the path CI and shipping use). It runs the same prelude as `dev` (scaffold, transpile, apply every config surface), then invokes `flutter build <target>`:
+
+| `--target`                    | Runs                              |
+| ----------------------------- | --------------------------------- |
+| `web`                         | `flutter build web`               |
+| `ios`                         | `flutter build ios --no-codesign` |
+| `android`                     | `flutter build apk`               |
+| `macos` / `windows` / `linux` | `flutter build <target>`          |
+
+The target defaults to `config/app.ts`'s `target` when `--target` is omitted, exactly like `dev`. Exits non-zero if the Flutter build fails.
 
 ---
 

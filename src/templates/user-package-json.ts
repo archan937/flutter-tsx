@@ -10,6 +10,11 @@ export const userPackageJson = (appName: string): string => {
       'dev:android': 'fsx dev --target=android',
       'dev:macos': 'fsx dev --target=macos',
       'dev:web': 'fsx dev --target=web',
+      build: 'fsx build',
+      'build:ios': 'fsx build --target=ios',
+      'build:android': 'fsx build --target=android',
+      'build:macos': 'fsx build --target=macos',
+      'build:web': 'fsx build --target=web',
     },
     dependencies: {
       'flutter-tsx': '^0.1.0',
