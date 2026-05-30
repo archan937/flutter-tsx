@@ -18,7 +18,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        # The unit suite mocks flutter/dart with POSIX shell scripts
+        # (test/flutter/*.test.ts `#!/bin/sh`), so it runs on Unix CI. Windows
+        # *product* support is validated by the `build windows` job below.
+        os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -110,5 +113,9 @@ jobs:
           bun packages/create-flutter-tsx/bin/create-flutter-tsx.ts demo \
             --target=${{ matrix.target }} --template=blank --bundleId=com.example.demo
           cd demo
-          bun add "$GITHUB_WORKSPACE/packages/flutter-tsx"
+          # The scaffolded app pins flutter-tsx@^0.1.0; point it at the local
+          # build (rewrite the dep, then install) — `bun add <path>` fails while
+          # the unpublished ^0.1.0 still can't resolve from the registry.
+          bun -e 'const fs=require("fs");const j=JSON.parse(fs.readFileSync("package.json"));j.dependencies["flutter-tsx"]="file:"+process.env.GITHUB_WORKSPACE+"/packages/flutter-tsx";fs.writeFileSync("package.json",JSON.stringify(j,null,2))'
+          bun install
           bun ./node_modules/flutter-tsx/dist/bin/fsx.js build --target=${{ matrix.target }}
