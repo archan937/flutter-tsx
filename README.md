@@ -483,3 +483,9 @@ Plugin hooks emit the correct `import 'package:…'` line, wire controller lifec
 **Idempotent dev server.** `fsx dev` can be killed and restarted freely. The `.fsx/flutter/` internal project is created once and reused. Hot-reload is handled by writing `"r\n"` to `flutter run`'s stdin rather than restarting the process.
 
 **Tested end-to-end.** Every example in the API reference is real TSX that the transpiler actually compiles — the Dart shown in the docs is produced by the same `generateDartFile` path used in production. Coverage is enforced at ≥ 99.75% on `src/transpiler/` via the `--coverage-threshold=0.9975` flag in `package.json`'s `test:coverage` script.
+
+---
+
+## License
+
+MIT © Paul Engel

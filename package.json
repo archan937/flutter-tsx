@@ -1,9 +1,37 @@
 {
   "name": "flutter-tsx",
   "version": "0.1.0",
+  "description": "Write Flutter apps in TypeScript + JSX with full IDE autocomplete — transpiles to idiomatic Dart.",
+  "keywords": [
+    "flutter",
+    "dart",
+    "tsx",
+    "jsx",
+    "typescript",
+    "cross-platform",
+    "transpiler",
+    "fsx",
+    "bun"
+  ],
+  "homepage": "https://github.com/archan937/flutter-tsx#readme",
+  "bugs": {
+    "url": "https://github.com/archan937/flutter-tsx/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/archan937/flutter-tsx.git"
+  },
+  "license": "MIT",
+  "author": "Paul Engel",
   "type": "module",
   "bin": {
     "fsx": "./dist/bin/fsx.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
   },
   "exports": {
     ".": {

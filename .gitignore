@@ -10,3 +10,7 @@ scripts/dart-extractor/.dart_tool/
 # Test coverage artifacts
 coverage/
 .claude/
+
+# Packaging artifacts / logs
+*.tgz
+*.log
