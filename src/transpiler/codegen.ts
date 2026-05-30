@@ -96,6 +96,16 @@ const substitutePluginArgs = (
 // CodegenContext
 // ---------------------------------------------------------------------------
 
+export interface CodegenOptions {
+  /** Identifier → emitted Dart file, for cross-file component imports. */
+  localComponents?: Map<string, string>;
+  /**
+   * Extra props (e.g. `theme`, `darkTheme`) to inject into the `<MaterialApp>`
+   * call when the developer hasn't set them — sourced from config/theme.ts.
+   */
+  materialAppProps?: Record<string, string>;
+}
+
 export class CodegenContext {
   private sourceFile: ts.SourceFile;
   private stateVarNames = new Set<string>();
@@ -109,13 +119,12 @@ export class CodegenContext {
   private pluginMethods = new Map<string, Record<string, string>>();
   private handlerFunctionNames = new Set<string>();
   private readonly localComponents: Map<string, string>;
+  private readonly materialAppProps: Record<string, string>;
 
-  constructor(
-    sourceFile: ts.SourceFile,
-    localComponents = new Map<string, string>(),
-  ) {
+  constructor(sourceFile: ts.SourceFile, options: CodegenOptions = {}) {
     this.sourceFile = sourceFile;
-    this.localComponents = localComponents;
+    this.localComponents = options.localComponents ?? new Map();
+    this.materialAppProps = options.materialAppProps ?? {};
   }
 
   // -------------------------------------------------------------------------
@@ -365,6 +374,15 @@ export class CodegenContext {
     for (const [key, value] of Object.entries(props)) {
       if (key === 'children') continue; // handled below
       parts.push(`${key}: ${value}`);
+    }
+
+    // --- Inject surface-derived props (e.g. theme/darkTheme from config/theme.ts)
+    // into MaterialApp, unless the developer already set them in TSX.
+    if (tagName === 'MaterialApp') {
+      for (const [key, value] of Object.entries(this.materialAppProps)) {
+        if (key in props) continue;
+        parts.push(`${key}: ${value}`);
+      }
     }
 
     // --- Handle children
@@ -1017,9 +1035,9 @@ const collectDataConsts = (
 const buildDartOutput = (
   sourceFile: ts.SourceFile,
   components: ExportedComponent[],
-  localComponents?: Map<string, string>,
+  options?: CodegenOptions,
 ): { code: string; ctx: CodegenContext } => {
-  const ctx = new CodegenContext(sourceFile, localComponents);
+  const ctx = new CodegenContext(sourceFile, options);
 
   const componentNames = new Set(components.map((c) => c.name));
   const dataConsts = collectDataConsts(sourceFile, componentNames);
@@ -1047,8 +1065,8 @@ const buildDartOutput = (
 export const generateDartFile = (
   sourceFile: ts.SourceFile,
   components: ExportedComponent[],
-  localComponents?: Map<string, string>,
-): string => buildDartOutput(sourceFile, components, localComponents).code;
+  options?: CodegenOptions,
+): string => buildDartOutput(sourceFile, components, options).code;
 
 export interface DartFileResult {
   code: string;
@@ -1058,12 +1076,8 @@ export interface DartFileResult {
 export const generateDartFileResult = (
   sourceFile: ts.SourceFile,
   components: ExportedComponent[],
-  localComponents?: Map<string, string>,
+  options?: CodegenOptions,
 ): DartFileResult => {
-  const { code, ctx } = buildDartOutput(
-    sourceFile,
-    components,
-    localComponents,
-  );
+  const { code, ctx } = buildDartOutput(sourceFile, components, options);
   return { code, imports: ctx.imports };
 };

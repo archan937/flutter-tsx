@@ -10,9 +10,15 @@ export interface TranspileResult {
   packages: string[];
 }
 
+export interface TranspileOptions {
+  /** Props (e.g. theme/darkTheme from config/theme.ts) to inject into MaterialApp. */
+  materialAppProps?: Record<string, string>;
+}
+
 export const transpileFile = async (
   tsxPath: string,
   outDir: string,
+  options: TranspileOptions = {},
 ): Promise<TranspileResult> => {
   const parsed = parseFile(tsxPath);
 
@@ -23,7 +29,10 @@ export const transpileFile = async (
   const { code: dartCode, imports } = generateDartFileResult(
     parsed.sourceFile,
     parsed.exports,
-    parsed.localComponents,
+    {
+      localComponents: parsed.localComponents,
+      materialAppProps: options.materialAppProps,
+    },
   );
 
   const inputBaseName = basename(tsxPath, '.tsx');
@@ -69,12 +78,13 @@ const collectPackages = (imports: Set<string>): string[] => {
 export const transpileAll = async (
   srcDir: string,
   outDir: string,
+  options: TranspileOptions = {},
 ): Promise<TranspileResult[]> => {
   const glob = new Bun.Glob('**/*.tsx');
   const files = await Array.fromAsync(glob.scan({ cwd: srcDir }));
 
   const settled = await Promise.allSettled(
-    files.map((f) => transpileFile(join(srcDir, f), outDir)),
+    files.map((f) => transpileFile(join(srcDir, f), outDir, options)),
   );
 
   const written: TranspileResult[] = [];

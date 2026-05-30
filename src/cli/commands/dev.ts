@@ -3,10 +3,12 @@ import { defineCommand } from 'citty';
 import { existsSync } from 'fs';
 import { join, resolve } from 'path';
 
+import type { Theme } from '../../config.js';
 import { envToDartDefines } from '../../flutter/env.js';
 import { ensureFlutterProject } from '../../flutter/project.js';
 import { FlutterRunner } from '../../flutter/runner.js';
 import { loadSurfaceConfig } from '../../flutter/surface.js';
+import { themeToMaterialAppProps } from '../../flutter/theme.js';
 import { transpileAll, transpileFile } from '../../transpiler/index.js';
 import { readConfig } from '../utils/config.js';
 import { logger } from '../utils/logger.js';
@@ -47,6 +49,12 @@ export const devCmd = defineCommand({
     const srcDir = join(root, 'src');
     const outDir = join(root, config.outDir ?? '.fsx/flutter/lib');
 
+    // Surface: config/theme.ts → MaterialApp theme/darkTheme injected at codegen.
+    const theme = await loadSurfaceConfig<Theme>(root, 'theme');
+    const transpileOptions = theme
+      ? { materialAppProps: themeToMaterialAppProps(theme) }
+      : {};
+
     logger.info(`Starting flutter.tsx dev server`);
     logger.info(`Target: ${target}`);
 
@@ -67,7 +75,7 @@ export const devCmd = defineCommand({
     logger.start('Transpiling TSX → Dart...');
     let detectedPackages: string[] = [];
     try {
-      const results = await transpileAll(srcDir, outDir);
+      const results = await transpileAll(srcDir, outDir, transpileOptions);
       detectedPackages = [...new Set(results.flatMap((r) => r.packages))];
       logger.success(`Transpiled ${results.length} file(s)`);
     } catch (err) {
@@ -118,7 +126,7 @@ export const devCmd = defineCommand({
     watcher.on('change', async (filePath: string) => {
       logger.info(`Changed: ${filePath.replace(root + '/', '')}`);
       try {
-        await transpileFile(filePath, outDir);
+        await transpileFile(filePath, outDir, transpileOptions);
         await runner.hotReload();
         logger.success('Hot reload sent');
       } catch (err) {
@@ -129,7 +137,7 @@ export const devCmd = defineCommand({
     watcher.on('add', async (filePath: string) => {
       logger.info(`Added: ${filePath.replace(root + '/', '')}`);
       try {
-        await transpileFile(filePath, outDir);
+        await transpileFile(filePath, outDir, transpileOptions);
         await runner.hotRestart();
       } catch (err) {
         logger.error('Transpile error:', err);

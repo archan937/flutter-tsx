@@ -116,11 +116,9 @@ describe('generateDartFile — cross-file component imports', () => {
       );
     `;
     const { sourceFile, exports, localComponents } = parseSource(src);
-    const { code, imports } = generateDartFileResult(
-      sourceFile,
-      exports,
+    const { code, imports } = generateDartFileResult(sourceFile, exports, {
       localComponents,
-    );
+    });
     expect(imports.has('HomeScreen.dart')).toBe(true);
     expect(code).toContain("import 'HomeScreen.dart';");
     expect(code).toContain('HomeScreen()');
@@ -135,11 +133,9 @@ describe('generateDartFile — cross-file component imports', () => {
       );
     `;
     const { sourceFile, exports, localComponents } = parseSource(src);
-    const { code, imports } = generateDartFileResult(
-      sourceFile,
-      exports,
+    const { code, imports } = generateDartFileResult(sourceFile, exports, {
       localComponents,
-    );
+    });
     expect([...imports].some((i) => i.endsWith('.dart') && i !== '')).toBe(
       true,
     );
@@ -155,13 +151,45 @@ describe('generateDartFile — cross-file component imports', () => {
       export const App = () => <Center />;
     `;
     const { sourceFile, exports, localComponents } = parseSource(src);
-    const { code, imports } = generateDartFileResult(
-      sourceFile,
-      exports,
+    const { code, imports } = generateDartFileResult(sourceFile, exports, {
       localComponents,
-    );
+    });
     expect(imports.has('Center.dart')).toBe(false);
     expect(code).not.toContain("import 'Center.dart';");
+  });
+});
+
+describe('generateDartFile — MaterialApp theme injection', () => {
+  const themeProps = { theme: 'ThemeData(colorScheme: SEED)' };
+
+  it('injects theme into MaterialApp when config/theme.ts provides it', () => {
+    const { sourceFile, exports } = parseSource(
+      `export const App = () => <MaterialApp title="X" />;`,
+    );
+    const code = generateDartFile(sourceFile, exports, {
+      materialAppProps: themeProps,
+    });
+    expect(code).toContain('theme: ThemeData(colorScheme: SEED)');
+  });
+
+  it('does not override a theme the developer already set', () => {
+    const { sourceFile, exports } = parseSource(
+      `export const App = () => <MaterialApp theme={42} />;`,
+    );
+    const code = generateDartFile(sourceFile, exports, {
+      materialAppProps: themeProps,
+    });
+    expect(code).not.toContain('ThemeData(colorScheme: SEED)');
+  });
+
+  it('does not inject theme into non-MaterialApp widgets', () => {
+    const { sourceFile, exports } = parseSource(
+      `export const App = () => <Center />;`,
+    );
+    const code = generateDartFile(sourceFile, exports, {
+      materialAppProps: themeProps,
+    });
+    expect(code).not.toContain('ThemeData');
   });
 });
 
