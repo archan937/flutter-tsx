@@ -3,7 +3,7 @@ import { defineCommand } from 'citty';
 import { existsSync } from 'fs';
 import { join, resolve } from 'path';
 
-import type { Links, Theme } from '../../config.js';
+import type { Links, ReleaseConfig, Theme } from '../../config.js';
 import { envToDartDefines } from '../../flutter/env.js';
 import { ensureFlutterProject } from '../../flutter/project.js';
 import { FlutterRunner } from '../../flutter/runner.js';
@@ -11,6 +11,7 @@ import {
   applyLinks,
   applyLocales,
   applyPermissions,
+  applyRelease,
   loadSurfaceConfig,
 } from '../../flutter/surface.js';
 import { themeToMaterialAppProps } from '../../flutter/theme.js';
@@ -120,6 +121,10 @@ export const devCmd = defineCommand({
 
     // 2e. Locales surface: locales/*.json → generated <outDir>/l10n.dart (global `t`).
     applyLocales(root, outDir);
+
+    // 2f. Release surface: config/release.ts → key.properties + push config files.
+    const release = await loadSurfaceConfig<ReleaseConfig>(root, 'release');
+    if (release) applyRelease(root, flutterDir, release);
 
     // 3. Start flutter runner — surface env (config/env.ts) → --dart-define flags
     const envConfig =

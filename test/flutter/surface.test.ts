@@ -7,6 +7,7 @@ import {
   applyLinks,
   applyLocales,
   applyPermissions,
+  applyRelease,
   loadSurfaceConfig,
 } from '@src/flutter/surface.js';
 
@@ -154,5 +155,44 @@ describe('applyLocales', () => {
   it('returns false when there are no locales', () => {
     const root = mkdtempSync(join(tmpdir(), 'fsx-locales-'));
     expect(applyLocales(root, join(root, 'out'))).toBe(false);
+  });
+});
+
+describe('applyRelease', () => {
+  it('writes android/key.properties with env-sourced passwords', () => {
+    const root = mkdtempSync(join(tmpdir(), 'fsx-release-'));
+    writeFileSync(join(root, 'app.keystore'), 'KEYSTOREBYTES');
+    mkdirSync(join(root, 'flutter', 'android'), { recursive: true });
+    process.env.TEST_STORE_PW = 's3cret';
+    applyRelease(root, join(root, 'flutter'), {
+      android: {
+        keystore: 'app.keystore',
+        keyAlias: 'app',
+        storePasswordEnv: 'TEST_STORE_PW',
+      },
+    });
+    delete process.env.TEST_STORE_PW;
+    const props = readFileSync(
+      join(root, 'flutter', 'android', 'key.properties'),
+      'utf-8',
+    );
+    expect(props).toContain('keyAlias=app');
+    expect(props).toContain('storePassword=s3cret');
+    expect(props).toContain(join(root, 'app.keystore')); // absolute storeFile
+  });
+
+  it('copies the Android FCM config into place', () => {
+    const root = mkdtempSync(join(tmpdir(), 'fsx-release-'));
+    writeFileSync(join(root, 'google-services.json'), '{}');
+    mkdirSync(join(root, 'flutter', 'android', 'app'), { recursive: true });
+    applyRelease(root, join(root, 'flutter'), {
+      push: { firebaseAndroid: 'google-services.json' },
+    });
+    expect(
+      readFileSync(
+        join(root, 'flutter', 'android', 'app', 'google-services.json'),
+        'utf-8',
+      ),
+    ).toBe('{}');
   });
 });

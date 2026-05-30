@@ -92,3 +92,32 @@ export type EnvConfig = Record<string, string>;
  * string or declare a permission no hook implies.
  */
 export type Permissions = Record<string, string>;
+
+/**
+ * `config/release.ts` — signing + push credentials. The ONLY genuinely
+ * platform-bound surface (an Apple profile vs an Android keystore can't be
+ * merged). Reference credential files by path (keep them gitignored, e.g. under
+ * `secrets/`); never hand-edit key.properties / Xcode / gradle. Passwords come
+ * from environment variables, not source.
+ */
+export interface ReleaseConfig {
+  android?: {
+    /** Path to the keystore file, e.g. "secrets/app.keystore". */
+    keystore: string;
+    keyAlias: string;
+    /** Env var name holding the keystore password (read at build time). */
+    storePasswordEnv?: string;
+    /** Env var name holding the key password (defaults to storePasswordEnv). */
+    keyPasswordEnv?: string;
+  };
+  ios?: {
+    /** Apple Developer Team ID used for signing. */
+    teamId?: string;
+  };
+  push?: {
+    /** Path to google-services.json (Android FCM). */
+    firebaseAndroid?: string;
+    /** Path to GoogleService-Info.plist (iOS FCM). */
+    firebaseIos?: string;
+  };
+}

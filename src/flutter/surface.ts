@@ -1,7 +1,14 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
-import { dirname, join } from 'path';
+import {
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  writeFileSync,
+} from 'fs';
+import { dirname, isAbsolute, join, resolve } from 'path';
 
-import type { Links } from '../config.js';
+import { logger } from '../cli/utils/logger.js';
+import type { Links, ReleaseConfig } from '../config.js';
 import {
   applyLinksToAndroidManifest,
   applyLinksToEntitlements,
@@ -100,4 +107,64 @@ export const applyLocales = (projectRoot: string, outDir: string): boolean => {
     mkdirSync(dirname(outPath), { recursive: true });
   writeFileSync(outPath, localesToL10nDart(data), 'utf-8');
   return true;
+};
+
+/**
+ * Applies release/signing + push config (config/release.ts) to the native
+ * projects: writes Android `key.properties` (passwords read from env vars, not
+ * source) and copies the FCM config files into place.
+ *
+ * NOTE: the gradle `signingConfig` reference and the iOS `DEVELOPMENT_TEAM`
+ * still need the standard one-time edits to build.gradle / the Xcode project —
+ * those mutations are platform-version-specific and not auto-applied here.
+ * This step prepares the credentials; it is not end-to-end verified (it needs
+ * real keystores/certificates).
+ */
+export const applyRelease = (
+  projectRoot: string,
+  flutterDir: string,
+  release: ReleaseConfig,
+): void => {
+  const abs = (p: string): string =>
+    isAbsolute(p) ? p : resolve(projectRoot, p);
+
+  if (release.android) {
+    const { keystore, keyAlias, storePasswordEnv, keyPasswordEnv } =
+      release.android;
+    const storePassword = storePasswordEnv
+      ? (process.env[storePasswordEnv] ?? '')
+      : '';
+    const keyPassword = keyPasswordEnv
+      ? (process.env[keyPasswordEnv] ?? '')
+      : storePassword;
+    const keyProps = [
+      `storeFile=${abs(keystore)}`,
+      `keyAlias=${keyAlias}`,
+      `storePassword=${storePassword}`,
+      `keyPassword=${keyPassword}`,
+      '',
+    ].join('\n');
+    writeFileSync(join(flutterDir, 'android', 'key.properties'), keyProps);
+  }
+
+  const copyInto = (src: string | undefined, dest: string): void => {
+    if (!src) return;
+    const from = abs(src);
+    if (!existsSync(from)) {
+      logger.warn(`config/release.ts: file not found, skipped: ${src}`);
+      return;
+    }
+    if (!existsSync(dirname(dest)))
+      mkdirSync(dirname(dest), { recursive: true });
+    copyFileSync(from, dest);
+  };
+
+  copyInto(
+    release.push?.firebaseAndroid,
+    join(flutterDir, 'android', 'app', 'google-services.json'),
+  );
+  copyInto(
+    release.push?.firebaseIos,
+    join(flutterDir, 'ios', 'Runner', 'GoogleService-Info.plist'),
+  );
 };
