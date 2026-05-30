@@ -48,19 +48,23 @@ class MainApp extends StatelessWidget {
 
 ## How it works
 
-Drop named files into your project root — `fsx dev` handles the rest.
+Configure your app in **typed `config/*.ts`** and drop **semantic asset files** — `fsx dev` fans them out to the platform-specific native files (Info.plist, AndroidManifest, entitlements, gradle) so you never touch them by hand.
 
 ![Flutter.tsx — project surface → engines → platform artifacts](docs/infogram.svg)
 
-| Color     | Category       | Files                                             |
-| --------- | -------------- | ------------------------------------------------- |
-| 🔵 Blue   | Identity       | `config/app.ts` — name, bundleId, version, target |
-| 🟣 Purple | Brand          | `icons/`, `fonts/`, `theme.toml`                  |
-| 🟢 Green  | UX             | `permissions.toml`, `locales/`, `links.toml`      |
-| 🟠 Orange | Comms          | `push/`                                           |
-| ⚫ Gray   | Config / Legal | `.env`, `signing/`, `legal/`                      |
+| Category     | Surface                                                                                                             |
+| ------------ | ------------------------------------------------------------------------------------------------------------------- |
+| Identity     | `config/app.ts` — name, bundleId, target                                                                            |
+| Theme        | `config/theme.ts` → generated Material 3 theme on your `MaterialApp`                                                |
+| Permissions  | **inferred** from the hooks you use (`useCamera()` → camera); `config/permissions.ts` only for custom usage strings |
+| Links        | `config/links.ts` → deep links + universal/app links (both platforms)                                               |
+| Env          | `config/env.ts` → `--dart-define` build values (may read `process.env`)                                             |
+| i18n         | `locales/*.json` → `const t = useTranslations()`                                                                    |
+| Brand assets | `icons/`, `fonts/` — one file, every platform format generated                                                      |
+| Release      | `config/release.ts` → Android signing + push (credentials in `secrets/`)                                            |
+| Legal        | `legal/privacy.md`, `legal/terms.md`                                                                                |
 
-Every directory is optional. The minimum shippable app is `config/app.ts` + `src/`. Every additional file you drop in unlocks another artifact column — without touching any platform-specific config files by hand.
+Everything except `config/app.ts` + `src/` is optional. Config is typed (`satisfies` a type from `flutter-tsx/config`), so you get autocomplete and compile-time checks — no platform conventions to memorize.
 
 ---
 
