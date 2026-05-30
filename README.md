@@ -52,15 +52,15 @@ Drop named files into your project root — `fsx dev` handles the rest.
 
 ![Flutter.tsx — project surface → engines → platform artifacts](docs/infogram.svg)
 
-| Color     | Category       | Files                                        |
-| --------- | -------------- | -------------------------------------------- |
-| 🔵 Blue   | Identity       | `app.toml` — name, bundleId, version, target |
-| 🟣 Purple | Brand          | `icons/`, `fonts/`, `theme.toml`             |
-| 🟢 Green  | UX             | `permissions.toml`, `locales/`, `links.toml` |
-| 🟠 Orange | Comms          | `push/`                                      |
-| ⚫ Gray   | Config / Legal | `.env`, `signing/`, `legal/`                 |
+| Color     | Category       | Files                                             |
+| --------- | -------------- | ------------------------------------------------- |
+| 🔵 Blue   | Identity       | `config/app.ts` — name, bundleId, version, target |
+| 🟣 Purple | Brand          | `icons/`, `fonts/`, `theme.toml`                  |
+| 🟢 Green  | UX             | `permissions.toml`, `locales/`, `links.toml`      |
+| 🟠 Orange | Comms          | `push/`                                           |
+| ⚫ Gray   | Config / Legal | `.env`, `signing/`, `legal/`                      |
 
-Every directory is optional. The minimum shippable app is `app.toml` + `src/`. Every additional file you drop in unlocks another artifact column — without touching any platform-specific config files by hand.
+Every directory is optional. The minimum shippable app is `config/app.ts` + `src/`. Every additional file you drop in unlocks another artifact column — without touching any platform-specific config files by hand.
 
 ---
 
@@ -116,7 +116,7 @@ Downloads the Flutter SDK for your platform to `~/.fsx/flutter/` and prints PATH
 Scaffolds a new project interactively:
 
 - Prompts for project name, bundle ID, and target platform
-- Writes `app.toml`, `package.json`, `tsconfig.json`, `src/App.tsx`, `.gitignore`
+- Writes `config/app.ts`, `package.json`, `tsconfig.json`, `src/App.tsx`, `.gitignore`
 
 > For a richer, target-aware starter (skeleton picker + full project surface), use the dedicated scaffolder: `bun create flutter-tsx my-app`. See [`create-flutter-tsx`](../create-flutter-tsx).
 
@@ -124,7 +124,7 @@ Scaffolds a new project interactively:
 
 The main development loop:
 
-1. Reads `app.toml` (project config)
+1. Reads `config/app.ts` (project config)
 2. Runs `flutter create` + `flutter pub get` inside `.fsx/flutter/` (idempotent)
 3. Transpiles every `src/**/*.tsx` to `.fsx/flutter/lib/*.dart`
 4. Launches `flutter run -d <target>` with stdin piped
@@ -413,7 +413,7 @@ bun run dev           # = fsx dev --target=web
 
 ### What `bun run dev` does
 
-1. Reads `app.toml` — name, bundleId, target platform
+1. Reads `config/app.ts` — name, bundleId, target platform
 2. Creates `.fsx/flutter/` — a real Flutter project (via `flutter create`)
 3. Writes `pubspec.yaml` from config
 4. Transpiles every `src/**/*.tsx` → `.fsx/flutter/lib/*.dart`

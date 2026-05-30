@@ -1,20 +1,22 @@
 /**
  * flutter.tsx — typed project configuration (`flutter-tsx/config`).
  *
- * Authored by the developer in `config/app.ts`:
+ * A **types-only** module. The developer authors `config/*.ts` with a plain
+ * literal validated by `satisfies` — full autocomplete + type-checking, zero
+ * runtime indirection:
  *
  * ```ts
- * import { defineConfig } from 'flutter-tsx/config';
+ * // config/app.ts
+ * import type { AppConfig } from 'flutter-tsx/config';
  *
- * export default defineConfig({
+ * export default {
  *   name: 'my-app',
  *   bundleId: 'com.example.myapp',
  *   target: 'web',
- * });
+ * } satisfies AppConfig;
  * ```
  *
- * `fsx` imports this module at dev/build time — no second config language,
- * full autocomplete and type-checking on every field.
+ * `fsx` imports these modules at dev/build time — no second config language.
  */
 
 /** Per-platform build settings (rare overrides; sensible defaults otherwise). */
@@ -50,12 +52,6 @@ export interface AppConfig {
   /** Android-specific build overrides. */
   android?: AndroidConfig;
 }
-
-/**
- * Identity helper for `config/app.ts` — returns the config unchanged while
- * giving the developer full type-checking and autocomplete.
- */
-export const defineConfig = (config: AppConfig): AppConfig => config;
 
 // ---------------------------------------------------------------------------
 // Surface config — semantic, platform-agnostic. One declaration fans out to
@@ -96,13 +92,3 @@ export type EnvConfig = Record<string, string>;
  * string or declare a permission no hook implies.
  */
 export type Permissions = Record<string, string>;
-
-/** Identity helper for `config/theme.ts`. */
-export const defineTheme = (theme: Theme): Theme => theme;
-/** Identity helper for `config/links.ts`. */
-export const defineLinks = (links: Links): Links => links;
-/** Identity helper for `config/env.ts`. */
-export const defineEnv = (env: EnvConfig): EnvConfig => env;
-/** Identity helper for `config/permissions.ts`. */
-export const definePermissions = (permissions: Permissions): Permissions =>
-  permissions;
