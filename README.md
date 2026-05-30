@@ -1,4 +1,4 @@
-# flutter-tsx (fsx)
+# Flutter.tsx
 
 > Write Flutter 3 apps in TypeScript + JSX with full IDE autocomplete — transpiles to idiomatic Dart.
 
@@ -78,7 +78,7 @@ flutter/
 
 ### What gets installed by end-developers
 
-When a developer runs `npm install flutter-tsx` (or `bun add flutter-tsx`), they get:
+When a developer runs `bun add flutter-tsx` (or `npm install flutter-tsx`), they get:
 
 | Export                        | Purpose                                                       |
 | ----------------------------- | ------------------------------------------------------------- |
@@ -103,6 +103,8 @@ Scaffolds a new project interactively:
 
 - Prompts for project name, bundle ID, and target platform
 - Writes `app.toml`, `package.json`, `tsconfig.json`, `src/App.tsx`, `.gitignore`
+
+> For a richer, target-aware starter (skeleton picker + full project surface), use the dedicated scaffolder: `bun create flutter-tsx my-app`. See [`create-flutter-tsx`](../create-flutter-tsx).
 
 #### `fsx dev [--target=web|ios|android|macos|linux]`
 
