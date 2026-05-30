@@ -110,10 +110,10 @@ context.pop();`,
   dart: {
     imports: ["import 'package:go_router/go_router.dart';"],
     methods: {
-      go: 'context.go(path)',
-      push: 'context.push(path)',
+      go: 'context.go($0)',
+      push: 'context.push($0)',
       pop: 'context.pop()',
-      replace: 'context.replace(path)',
+      replace: 'context.replace($0)',
     },
   },
 };

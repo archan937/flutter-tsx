@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { mkdirSync, mkdtempSync, writeFileSync } from 'fs';
+import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
 
@@ -12,6 +12,80 @@ const writeSrc = (dir: string, rel: string, content: string): void => {
   mkdirSync(join(path, '..'), { recursive: true });
   writeFileSync(path, content, 'utf-8');
 };
+
+describe('transpileAll — file-based routing (src/routes/)', () => {
+  const readDart = (dir: string, name: string): string =>
+    readFileSync(join(dir, 'out', name), 'utf-8');
+
+  const scaffold = (): string => {
+    const dir = mkTmp();
+    const src = join(dir, 'src');
+    writeSrc(
+      src,
+      'App.tsx',
+      `export const App = () => (<MaterialApp title="X" routes="./routes" />);`,
+    );
+    writeSrc(
+      src,
+      'routes/index.tsx',
+      `export const Home = () => (<Center><Text>home</Text></Center>);`,
+    );
+    writeSrc(
+      src,
+      'routes/users/[id].tsx',
+      `export const UserScreen = () => (<Center><Text>user</Text></Center>);`,
+    );
+    return dir;
+  };
+
+  it('rewrites the app MaterialApp to MaterialApp.router with a GoRouter', async () => {
+    const dir = scaffold();
+    await transpileAll(join(dir, 'src'), join(dir, 'out'));
+    const app = readDart(dir, 'App.dart');
+    expect(app).toContain('MaterialApp.router(routerConfig: _fsxRouter');
+    expect(app).toContain('final _fsxRouter = GoRouter(');
+    expect(app).toContain(
+      "GoRoute(path: '/', builder: (context, state) => Home())",
+    );
+    expect(app).toContain(
+      "GoRoute(path: '/users/:id', builder: (context, state) => UserScreen())",
+    );
+    expect(app).toContain("import 'package:go_router/go_router.dart';");
+    expect(app).toContain("import 'Home.dart';");
+    expect(app).toContain("import 'UserScreen.dart';");
+  });
+
+  it('emits each route component to a Dart file named after the component', async () => {
+    const dir = scaffold();
+    await transpileAll(join(dir, 'src'), join(dir, 'out'));
+    expect(readDart(dir, 'Home.dart')).toContain('class Home');
+    expect(readDart(dir, 'UserScreen.dart')).toContain('class UserScreen');
+  });
+
+  it('collects go_router as a pubspec dependency', async () => {
+    const dir = scaffold();
+    const results = await transpileAll(join(dir, 'src'), join(dir, 'out'));
+    expect(
+      results
+        .flatMap((r) => r.packages)
+        .some((p) => p.startsWith('go_router:')),
+    ).toBe(true);
+  });
+
+  it('leaves a routes-less app as single-screen home: (backward compat)', async () => {
+    const dir = mkTmp();
+    const src = join(dir, 'src');
+    writeSrc(
+      src,
+      'App.tsx',
+      `export const App = () => (<MaterialApp title="X"><Scaffold/></MaterialApp>);`,
+    );
+    await transpileAll(join(dir, 'src'), join(dir, 'out'));
+    const app = readDart(dir, 'App.dart');
+    expect(app).toContain('MaterialApp(');
+    expect(app).not.toContain('MaterialApp.router');
+  });
+});
 
 describe('transpileFile', () => {
   it('returns an empty result for a file with no exported component', async () => {

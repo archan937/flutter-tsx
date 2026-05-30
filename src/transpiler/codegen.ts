@@ -106,6 +106,13 @@ export interface CodegenOptions {
   materialAppProps?: Record<string, string>;
   /** File uses `useTranslations` → import the generated `l10n.dart` (global `t`). */
   usesTranslations?: boolean;
+  /**
+   * File-based router: when set, a generated `<MaterialApp>` becomes
+   * `MaterialApp.router(routerConfig: _fsxRouter, …)` and the `_fsxRouter` decl
+   * + go_router/route imports are emitted into that file. `decl` is the
+   * `buildGoRouter(...)` output; `imports` are the route components' Dart files.
+   */
+  router?: { decl: string; imports: string[] };
 }
 
 export class CodegenContext {
@@ -122,12 +129,20 @@ export class CodegenContext {
   private handlerFunctionNames = new Set<string>();
   private readonly localComponents: Map<string, string>;
   private readonly materialAppProps: Record<string, string>;
+  private readonly router?: { decl: string; imports: string[] };
+  routerUsed = false;
 
   constructor(sourceFile: ts.SourceFile, options: CodegenOptions = {}) {
     this.sourceFile = sourceFile;
     this.localComponents = options.localComponents ?? new Map();
     this.materialAppProps = options.materialAppProps ?? {};
+    this.router = options.router;
     if (options.usesTranslations) this.imports.add('l10n.dart');
+  }
+
+  /** The `_fsxRouter` decl to prepend, iff this file emitted a MaterialApp.router. */
+  routerDecl(): string | null {
+    return this.routerUsed && this.router ? this.router.decl : null;
   }
 
   // -------------------------------------------------------------------------
@@ -376,6 +391,9 @@ export class CodegenContext {
     // --- Handle string props already encoded as named params
     for (const [key, value] of Object.entries(props)) {
       if (key === 'children') continue; // handled below
+      // `<MaterialApp routes="./routes">` is the fsx file-based-routing directive,
+      // not a Flutter prop — it drives MaterialApp.router, never emitted as `routes:`.
+      if (tagName === 'MaterialApp' && key === 'routes') continue;
       parts.push(`${key}: ${value}`);
     }
 
@@ -386,6 +404,15 @@ export class CodegenContext {
         if (key in props) continue;
         parts.push(`${key}: ${value}`);
       }
+    }
+
+    // --- File-based routing: MaterialApp → MaterialApp.router(routerConfig: …).
+    // The router supplies the screens, so the home child is dropped.
+    if (tagName === 'MaterialApp' && this.router) {
+      this.routerUsed = true;
+      this.imports.add('package:go_router/go_router.dart');
+      for (const imp of this.router.imports) this.imports.add(imp);
+      return `MaterialApp.router(routerConfig: _fsxRouter${parts.length > 0 ? ', ' + parts.join(', ') : ''})`;
     }
 
     // --- Handle children
@@ -1051,11 +1078,13 @@ const buildDartOutput = (
     .filter(Boolean);
 
   const importLines = [...ctx.imports].map((i) => `import '${i}';`).join('\n');
+  const routerDecl = ctx.routerDecl();
 
   const parts: string[] = [
     `// GENERATED — do not edit. Source: ${sourceFile.fileName}`,
     importLines,
     ``,
+    ...(routerDecl ? [routerDecl, ''] : []),
     ...(dataConsts.length > 0 ? [dataConsts.join('\n'), ''] : []),
     ...componentBodies.flatMap((body, idx) =>
       idx < componentBodies.length - 1 ? [body, ''] : [body],

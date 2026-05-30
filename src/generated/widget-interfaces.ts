@@ -128,7 +128,8 @@ export interface MaterialAppProps {
   navigatorKey?: unknown;
   scaffoldMessengerKey?: unknown;
   home?: string | FlutterElement;
-  routes?: Record<string, () => FlutterElement>;
+  /** File-based routes directory, e.g. "./routes". */
+  routes?: string;
   initialRoute?: string;
   onGenerateRoute?: (settings: unknown) => unknown;
   onGenerateInitialRoutes?: (initialRoute: string) => unknown[];

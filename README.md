@@ -51,6 +51,8 @@ class MainApp extends StatelessWidget {
 Configure your app in **typed `config/*.ts`** and drop **semantic asset files** — `fsx dev` fans them out to the platform-specific native files (Info.plist, AndroidManifest, entitlements, gradle) so you never touch them by hand.
 
 > 📖 **[Guide](docs/guide.md)** · **[Config mapping](docs/config-mapping.md)** (every fsx config key → its native output, per platform).
+>
+> 🧭 **File-based routing** — drop screens in `src/routes/` (`index.tsx` → `/`, `users/[id].tsx` → `/users/:id`) and point your app at them: `<MaterialApp routes="./routes" />`. fsx generates a `go_router` config + `MaterialApp.router`. Navigate with `useNavigate().push('/users/42')`. See the [guide](docs/guide.md#4-routing-multi-screen).
 
 ![Flutter.tsx — project surface → engines → platform artifacts](docs/infogram.svg)
 

@@ -13,6 +13,11 @@ export interface ParsedFile {
   localComponents: Map<string, string>;
   /** Whether the file imports `useTranslations` (→ import generated l10n.dart). */
   usesTranslations: boolean;
+  /**
+   * The file-based routes directory declared on `<MaterialApp routes="./routes" />`
+   * (relative to `src/`), or null. Its presence activates file-based routing.
+   */
+  routesDir: string | null;
 }
 
 export interface ExportedComponent {
@@ -144,6 +149,41 @@ const usesTranslationsHook = (sourceFile: ts.SourceFile): boolean => {
   return false;
 };
 
+/**
+ * Extracts the `routes` directory from `<MaterialApp routes="./routes" />` — the
+ * explicit, visible connection that activates file-based routing. Returns the
+ * string value (e.g. "./routes"), or null when no MaterialApp declares it.
+ */
+const extractRoutesDir = (sourceFile: ts.SourceFile): string | null => {
+  let dir: string | null = null;
+  const visit = (node: ts.Node): void => {
+    if (dir !== null) return;
+    const opening = ts.isJsxElement(node)
+      ? node.openingElement
+      : ts.isJsxSelfClosingElement(node)
+        ? node
+        : null;
+    if (opening && opening.tagName.getText(sourceFile) === 'MaterialApp') {
+      for (const attr of opening.attributes.properties) {
+        if (!ts.isJsxAttribute(attr)) continue;
+        if (attr.name.getText(sourceFile) !== 'routes') continue;
+        const init = attr.initializer;
+        if (init && ts.isStringLiteral(init)) dir = init.text;
+        else if (
+          init &&
+          ts.isJsxExpression(init) &&
+          init.expression &&
+          ts.isStringLiteral(init.expression)
+        )
+          dir = init.expression.text;
+      }
+    }
+    ts.forEachChild(node, visit);
+  };
+  visit(sourceFile);
+  return dir;
+};
+
 export const parseFile = (filePath: string): ParsedFile => {
   const program = ts.createProgram([filePath], COMPILER_OPTIONS);
   const sourceFile = program.getSourceFile(filePath);
@@ -158,6 +198,7 @@ export const parseFile = (filePath: string): ParsedFile => {
     exports: extractExports(sourceFile),
     localComponents: extractLocalComponents(sourceFile),
     usesTranslations: usesTranslationsHook(sourceFile),
+    routesDir: extractRoutesDir(sourceFile),
   };
 };
 
@@ -191,6 +232,7 @@ export const parseSource = (
     exports: extractExports(sourceFile),
     localComponents: extractLocalComponents(sourceFile),
     usesTranslations: usesTranslationsHook(sourceFile),
+    routesDir: extractRoutesDir(sourceFile),
   };
 };
 

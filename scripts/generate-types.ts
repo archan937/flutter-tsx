@@ -108,6 +108,14 @@ function genWidgetInterfaces(widgets: WidgetDef[]): string {
         lines.push('  data?: string;');
         continue;
       }
+      // `<MaterialApp routes="./routes">` repurposes `routes` as the fsx
+      // file-based-routing directory (a string path), not Flutter's
+      // Navigator-1.0 routes map — file-based routing supersedes it.
+      if (widget.name === 'MaterialApp' && prop.name === 'routes') {
+        lines.push('  /** File-based routes directory, e.g. "./routes". */');
+        lines.push('  routes?: string;');
+        continue;
+      }
       lines.push(propToTsOptional(prop, isDefaultSlot));
     }
 

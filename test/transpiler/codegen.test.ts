@@ -140,6 +140,60 @@ describe('generateDartFile — single-child slot enforcement', () => {
   });
 });
 
+describe('generateDartFile — file-based router injection', () => {
+  const ROUTER = {
+    decl: "final _fsxRouter = GoRouter(routes: [GoRoute(path: '/', builder: (context, state) => Home())]);",
+    imports: ['Home.dart'],
+  };
+
+  it('emits MaterialApp.router + the _fsxRouter decl + imports when routes are provided', () => {
+    const { sourceFile, exports } = parseSource(
+      `export const App = () => (<MaterialApp title="X" routes="./routes" />);`,
+    );
+    const out = generateDartFile(sourceFile, exports, { router: ROUTER });
+    expect(out).toContain('MaterialApp.router(routerConfig: _fsxRouter');
+    expect(out).toContain('final _fsxRouter = GoRouter(');
+    expect(out).toContain("import 'package:go_router/go_router.dart';");
+    expect(out).toContain("import 'Home.dart';");
+    expect(out).not.toContain('home:');
+    // the `routes` directive is consumed by the router, not leaked as a prop value
+    expect(out).not.toContain("'./routes'");
+  });
+
+  it('leaves MaterialApp untouched when no router is provided (backward compat)', () => {
+    const { sourceFile, exports } = parseSource(
+      `export const App = () => (<MaterialApp title="X"><Scaffold/></MaterialApp>);`,
+    );
+    const out = generateDartFile(sourceFile, exports);
+    expect(out).toContain('MaterialApp(');
+    expect(out).not.toContain('MaterialApp.router');
+    expect(out).not.toContain('_fsxRouter');
+  });
+
+  it('does not inject the router decl into files without a MaterialApp', () => {
+    const { sourceFile, exports } = parseSource(
+      `export const Home = () => (<Center><Text>hi</Text></Center>);`,
+    );
+    const out = generateDartFile(sourceFile, exports, { router: ROUTER });
+    expect(out).not.toContain('_fsxRouter');
+    expect(out).not.toContain('go_router');
+  });
+});
+
+describe('generateDartFile — useNavigate arg substitution', () => {
+  it('substitutes the path argument into go_router calls', () => {
+    const out = getBody(`
+      import { useNavigate } from 'flutter-tsx';
+      export const A = () => {
+        const nav = useNavigate();
+        return <ElevatedButton onPressed={() => nav.push('/about')}><Text>x</Text></ElevatedButton>;
+      };
+    `);
+    expect(out).toContain("context.push('/about')");
+    expect(out).not.toContain('context.push(path)');
+  });
+});
+
 describe('generateDartFile — cross-file component imports', () => {
   it('emits a Dart import when a locally-imported component is referenced', () => {
     const src = `
