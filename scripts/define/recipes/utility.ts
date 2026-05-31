@@ -88,7 +88,7 @@ const clipboardPaste: FunctionRecipe = {
   description: 'Read the current clipboard contents.',
   dartImport: "import 'package:flutter/services.dart';",
   tsxExample: `const text = await clipboard.paste();`,
-  dartExample: `final data = await Clipboard.getData('text/plain');`,
+  dartExample: `final text = (await Clipboard.getData('text/plain'))?.text;`,
   args: [],
   returns: 'Promise<string | null>',
   dart: {

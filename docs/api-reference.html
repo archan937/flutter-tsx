@@ -7546,7 +7546,8 @@ const image = await picker.pickImage('gallery');
 if (image) console.log(image.path);</code></pre>
               </div>
               <div class="tab-panel" data-panel="dart" role="tabpanel">
-                <pre><code class="language-dart">final file = await ImagePicker().pickImage(source: ImageSource.gallery);</code></pre>
+                <pre><code class="language-dart">final file = await ImagePicker().pickImage(source: ImageSource.gallery);
+if (file != null) debugPrint(file.path);</code></pre>
               </div>
             </div>
           </article>
@@ -7624,7 +7625,8 @@ ctrl.play();
 ctrl.pause();</code></pre>
               </div>
               <div class="tab-panel" data-panel="dart" role="tabpanel">
-                <pre><code class="language-dart">_videoController?.play();</code></pre>
+                <pre><code class="language-dart">_videoController?.play();
+_videoController?.pause();</code></pre>
               </div>
             </div>
           </article>
@@ -7836,7 +7838,8 @@ map.animateTo({ lat: 48.8566, lng: 2.3522, zoom: 13 });</code></pre>
 return &lt;Text&gt;{latitude}, {longitude}&lt;/Text&gt;;</code></pre>
               </div>
               <div class="tab-panel" data-panel="dart" role="tabpanel">
-                <pre><code class="language-dart">Geolocator.getPositionStream().listen((pos) =&gt; setState(() { _lat = pos.latitude; }))</code></pre>
+                <pre><code class="language-dart">final pos = await Geolocator.getCurrentPosition();
+return Text('${pos.latitude}, ${pos.longitude}');</code></pre>
               </div>
             </div>
           </article>
@@ -8014,7 +8017,8 @@ if (ok) doSensitiveAction();</code></pre>
               </div>
               <div class="tab-panel" data-panel="dart" role="tabpanel">
                 <pre><code class="language-dart">final auth = LocalAuthentication();
-final ok = await auth.authenticate(localizedReason: 'Confirm your identity');</code></pre>
+final ok = await auth.authenticate(localizedReason: 'Confirm your identity');
+if (ok) doSensitiveAction();</code></pre>
               </div>
             </div>
           </article>
@@ -8059,7 +8063,8 @@ if (file) console.log(file.path, file.name);</code></pre>
               </div>
               <div class="tab-panel" data-panel="dart" role="tabpanel">
                 <pre><code class="language-dart">final result = await FilePicker.platform.pickFiles(allowedExtensions: ['pdf', 'docx']);
-final file = result?.files.single;</code></pre>
+final file = result?.files.single;
+if (file != null) debugPrint('${file.path} ${file.name}');</code></pre>
               </div>
             </div>
           </article>
@@ -8099,7 +8104,8 @@ final file = result?.files.single;</code></pre>
 const config = JSON.parse(json);</code></pre>
               </div>
               <div class="tab-panel" data-panel="dart" role="tabpanel">
-                <pre><code class="language-dart">final json = await rootBundle.loadString('assets/config.json');</code></pre>
+                <pre><code class="language-dart">final json = await rootBundle.loadString('assets/config.json');
+final config = jsonDecode(json);</code></pre>
               </div>
             </div>
           </article>
@@ -8134,7 +8140,8 @@ const config = JSON.parse(json);</code></pre>
 console.log('Documents:', dir);</code></pre>
               </div>
               <div class="tab-panel" data-panel="dart" role="tabpanel">
-                <pre><code class="language-dart">final dir = await getApplicationDocumentsDirectory();</code></pre>
+                <pre><code class="language-dart">final dir = await getApplicationDocumentsDirectory();
+debugPrint('Documents: ${dir.path}');</code></pre>
               </div>
             </div>
           </article>
@@ -8171,7 +8178,8 @@ console.log('Documents:', dir);</code></pre>
 const cachePath = `${tmp}/image.jpg`;</code></pre>
               </div>
               <div class="tab-panel" data-panel="dart" role="tabpanel">
-                <pre><code class="language-dart">final dir = await getTemporaryDirectory();</code></pre>
+                <pre><code class="language-dart">final dir = await getTemporaryDirectory();
+final cachePath = '${dir.path}/image.jpg';</code></pre>
               </div>
             </div>
           </article>
@@ -8215,8 +8223,8 @@ const cachePath = `${tmp}/image.jpg`;</code></pre>
 return &lt;Text&gt;{model} running {version}&lt;/Text&gt;;</code></pre>
               </div>
               <div class="tab-panel" data-panel="dart" role="tabpanel">
-                <pre><code class="language-dart">final info = await DeviceInfoPlugin().iosInfo;
-final model = info.model;</code></pre>
+                <pre><code class="language-dart">final info = await DeviceInfoPlugin().deviceInfo;
+return Text('${info.data['model']} running ${info.data['version']}');</code></pre>
               </div>
             </div>
           </article>
@@ -8258,7 +8266,8 @@ final model = info.model;</code></pre>
 if (!isOnline) return &lt;Text&gt;No connection&lt;/Text&gt;;</code></pre>
               </div>
               <div class="tab-panel" data-panel="dart" role="tabpanel">
-                <pre><code class="language-dart">Connectivity().onConnectivityChanged.listen((result) =&gt; setState(() { _type = result; }))</code></pre>
+                <pre><code class="language-dart">final result = await Connectivity().checkConnectivity();
+if (result == ConnectivityResult.none) return const Text('No connection');</code></pre>
               </div>
             </div>
           </article>
@@ -8462,7 +8471,8 @@ wvc.loadUrl('https://flutter.dev');</code></pre>
 await launchUrl('mailto:help@example.com');</code></pre>
               </div>
               <div class="tab-panel" data-panel="dart" role="tabpanel">
-                <pre><code class="language-dart">await launchUrl(Uri.parse('https://flutter.dev'), mode: LaunchMode.externalApplication)</code></pre>
+                <pre><code class="language-dart">await launchUrl(Uri.parse('https://flutter.dev'), mode: LaunchMode.externalApplication);
+await launchUrl(Uri.parse('mailto:help@example.com'));</code></pre>
               </div>
             </div>
           </article>
@@ -8581,7 +8591,7 @@ if (user) console.log(user.email, user.displayName);</code></pre>
               </div>
               <div class="tab-panel" data-panel="dart" role="tabpanel">
                 <pre><code class="language-dart">final account = await GoogleSignIn().signIn();
-print('${account?.email}');</code></pre>
+if (account != null) debugPrint('${account.email} ${account.displayName}');</code></pre>
               </div>
             </div>
           </article>
@@ -8948,7 +8958,7 @@ context.pop();</code></pre>
                 <pre><code class="language-tsx">const text = await clipboard.paste();</code></pre>
               </div>
               <div class="tab-panel" data-panel="dart" role="tabpanel">
-                <pre><code class="language-dart">final data = await Clipboard.getData('text/plain');</code></pre>
+                <pre><code class="language-dart">final text = (await Clipboard.getData('text/plain'))?.text;</code></pre>
               </div>
             </div>
           </article>

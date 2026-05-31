@@ -12,7 +12,8 @@ const pickFile: FunctionRecipe = {
   tsxExample: `const file = await pickFile({ extensions: ['pdf', 'docx'] });
 if (file) console.log(file.path, file.name);`,
   dartExample: `final result = await FilePicker.platform.pickFiles(allowedExtensions: ['pdf', 'docx']);
-final file = result?.files.single;`,
+final file = result?.files.single;
+if (file != null) debugPrint('\${file.path} \${file.name}');`,
   args: [
     {
       name: 'options',
@@ -35,7 +36,8 @@ const loadAsset: FunctionRecipe = {
   dartImport: "import 'package:flutter/services.dart';",
   tsxExample: `const json = await loadAsset('assets/config.json');
 const config = JSON.parse(json);`,
-  dartExample: `final json = await rootBundle.loadString('assets/config.json');`,
+  dartExample: `final json = await rootBundle.loadString('assets/config.json');
+final config = jsonDecode(json);`,
   args: [{ name: 'path', tsType: 'string', required: true }],
   returns: 'Promise<string>',
   dart: {
@@ -55,7 +57,8 @@ const appDir: FunctionRecipe = {
   dartImport: "import 'package:path_provider/path_provider.dart';",
   tsxExample: `const dir = await appDir();
 console.log('Documents:', dir);`,
-  dartExample: `final dir = await getApplicationDocumentsDirectory();`,
+  dartExample: `final dir = await getApplicationDocumentsDirectory();
+debugPrint('Documents: \${dir.path}');`,
   args: [],
   returns: 'Promise<string>',
   dart: {
@@ -75,7 +78,8 @@ const tempDir: FunctionRecipe = {
   dartImport: "import 'package:path_provider/path_provider.dart';",
   tsxExample: `const tmp = await tempDir();
 const cachePath = \`\${tmp}/image.jpg\`;`,
-  dartExample: `final dir = await getTemporaryDirectory();`,
+  dartExample: `final dir = await getTemporaryDirectory();
+final cachePath = '\${dir.path}/image.jpg';`,
   args: [],
   returns: 'Promise<string>',
   dart: {

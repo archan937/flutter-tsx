@@ -11,8 +11,8 @@ const useDeviceInfo: HookRecipe = {
   dartImport: "import 'package:device_info_plus/device_info_plus.dart';",
   tsxExample: `const { platform, model, version, isPhysicalDevice } = useDeviceInfo();
 return <Text>{model} running {version}</Text>;`,
-  dartExample: `final info = await DeviceInfoPlugin().iosInfo;
-final model = info.model;`,
+  dartExample: `final info = await DeviceInfoPlugin().deviceInfo;
+return Text('\${info.data['model']} running \${info.data['version']}');`,
   hookDef: {
     name: 'deviceInfo',
     dartPackage: 'package:device_info_plus/device_info_plus.dart',
@@ -54,7 +54,8 @@ const useConnectivity: HookRecipe = {
   dartImport: "import 'package:connectivity_plus/connectivity_plus.dart';",
   tsxExample: `const { isOnline, type } = useConnectivity();
 if (!isOnline) return <Text>No connection</Text>;`,
-  dartExample: `Connectivity().onConnectivityChanged.listen((result) => setState(() { _type = result; }))`,
+  dartExample: `final result = await Connectivity().checkConnectivity();
+if (result == ConnectivityResult.none) return const Text('No connection');`,
   hookDef: {
     name: 'connectivity',
     dartPackage: 'package:connectivity_plus/connectivity_plus.dart',

@@ -89,7 +89,8 @@ const useBiometrics: HookRecipe = {
 const ok = await bio.authenticate('Confirm your identity');
 if (ok) doSensitiveAction();`,
   dartExample: `final auth = LocalAuthentication();
-final ok = await auth.authenticate(localizedReason: 'Confirm your identity');`,
+final ok = await auth.authenticate(localizedReason: 'Confirm your identity');
+if (ok) doSensitiveAction();`,
   hookDef: {
     name: 'biometrics',
     dartPackage: 'package:local_auth/local_auth.dart',

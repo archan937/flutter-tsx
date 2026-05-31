@@ -13,7 +13,7 @@ const useGoogleSignIn: HookRecipe = {
 const user = await auth.signIn();
 if (user) console.log(user.email, user.displayName);`,
   dartExample: `final account = await GoogleSignIn().signIn();
-print('\${account?.email}');`,
+if (account != null) debugPrint('\${account.email} \${account.displayName}');`,
   hookDef: {
     name: 'googleSignIn',
     dartPackage: 'package:google_sign_in/google_sign_in.dart',

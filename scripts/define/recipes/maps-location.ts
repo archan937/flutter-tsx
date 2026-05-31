@@ -95,7 +95,8 @@ const useLocation: HookRecipe = {
   dartImport: "import 'package:geolocator/geolocator.dart';",
   tsxExample: `const { latitude, longitude, accuracy } = useLocation();
 return <Text>{latitude}, {longitude}</Text>;`,
-  dartExample: `Geolocator.getPositionStream().listen((pos) => setState(() { _lat = pos.latitude; }))`,
+  dartExample: `final pos = await Geolocator.getCurrentPosition();
+return Text('\${pos.latitude}, \${pos.longitude}');`,
   hookDef: {
     name: 'location',
     dartPackage: 'package:geolocator/geolocator.dart',

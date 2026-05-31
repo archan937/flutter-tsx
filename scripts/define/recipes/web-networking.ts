@@ -107,7 +107,8 @@ const launchUrl: FunctionRecipe = {
   dartImport: "import 'package:url_launcher/url_launcher.dart';",
   tsxExample: `await launchUrl('https://flutter.dev');
 await launchUrl('mailto:help@example.com');`,
-  dartExample: `await launchUrl(Uri.parse('https://flutter.dev'), mode: LaunchMode.externalApplication)`,
+  dartExample: `await launchUrl(Uri.parse('https://flutter.dev'), mode: LaunchMode.externalApplication);
+await launchUrl(Uri.parse('mailto:help@example.com'));`,
   args: [
     { name: 'url', tsType: 'string', required: true },
     { name: 'externalApp', tsType: 'boolean', required: false },

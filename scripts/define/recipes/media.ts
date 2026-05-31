@@ -75,7 +75,8 @@ const useImagePicker: HookRecipe = {
   tsxExample: `const picker = useImagePicker();
 const image = await picker.pickImage('gallery');
 if (image) console.log(image.path);`,
-  dartExample: `final file = await ImagePicker().pickImage(source: ImageSource.gallery);`,
+  dartExample: `final file = await ImagePicker().pickImage(source: ImageSource.gallery);
+if (file != null) debugPrint(file.path);`,
   hookDef: {
     name: 'imagePicker',
     dartPackage: 'package:image_picker/image_picker.dart',
@@ -156,7 +157,8 @@ _videoController!.initialize().then((_) => setState(() {}));`,
     tsxExample: `const ctrl = useVideoController();
 ctrl.play();
 ctrl.pause();`,
-    dartExample: `_videoController?.play();`,
+    dartExample: `_videoController?.play();
+_videoController?.pause();`,
     hookDef: {
       name: 'videoController',
       dartPackage: 'package:video_player/video_player.dart',

@@ -99,7 +99,7 @@ const WHY = `<section class="why">
         }
         /* Soft yellow marker highlight — reserved for Flutter.tsx's wins. */
         .hl {
-          background: #f3e7ad; color: #1a1a1a; font-weight: 600;
+          background: #f5d761; color: #1a1a1a; font-weight: 600;
           padding: 0.05em 0.3em; border-radius: 3px;
           box-decoration-break: clone; -webkit-box-decoration-break: clone;
         }
