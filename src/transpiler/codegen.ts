@@ -64,6 +64,7 @@ const substitutePluginArgs = (
   template: string,
   args: readonly ts.Expression[],
   sourceFile: ts.SourceFile,
+  argToDart: (arg: ts.Expression) => string = (arg) => arg.getText(sourceFile),
 ): string => {
   let result = template;
 
@@ -82,10 +83,10 @@ const substitutePluginArgs = (
         return `${arg.getText(sourceFile)}.${key}`;
       },
     );
-    // Replace bare $N
+    // Replace bare $N (template literals → Dart string interpolation, etc.)
     result = result.replace(
       new RegExp(`\\$${idx}(?![.\\w])`, 'g'),
-      arg.getText(sourceFile),
+      argToDart(arg),
     );
   });
 
@@ -897,11 +898,16 @@ export class CodegenContext {
         const methods = this.pluginMethods.get(obj);
         if (methods?.[method]) {
           const template = methods[method];
-          // Substitute $0, $1, ... and $0.key (object property access)
+          // Substitute $0, $1, ... and $0.key (object property access);
+          // template-literal args become Dart string interpolation.
           const substituted = substitutePluginArgs(
             template,
             node.arguments,
             this.sourceFile,
+            (arg) =>
+              ts.isTemplateLiteral(arg)
+                ? this.transformTemplateLiteral(arg)
+                : arg.getText(src),
           );
           return `${substituted};`;
         }

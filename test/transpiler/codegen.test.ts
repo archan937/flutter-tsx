@@ -206,6 +206,18 @@ describe('generateDartFile — useParams', () => {
 });
 
 describe('generateDartFile — useNavigate arg substitution', () => {
+  it('converts a template-literal nav arg to Dart string interpolation', () => {
+    const out = getBody(
+      'import { useNavigate } from "flutter-tsx";\n' +
+        'export const A = () => {\n' +
+        '  const nav = useNavigate();\n' +
+        '  return <ListView>{[1,2].map((i) => <ListTile key={i} title="x" onTap={() => nav.push(`/items/${i}`)} />)}</ListView>;\n' +
+        '};',
+    );
+    expect(out).toContain("context.push('/items/${i}')");
+    expect(out).not.toContain('`/items/');
+  });
+
   it('substitutes the path argument into go_router calls', () => {
     const out = getBody(`
       import { useNavigate } from 'flutter-tsx';
