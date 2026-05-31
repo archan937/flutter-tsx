@@ -158,8 +158,9 @@ const WHY = `<section class="why">
           it ships your UI over a JavaScript bridge, leans on a patchwork of
           community-maintained native modules, and asks you to chase a steady stream of
           breaking upgrades. <span class="fw">Flutter</span> answers all of that with a
-          GPU-rendered engine, pixel-perfect consistency, and the backing of a
-          full-time Google team — but the price of admission is learning
+          GPU-rendered engine, pixel-perfect consistency, and
+          <span class="hl">the backing of a full-time Google team</span> — but the
+          price of admission is learning
           <span class="fw">Dart</span> and an unfamiliar ecosystem.
         </p>
         <p>
@@ -170,7 +171,7 @@ const WHY = `<section class="why">
           Google's <span class="fw">Flutter</span> engine. There is
           <span class="hl">no bridge and no embedded JavaScript runtime</span>: the
           output is exactly what a seasoned Flutter engineer would write by hand, so you
-          get <strong>Flutter's performance with React's ergonomics</strong>.
+          <span class="hl">get Flutter's performance with React's ergonomics</span>.
         </p>
         <p>
           And because you build <em>on top of</em> <span class="fw">Flutter</span> rather

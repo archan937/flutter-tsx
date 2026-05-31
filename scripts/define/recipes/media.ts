@@ -17,8 +17,10 @@ const useCamera: HookRecipe = {
 await cam.initialize();
 const photo = await cam.takePicture();
 console.log(photo.path);`,
-  dartExample: `// Camera controller managed by hook
-// Call takePicture() to capture`,
+  dartExample: `final cam = CameraController(cameras.first, ResolutionPreset.medium);
+await cam.initialize();
+final XFile photo = await cam.takePicture();
+debugPrint(photo.path);`,
   hookDef: {
     name: 'camera',
     dartPackage: 'package:camera/camera.dart',

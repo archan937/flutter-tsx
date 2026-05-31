@@ -9,7 +9,7 @@
     "pubspecDep": "camera: ^0.10.6+2",
     "dartImport": "import 'package:camera/camera.dart';",
     "tsxExample": "const cam = useCamera();\nawait cam.initialize();\nconst photo = await cam.takePicture();\nconsole.log(photo.path);",
-    "dartExample": "// Camera controller managed by hook\n// Call takePicture() to capture"
+    "dartExample": "final cam = CameraController(cameras.first, ResolutionPreset.medium);\nawait cam.initialize();\nfinal XFile photo = await cam.takePicture();\ndebugPrint(photo.path);"
   },
   {
     "name": "useImagePicker",
