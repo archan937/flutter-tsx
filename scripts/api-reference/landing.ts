@@ -163,10 +163,10 @@ const WHY = `<section class="why">
           <span class="fw">Dart</span> and an unfamiliar ecosystem.
         </p>
         <p>
-          <span class="fw">Flutter.tsx</span> <span class="hl">removes the trade-off.</span>
-          You write your app in plain <span class="fw">TSX</span> — the same components,
+          <span class="fw">Flutter.tsx</span> removes the trade-off. You
+          <span class="hl">write your app in plain TSX</span> — the same components,
           props, and hooks you already use in <span class="fw">React</span> — and it
-          compiles to <span class="hl">idiomatic Dart</span> that runs directly on
+          <span class="hl">compiles to idiomatic Dart</span> that runs directly on
           Google's <span class="fw">Flutter</span> engine. There is
           <span class="hl">no bridge and no embedded JavaScript runtime</span>: the
           output is exactly what a seasoned Flutter engineer would write by hand, so you
