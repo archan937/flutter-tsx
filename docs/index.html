@@ -348,207 +348,86 @@
         /* Page-wide polish (a <style> in the body applies globally). */
         body {
           background:
-            radial-gradient(
-              1100px 520px at 50% -120px,
-              rgba(84, 164, 255, 0.16),
-              transparent 70%
-            ),
-            radial-gradient(
-              900px 500px at 85% 8%,
-              rgba(167, 139, 250, 0.12),
-              transparent 65%
-            ),
+            radial-gradient(1100px 520px at 50% -120px, rgba(84,164,255,0.16), transparent 70%),
+            radial-gradient(900px 500px at 85% 8%, rgba(167,139,250,0.12), transparent 65%),
             #0d1117;
           background-attachment: fixed;
         }
-        .feature {
-          transition:
-            transform 0.16s ease,
-            border-color 0.16s ease,
-            box-shadow 0.16s ease;
-        }
+        .feature { transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease; }
         .feature:hover {
           transform: translateY(-3px);
           border-color: #54a4ff;
-          box-shadow: 0 10px 30px rgba(84, 164, 255, 0.12);
+          box-shadow: 0 10px 30px rgba(84,164,255,0.12);
         }
-        .cta {
-          box-shadow: 0 10px 30px rgba(84, 164, 255, 0.28);
-        }
-        .stat {
-          transition:
-            transform 0.16s ease,
-            border-color 0.16s ease;
-        }
-        .stat:hover {
-          transform: translateY(-2px);
-          border-color: #54a4ff;
-        }
+        .cta { box-shadow: 0 10px 30px rgba(84,164,255,0.28); }
+        .stat { transition: transform 0.16s ease, border-color 0.16s ease; }
+        .stat:hover { transform: translateY(-2px); border-color: #54a4ff; }
 
-        .why {
-          width: 100%;
-          max-width: 940px;
-          margin: 8px 0 64px;
-        }
+        .why { width: 100%; max-width: 940px; margin: 8px 0 64px; }
         .why h2 {
-          font-size: 2.2rem;
-          font-weight: 800;
-          text-align: center;
-          letter-spacing: -0.02em;
-          margin-bottom: 18px;
+          font-size: 2.2rem; font-weight: 800; text-align: center;
+          letter-spacing: -0.02em; margin-bottom: 18px;
           background: linear-gradient(135deg, #54a4ff 0%, #a78bfa 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
+          -webkit-background-clip: text; -webkit-text-fill-color: transparent;
           background-clip: text;
         }
         .why-lead {
-          text-align: center;
-          color: #e6edf3;
-          line-height: 1.55;
-          max-width: 720px;
-          margin: 0 auto 36px;
-          font-size: 1.3rem;
-          font-weight: 600;
+          text-align: center; color: #e6edf3; line-height: 1.55;
+          max-width: 720px; margin: 0 auto 36px; font-size: 1.3rem; font-weight: 600;
         }
-        .why-prose {
-          max-width: 760px;
-          margin: 0 auto 44px;
-        }
+        .why-prose { max-width: 760px; margin: 0 auto 44px; }
         .why-prose p {
-          color: #c9d1d9;
-          line-height: 1.8;
-          font-size: 1rem;
-          margin-bottom: 18px;
+          color: #c9d1d9; line-height: 1.8; font-size: 1rem; margin-bottom: 18px;
         }
-        .why-prose strong {
-          color: #fff;
-          font-weight: 700;
-        }
-        .why-prose .accent {
-          color: #54a4ff;
-          font-weight: 700;
-        }
-        /* Highlighter underline for the punchiest phrases. */
+        .why-prose strong { color: #fff; font-weight: 700; }
+        .why-prose .accent { color: #54a4ff; font-weight: 700; }
+        /* Yellow marker highlight for the punchiest phrases. */
         .hl {
-          color: #fff;
-          font-weight: 600;
-          background: linear-gradient(
-            transparent 58%,
-            rgba(84, 164, 255, 0.32) 0
-          );
-          padding: 0 2px;
-          border-radius: 2px;
+          background: #ffe066; color: #1a1a1a; font-weight: 600;
+          padding: 0.05em 0.3em; border-radius: 3px;
+          box-decoration-break: clone; -webkit-box-decoration-break: clone;
         }
-        .hl-violet {
-          background: linear-gradient(
-            transparent 58%,
-            rgba(167, 139, 250, 0.34) 0
-          );
-        }
+        .hl-violet { background: #ffe066; }
 
         .cmp-title {
-          text-align: center;
-          font-size: 1.25rem;
-          font-weight: 700;
-          color: #e6edf3;
-          margin-bottom: 20px;
+          text-align: center; font-size: 1.25rem; font-weight: 700;
+          color: #e6edf3; margin-bottom: 20px;
         }
         .cmp-wrap {
-          overflow-x: auto;
-          border: 1px solid #30363d;
-          border-radius: 12px;
-          margin-bottom: 20px;
-          box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35);
+          overflow-x: auto; border: 1px solid #30363d; border-radius: 12px;
+          margin-bottom: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.35);
         }
-        .cmp {
-          width: 100%;
-          border-collapse: collapse;
-          font-size: 0.9rem;
-          min-width: 640px;
+        .cmp { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 640px; }
+        .cmp th, .cmp td {
+          padding: 14px 16px; text-align: left; border-bottom: 1px solid #21262d;
+          vertical-align: top; line-height: 1.4;
         }
-        .cmp th,
-        .cmp td {
-          padding: 14px 16px;
-          text-align: left;
-          border-bottom: 1px solid #21262d;
-          vertical-align: top;
-          line-height: 1.4;
+        .cmp tbody tr:last-child td { border-bottom: none; }
+        .cmp tbody tr { transition: background 0.12s ease; }
+        .cmp tbody tr:hover td { background: rgba(255,255,255,0.02); }
+        .cmp tbody tr:hover .col-fsx { background: rgba(84,164,255,0.14); }
+        .cmp thead th { background: #161b22; font-weight: 700; font-size: 0.95rem; }
+        .cmp tbody td:first-child, .cmp thead th:first-child {
+          color: #8b949e; font-weight: 600; width: 22%;
         }
-        .cmp tbody tr:last-child td {
-          border-bottom: none;
-        }
-        .cmp tbody tr {
-          transition: background 0.12s ease;
-        }
-        .cmp tbody tr:hover td {
-          background: rgba(255, 255, 255, 0.02);
-        }
-        .cmp tbody tr:hover .col-fsx {
-          background: rgba(84, 164, 255, 0.14);
-        }
-        .cmp thead th {
-          background: #161b22;
-          font-weight: 700;
-          font-size: 0.95rem;
-        }
-        .cmp tbody td:first-child,
-        .cmp thead th:first-child {
-          color: #8b949e;
-          font-weight: 600;
-          width: 22%;
-        }
-        .cmp .col-fsx {
-          background: rgba(84, 164, 255, 0.09);
-        }
+        .cmp .col-fsx { background: rgba(84,164,255,0.09); }
         .cmp thead .col-fsx {
           color: #54a4ff;
-          border-top: 2px solid #54a4ff;
-          border-left: 1px solid #54a4ff;
-          border-right: 1px solid #54a4ff;
-          border-radius: 8px 8px 0 0;
+          border-top: 2px solid #54a4ff; border-left: 1px solid #54a4ff;
+          border-right: 1px solid #54a4ff; border-radius: 8px 8px 0 0;
         }
-        .cmp tbody .col-fsx {
-          border-left: 1px solid #54a4ff;
-          border-right: 1px solid #54a4ff;
-        }
-        .cmp tbody tr:last-child .col-fsx {
-          border-bottom: 1px solid #54a4ff;
-          border-radius: 0 0 8px 8px;
-        }
-        .g {
-          font-weight: 700;
-          margin-right: 4px;
-        }
-        .yes {
-          color: #3fb950;
-        }
-        .meh {
-          color: #d29922;
-        }
-        .no {
-          color: #f85149;
-        }
-        .cmp-note {
-          text-align: center;
-          color: #8b949e;
-          font-size: 0.82rem;
-          margin-bottom: 48px;
-        }
+        .cmp tbody .col-fsx { border-left: 1px solid #54a4ff; border-right: 1px solid #54a4ff; }
+        .cmp tbody tr:last-child .col-fsx { border-bottom: 1px solid #54a4ff; border-radius: 0 0 8px 8px; }
+        .g { font-weight: 700; margin-right: 4px; }
+        .yes { color: #3fb950; } .meh { color: #d29922; } .no { color: #f85149; }
+        .cmp-note { text-align: center; color: #8b949e; font-size: 0.82rem; margin-bottom: 48px; }
 
         .why-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          display: grid; grid-template-columns: repeat(3, 1fr);
           gap: 16px;
         }
-        .why-grid h3 {
-          color: #54a4ff;
-          font-size: 1rem;
-        }
-        @media (max-width: 720px) {
-          .why-grid {
-            grid-template-columns: 1fr;
-          }
-        }
+        .why-grid h3 { color: #54a4ff; font-size: 1rem; }
+        @media (max-width: 720px) { .why-grid { grid-template-columns: 1fr; } }
       </style>
 
       <h2>Why Flutter.tsx?</h2>
@@ -559,42 +438,36 @@
 
       <div class="why-prose">
         <p>
-          Cross-platform has always forced a trade-off.
-          <strong>React Native</strong> gives you the syntax the whole industry
-          already knows — JSX and hooks — but it ships your UI over a
-          <span class="hl">JavaScript bridge</span>, leans on a patchwork of
-          <span class="hl">community-maintained native modules</span>, and asks
-          you to chase a steady stream of
-          <span class="hl">breaking upgrades</span>.
-          <strong>Flutter</strong> answers all of that with a GPU-rendered
-          engine, pixel-perfect consistency, and the backing of a full-time
-          Google team — but the price of admission is
-          <span class="hl">learning Dart</span> and an unfamiliar ecosystem.
+          Cross-platform has always forced a trade-off. <strong>React Native</strong>
+          gives you the syntax the whole industry already knows — JSX and hooks — but
+          it ships your UI over a <span class="hl">JavaScript bridge</span>, leans on a
+          patchwork of <span class="hl">community-maintained native modules</span>, and
+          asks you to chase a steady stream of <span class="hl">breaking upgrades</span>.
+          <strong>Flutter</strong> answers all of that with a GPU-rendered engine,
+          pixel-perfect consistency, and the backing of a full-time Google team — but
+          the price of admission is <span class="hl">learning Dart</span> and an
+          unfamiliar ecosystem.
         </p>
         <p>
-          <span class="hl hl-violet">Flutter.tsx removes the trade-off.</span>
-          You write your app in plain <strong>TSX</strong> — the same
-          components, props, and hooks you already use in React — and it
-          compiles to <span class="hl">idiomatic Dart</span> that runs directly
-          on Google's Flutter engine. There is
-          <span class="hl">no bridge and no embedded JavaScript runtime</span>:
-          the output is exactly what a seasoned Flutter engineer would write by
-          hand, so you get
-          <strong>Flutter's performance with React's ergonomics</strong>.
+          <span class="hl hl-violet">Flutter.tsx removes the trade-off.</span> You write
+          your app in plain <strong>TSX</strong> — the same components, props, and hooks
+          you already use in React — and it compiles to
+          <span class="hl">idiomatic Dart</span> that runs directly on Google's Flutter
+          engine. There is <span class="hl">no bridge and no embedded JavaScript
+          runtime</span>: the output is exactly what a seasoned Flutter engineer would
+          write by hand, so you get <strong>Flutter's performance with React's
+          ergonomics</strong>.
         </p>
         <p>
-          And because you build <em>on top of</em> Flutter rather than
-          reinventing it, the hard parts stay solved for you. Google absorbs
-          <span class="hl">breaking SDK changes</span> under the hood. Camera,
-          photos, audio, maps, storage and auth are
+          And because you build <em>on top of</em> Flutter rather than reinventing it,
+          the hard parts stay solved for you. Google absorbs
+          <span class="hl">breaking SDK changes</span> under the hood. Camera, photos,
+          audio, maps, storage and auth are
           <span class="hl">typed first-party hooks</span> — not a gamble on an
           unmaintained npm package. And
-          <span class="hl"
-            >ESLint, Prettier, and end-to-end TypeScript types</span
-          >
-          are wired in from <code>fsx init</code>: every one of the 539 widgets
-          is fully typed, so it's autocomplete and red squiggles, never
-          guesswork.
+          <span class="hl">ESLint, Prettier, and end-to-end TypeScript types</span> are
+          wired in from <code>fsx init</code>: every one of the 539 widgets is fully
+          typed, so it's autocomplete and red squiggles, never guesswork.
         </p>
       </div>
 
@@ -614,99 +487,62 @@
               <td>UI language</td>
               <td><span class="g yes">✓</span>TypeScript + JSX</td>
               <td><span class="g no">✗</span>Dart (a new language)</td>
-              <td class="col-fsx">
-                <span class="g yes">✓</span>TypeScript + JSX (TSX)
-              </td>
+              <td class="col-fsx"><span class="g yes">✓</span>TypeScript + JSX (TSX)</td>
             </tr>
             <tr>
               <td>Learning curve</td>
-              <td>
-                <span class="g yes">✓</span>Low — React knowledge transfers
-              </td>
-              <td>
-                <span class="g meh">~</span>Steep — new language &amp; idioms
-              </td>
-              <td class="col-fsx">
-                <span class="g yes">✓</span>Low — write React, ship Flutter
-              </td>
+              <td><span class="g yes">✓</span>Low — React knowledge transfers</td>
+              <td><span class="g meh">~</span>Steep — new language &amp; idioms</td>
+              <td class="col-fsx"><span class="g yes">✓</span>Low — write React, ship Flutter</td>
             </tr>
             <tr>
               <td>Rendering model</td>
               <td><span class="g meh">~</span>JS bridge → native widgets</td>
-              <td>
-                <span class="g yes">✓</span>Own GPU engine (Skia/Impeller)
-              </td>
-              <td class="col-fsx">
-                <span class="g yes">✓</span>Flutter engine — no bridge
-              </td>
+              <td><span class="g yes">✓</span>Own GPU engine (Skia/Impeller)</td>
+              <td class="col-fsx"><span class="g yes">✓</span>Flutter engine — no bridge</td>
             </tr>
             <tr>
               <td>Runtime performance</td>
               <td><span class="g meh">~</span>JS thread + bridge overhead</td>
               <td><span class="g yes">✓</span>AOT-compiled, 60/120 fps</td>
-              <td class="col-fsx">
-                <span class="g yes">✓</span>Identical — idiomatic Dart, AOT
-              </td>
+              <td class="col-fsx"><span class="g yes">✓</span>Identical — idiomatic Dart, AOT</td>
             </tr>
             <tr>
               <td>SDK stability</td>
-              <td>
-                <span class="g no">✗</span>Frequent churn; you chase upgrades
-              </td>
+              <td><span class="g no">✗</span>Frequent churn; you chase upgrades</td>
               <td><span class="g yes">✓</span>Google-managed, stable</td>
-              <td class="col-fsx">
-                <span class="g yes">✓</span>Google-managed — absorbed for you
-              </td>
+              <td class="col-fsx"><span class="g yes">✓</span>Google-managed — absorbed for you</td>
             </tr>
             <tr>
               <td>Native capabilities</td>
-              <td>
-                <span class="g meh">~</span>Community packages, varied upkeep
-              </td>
+              <td><span class="g meh">~</span>Community packages, varied upkeep</td>
               <td><span class="g yes">✓</span>First-party + vetted plugins</td>
-              <td class="col-fsx">
-                <span class="g yes">✓</span>Typed first-party hooks
-              </td>
+              <td class="col-fsx"><span class="g yes">✓</span>Typed first-party hooks</td>
             </tr>
             <tr>
               <td>Tooling (lint / format / types)</td>
-              <td>
-                <span class="g meh">~</span>Assemble yourself; config drift
-              </td>
+              <td><span class="g meh">~</span>Assemble yourself; config drift</td>
               <td><span class="g yes">✓</span>Dart analyzer + dartfmt</td>
-              <td class="col-fsx">
-                <span class="g yes">✓</span>ESLint + Prettier + full TS,
-                preconfigured
-              </td>
+              <td class="col-fsx"><span class="g yes">✓</span>ESLint + Prettier + full TS, preconfigured</td>
             </tr>
             <tr>
               <td>UI consistency across OSes</td>
               <td><span class="g meh">~</span>Platform widgets differ</td>
               <td><span class="g yes">✓</span>Pixel-identical everywhere</td>
-              <td class="col-fsx">
-                <span class="g yes">✓</span>Pixel-identical everywhere
-              </td>
+              <td class="col-fsx"><span class="g yes">✓</span>Pixel-identical everywhere</td>
             </tr>
             <tr>
               <td>Targets</td>
-              <td>
-                <span class="g meh">~</span>iOS / Android (web &amp; desktop
-                partial)
-              </td>
-              <td>
-                <span class="g yes">✓</span>iOS · Android · web · macOS ·
-                Windows · Linux
-              </td>
-              <td class="col-fsx">
-                <span class="g yes">✓</span>All six, from one TSX source
-              </td>
+              <td><span class="g meh">~</span>iOS / Android (web &amp; desktop partial)</td>
+              <td><span class="g yes">✓</span>iOS · Android · web · macOS · Windows · Linux</td>
+              <td class="col-fsx"><span class="g yes">✓</span>All six, from one TSX source</td>
             </tr>
           </tbody>
         </table>
       </div>
       <p class="cmp-note">
-        <span class="yes">✓</span> strength · <span class="meh">~</span> caveat
-        · <span class="no">✗</span> weakness
+        <span class="yes">✓</span> strength · <span class="meh">~</span> caveat ·
+        <span class="no">✗</span> weakness
       </p>
 
       <div class="why-grid">
@@ -714,32 +550,29 @@
           <h3>Syntax you already know</h3>
           <p>
             Plain TSX + hooks — the most mainstream UI syntax there is. If you
-            write React, you're productive on day one. The Dart is generated for
-            you.
+            write React, you're productive on day one. The Dart is generated for you.
           </p>
         </div>
         <div class="feature">
           <h3>Real tooling, on by default</h3>
           <p>
             ESLint, Prettier, and end-to-end TypeScript types come standard.
-            Every widget prop is typed — autocomplete and red squiggles, not
-            guesswork.
+            Every widget prop is typed — autocomplete and red squiggles, not guesswork.
           </p>
         </div>
         <div class="feature">
           <h3>Stands on Google's Flutter</h3>
           <p>
             Flutter is built and maintained by Google. Breaking SDK changes are
-            absorbed under the hood — you write components, not migration
-            scripts.
+            absorbed under the hood — you write components, not migration scripts.
           </p>
         </div>
         <div class="feature">
           <h3>First-party native power</h3>
           <p>
             Camera, photos, audio, maps, storage, auth — typed hooks mapping to
-            maintained plugins. No stitching together unvetted community
-            packages for core capabilities.
+            maintained plugins. No stitching together unvetted community packages
+            for core capabilities.
           </p>
         </div>
         <div class="feature">
@@ -751,18 +584,14 @@
         </div>
         <div class="feature">
           <h3>One codebase, six targets</h3>
-          <p>
-            iOS, Android, web, macOS, Windows, and Linux — from a single TSX
-            source.
-          </p>
+          <p>iOS, Android, web, macOS, Windows, and Linux — from a single TSX source.</p>
         </div>
       </div>
     </section>
 
     <footer>
       <p>
-        Flutter.tsx · <a href="./api-reference.html">API Reference</a> · MIT
-        License
+        Flutter.tsx · <a href="./api-reference.html">API Reference</a> · MIT License
       </p>
     </footer>
 

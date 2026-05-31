@@ -91,13 +91,13 @@ const WHY = `<section class="why">
         }
         .why-prose strong { color: #fff; font-weight: 700; }
         .why-prose .accent { color: #54a4ff; font-weight: 700; }
-        /* Highlighter underline for the punchiest phrases. */
+        /* Yellow marker highlight for the punchiest phrases. */
         .hl {
-          color: #fff; font-weight: 600;
-          background: linear-gradient(transparent 58%, rgba(84,164,255,0.32) 0);
-          padding: 0 2px; border-radius: 2px;
+          background: #ffe066; color: #1a1a1a; font-weight: 600;
+          padding: 0.05em 0.3em; border-radius: 3px;
+          box-decoration-break: clone; -webkit-box-decoration-break: clone;
         }
-        .hl-violet { background: linear-gradient(transparent 58%, rgba(167,139,250,0.34) 0); }
+        .hl-violet { background: #ffe066; }
 
         .cmp-title {
           text-align: center; font-size: 1.25rem; font-weight: 700;
