@@ -423,11 +423,11 @@
         spellcheck="false"
       />
       <div class="meta-info">
-        539 widgets · 38 plugins · 10 hooks · 767 types · 147 enums
+        539 widgets · 38 plugins · 12 hooks · 767 types · 147 enums
       </div>
       <nav id="sidebar-nav">
         <details open>
-          <summary>Examples<span class="nav-count">22</span></summary>
+          <summary>Examples<span class="nav-count">23</span></summary>
           <ul>
             <li data-name="hello-world">
               <a href="#ex-hello-world">Hello World</a>
@@ -438,6 +438,9 @@
             </li>
             <li data-name="toggle">
               <a href="#ex-toggle">Light / Dark Toggle</a>
+            </li>
+            <li data-name="tap-to-animate">
+              <a href="#ex-tap-to-animate">Tap to Animate</a>
             </li>
             <li data-name="profile-card">
               <a href="#ex-profile-card">Profile Card</a>
@@ -485,7 +488,7 @@
         </details>
         <details>
           <summary>
-            Hooks &amp; Core APIs<span class="nav-count">10</span>
+            Hooks &amp; Core APIs<span class="nav-count">12</span>
           </summary>
           <ul>
             <li data-name="useState"><a href="#useState">useState</a></li>
@@ -504,6 +507,10 @@
             <li data-name="showSheet / showDialog">
               <a href="#showSheet">showSheet / showDialog</a>
             </li>
+            <li data-name="Gesture props">
+              <a href="#Gesture">Gesture props</a>
+            </li>
+            <li data-name="animate"><a href="#animate">animate</a></li>
           </ul>
         </details>
         <details>
@@ -5491,6 +5498,81 @@ class _ThemeToggleState extends State&lt;ThemeToggle&gt; {
         </article>
         <article
           class="widget example-card"
+          id="ex-tap-to-animate"
+          data-name="tap-to-animate"
+        >
+          <h3>Tap to Animate</h3>
+          <p class="doc">
+            Gesture props + the animate prop. onTap works on any widget
+            (auto-wrapped in a GestureDetector); animate swaps Container for
+            AnimatedContainer so size and color tween on each tap.
+          </p>
+          <div class="tabs">
+            <div class="tab-btns" role="tablist">
+              <button
+                class="tab-btn active"
+                data-tab="tsx"
+                role="tab"
+                aria-selected="true"
+              >
+                TSX
+              </button>
+              <button
+                class="tab-btn"
+                data-tab="dart"
+                role="tab"
+                aria-selected="false"
+              >
+                Dart
+              </button>
+            </div>
+            <div class="tab-panel active" data-panel="tsx" role="tabpanel">
+              <pre><code class="language-tsx">import { Center, Container, Text, useState } from 'flutter-tsx';
+
+export function TapBox() {
+  const [open, setOpen] = useState(false);
+  return (
+    &lt;Center&gt;
+      &lt;Container
+        animate
+        duration={300}
+        curve=&quot;easeInOut&quot;
+        width={open ? 240 : 120}
+        height={open ? 240 : 120}
+        color={open ? 'blue' : 'grey'}
+        onTap={() =&gt; setOpen(!open)}
+      &gt;
+        &lt;Center&gt;
+          &lt;Text&gt;{open ? 'Tap to shrink' : 'Tap to grow'}&lt;/Text&gt;
+        &lt;/Center&gt;
+      &lt;/Container&gt;
+    &lt;/Center&gt;
+  );
+}</code></pre>
+            </div>
+            <div class="tab-panel" data-panel="dart" role="tabpanel">
+              <pre><code class="language-dart">// GENERATED — do not edit. Source: tap-to-animate.tsx
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, prefer_const_declarations, file_names, non_constant_identifier_names, constant_identifier_names, use_key_in_widget_constructors, unused_element_parameter, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_to_list_in_spreads, avoid_unnecessary_containers, sized_box_for_whitespace
+import 'package:flutter/material.dart';
+
+class TapBox extends StatefulWidget {
+  const TapBox({super.key});
+  @override
+  State&lt;TapBox&gt; createState() =&gt; _TapBoxState();
+}
+class _TapBoxState extends State&lt;TapBox&gt; {
+  bool open = false;
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: GestureDetector(onTap: () { setState(() { open = !open; }); }, child: AnimatedContainer(duration: Duration(milliseconds: 300), curve: Curves.easeInOut, width: open ? 240 : 120, height: open ? 240 : 120, color: open ? Colors.blue : Colors.grey, child: Center(child: Text('${open ? 'Tap to shrink' : 'Tap to grow'}')))));
+  }
+}
+</code></pre>
+            </div>
+          </div>
+        </article>
+        <article
+          class="widget example-card"
           id="ex-profile-card"
           data-name="profile-card"
         >
@@ -6893,7 +6975,7 @@ class _NavState extends State&lt;Nav&gt; {
         </article>
       </section>
       <section id="hooks">
-        <h2>Hooks &amp; Core APIs (10)</h2>
+        <h2>Hooks &amp; Core APIs (12)</h2>
         <p>
           Core hooks for state, async data, routing, and i18n, plus composite
           widgets (TabView) and modals. Native capability hooks —
@@ -7279,6 +7361,87 @@ Text(t('app.title'))</code></pre>
             </div>
             <div class="tab-panel" data-panel="dart" role="tabpanel">
               <pre><code class="language-dart">showModalBottomSheet(context: context, builder: (context) =&gt; Cart())</code></pre>
+            </div>
+          </div>
+        </article>
+        <article class="widget" id="Gesture" data-name="Gesture props">
+          <h3>Gesture props</h3>
+          <p class="doc">
+            onTap / onDoubleTap / onLongPress on ANY widget. Native gesture
+            widgets (GestureDetector, InkWell) pass through; everything else is
+            auto-wrapped in a GestureDetector.
+          </p>
+          <div class="tabs">
+            <div class="tab-btns" role="tablist">
+              <button
+                class="tab-btn active"
+                data-tab="tsx"
+                role="tab"
+                aria-selected="true"
+              >
+                TSX
+              </button>
+              <button
+                class="tab-btn"
+                data-tab="dart"
+                role="tab"
+                aria-selected="false"
+              >
+                Dart
+              </button>
+            </div>
+            <div class="tab-panel active" data-panel="tsx" role="tabpanel">
+              <pre><code class="language-tsx">&lt;Container onTap={() =&gt; select(id)} onLongPress={() =&gt; remove(id)}&gt;
+  &lt;Text&gt;{label}&lt;/Text&gt;
+&lt;/Container&gt;</code></pre>
+            </div>
+            <div class="tab-panel" data-panel="dart" role="tabpanel">
+              <pre><code class="language-dart">GestureDetector(
+  onTap: () { select(id); },
+  onLongPress: () { remove(id); },
+  child: Container(child: Text(label)),
+)</code></pre>
+            </div>
+          </div>
+        </article>
+        <article class="widget" id="animate" data-name="animate">
+          <h3>animate</h3>
+          <p class="doc">
+            Implicit animation. Add `animate` (+ optional duration/curve) to an
+            animatable widget and its prop changes tween automatically — the
+            transpiler swaps it for its Animated* twin.
+          </p>
+          <div class="tabs">
+            <div class="tab-btns" role="tablist">
+              <button
+                class="tab-btn active"
+                data-tab="tsx"
+                role="tab"
+                aria-selected="true"
+              >
+                TSX
+              </button>
+              <button
+                class="tab-btn"
+                data-tab="dart"
+                role="tab"
+                aria-selected="false"
+              >
+                Dart
+              </button>
+            </div>
+            <div class="tab-panel active" data-panel="tsx" role="tabpanel">
+              <pre><code class="language-tsx">&lt;Container animate duration={300} curve=&quot;easeInOut&quot;
+  width={open ? 240 : 120}
+  color={open ? 'blue' : 'grey'} /&gt;</code></pre>
+            </div>
+            <div class="tab-panel" data-panel="dart" role="tabpanel">
+              <pre><code class="language-dart">AnimatedContainer(
+  duration: Duration(milliseconds: 300),
+  curve: Curves.easeInOut,
+  width: open ? 240 : 120,
+  color: open ? Colors.blue : Colors.grey,
+)</code></pre>
             </div>
           </div>
         </article>

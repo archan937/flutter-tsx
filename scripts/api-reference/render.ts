@@ -249,6 +249,18 @@ export const CORE_APIS: CoreApi[] = [
     tsx: `<ElevatedButton onClick={() => showSheet(<Cart />)}>Cart</ElevatedButton>`,
     dart: `showModalBottomSheet(context: context, builder: (context) => Cart())`,
   },
+  {
+    name: 'Gesture props',
+    doc: 'onTap / onDoubleTap / onLongPress on ANY widget. Native gesture widgets (GestureDetector, InkWell) pass through; everything else is auto-wrapped in a GestureDetector.',
+    tsx: `<Container onTap={() => select(id)} onLongPress={() => remove(id)}>\n  <Text>{label}</Text>\n</Container>`,
+    dart: `GestureDetector(\n  onTap: () { select(id); },\n  onLongPress: () { remove(id); },\n  child: Container(child: Text(label)),\n)`,
+  },
+  {
+    name: 'animate',
+    doc: 'Implicit animation. Add `animate` (+ optional duration/curve) to an animatable widget and its prop changes tween automatically — the transpiler swaps it for its Animated* twin.',
+    tsx: `<Container animate duration={300} curve="easeInOut"\n  width={open ? 240 : 120}\n  color={open ? 'blue' : 'grey'} />`,
+    dart: `AnimatedContainer(\n  duration: Duration(milliseconds: 300),\n  curve: Curves.easeInOut,\n  width: open ? 240 : 120,\n  color: open ? Colors.blue : Colors.grey,\n)`,
+  },
 ];
 
 export const hooksSection = (): string => {

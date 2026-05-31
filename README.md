@@ -51,6 +51,7 @@ You build real apps, not demos — everything generates idiomatic, fully
 - **State** — `createStore` (Zustand-style) → `ChangeNotifier` + `provider`, wired at the app root.
 - **Async data** — `useAsync(() => fetch(…))` → `FutureBuilder`; `fetch()` HTTP source.
 - **Tabs & modals** — `<TabView>` (bottom-nav shell), `showSheet` / `showDialog`.
+- **Gestures & animation** — `onTap`/`onLongPress` on any widget; `animate` → `Animated*` widgets.
 - **System-tray apps** — `config/tray.ts` → `window_manager` + `tray_manager` bootstrap.
 - **All six targets** — web · iOS · Android · macOS · Windows · Linux.
 - **539 typed widgets** + 18 native-plugin hooks, generated from the Flutter SDK.
@@ -486,12 +487,14 @@ Run `bun run docs` (author-only) to regenerate `api-reference.html` from the cur
 
 ### Composite widgets & modals
 
-| API                      | Generates                                                               |
-| ------------------------ | ----------------------------------------------------------------------- |
-| `<TabView tabs={[…]} />` | `Scaffold` + `BottomNavigationBar` + `IndexedStack` (tab state kept)    |
-| `showSheet(<…/>)`        | `showModalBottomSheet(context:, builder:)`                              |
-| `showDialog(<…/>)`       | `showDialog(context:, builder:)`                                        |
-| `config/tray.ts`         | System-tray / menubar app (`window_manager` + `tray_manager` bootstrap) |
+| API                                                  | Generates                                                               |
+| ---------------------------------------------------- | ----------------------------------------------------------------------- |
+| `<TabView tabs={[…]} />`                             | `Scaffold` + `BottomNavigationBar` + `IndexedStack` (tab state kept)    |
+| `showSheet(<…/>)`                                    | `showModalBottomSheet(context:, builder:)`                              |
+| `showDialog(<…/>)`                                   | `showDialog(context:, builder:)`                                        |
+| `onTap` / `onLongPress` / `onDoubleTap` (any widget) | passes through natively or auto-wraps in `GestureDetector`              |
+| `animate` + `duration` / `curve`                     | swaps the widget for its `Animated*` twin (implicit animation)          |
+| `config/tray.ts`                                     | System-tray / menubar app (`window_manager` + `tray_manager` bootstrap) |
 
 File-based routing (`<MaterialApp routes="./routes" />`) generates a `go_router`
 config; see the [guide](./docs/guide.md) for routing, state, async, tabs/modals,

@@ -166,7 +166,40 @@ import { showSheet, showDialog } from 'flutter-tsx';
 <ElevatedButton onClick={() => showDialog(<ConfirmDelete />)}>Delete</ElevatedButton>
 ```
 
-## 8. System-tray / menubar apps (desktop)
+## 8. Gestures & animation
+
+Tap handlers work on **any** widget — `onTap`, `onDoubleTap`, and `onLongPress`.
+If the widget supports them natively (e.g. `GestureDetector`, `InkWell`) they
+pass straight through; otherwise fsx wraps it in a `GestureDetector` for you:
+
+```tsx
+<Container onTap={() => select(id)} onLongPress={() => remove(id)}>
+  <Text>{label}</Text>
+</Container>
+// → GestureDetector(onTap: …, onLongPress: …, child: Container(…))
+```
+
+Add `animate` to an animatable widget and its prop changes tween automatically —
+fsx swaps it for the matching `Animated*` widget. `duration` is milliseconds
+(default 300) and `curve` is a named curve:
+
+```tsx
+<Container
+  animate
+  duration={300}
+  curve="easeInOut"
+  width={open ? 240 : 120}
+  color={open ? 'blue' : 'grey'}
+  onTap={() => setOpen(!open)}
+/>
+// → AnimatedContainer(duration: Duration(milliseconds: 300),
+//      curve: Curves.easeInOut, width: …, color: open ? Colors.blue : Colors.grey, …)
+```
+
+Animatable widgets: `Container`, `Opacity`, `Align`, `Padding`, `Positioned`,
+`DefaultTextStyle`, `FractionallySizedBox`.
+
+## 9. System-tray / menubar apps (desktop)
 
 Add a `config/tray.ts` to turn a desktop app into a tray/menubar app — fsx emits
 the `window_manager` + `tray_manager` bootstrap (tray icon, context menu, and
@@ -186,7 +219,7 @@ export default {
 } satisfies TrayConfig;
 ```
 
-## 9. Build & sign
+## 10. Build & sign
 
 ```sh
 bun run build              # fsx build — release artifact for config/app.ts target

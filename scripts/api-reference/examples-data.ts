@@ -89,6 +89,36 @@ export function ThemeToggle() {
   },
 
   {
+    id: 'tap-to-animate',
+    title: 'Tap to Animate',
+    description:
+      'Gesture props + the animate prop. onTap works on any widget (auto-wrapped in a GestureDetector); animate swaps Container for AnimatedContainer so size and color tween on each tap.',
+    tsx: `\
+import { Center, Container, Text, useState } from 'flutter-tsx';
+
+export function TapBox() {
+  const [open, setOpen] = useState(false);
+  return (
+    <Center>
+      <Container
+        animate
+        duration={300}
+        curve="easeInOut"
+        width={open ? 240 : 120}
+        height={open ? 240 : 120}
+        color={open ? 'blue' : 'grey'}
+        onTap={() => setOpen(!open)}
+      >
+        <Center>
+          <Text>{open ? 'Tap to shrink' : 'Tap to grow'}</Text>
+        </Center>
+      </Container>
+    </Center>
+  );
+}`,
+  },
+
+  {
     id: 'profile-card',
     title: 'Profile Card',
     description:
