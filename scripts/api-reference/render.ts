@@ -345,7 +345,12 @@ export const pageShell = (
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; font-size: 16px; }
 body { display: flex; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: #e6edf3; background: #0d1117; line-height: 1.6; }
+  color: #e6edf3; line-height: 1.6;
+  background:
+    radial-gradient(1100px 520px at 50% -120px, rgba(84,164,255,0.16), transparent 70%),
+    radial-gradient(900px 500px at 85% 8%, rgba(167,139,250,0.12), transparent 65%),
+    #0d1117;
+  background-attachment: fixed; }
 
 /* ── Sidebar ─── */
 #sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto;
