@@ -22,6 +22,9 @@ export interface AboutListTileProps {
   applicationLegalese?: string;
   aboutBoxChildren?: FlutterElement[];
   dense?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -30,6 +33,9 @@ export interface AboutDialogProps {
   applicationVersion?: string;
   applicationIcon?: string | FlutterElement;
   applicationLegalese?: string;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -38,42 +44,69 @@ export interface LicensePageProps {
   applicationVersion?: string;
   applicationIcon?: string | FlutterElement;
   applicationLegalese?: string;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface BackButtonIconProps {
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface BackButtonProps {
   color?: unknown;
   style?: unknown;
   onClick?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CloseButtonIconProps {
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CloseButtonProps {
   color?: unknown;
   onClick?: unknown;
   style?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface DrawerButtonIconProps {
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface DrawerButtonProps {
   color?: unknown;
   style?: unknown;
   onClick?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface EndDrawerButtonIconProps {
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface EndDrawerButtonProps {
   color?: unknown;
   style?: unknown;
   onClick?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface ActionChipProps {
@@ -102,16 +135,25 @@ export interface ActionChipProps {
   avatarBoxConstraints?: unknown;
   chipAnimationStyle?: unknown;
   mouseCursor?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface ActionIconThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface AdaptiveTextSelectionToolbarProps {
   anchors: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -122,6 +164,9 @@ export interface AnimatedIconProps {
   size?: number;
   semanticLabel?: string;
   textDirection?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface MaterialAppProps {
@@ -164,6 +209,9 @@ export interface MaterialAppProps {
   scrollBehavior?: unknown;
   useInheritedMediaQuery?: boolean;
   themeAnimationStyle?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -201,6 +249,9 @@ export interface AppBarProps {
   clipBehavior?: unknown;
   actionsPadding?: number | [number, number] | [number, number, number, number];
   animateColor?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -243,6 +294,9 @@ export interface SliverAppBarProps {
   useDefaultSemanticsOrder?: boolean;
   clipBehavior?: unknown;
   actionsPadding?: number | [number, number] | [number, number, number, number];
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -267,6 +321,9 @@ export interface AppBarThemeProps {
   actionsPadding?: number | [number, number] | [number, number, number, number];
   data?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -281,6 +338,9 @@ export interface AutocompleteProps {
   optionsViewOpenDirection?: 'up' | 'down' | 'mostSpace';
   textEditingController?: unknown;
   initialValue?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface BadgeProps {
@@ -295,12 +355,18 @@ export interface BadgeProps {
   label?: string | FlutterElement;
   isLabelVisible?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface BadgeThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -322,11 +388,17 @@ export interface MaterialBannerProps {
   animation?: unknown;
   onVisible?: unknown;
   minActionBarHeight?: number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface MaterialBannerThemeProps {
   data?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -341,6 +413,9 @@ export interface BottomAppBarProps {
   surfaceTintColor?: unknown;
   shadowColor?: unknown;
   height?: number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -354,6 +429,9 @@ export interface BottomAppBarThemeProps {
   padding?: number | [number, number] | [number, number, number, number];
   data?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -380,11 +458,16 @@ export interface BottomNavigationBarProps {
   enableFeedback?: boolean;
   landscapeLayout?: 'spread' | 'centered' | 'linear';
   useLegacyColorScheme?: boolean;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface BottomNavigationBarThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -404,6 +487,9 @@ export interface BottomSheetProps {
   constraints?: unknown;
   onClosing: unknown;
   builder: () => FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface RawMaterialButtonProps {
@@ -433,6 +519,8 @@ export interface RawMaterialButtonProps {
   materialTapTargetSize?: 'padded' | 'shrinkWrap';
   child?: string | FlutterElement;
   enableFeedback?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -447,12 +535,18 @@ export interface ButtonBarProps {
   layoutBehavior?: 'constrained' | 'padded';
   overflowDirection?: 'up' | 'down';
   overflowButtonSpacing?: number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ButtonBarThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -473,6 +567,9 @@ export interface ButtonThemeProps {
   colorScheme?: unknown;
   materialTapTargetSize?: 'padded' | 'shrinkWrap';
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -486,6 +583,9 @@ export interface CalendarDatePickerProps {
   initialCalendarMode?: 'day' | 'year';
   selectableDayPredicate?: (day: unknown) => boolean;
   calendarDelegate?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface YearPickerProps {
@@ -497,6 +597,9 @@ export interface YearPickerProps {
   onChange: (value: unknown) => void;
   dragStartBehavior?: string;
   calendarDelegate?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CardProps {
@@ -510,6 +613,9 @@ export interface CardProps {
   clipBehavior?: unknown;
   child?: string | FlutterElement;
   semanticContainer?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -523,6 +629,9 @@ export interface CardThemeProps {
   shape?: unknown;
   data?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -541,12 +650,17 @@ export interface CarouselViewProps {
   onTap?: (value: number) => void;
   enableSplash?: boolean;
   itemExtent: number;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CarouselViewThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -570,6 +684,9 @@ export interface CheckboxProps {
   side?: unknown;
   isError?: boolean;
   semanticLabel?: string;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CheckboxListTileProps {
@@ -612,12 +729,18 @@ export interface CheckboxListTileProps {
   checkboxScaleFactor?: number;
   titleAlignment?: 'threeLine' | 'titleHeight' | 'top' | 'center' | 'bottom';
   internalAddSemanticForOnTap?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CheckboxThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -648,6 +771,9 @@ export interface ChipProps {
   deleteIconBoxConstraints?: unknown;
   chipAnimationStyle?: unknown;
   mouseCursor?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface RawChipProps {
@@ -691,11 +817,17 @@ export interface RawChipProps {
   deleteIconBoxConstraints?: unknown;
   chipAnimationStyle?: unknown;
   mouseCursor?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface ChipThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -731,6 +863,9 @@ export interface ChoiceChipProps {
   avatarBoxConstraints?: unknown;
   chipAnimationStyle?: unknown;
   mouseCursor?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CircleAvatarProps {
@@ -744,6 +879,9 @@ export interface CircleAvatarProps {
   radius?: number;
   minRadius?: number;
   maxRadius?: number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -770,6 +908,9 @@ export interface DataTableProps {
   checkboxHorizontalMargin?: number;
   border?: unknown;
   clipBehavior?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface TableRowInkWellProps {
@@ -789,6 +930,9 @@ export interface TableRowInkWellProps {
 export interface DataTableThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -814,6 +958,9 @@ export interface DatePickerDialogProps {
   switchToCalendarEntryModeIcon?: unknown;
   insetPadding?: number | [number, number] | [number, number, number, number];
   calendarDelegate?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface DateRangePickerDialogProps {
@@ -839,22 +986,34 @@ export interface DateRangePickerDialogProps {
   switchToCalendarEntryModeIcon?: unknown;
   selectableDayPredicate?: (day: unknown, selectedStartDay: unknown, selectedEndDay: unknown) => boolean;
   calendarDelegate?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface DatePickerThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface DesktopTextSelectionToolbarProps {
   anchor: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface DesktopTextSelectionToolbarButtonProps {
   onClick: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -872,6 +1031,9 @@ export interface DialogProps {
   child?: string | FlutterElement;
   semanticsRole?: unknown;
   constraints?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -903,6 +1065,9 @@ export interface AlertDialogProps {
   alignment?: string;
   constraints?: unknown;
   scrollable?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -910,6 +1075,9 @@ export interface SimpleDialogOptionProps {
   onClick?: unknown;
   padding?: number | [number, number] | [number, number, number, number];
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -928,6 +1096,9 @@ export interface SimpleDialogProps {
   shape?: unknown;
   alignment?: string;
   constraints?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -947,6 +1118,9 @@ export interface DialogThemeProps {
   clipBehavior?: unknown;
   data?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -957,6 +1131,9 @@ export interface DividerProps {
   endIndent?: number;
   color?: unknown;
   radius?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface VerticalDividerProps {
@@ -966,11 +1143,17 @@ export interface VerticalDividerProps {
   endIndent?: number;
   color?: unknown;
   radius?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface DividerThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -984,6 +1167,9 @@ export interface DrawerProps {
   child?: string | FlutterElement;
   semanticLabel?: string;
   clipBehavior?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -997,6 +1183,9 @@ export interface DrawerControllerProps {
   edgeDragWidth?: number;
   enableOpenDragGesture?: boolean;
   drawerBarrierDismissible?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1007,12 +1196,18 @@ export interface DrawerHeaderProps {
   duration?: unknown;
   curve?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface DrawerThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1022,11 +1217,16 @@ export interface DropdownMenuItemProps {
   enabled?: boolean;
   alignment?: string;
   child?: string | FlutterElement;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface DropdownButtonHideUnderlineProps {
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1061,6 +1261,8 @@ export interface DropdownButtonProps {
   barrierDismissible?: boolean;
   mouseCursor?: unknown;
   dropdownMenuItemMouseCursor?: unknown;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface DropdownButtonFormFieldProps {
@@ -1099,6 +1301,8 @@ export interface DropdownButtonFormFieldProps {
   barrierDismissible?: boolean;
   mouseCursor?: unknown;
   dropdownMenuItemMouseCursor?: unknown;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface DropdownMenuProps {
@@ -1140,6 +1344,9 @@ export interface DropdownMenuProps {
   cursorHeight?: number;
   restorationId?: string;
   menuController?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface DropdownMenuFormFieldProps {
@@ -1180,11 +1387,17 @@ export interface DropdownMenuFormFieldProps {
   validator?: (value: unknown) => string;
   forceErrorText?: string;
   errorBuilder?: (errorText: string) => FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface DropdownMenuThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1199,12 +1412,17 @@ export interface ElevatedButtonProps {
   clipBehavior?: unknown;
   statesController?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ElevatedButtonThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1218,6 +1436,9 @@ export interface ExpandIconProps {
   expandedColor?: unknown;
   splashColor?: unknown;
   highlightColor?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface ExpansionPanelListProps {
@@ -1229,6 +1450,9 @@ export interface ExpansionPanelListProps {
   elevation?: number;
   expandIconColor?: unknown;
   materialGapSize?: number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface ExpansionTileProps {
@@ -1263,12 +1487,18 @@ export interface ExpansionTileProps {
   enabled?: boolean;
   expansionAnimationStyle?: unknown;
   internalAddSemanticForOnTap?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ExpansionTileThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1283,12 +1513,17 @@ export interface FilledButtonProps {
   clipBehavior?: unknown;
   statesController?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface FilledButtonThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1329,6 +1564,9 @@ export interface FilterChipProps {
   deleteIconBoxConstraints?: unknown;
   chipAnimationStyle?: unknown;
   mouseCursor?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface FlexibleSpaceBarProps {
@@ -1339,6 +1577,9 @@ export interface FlexibleSpaceBarProps {
   collapseMode?: 'parallax' | 'pin' | 'none';
   stretchModes?: 'zoomBackground' | 'blurBackground' | 'fadeTitle'[];
   expandedTitleScale?: number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1350,6 +1591,9 @@ export interface FlexibleSpaceBarSettingsProps {
   child?: string | FlutterElement;
   isScrolledUnder?: boolean;
   hasLeading?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1377,12 +1621,18 @@ export interface FloatingActionButtonProps {
   materialTapTargetSize?: 'padded' | 'shrinkWrap';
   isExtended?: boolean;
   enableFeedback?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface FloatingActionButtonThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1390,6 +1640,9 @@ export interface GridTileProps {
   header?: string | FlutterElement;
   footer?: string | FlutterElement;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1399,6 +1652,9 @@ export interface GridTileBarProps {
   title?: string | FlutterElement;
   subtitle?: string | FlutterElement;
   trailing?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1428,11 +1684,16 @@ export interface IconButtonProps {
   selectedIcon?: string | FlutterElement;
   statesController?: unknown;
   icon: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
 }
 
 export interface IconButtonThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1443,6 +1704,9 @@ export interface InkProps {
   width?: number;
   height?: number;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1559,6 +1823,9 @@ export interface InputChipProps {
   deleteIconBoxConstraints?: unknown;
   chipAnimationStyle?: unknown;
   mouseCursor?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface InputDatePickerFormFieldProps {
@@ -1577,6 +1844,9 @@ export interface InputDatePickerFormFieldProps {
   acceptEmptyDate?: boolean;
   focusNode?: unknown;
   calendarDelegate?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface InputDecoratorProps {
@@ -1589,6 +1859,9 @@ export interface InputDecoratorProps {
   expands?: boolean;
   isEmpty?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1632,6 +1905,9 @@ export interface InputDecorationThemeProps {
   visualDensity?: unknown;
   data?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1673,6 +1949,7 @@ export interface ListTileProps {
   titleAlignment?: 'threeLine' | 'titleHeight' | 'top' | 'center' | 'bottom';
   internalAddSemanticForOnTap?: boolean;
   statesController?: unknown;
+  onDoubleTap?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1694,11 +1971,17 @@ export interface ListTileThemeProps {
   minLeadingWidth?: number;
   controlAffinity?: 'leading' | 'trailing' | 'platform';
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface TextMagnifierProps {
   magnifierInfo: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface MagnifierProps {
@@ -1708,6 +1991,9 @@ export interface MagnifierProps {
   shadows?: unknown[];
   clipBehavior?: unknown;
   size?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface MaterialProps {
@@ -1724,6 +2010,9 @@ export interface MaterialProps {
   animationDuration?: unknown;
   child?: string | FlutterElement;
   animateColor?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1759,6 +2048,8 @@ export interface MaterialButtonProps {
   height?: number;
   enableFeedback?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1779,6 +2070,9 @@ export interface MenuAnchorProps {
   menuChildren: FlutterElement[];
   builder?: (controller: unknown, child: FlutterElement) => FlutterElement;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1786,6 +2080,9 @@ export interface MenuBarProps {
   style?: unknown;
   clipBehavior?: unknown;
   controller?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1806,6 +2103,9 @@ export interface MenuItemButtonProps {
   closeOnActivate?: boolean;
   overflowAxis?: 'horizontal' | 'vertical';
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1824,6 +2124,9 @@ export interface CheckboxMenuButtonProps {
   trailingIcon?: string | FlutterElement;
   closeOnActivate?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1842,6 +2145,9 @@ export interface RadioMenuButtonProps {
   trailingIcon?: string | FlutterElement;
   closeOnActivate?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1863,6 +2169,9 @@ export interface SubmenuButtonProps {
   useRootOverlay?: boolean;
   menuChildren: FlutterElement[];
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1870,29 +2179,44 @@ export interface MenuAcceleratorCallbackBindingProps {
   onInvoke?: unknown;
   hasSubmenu?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface MenuAcceleratorLabelProps {
   label: string;
   builder?: (label: string, index: number) => FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface MenuBarThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface MenuButtonThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface MenuThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1902,6 +2226,9 @@ export interface MergeableMaterialProps {
   hasDividers?: boolean;
   children?: unknown[];
   dividerColor?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface NavigationBarProps {
@@ -1921,6 +2248,9 @@ export interface NavigationBarProps {
   labelTextStyle?: unknown;
   labelPadding?: number | [number, number] | [number, number, number, number];
   maintainBottomViewPadding?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface NavigationDestinationProps {
@@ -1929,6 +2259,9 @@ export interface NavigationDestinationProps {
   label: string;
   tooltip?: string;
   enabled?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface NavigationIndicatorProps {
@@ -1938,11 +2271,17 @@ export interface NavigationIndicatorProps {
   height?: number;
   borderRadius?: unknown;
   shape?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface NavigationBarThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1958,6 +2297,9 @@ export interface NavigationDrawerProps {
   onDestinationSelected?: (value: number) => void;
   selectedIndex?: number;
   tilePadding?: number | [number, number] | [number, number, number, number];
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1967,11 +2309,17 @@ export interface NavigationDrawerDestinationProps {
   selectedIcon?: string | FlutterElement;
   label: string | FlutterElement;
   enabled?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface NavigationDrawerThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -1998,11 +2346,17 @@ export interface NavigationRailProps {
   leadingAtTop?: boolean;
   trailingAtBottom?: boolean;
   scrollable?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface NavigationRailThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2017,12 +2371,17 @@ export interface OutlinedButtonProps {
   clipBehavior?: unknown;
   statesController?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface OutlinedButtonThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2055,6 +2414,9 @@ export interface PaginatedDataTableProps {
   headingRowColor?: unknown;
   dividerThickness?: number;
   showEmptyRows?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface PopupMenuDividerProps {
@@ -2064,6 +2426,9 @@ export interface PopupMenuDividerProps {
   endIndent?: number;
   radius?: unknown;
   color?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface PopupMenuItemProps {
@@ -2076,6 +2441,8 @@ export interface PopupMenuItemProps {
   labelTextStyle?: unknown;
   mouseCursor?: unknown;
   child?: string | FlutterElement;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2089,6 +2456,8 @@ export interface CheckedPopupMenuItemProps {
   mouseCursor?: unknown;
   child?: string | FlutterElement;
   onTap?: unknown;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2123,12 +2492,18 @@ export interface PopupMenuButtonProps {
   routeSettings?: unknown;
   style?: unknown;
   requestFocus?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface PopupMenuThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2146,6 +2521,9 @@ export interface LinearProgressIndicatorProps {
   trackGap?: number;
   year2023?: boolean;
   controller?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CircularProgressIndicatorProps {
@@ -2163,6 +2541,9 @@ export interface CircularProgressIndicatorProps {
   year2023?: boolean;
   padding?: number | [number, number] | [number, number, number, number];
   controller?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface RefreshProgressIndicatorProps {
@@ -2178,11 +2559,17 @@ export interface RefreshProgressIndicatorProps {
   elevation?: number;
   indicatorMargin?: number | [number, number] | [number, number, number, number];
   indicatorPadding?: number | [number, number] | [number, number, number, number];
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface ProgressIndicatorThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2207,6 +2594,9 @@ export interface RadioProps {
   backgroundColor?: unknown;
   side?: unknown;
   innerRadius?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface RadioListTileProps {
@@ -2248,12 +2638,18 @@ export interface RadioListTileProps {
   radioBackgroundColor?: unknown;
   radioSide?: unknown;
   radioInnerRadius?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface RadioThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2273,6 +2669,9 @@ export interface RangeSliderProps {
   semanticFormatterCallback?: (value: number) => string;
   padding?: number | [number, number] | [number, number, number, number];
   year2023?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface RefreshIndicatorProps {
@@ -2288,6 +2687,9 @@ export interface RefreshIndicatorProps {
   triggerMode?: 'anywhere' | 'onEdge';
   elevation?: number;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2318,11 +2720,17 @@ export interface ReorderableListViewProps {
   autoScrollerVelocityScalar?: number;
   dragBoundaryProvider?: () => unknown;
   mouseCursor?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ScaffoldMessengerProps {
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2354,6 +2762,9 @@ export interface ScaffoldProps {
   drawerEnableOpenDragGesture?: boolean;
   endDrawerEnableOpenDragGesture?: boolean;
   restorationId?: string;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2367,12 +2778,18 @@ export interface ScrollbarProps {
   notificationPredicate?: (notification: unknown) => boolean;
   interactive?: boolean;
   scrollbarOrientation?: 'left' | 'right' | 'top' | 'bottom';
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ScrollbarThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2408,6 +2825,9 @@ export interface SearchAnchorProps {
   enabled?: boolean;
   smartDashesType?: 'disabled' | 'enabled';
   smartQuotesType?: 'disabled' | 'enabled';
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SearchBarProps {
@@ -2441,17 +2861,25 @@ export interface SearchBarProps {
   readOnly?: boolean;
   smartDashesType?: 'disabled' | 'enabled';
   smartQuotesType?: 'disabled' | 'enabled';
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SearchBarThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SearchViewThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2466,11 +2894,17 @@ export interface SegmentedButtonProps {
   showSelectedIcon?: boolean;
   selectedIcon?: string | FlutterElement;
   direction?: 'horizontal' | 'vertical';
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SegmentedButtonThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2507,6 +2941,8 @@ export interface SelectableTextProps {
   onSelectionChanged?: (selection: unknown, cause: 'tap' | 'doubleTap' | 'longPress' | 'forcePress' | 'keyboard' | 'toolbar' | 'drag' | 'stylusHandwriting') => void;
   contextMenuBuilder?: (editableTextState: unknown) => FlutterElement;
   magnifierConfiguration?: unknown;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SelectionAreaProps {
@@ -2516,6 +2952,9 @@ export interface SelectionAreaProps {
   magnifierConfiguration?: unknown;
   onSelectionChanged?: (value: unknown) => void;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2542,11 +2981,17 @@ export interface SliderProps {
   padding?: number | [number, number] | [number, number, number, number];
   showValueIndicator?: 'onlyForDiscrete' | 'onlyForContinuous' | 'always' | 'onDrag' | 'alwaysVisible' | 'never';
   year2023?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SliderThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2557,6 +3002,9 @@ export interface SnackBarActionProps {
   disabledBackgroundColor?: unknown;
   label: string;
   onClick: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SnackBarProps {
@@ -2579,17 +3027,26 @@ export interface SnackBarProps {
   onVisible?: unknown;
   dismissDirection?: 'vertical' | 'horizontal' | 'endToStart' | 'startToEnd' | 'up' | 'down' | 'none';
   clipBehavior?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SnackBarThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SpellCheckSuggestionsToolbarProps {
   anchor: unknown;
   buttonItems: unknown[];
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface StepperProps {
@@ -2611,6 +3068,9 @@ export interface StepperProps {
   stepIconWidth?: number;
   stepIconMargin?: number | [number, number] | [number, number, number, number];
   clipBehavior?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SwitchProps {
@@ -2641,6 +3101,9 @@ export interface SwitchProps {
   onFocusChange?: (value: boolean) => void;
   autofocus?: boolean;
   padding?: number | [number, number] | [number, number, number, number];
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SwitchListTileProps {
@@ -2686,12 +3149,18 @@ export interface SwitchListTileProps {
   minTileHeight?: number;
   hoverColor?: unknown;
   internalAddSemanticForOnTap?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SwitchThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2714,6 +3183,9 @@ export interface TabBarThemeProps {
   indicatorAnimation?: 'linear' | 'elastic';
   data?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2722,6 +3194,9 @@ export interface DefaultTabControllerProps {
   initialIndex?: number;
   child?: string | FlutterElement;
   animationDuration?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2731,6 +3206,9 @@ export interface TabProps {
   iconMargin?: number | [number, number] | [number, number, number, number];
   height?: number;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2765,6 +3243,8 @@ export interface TabBarProps {
   tabAlignment?: 'start' | 'startOffset' | 'fill' | 'center';
   textScaler?: unknown;
   indicatorAnimation?: 'linear' | 'elastic';
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface TabBarViewProps {
@@ -2773,6 +3253,9 @@ export interface TabBarViewProps {
   dragStartBehavior?: string;
   viewportFraction?: number;
   clipBehavior?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2781,6 +3264,9 @@ export interface TabPageSelectorIndicatorProps {
   borderColor: unknown;
   size: number;
   borderStyle?: 'none' | 'solid';
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface TabPageSelectorProps {
@@ -2789,6 +3275,9 @@ export interface TabPageSelectorProps {
   color?: unknown;
   selectedColor?: unknown;
   borderStyle?: 'none' | 'solid';
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface TextButtonProps {
@@ -2803,12 +3292,17 @@ export interface TextButtonProps {
   statesController?: unknown;
   isSemanticButton?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface TextButtonThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2883,6 +3377,8 @@ export interface TextFieldProps {
   spellCheckConfiguration?: unknown;
   magnifierConfiguration?: unknown;
   hintLocales?: unknown[];
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface TextFormFieldProps {
@@ -2962,11 +3458,16 @@ export interface TextFormFieldProps {
   stylusHandwritingEnabled?: boolean;
   canRequestFocus?: boolean;
   hintLocales?: unknown[];
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface TextSelectionThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2974,6 +3475,9 @@ export interface TextSelectionToolbarProps {
   anchorAbove: unknown;
   anchorBelow: unknown;
   toolbarBuilder?: (child: FlutterElement) => FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2982,12 +3486,18 @@ export interface TextSelectionToolbarTextButtonProps {
   padding: number | [number, number] | [number, number, number, number];
   onClick?: unknown;
   alignment?: string;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ThemeProps {
   data: Record<string, unknown>;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -2997,6 +3507,9 @@ export interface AnimatedThemeProps {
   duration?: unknown;
   onEnd?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3015,11 +3528,17 @@ export interface TimePickerDialogProps {
   switchToInputEntryModeIcon?: unknown;
   switchToTimerEntryModeIcon?: unknown;
   emptyInitialInput?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface TimePickerThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3047,12 +3566,18 @@ export interface ToggleButtonsProps {
   borderWidth?: number;
   direction?: 'horizontal' | 'vertical';
   verticalDirection?: 'up' | 'down';
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ToggleButtonsThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3080,18 +3605,27 @@ export interface TooltipProps {
   ignorePointer?: boolean;
   positionDelegate?: (context: unknown) => unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface TooltipThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface TooltipVisibilityProps {
   visible: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3106,12 +3640,18 @@ export interface UserAccountsDrawerHeaderProps {
   accountEmail: string | FlutterElement;
   onDetailsPressed?: unknown;
   arrowColor?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface ActionListenerProps {
   listener: (action: unknown) => void;
   action: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3119,6 +3659,9 @@ export interface ActionsProps {
   dispatcher?: unknown;
   actions: Record<string, unknown>;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3136,6 +3679,9 @@ export interface FocusableActionDetectorProps {
   mouseCursor?: unknown;
   includeFocusSemantics?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3143,6 +3689,9 @@ export interface RenderObjectToWidgetAdapterProps {
   child?: string | FlutterElement;
   container: unknown;
   debugShortDescription?: string;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3158,6 +3707,9 @@ export interface AnimatedCrossFadeProps {
   reverseDuration?: unknown;
   layoutBuilder?: (topChild: FlutterElement, topChildKey: unknown, bottomChild: FlutterElement, bottomChildKey: unknown) => FlutterElement;
   excludeBottomFocus?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface AnimatedListProps {
@@ -3171,6 +3723,9 @@ export interface AnimatedListProps {
   shrinkWrap?: boolean;
   padding?: number | [number, number] | [number, number, number, number];
   clipBehavior?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface AnimatedGridProps {
@@ -3184,12 +3739,18 @@ export interface AnimatedGridProps {
   physics?: unknown;
   padding?: number | [number, number] | [number, number, number, number];
   clipBehavior?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SliverAnimatedListProps {
   itemBuilder: (index: number, animation: unknown) => FlutterElement;
   findChildIndexCallback?: (key: unknown) => number;
   initialItemCount?: number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SliverAnimatedGridProps {
@@ -3197,6 +3758,9 @@ export interface SliverAnimatedGridProps {
   gridDelegate: unknown;
   findChildIndexCallback?: (key: unknown) => number;
   initialItemCount?: number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface AnimatedSizeProps {
@@ -3207,6 +3771,9 @@ export interface AnimatedSizeProps {
   reverseDuration?: unknown;
   clipBehavior?: unknown;
   onEnd?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3218,6 +3785,9 @@ export interface AnimatedSwitcherProps {
   switchOutCurve?: unknown;
   transitionBuilder?: (child: FlutterElement, animation: unknown) => FlutterElement;
   layoutBuilder?: (currentChild: FlutterElement, previousChildren: FlutterElement[]) => FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3225,6 +3795,9 @@ export interface AnnotatedRegionProps {
   child?: string | FlutterElement;
   value: unknown;
   sized?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3260,6 +3833,9 @@ export interface WidgetsAppProps {
   actions?: Record<string, unknown>;
   restorationScopeId?: string;
   useInheritedMediaQuery?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3267,12 +3843,18 @@ export interface StreamBuilderProps {
   initialData?: unknown;
   stream: unknown;
   builder: (snapshot: unknown) => FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface FutureBuilderProps {
   future: Promise<unknown>;
   initialData?: unknown;
   builder: (snapshot: unknown) => FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface RawAutocompleteProps {
@@ -3285,22 +3867,34 @@ export interface RawAutocompleteProps {
   onSelected?: (option: unknown) => void;
   textEditingController?: unknown;
   initialValue?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface AutocompleteHighlightedOptionProps {
   highlightIndexNotifier: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface AutofillGroupProps {
   child?: string | FlutterElement;
   onDisposeAction?: 'commit' | 'cancel';
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface AutomaticKeepAliveProps {
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3313,17 +3907,26 @@ export interface BannerProps {
   color?: unknown;
   textStyle?: TextStyleProps;
   shadow?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CheckedModeBannerProps {
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface DirectionalityProps {
   textDirection: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3331,6 +3934,14 @@ export interface OpacityProps {
   opacity: number;
   alwaysIncludeSemantics?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
+  /** Animate prop changes by swapping to the implicit-animation widget. */
+  animate?: boolean;
+  /** Animation duration in milliseconds (default 300). */
+  duration?: number;
+  curve?: 'linear' | 'ease' | 'easeIn' | 'easeOut' | 'easeInOut' | 'easeInCubic' | 'easeOutCubic' | 'easeInOutCubic' | 'fastOutSlowIn' | 'decelerate' | 'bounceIn' | 'bounceOut' | 'bounceInOut' | 'elasticIn' | 'elasticOut' | 'elasticInOut';
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3338,12 +3949,18 @@ export interface ShaderMaskProps {
   shaderCallback: (bounds: unknown) => unknown;
   blendMode?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface BackdropGroupProps {
   child?: string | FlutterElement;
   backdropKey?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3354,6 +3971,9 @@ export interface BackdropFilterProps {
   blendMode?: unknown;
   enabled?: boolean;
   backdropGroupKey?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3364,6 +3984,9 @@ export interface CustomPaintProps {
   isComplex?: boolean;
   willChange?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3371,6 +3994,9 @@ export interface ClipRectProps {
   clipper?: unknown;
   clipBehavior?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3379,6 +4005,9 @@ export interface ClipRRectProps {
   clipper?: unknown;
   clipBehavior?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3387,6 +4016,9 @@ export interface ClipRSuperellipseProps {
   clipper?: unknown;
   clipBehavior?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3394,6 +4026,9 @@ export interface ClipOvalProps {
   clipper?: unknown;
   clipBehavior?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3401,6 +4036,9 @@ export interface ClipPathProps {
   clipper?: unknown;
   clipBehavior?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3412,6 +4050,9 @@ export interface PhysicalModelProps {
   color: unknown;
   shadowColor?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3422,6 +4063,9 @@ export interface PhysicalShapeProps {
   color: unknown;
   shadowColor?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3432,12 +4076,18 @@ export interface TransformProps {
   transformHitTests?: boolean;
   filterQuality?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CompositedTransformTargetProps {
   link: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3448,6 +4098,9 @@ export interface CompositedTransformFollowerProps {
   targetAnchor?: string;
   followerAnchor?: string;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3456,6 +4109,9 @@ export interface FittedBoxProps {
   alignment?: string;
   clipBehavior?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3463,18 +4119,32 @@ export interface FractionalTranslationProps {
   translation: unknown;
   transformHitTests?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface RotatedBoxProps {
   quarterTurns: number;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface PaddingProps {
   padding: number | [number, number] | [number, number, number, number];
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
+  /** Animate prop changes by swapping to the implicit-animation widget. */
+  animate?: boolean;
+  /** Animation duration in milliseconds (default 300). */
+  duration?: number;
+  curve?: 'linear' | 'ease' | 'easeIn' | 'easeOut' | 'easeInOut' | 'easeInCubic' | 'easeOutCubic' | 'easeInOutCubic' | 'fastOutSlowIn' | 'decelerate' | 'bounceIn' | 'bounceOut' | 'bounceInOut' | 'elasticIn' | 'elasticOut' | 'elasticInOut';
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3483,6 +4153,14 @@ export interface AlignProps {
   widthFactor?: number;
   heightFactor?: number;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
+  /** Animate prop changes by swapping to the implicit-animation widget. */
+  animate?: boolean;
+  /** Animation duration in milliseconds (default 300). */
+  duration?: number;
+  curve?: 'linear' | 'ease' | 'easeIn' | 'easeOut' | 'easeInOut' | 'easeInCubic' | 'easeOutCubic' | 'easeInOutCubic' | 'fastOutSlowIn' | 'decelerate' | 'bounceIn' | 'bounceOut' | 'bounceInOut' | 'elasticIn' | 'elasticOut' | 'elasticInOut';
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3490,23 +4168,35 @@ export interface CenterProps {
   widthFactor?: number;
   heightFactor?: number;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CustomSingleChildLayoutProps {
   delegate: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface LayoutIdProps {
   id: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CustomMultiChildLayoutProps {
   delegate: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3514,12 +4204,18 @@ export interface SizedBoxProps {
   width?: number;
   height?: number;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ConstrainedBoxProps {
   constraints: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3530,6 +4226,9 @@ export interface ConstraintsTransformBoxProps {
   constraintsTransform: (constraints: unknown) => unknown;
   clipBehavior?: unknown;
   debugTransformType?: string;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3539,6 +4238,9 @@ export interface UnconstrainedBoxProps {
   alignment?: string;
   constrainedAxis?: 'horizontal' | 'vertical';
   clipBehavior?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3547,6 +4249,14 @@ export interface FractionallySizedBoxProps {
   widthFactor?: number;
   heightFactor?: number;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
+  /** Animate prop changes by swapping to the implicit-animation widget. */
+  animate?: boolean;
+  /** Animation duration in milliseconds (default 300). */
+  duration?: number;
+  curve?: 'linear' | 'ease' | 'easeIn' | 'easeOut' | 'easeInOut' | 'easeInCubic' | 'easeOutCubic' | 'easeInOutCubic' | 'fastOutSlowIn' | 'decelerate' | 'bounceIn' | 'bounceOut' | 'bounceInOut' | 'elasticIn' | 'elasticOut' | 'elasticInOut';
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3554,6 +4264,9 @@ export interface LimitedBoxProps {
   maxWidth?: number;
   maxHeight?: number;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3565,6 +4278,9 @@ export interface OverflowBoxProps {
   maxHeight?: number;
   fit?: string;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3572,18 +4288,27 @@ export interface SizedOverflowBoxProps {
   size: unknown;
   alignment?: string;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface OffstageProps {
   offstage?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface AspectRatioProps {
   aspectRatio: number;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3591,11 +4316,17 @@ export interface IntrinsicWidthProps {
   stepWidth?: number;
   stepHeight?: number;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface IntrinsicHeightProps {
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3603,22 +4334,34 @@ export interface BaselineProps {
   baseline: number;
   baselineType: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface IgnoreBaselineProps {
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SliverToBoxAdapterProps {
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SliverPaddingProps {
   padding: number | [number, number] | [number, number, number, number];
   sliver?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SliverSemanticsProps {
@@ -3705,11 +4448,15 @@ export interface SliverSemanticsProps {
   localeForSubtree?: unknown;
   minValue?: string;
   maxValue?: string;
+  onDoubleTap?: () => void;
 }
 
 export interface ListBodyProps {
   mainAxis?: 'horizontal' | 'vertical';
   reverse?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3718,6 +4465,9 @@ export interface StackProps {
   textDirection?: unknown;
   fit?: 'loose' | 'expand' | 'passthrough';
   clipBehavior?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3727,6 +4477,9 @@ export interface IndexedStackProps {
   clipBehavior?: unknown;
   sizing?: 'loose' | 'expand' | 'passthrough';
   index?: number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3738,6 +4491,14 @@ export interface PositionedProps {
   width?: number;
   height?: number;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
+  /** Animate prop changes by swapping to the implicit-animation widget. */
+  animate?: boolean;
+  /** Animation duration in milliseconds (default 300). */
+  duration?: number;
+  curve?: 'linear' | 'ease' | 'easeIn' | 'easeOut' | 'easeInOut' | 'easeInCubic' | 'easeOutCubic' | 'easeInOutCubic' | 'fastOutSlowIn' | 'decelerate' | 'bounceIn' | 'bounceOut' | 'bounceInOut' | 'elasticIn' | 'elasticOut' | 'elasticInOut';
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3749,6 +4510,9 @@ export interface PositionedDirectionalProps {
   width?: number;
   height?: number;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3762,6 +4526,9 @@ export interface FlexProps {
   textBaseline?: unknown;
   clipBehavior?: unknown;
   spacing?: number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3773,6 +4540,9 @@ export interface RowProps {
   verticalDirection?: 'up' | 'down';
   textBaseline?: unknown;
   spacing?: number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3784,6 +4554,9 @@ export interface ColumnProps {
   verticalDirection?: 'up' | 'down';
   textBaseline?: unknown;
   spacing?: number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3791,12 +4564,18 @@ export interface FlexibleProps {
   flex?: number;
   fit?: 'tight' | 'loose';
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ExpandedProps {
   flex?: number;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3810,12 +4589,18 @@ export interface WrapProps {
   textDirection?: unknown;
   verticalDirection?: 'up' | 'down';
   clipBehavior?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface FlowProps {
   delegate: unknown;
   clipBehavior?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3834,6 +4619,9 @@ export interface RichTextProps {
   textHeightBehavior?: unknown;
   selectionRegistrar?: unknown;
   selectionColor?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface RawImageProps {
@@ -3853,11 +4641,17 @@ export interface RawImageProps {
   invertColors?: boolean;
   filterQuality?: unknown;
   isAntiAlias?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface DefaultAssetBundleProps {
   bundle: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3865,6 +4659,9 @@ export interface WidgetToRenderBoxAdapterProps {
   renderBox: unknown;
   onBuild?: unknown;
   onUnmount?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface ListenerProps {
@@ -3879,6 +4676,9 @@ export interface ListenerProps {
   onPointerSignal?: (event: unknown) => void;
   behavior?: 'deferToChild' | 'opaque' | 'translucent';
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3890,11 +4690,17 @@ export interface MouseRegionProps {
   opaque?: boolean;
   hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface RepaintBoundaryProps {
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3902,6 +4708,9 @@ export interface IgnorePointerProps {
   ignoring?: boolean;
   ignoringSemantics?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3909,6 +4718,9 @@ export interface AbsorbPointerProps {
   absorbing?: boolean;
   ignoringSemantics?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -3916,6 +4728,9 @@ export interface MetaDataProps {
   metaData?: unknown;
   behavior?: 'deferToChild' | 'opaque' | 'translucent';
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4003,61 +4818,92 @@ export interface SemanticsProps {
   localeForSubtree?: unknown;
   minValue?: string;
   maxValue?: string;
+  onDoubleTap?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface MergeSemanticsProps {
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface BlockSemanticsProps {
   blocking?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ExcludeSemanticsProps {
   excluding?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface IndexedSemanticsProps {
   index: number;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface KeyedSubtreeProps {
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface BuilderProps {
   builder: () => FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface StatefulBuilderProps {
   builder: (setState: (fn: unknown) => void) => FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface ColoredBoxProps {
   color: unknown;
   isAntiAlias?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface RootWidgetProps {
   child?: string | FlutterElement;
   debugShortDescription?: string;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ColorFilteredProps {
   colorFilter: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4065,6 +4911,9 @@ export interface DecoratedBoxProps {
   decoration: unknown;
   position?: 'background' | 'foreground';
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4083,6 +4932,14 @@ export interface ContainerProps {
   transformAlignment?: string;
   child?: string | FlutterElement;
   clipBehavior?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
+  /** Animate prop changes by swapping to the implicit-animation widget. */
+  animate?: boolean;
+  /** Animation duration in milliseconds (default 300). */
+  duration?: number;
+  curve?: 'linear' | 'ease' | 'easeIn' | 'easeOut' | 'easeInOut' | 'easeInCubic' | 'easeOutCubic' | 'easeInOutCubic' | 'fastOutSlowIn' | 'decelerate' | 'bounceIn' | 'bounceOut' | 'bounceInOut' | 'elasticIn' | 'elasticOut' | 'elasticInOut';
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4090,6 +4947,9 @@ export interface DecoratedSliverProps {
   decoration: unknown;
   position?: 'background' | 'foreground';
   sliver?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface DefaultSelectionStyleProps {
@@ -4097,11 +4957,17 @@ export interface DefaultSelectionStyleProps {
   selectionColor?: unknown;
   mouseCursor?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface DefaultTextEditingShortcutsProps {
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4120,17 +4986,26 @@ export interface DismissibleProps {
   crossAxisEndOffset?: number;
   dragStartBehavior?: string;
   behavior?: 'deferToChild' | 'opaque' | 'translucent';
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface DisplayFeatureSubScreenProps {
   anchorPoint?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface DragBoundaryProps {
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4154,6 +5029,9 @@ export interface DraggableProps {
   rootOverlay?: boolean;
   hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
   allowedButtonsFilter?: (buttons: number) => boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4178,6 +5056,9 @@ export interface LongPressDraggableProps {
   allowedButtonsFilter?: (buttons: number) => boolean;
   hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
   rootOverlay?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4190,6 +5071,9 @@ export interface DragTargetProps {
   onLeave?: (data: unknown) => void;
   onMove?: (details: unknown) => void;
   hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface DraggableScrollableSheetProps {
@@ -4203,10 +5087,16 @@ export interface DraggableScrollableSheetProps {
   controller?: unknown;
   shouldCloseOnMinExtent?: boolean;
   builder: (scrollController: unknown) => FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface DraggableScrollableActuatorProps {
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4215,6 +5105,9 @@ export interface DualTransitionBuilderProps {
   forwardBuilder: (animation: unknown, child: FlutterElement) => FlutterElement;
   reverseBuilder: (animation: unknown, child: FlutterElement) => FlutterElement;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4294,6 +5187,9 @@ export interface EditableTextProps {
   magnifierConfiguration?: unknown;
   undoController?: unknown;
   hintLocales?: unknown[];
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface ExpansibleProps {
@@ -4306,6 +5202,9 @@ export interface ExpansibleProps {
   curve?: unknown;
   reverseCurve?: unknown;
   maintainState?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface FadeInImageProps {
@@ -4332,6 +5231,9 @@ export interface FadeInImageProps {
   alignment?: string;
   repeat?: 'repeat' | 'repeatX' | 'repeatY' | 'noRepeat';
   matchTextDirection?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface FlutterLogoProps {
@@ -4340,6 +5242,9 @@ export interface FlutterLogoProps {
   style?: 'markOnly' | 'horizontal' | 'stacked';
   duration?: unknown;
   curve?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface FocusProps {
@@ -4356,6 +5261,9 @@ export interface FocusProps {
   descendantsAreTraversable?: boolean;
   includeSemantics?: boolean;
   debugLabel?: string;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4373,18 +5281,27 @@ export interface FocusScopeProps {
   includeSemantics?: boolean;
   descendantsAreFocusable?: boolean;
   descendantsAreTraversable?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ExcludeFocusProps {
   excluding?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface FocusTraversalOrderProps {
   order: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4394,12 +5311,18 @@ export interface FocusTraversalGroupProps {
   descendantsAreTraversable?: boolean;
   onFocusNodeCreated?: (p0: unknown) => void;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ExcludeFocusTraversalProps {
   excluding?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4411,6 +5334,9 @@ export interface FormProps {
   onWillPop?: () => Promise<boolean>;
   onChange?: unknown;
   autovalidateMode?: 'disabled' | 'always' | 'onUserInteraction' | 'onUnfocus' | 'onUserInteractionIfError';
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4425,10 +5351,16 @@ export interface FormFieldProps {
   enabled?: boolean;
   autovalidateMode?: 'disabled' | 'always' | 'onUserInteraction' | 'onUnfocus' | 'onUserInteractionIfError';
   restorationId?: string;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface ErrorWidgetProps {
   exception: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface GestureDetectorProps {
@@ -4506,6 +5438,9 @@ export interface RawGestureDetectorProps {
   behavior?: 'deferToChild' | 'opaque' | 'translucent';
   excludeFromSemantics?: boolean;
   semantics?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4515,6 +5450,9 @@ export interface GridPaperProps {
   divisions?: number;
   subdivisions?: number;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4525,12 +5463,18 @@ export interface HeroProps {
   placeholderBuilder?: (heroSize: unknown, child: FlutterElement) => FlutterElement;
   transitionOnUserGestures?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface HeroModeProps {
   child?: string | FlutterElement;
   enabled?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4548,11 +5492,17 @@ export interface IconProps {
   applyTextScaling?: boolean;
   blendMode?: unknown;
   fontWeight?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface IconThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4576,12 +5526,18 @@ export interface ImageProps {
   gaplessPlayback?: boolean;
   isAntiAlias?: boolean;
   filterQuality?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface ImageFilteredProps {
   imageFilter: unknown;
   child?: string | FlutterElement;
   enabled?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4590,6 +5546,9 @@ export interface ImageIconProps {
   size?: number;
   color?: unknown;
   semanticLabel?: string;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface AnimatedContainerProps {
@@ -4609,6 +5568,9 @@ export interface AnimatedContainerProps {
   curve?: unknown;
   duration: unknown;
   onEnd?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4618,6 +5580,9 @@ export interface AnimatedPaddingProps {
   curve?: unknown;
   duration: unknown;
   onEnd?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4629,6 +5594,9 @@ export interface AnimatedAlignProps {
   curve?: unknown;
   duration: unknown;
   onEnd?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4643,6 +5611,9 @@ export interface AnimatedPositionedProps {
   curve?: unknown;
   duration: unknown;
   onEnd?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4657,6 +5628,9 @@ export interface AnimatedPositionedDirectionalProps {
   curve?: unknown;
   duration: unknown;
   onEnd?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4668,6 +5642,9 @@ export interface AnimatedScaleProps {
   curve?: unknown;
   duration: unknown;
   onEnd?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4679,6 +5656,9 @@ export interface AnimatedRotationProps {
   curve?: unknown;
   duration: unknown;
   onEnd?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4688,6 +5668,9 @@ export interface AnimatedSlideProps {
   curve?: unknown;
   duration: unknown;
   onEnd?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4698,6 +5681,9 @@ export interface AnimatedOpacityProps {
   duration: unknown;
   onEnd?: unknown;
   alwaysIncludeSemantics?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4708,6 +5694,9 @@ export interface SliverAnimatedOpacityProps {
   duration: unknown;
   onEnd?: unknown;
   alwaysIncludeSemantics?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface AnimatedDefaultTextStyleProps {
@@ -4722,6 +5711,9 @@ export interface AnimatedDefaultTextStyleProps {
   curve?: unknown;
   duration: unknown;
   onEnd?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4738,6 +5730,9 @@ export interface AnimatedPhysicalModelProps {
   curve?: unknown;
   duration: unknown;
   onEnd?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4749,6 +5744,9 @@ export interface AnimatedFractionallySizedBoxProps {
   curve?: unknown;
   duration: unknown;
   onEnd?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4770,6 +5768,9 @@ export interface InteractiveViewerProps {
   alignment?: string;
   trackpadScrollCausesScale?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4779,11 +5780,17 @@ export interface KeyboardListenerProps {
   includeSemantics?: boolean;
   onKeyEvent?: (value: unknown) => void;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface LayoutBuilderProps {
   builder: (constraints: unknown) => FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface ListWheelScrollViewProps {
@@ -4805,6 +5812,9 @@ export interface ListWheelScrollViewProps {
   scrollBehavior?: unknown;
   dragStartBehavior?: string;
   changeReportingBehavior?: 'onScrollEnd' | 'onScrollUpdate';
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4821,6 +5831,9 @@ export interface ListWheelViewportProps {
   offset: unknown;
   childDelegate: unknown;
   clipBehavior?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface LocalizationsProps {
@@ -4828,11 +5841,17 @@ export interface LocalizationsProps {
   delegates: unknown[];
   child?: string | FlutterElement;
   isApplicationLevel?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface LookupBoundaryProps {
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4843,12 +5862,18 @@ export interface RawMagnifierProps {
   focalPointOffset?: unknown;
   magnificationScale?: number;
   size: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface MediaQueryProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4860,6 +5885,9 @@ export interface ModalBarrierProps {
   barrierSemanticsDismissible?: boolean;
   clipDetailsNotifier?: unknown;
   semanticsOnTapHint?: string;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface AnimatedModalBarrierProps {
@@ -4870,6 +5898,9 @@ export interface AnimatedModalBarrierProps {
   onDismiss?: unknown;
   clipDetailsNotifier?: unknown;
   semanticsOnTapHint?: string;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface NavigationToolbarProps {
@@ -4878,11 +5909,17 @@ export interface NavigationToolbarProps {
   trailing?: string | FlutterElement;
   centerMiddle?: boolean;
   middleSpacing?: number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface HeroControllerScopeProps {
   controller: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4902,6 +5939,9 @@ export interface NavigatorProps {
   routeTraversalEdgeBehavior?: 'closedLoop' | 'leaveFlutterView' | 'parentScope' | 'stop';
   routeDirectionalTraversalEdgeBehavior?: 'closedLoop' | 'leaveFlutterView' | 'parentScope' | 'stop';
   onDidRemovePage?: (page: unknown) => void;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface NavigatorPopHandlerProps {
@@ -4909,6 +5949,9 @@ export interface NavigatorPopHandlerProps {
   onPopWithResult?: (result: unknown) => void;
   enabled?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4925,17 +5968,26 @@ export interface NestedScrollViewProps {
   hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
   restorationId?: string;
   scrollBehavior?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SliverOverlapAbsorberProps {
   handle: unknown;
   sliver?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SliverOverlapInjectorProps {
   handle: unknown;
   sliver?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface NestedScrollViewViewportProps {
@@ -4947,20 +5999,32 @@ export interface NestedScrollViewViewportProps {
   slivers?: FlutterElement[];
   handle: unknown;
   clipBehavior?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface NotificationListenerProps {
   child?: string | FlutterElement;
   onNotification?: (notification: unknown) => boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface OrientationBuilderProps {
   builder: (orientation: 'portrait' | 'landscape') => FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface DeviceOrientationBuilderProps {
   builder: (orientation: 'portrait' | 'landscape') => FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface OverflowBarProps {
@@ -4970,12 +6034,18 @@ export interface OverflowBarProps {
   overflowAlignment?: 'start' | 'end' | 'center';
   overflowDirection?: 'up' | 'down';
   textDirection?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface OverlayProps {
   initialEntries?: unknown[];
   clipBehavior?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface OverlayPortalProps {
@@ -4983,6 +6053,9 @@ export interface OverlayPortalProps {
   overlayChildBuilder: () => FlutterElement;
   overlayLocation?: 'nearestOverlay' | 'rootOverlay';
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -4993,6 +6066,9 @@ export interface GlowingOverscrollIndicatorProps {
   color: unknown;
   notificationPredicate?: (notification: unknown) => boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5001,12 +6077,18 @@ export interface StretchingOverscrollIndicatorProps {
   notificationPredicate?: (notification: unknown) => boolean;
   clipBehavior?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface PageStorageProps {
   bucket: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5024,15 +6106,24 @@ export interface PageViewProps {
   hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
   scrollBehavior?: unknown;
   padEnds?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface PerformanceOverlayProps {
   optionsMask?: number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface PinnedHeaderSliverProps {
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5042,17 +6133,26 @@ export interface PlaceholderProps {
   fallbackWidth?: number;
   fallbackHeight?: number;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface PlatformMenuBarProps {
   menus: unknown[];
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface PlatformSelectableRegionContextMenuProps {
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5065,6 +6165,9 @@ export interface AndroidViewProps {
   creationParams?: unknown;
   creationParamsCodec?: unknown;
   clipBehavior?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface UiKitViewProps {
@@ -5075,6 +6178,9 @@ export interface UiKitViewProps {
   creationParams?: unknown;
   creationParamsCodec?: unknown;
   gestureRecognizers?: Set<unknown>;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface AppKitViewProps {
@@ -5085,6 +6191,9 @@ export interface AppKitViewProps {
   creationParams?: unknown;
   creationParamsCodec?: unknown;
   gestureRecognizers?: Set<unknown>;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface HtmlElementViewProps {
@@ -5092,24 +6201,36 @@ export interface HtmlElementViewProps {
   onPlatformViewCreated?: (id: number) => void;
   creationParams?: unknown;
   hitTestBehavior?: string;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface PlatformViewLinkProps {
   surfaceFactory: (controller: unknown) => FlutterElement;
   onCreatePlatformView: (params: unknown) => unknown;
   viewType: string;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface PlatformViewSurfaceProps {
   controller: unknown;
   hitTestBehavior: string;
   gestureRecognizers: Set<unknown>;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface AndroidViewSurfaceProps {
   controller: unknown;
   hitTestBehavior: string;
   gestureRecognizers: Set<unknown>;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface PopScopeProps {
@@ -5117,12 +6238,18 @@ export interface PopScopeProps {
   canPop?: boolean;
   onPopInvokedWithResult?: (didPop: boolean, result: unknown) => void;
   onPopInvoked?: (didPop: boolean) => void;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface PreferredSizeProps {
   preferredSize: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5131,6 +6258,9 @@ export interface PrimaryScrollControllerProps {
   automaticallyInheritForPlatforms?: Set<'android' | 'fuchsia' | 'iOS' | 'linux' | 'macOS' | 'windows'>;
   scrollDirection?: 'horizontal' | 'vertical';
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5138,6 +6268,9 @@ export interface RadioGroupProps {
   groupValue?: unknown;
   onChange: (value: unknown) => void;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5147,6 +6280,9 @@ export interface RawKeyboardListenerProps {
   includeSemantics?: boolean;
   onKey?: (value: unknown) => void;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5162,12 +6298,18 @@ export interface RawMenuAnchorProps {
   controller: unknown;
   overlayBuilder: (info: unknown) => FlutterElement;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface RawMenuAnchorGroupProps {
   child?: string | FlutterElement;
   controller: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5180,6 +6322,9 @@ export interface RawRadioProps {
   groupRegistry: unknown;
   enabled: boolean;
   builder: (state: unknown) => FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface RawTooltipProps {
@@ -5195,6 +6340,9 @@ export interface RawTooltipProps {
   animationStyle?: unknown;
   positionDelegate?: (context: unknown) => unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5223,6 +6371,9 @@ export interface ReorderableListProps {
   clipBehavior?: unknown;
   autoScrollerVelocityScalar?: number;
   dragBoundaryProvider?: () => unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SliverReorderableListProps {
@@ -5238,12 +6389,18 @@ export interface SliverReorderableListProps {
   proxyDecorator?: (child: FlutterElement, index: number, animation: unknown) => FlutterElement;
   dragBoundaryProvider?: () => unknown;
   autoScrollerVelocityScalar?: number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface ReorderableDragStartListenerProps {
   child?: string | FlutterElement;
   index: number;
   enabled?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5251,6 +6408,9 @@ export interface ReorderableDelayedDragStartListenerProps {
   child?: string | FlutterElement;
   index: number;
   enabled?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5262,24 +6422,36 @@ export interface RepeatingAnimationBuilderProps {
   paused?: boolean;
   builder: (value: unknown, child: FlutterElement) => FlutterElement;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface RestorationScopeProps {
   restorationId: string;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface UnmanagedRestorationScopeProps {
   bucket?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface RootRestorationScopeProps {
   restorationId: string;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5289,11 +6461,17 @@ export interface RouterProps {
   routerDelegate: unknown;
   backButtonDispatcher?: unknown;
   restorationScopeId?: string;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface BackButtonListenerProps {
   child?: string | FlutterElement;
   onBackButtonPressed: () => Promise<boolean>;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5305,6 +6483,9 @@ export interface SafeAreaProps {
   minimum?: number | [number, number] | [number, number, number, number];
   maintainBottomViewPadding?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5315,16 +6496,25 @@ export interface SliverSafeAreaProps {
   bottom?: boolean;
   minimum?: number | [number, number] | [number, number, number, number];
   sliver: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface ScrollConfigurationProps {
   behavior: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ScrollNotificationObserverProps {
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5347,6 +6537,9 @@ export interface CustomScrollViewProps {
   restorationId?: string;
   clipBehavior?: unknown;
   hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface ListViewProps {
@@ -5370,6 +6563,9 @@ export interface ListViewProps {
   restorationId?: string;
   clipBehavior?: unknown;
   hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5392,6 +6588,9 @@ export interface GridViewProps {
   keyboardDismissBehavior?: 'manual' | 'onDrag';
   restorationId?: string;
   hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5408,6 +6607,9 @@ export interface ScrollableProps {
   scrollBehavior?: unknown;
   clipBehavior?: unknown;
   hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface TwoDimensionalScrollableProps {
@@ -5420,6 +6622,9 @@ export interface TwoDimensionalScrollableProps {
   diagonalDragBehavior?: 'none' | 'weightedEvent' | 'weightedContinuous' | 'free';
   dragStartBehavior?: string;
   hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface RawScrollbarProps {
@@ -5445,6 +6650,9 @@ export interface RawScrollbarProps {
   mainAxisMargin?: number;
   crossAxisMargin?: number;
   padding?: number | [number, number] | [number, number, number, number];
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5455,15 +6663,24 @@ export interface SelectableRegionProps {
   onSelectionChanged?: (value: unknown) => void;
   selectionControls: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SelectableRegionSelectionStatusScopeProps {
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SelectionListenerProps {
   selectionNotifier: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5471,29 +6688,44 @@ export interface SelectionContainerProps {
   registrar?: unknown;
   delegate: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SelectionRegistrarScopeProps {
   registrar: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SemanticsDebuggerProps {
   child?: string | FlutterElement;
   labelStyle?: TextStyleProps;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SensitiveContentProps {
   sensitivity: 'autoSensitive' | 'sensitive' | 'notSensitive';
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SharedAppDataProps {
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5502,17 +6734,26 @@ export interface ShortcutsProps {
   child?: string | FlutterElement;
   debugLabel?: string;
   includeSemantics?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CallbackShortcutsProps {
   bindings: Record<string, unknown>;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ShortcutRegistrarProps {
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5529,88 +6770,139 @@ export interface SingleChildScrollViewProps {
   hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
   restorationId?: string;
   keyboardDismissBehavior?: 'manual' | 'onDrag';
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SizeChangedLayoutNotifierProps {
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SliverListProps {
   delegate: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SliverFixedExtentListProps {
   delegate: unknown;
   itemExtent: number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SliverVariedExtentListProps {
   delegate: unknown;
   itemExtentBuilder: (index: number, dimensions: unknown) => number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SliverGridProps {
   delegate: unknown;
   gridDelegate: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SliverOpacityProps {
   opacity: number;
   alwaysIncludeSemantics?: boolean;
   sliver?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SliverIgnorePointerProps {
   ignoring?: boolean;
   ignoringSemantics?: boolean;
   sliver?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SliverOffstageProps {
   offstage?: boolean;
   sliver?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface KeepAliveProps {
   keepAlive: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SliverConstrainedCrossAxisProps {
   maxExtent: number;
   sliver: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SliverCrossAxisExpandedProps {
   flex: number;
   sliver: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SliverCrossAxisGroupProps {
   slivers: FlutterElement[];
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SliverMainAxisGroupProps {
   slivers: FlutterElement[];
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SliverEnsureSemanticsProps {
   sliver: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SliverFillViewportProps {
   delegate: unknown;
   viewportFraction?: number;
   padEnds?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SliverFillRemainingProps {
   child?: string | FlutterElement;
   hasScrollBody?: boolean;
   fillOverscroll?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5618,28 +6910,43 @@ export interface SliverFloatingHeaderProps {
   animationStyle?: unknown;
   snapMode?: 'overlay' | 'scroll';
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SliverLayoutBuilderProps {
   builder: (constraints: unknown) => FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SliverPersistentHeaderProps {
   delegate: unknown;
   pinned?: boolean;
   floating?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SliverPrototypeExtentListProps {
   delegate: unknown;
   prototypeItem: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SliverResizingHeaderProps {
   minExtentPrototype?: string | FlutterElement;
   maxExtentPrototype?: string | FlutterElement;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5657,6 +6964,9 @@ export interface TreeSliverProps {
   semanticIndexCallback?: (widget: FlutterElement, localIndex: number) => number;
   semanticIndexOffset?: number;
   findChildIndexCallback?: (p0: unknown) => number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface SnapshotWidgetProps {
@@ -5665,21 +6975,33 @@ export interface SnapshotWidgetProps {
   autoresize?: boolean;
   controller: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SpacerProps {
   flex?: number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface StretchEffectProps {
   stretchStrength?: number;
   axis: 'horizontal' | 'vertical';
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface SystemContextMenuProps {
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface TableProps {
@@ -5690,16 +7012,25 @@ export interface TableProps {
   border?: unknown;
   defaultVerticalAlignment?: 'top' | 'middle' | 'bottom' | 'baseline' | 'fill' | 'intrinsicHeight';
   textBaseline?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface TableCellProps {
   verticalAlignment?: 'top' | 'middle' | 'bottom' | 'baseline' | 'fill' | 'intrinsicHeight';
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface TapRegionSurfaceProps {
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5714,6 +7045,9 @@ export interface TapRegionProps {
   groupId?: unknown;
   consumeOutsideTaps?: boolean;
   debugLabel?: string;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5727,6 +7061,9 @@ export interface TextFieldTapRegionProps {
   consumeOutsideTaps?: boolean;
   debugLabel?: string;
   groupId?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5739,12 +7076,23 @@ export interface DefaultTextStyleProps {
   textWidthBasis?: 'parent' | 'longestLine';
   textHeightBehavior?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
+  /** Animate prop changes by swapping to the implicit-animation widget. */
+  animate?: boolean;
+  /** Animation duration in milliseconds (default 300). */
+  duration?: number;
+  curve?: 'linear' | 'ease' | 'easeIn' | 'easeOut' | 'easeInOut' | 'easeInCubic' | 'easeOutCubic' | 'easeInOutCubic' | 'fastOutSlowIn' | 'decelerate' | 'bounceIn' | 'bounceOut' | 'bounceInOut' | 'elasticIn' | 'elasticOut' | 'elasticInOut';
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface DefaultTextHeightBehaviorProps {
   textHeightBehavior: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5765,6 +7113,9 @@ export interface TextProps {
   textWidthBasis?: 'parent' | 'longestLine';
   textHeightBehavior?: unknown;
   selectionColor?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: string | number;
 }
 
@@ -5791,6 +7142,9 @@ export interface TextSelectionGestureDetectorProps {
   onUserTapAlwaysCalled?: boolean;
   behavior?: 'deferToChild' | 'opaque' | 'translucent';
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5798,12 +7152,18 @@ export interface TextureProps {
   textureId: number;
   freeze?: boolean;
   filterQuality?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface TickerModeProps {
   enabled: boolean;
   child?: string | FlutterElement;
   forceFrames?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5811,6 +7171,9 @@ export interface TitleProps {
   title?: string;
   color: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5819,6 +7182,9 @@ export interface SlideTransitionProps {
   transformHitTests?: boolean;
   textDirection?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5828,6 +7194,9 @@ export interface MatrixTransitionProps {
   alignment?: string;
   filterQuality?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5836,6 +7205,9 @@ export interface ScaleTransitionProps {
   alignment?: string;
   filterQuality?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5844,6 +7216,9 @@ export interface RotationTransitionProps {
   alignment?: string;
   filterQuality?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5853,6 +7228,9 @@ export interface SizeTransitionProps {
   axisAlignment?: number;
   fixedCrossAxisSizeFactor?: number;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5860,6 +7238,9 @@ export interface FadeTransitionProps {
   opacity: unknown;
   alwaysIncludeSemantics?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5867,11 +7248,17 @@ export interface SliverFadeTransitionProps {
   opacity: unknown;
   alwaysIncludeSemantics?: boolean;
   sliver?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface PositionedTransitionProps {
   rect: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5879,6 +7266,9 @@ export interface RelativePositionedTransitionProps {
   rect: unknown;
   size: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5886,6 +7276,9 @@ export interface DecoratedBoxTransitionProps {
   decoration: unknown;
   position?: 'background' | 'foreground';
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5894,6 +7287,9 @@ export interface AlignTransitionProps {
   child?: string | FlutterElement;
   widthFactor?: number;
   heightFactor?: number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5904,6 +7300,9 @@ export interface DefaultTextStyleTransitionProps {
   softWrap?: boolean;
   overflow?: 'clip' | 'fade' | 'ellipsis' | 'visible';
   maxLines?: number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5911,6 +7310,9 @@ export interface ListenableBuilderProps {
   listenable: unknown;
   builder: (child: FlutterElement) => FlutterElement;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5918,6 +7320,9 @@ export interface AnimatedBuilderProps {
   animation: unknown;
   builder: (child: FlutterElement) => FlutterElement;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5928,6 +7333,9 @@ export interface TweenAnimationBuilderProps {
   builder: (value: unknown, child: FlutterElement) => FlutterElement;
   onEnd?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5939,6 +7347,9 @@ export interface UndoHistoryProps {
   undoStackModifier?: (value: unknown) => unknown;
   controller?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5946,6 +7357,9 @@ export interface ValueListenableBuilderProps {
   valueListenable: unknown;
   builder: (value: unknown, child: FlutterElement) => FlutterElement;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5954,6 +7368,9 @@ export interface ViewProps {
   deprecatedDoNotUseWillBeRemovedWithoutNoticePipelineOwner?: unknown;
   deprecatedDoNotUseWillBeRemovedWithoutNoticeRenderView?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5962,16 +7379,25 @@ export interface RawViewProps {
   deprecatedDoNotUseWillBeRemovedWithoutNoticePipelineOwner?: unknown;
   deprecatedDoNotUseWillBeRemovedWithoutNoticeRenderView?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface ViewCollectionProps {
   views: FlutterElement[];
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface ViewAnchorProps {
   view?: string | FlutterElement;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -5986,6 +7412,9 @@ export interface ViewportProps {
   paintOrder?: 'firstIsTop' | 'lastIsTop';
   clipBehavior?: unknown;
   slivers?: FlutterElement[];
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface ShrinkWrappingViewportProps {
@@ -5995,6 +7424,9 @@ export interface ShrinkWrappingViewportProps {
   paintOrder?: 'firstIsTop' | 'lastIsTop';
   clipBehavior?: unknown;
   slivers?: FlutterElement[];
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface VisibilityProps {
@@ -6007,6 +7439,9 @@ export interface VisibilityProps {
   maintainSemantics?: boolean;
   maintainInteractivity?: boolean;
   maintainFocusability?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -6019,6 +7454,9 @@ export interface SliverVisibilityProps {
   maintainSize?: boolean;
   maintainSemantics?: boolean;
   maintainInteractivity?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface WidgetInspectorProps {
@@ -6026,22 +7464,34 @@ export interface WidgetInspectorProps {
   tapBehaviorButtonBuilder: (onPressed: unknown, selectionOnTapEnabled: boolean, semanticsLabel: string) => FlutterElement;
   exitWidgetSelectionButtonBuilder: (key: unknown, onPressed: unknown, semanticsLabel: string) => FlutterElement;
   moveExitWidgetSelectionButtonBuilder: (onPressed: unknown, semanticsLabel: string, usesDefaultAlignment: boolean) => FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface EnableWidgetInspectorScopeProps {
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface DisableWidgetInspectorScopeProps {
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface WillPopScopeProps {
   child?: string | FlutterElement;
   onWillPop: () => Promise<boolean>;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -6049,16 +7499,25 @@ export interface CupertinoActivityIndicatorProps {
   color?: unknown;
   animating?: boolean;
   radius?: number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoLinearActivityIndicatorProps {
   progress: number;
   height?: number;
   color?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoAdaptiveTextSelectionToolbarProps {
   anchors: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -6092,6 +7551,9 @@ export interface CupertinoAppProps {
   restorationScopeId?: string;
   scrollBehavior?: unknown;
   useInheritedMediaQuery?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -6105,6 +7567,8 @@ export interface CupertinoTabBarProps {
   iconSize?: number;
   height?: number;
   border?: unknown;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoButtonProps {
@@ -6126,6 +7590,8 @@ export interface CupertinoButtonProps {
   mouseCursor?: unknown;
   onLongPress?: unknown;
   onClick: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -6145,12 +7611,18 @@ export interface CupertinoCheckboxProps {
   shape?: unknown;
   tapTargetSize?: unknown;
   semanticLabel?: string;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoContextMenuProps {
   actions: FlutterElement[];
   child?: string | FlutterElement;
   enableHapticFeedback?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -6160,10 +7632,16 @@ export interface CupertinoContextMenuActionProps {
   isDestructiveAction?: boolean;
   onClick?: unknown;
   trailingIcon?: string;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CupertinoFocusHaloProps {
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoDatePickerProps {
@@ -6184,6 +7662,9 @@ export interface CupertinoDatePickerProps {
   selectionOverlayBuilder?: (columnCount: number, selectedIndex: number) => FlutterElement;
   selectableDayPredicate?: (day: unknown) => boolean;
   changeReportingBehavior?: 'onScrollEnd' | 'onScrollUpdate';
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoTimerPickerProps {
@@ -6197,16 +7678,25 @@ export interface CupertinoTimerPickerProps {
   onTimerDurationChanged: (value: unknown) => void;
   changeReportingBehavior?: 'onScrollEnd' | 'onScrollUpdate';
   selectionOverlayBuilder?: (columnCount: number, selectedIndex: number) => FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoDesktopTextSelectionToolbarProps {
   anchor: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CupertinoDesktopTextSelectionToolbarButtonProps {
   onClick: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -6218,6 +7708,9 @@ export interface CupertinoAlertDialogProps {
   actionScrollController?: unknown;
   insetAnimationDuration?: unknown;
   insetAnimationCurve?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -6225,6 +7718,9 @@ export interface CupertinoPopupSurfaceProps {
   blurSigma?: number;
   isSurfacePainted?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -6235,6 +7731,9 @@ export interface CupertinoActionSheetProps {
   messageScrollController?: unknown;
   actionScrollController?: unknown;
   cancelButton?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -6246,6 +7745,9 @@ export interface CupertinoActionSheetActionProps {
   focusNode?: unknown;
   focusColor?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -6256,6 +7758,9 @@ export interface CupertinoDialogActionProps {
   textStyle?: TextStyleProps;
   mouseCursor?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -6264,6 +7769,9 @@ export interface CupertinoExpansionTileProps {
   child?: string | FlutterElement;
   controller?: unknown;
   transitionMode?: 'fade' | 'scroll';
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -6273,6 +7781,9 @@ export interface CupertinoFormRowProps {
   padding?: number | [number, number] | [number, number, number, number];
   helper?: string | FlutterElement;
   error?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -6283,12 +7794,18 @@ export interface CupertinoFormSectionProps {
   backgroundColor?: unknown;
   decoration?: unknown;
   clipBehavior?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CupertinoUserInterfaceLevelProps {
   data: 'base' | 'elevated';
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -6304,6 +7821,9 @@ export interface CupertinoListSectionProps {
   topMargin?: number;
   hasLeading?: boolean;
   separatorColor?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -6319,10 +7839,15 @@ export interface CupertinoListTileProps {
   padding?: number | [number, number] | [number, number, number, number];
   leadingSize?: number;
   leadingToTitle?: number;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CupertinoListTileChevronProps {
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoTextMagnifierProps {
@@ -6332,6 +7857,9 @@ export interface CupertinoTextMagnifierProps {
   hideBelowThreshold?: number;
   horizontalScreenEdgePadding?: number;
   magnifierInfo: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoMagnifierProps {
@@ -6343,6 +7871,9 @@ export interface CupertinoMagnifierProps {
   borderSide?: unknown;
   inOutAnimation?: unknown;
   magnificationScale?: number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoNavigationBarProps {
@@ -6361,6 +7892,9 @@ export interface CupertinoNavigationBarProps {
   transitionBetweenRoutes?: boolean;
   heroTag?: unknown;
   bottom?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoSliverNavigationBarProps {
@@ -6383,12 +7917,18 @@ export interface CupertinoSliverNavigationBarProps {
   stretch?: boolean;
   bottom?: unknown;
   bottomMode?: 'automatic' | 'always';
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoNavigationBarBackButtonProps {
   color?: unknown;
   previousPageTitle?: string;
   onClick?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoPageScaffoldProps {
@@ -6396,12 +7936,18 @@ export interface CupertinoPageScaffoldProps {
   backgroundColor?: unknown;
   resizeToAvoidBottomInset?: boolean;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CupertinoPageScaffoldBackgroundColorProps {
   child?: string | FlutterElement;
   color: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -6418,6 +7964,9 @@ export interface CupertinoPickerProps {
   onSelectedItemChanged: (value: number) => void;
   selectionOverlay?: string | FlutterElement;
   looping?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -6425,6 +7974,9 @@ export interface CupertinoPickerDefaultSelectionOverlayProps {
   background?: unknown;
   capStartEdge?: boolean;
   capEndEdge?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoRadioProps {
@@ -6442,6 +7994,9 @@ export interface CupertinoRadioProps {
   useCheckmarkStyle?: boolean;
   enabled?: boolean;
   groupRegistry?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoSliverRefreshControlProps {
@@ -6449,6 +8004,9 @@ export interface CupertinoSliverRefreshControlProps {
   refreshIndicatorExtent?: number;
   builder?: (refreshState: 'inactive' | 'drag' | 'armed' | 'refresh' | 'done', pulledExtent: number, refreshTriggerPullDistance: number, refreshIndicatorExtent: number) => FlutterElement;
   onRefresh?: () => Promise<void>;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoPageTransitionProps {
@@ -6456,6 +8014,9 @@ export interface CupertinoPageTransitionProps {
   secondaryRouteAnimation: unknown;
   child?: string | FlutterElement;
   linearTransition: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -6464,6 +8025,9 @@ export interface CupertinoFullscreenDialogTransitionProps {
   secondaryRouteAnimation: unknown;
   child?: string | FlutterElement;
   linearTransition: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -6478,6 +8042,9 @@ export interface CupertinoScrollbarProps {
   notificationPredicate?: (notification: unknown) => boolean;
   scrollbarOrientation?: 'left' | 'right' | 'top' | 'bottom';
   mainAxisMargin?: number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -6515,6 +8082,8 @@ export interface CupertinoSearchTextFieldProps {
   cursorRadius?: unknown;
   cursorOpacityAnimates?: boolean;
   cursorColor?: unknown;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoSegmentedControlProps {
@@ -6529,6 +8098,9 @@ export interface CupertinoSegmentedControlProps {
   disabledTextColor?: unknown;
   padding?: number | [number, number] | [number, number, number, number];
   disabledChildren?: Set<unknown>;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoSheetTransitionProps {
@@ -6537,6 +8109,9 @@ export interface CupertinoSheetTransitionProps {
   child?: string | FlutterElement;
   linearTransition: boolean;
   topGap?: number;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
@@ -6550,6 +8125,9 @@ export interface CupertinoSliderProps {
   divisions?: number;
   activeColor?: unknown;
   thumbColor?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoSlidingSegmentedControlProps {
@@ -6562,11 +8140,17 @@ export interface CupertinoSlidingSegmentedControlProps {
   backgroundColor?: unknown;
   proportionalWidth?: boolean;
   isMomentary?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoSpellCheckSuggestionsToolbarProps {
   anchors: unknown;
   buttonItems: unknown[];
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoSwitchProps {
@@ -6594,6 +8178,9 @@ export interface CupertinoSwitchProps {
   onFocusChange?: (value: boolean) => void;
   autofocus?: boolean;
   dragStartBehavior?: string;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoTabScaffoldProps {
@@ -6603,6 +8190,9 @@ export interface CupertinoTabScaffoldProps {
   backgroundColor?: unknown;
   resizeToAvoidBottomInset?: boolean;
   restorationId?: string;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoTabViewProps {
@@ -6614,6 +8204,9 @@ export interface CupertinoTabViewProps {
   onUnknownRoute?: (settings: unknown) => unknown;
   navigatorObservers?: unknown[];
   restorationScopeId?: string;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoTextFieldProps {
@@ -6688,6 +8281,8 @@ export interface CupertinoTextFieldProps {
   contextMenuBuilder?: (editableTextState: unknown) => FlutterElement;
   spellCheckConfiguration?: unknown;
   magnifierConfiguration?: unknown;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoTextFormFieldRowProps {
@@ -6744,29 +8339,43 @@ export interface CupertinoTextFormFieldRowProps {
   selectionHeightStyle?: unknown;
   selectionWidthStyle?: unknown;
   restorationId?: string;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
 }
 
 export interface CupertinoTextSelectionToolbarProps {
   anchorAbove: unknown;
   anchorBelow: unknown;
   toolbarBuilder?: (anchorAbove: unknown, anchorBelow: unknown, child: FlutterElement) => FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CupertinoTextSelectionToolbarButtonProps {
   onClick?: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface CupertinoThemeProps {
   data: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }
 
 export interface InheritedCupertinoThemeProps {
   theme: unknown;
   child?: string | FlutterElement;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
 }

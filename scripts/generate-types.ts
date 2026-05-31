@@ -21,6 +21,11 @@ import type {
   PropDef,
   WidgetDef,
 } from './define/api-types';
+import {
+  ANIMATED_TWIN,
+  CURVE_NAMES,
+  GESTURE_PROPS,
+} from '../src/transpiler/widget-sugar';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -88,6 +93,8 @@ function genWidgetInterfaces(widgets: WidgetDef[]): string {
     ``,
   ];
 
+  const curveType = CURVE_NAMES.map((c) => `'${c}'`).join(' | ');
+
   for (const widget of widgets) {
     lines.push(`export interface ${widget.name}Props {`);
 
@@ -122,6 +129,31 @@ function genWidgetInterfaces(widgets: WidgetDef[]): string {
     for (const style of widget.styling) {
       lines.push(`  /** style.${style.name} */`);
       lines.push(`  '${style.tsxProp}'?: ${style.tsType};`);
+    }
+
+    // Sugar props (feature #8). Inject a gesture/animation prop only when the
+    // widget doesn't already declare it natively, so native signatures (e.g.
+    // BottomNavigationBar.onTap: (i) => void) are preserved and never clobbered.
+    const declares = (name: string): boolean =>
+      widget.props.some((p) => p.tsxProp === name) ||
+      widget.styling.some((s) => s.tsxProp === name);
+    for (const gesture of GESTURE_PROPS) {
+      if (!declares(gesture)) lines.push(`  ${gesture}?: () => void;`);
+    }
+    if (widget.name in ANIMATED_TWIN) {
+      if (!declares('animate')) {
+        lines.push(
+          `  /** Animate prop changes by swapping to the implicit-animation widget. */`,
+        );
+        lines.push(`  animate?: boolean;`);
+      }
+      if (!declares('duration')) {
+        lines.push(
+          `  /** Animation duration in milliseconds (default 300). */`,
+        );
+        lines.push(`  duration?: number;`);
+      }
+      if (!declares('curve')) lines.push(`  curve?: ${curveType};`);
     }
 
     const childLine = childrenPropLine(widget);

@@ -22,6 +22,11 @@ import {
   tryTransformTernary,
 } from './jsx-control-flow.js';
 import { type ExportedComponent, getFunctionBody } from './parser.js';
+import {
+  ANIMATED_TWIN,
+  DEFAULT_ANIMATION_DURATION_MS,
+  GESTURE_PROPS,
+} from './widget-sugar.js';
 
 // ---------------------------------------------------------------------------
 // DartCodegen spec — loaded from ref/derived/plugins-codegen.json at runtime
@@ -525,11 +530,17 @@ export class CodegenContext {
     }
 
     const props = this.extractProps(attributes, tagName);
+    // `animate` swaps the tag for its Animated* twin (mutating props in place);
+    // gesture props are pulled out to wrap the result in a GestureDetector when
+    // the widget doesn't support them natively.
+    const emitTag = this.applyAnimate(tagName, props);
+    const gestureProps = this.extractGestureProps(tagName, props);
     const parts: string[] = [];
 
     // --- Handle string props already encoded as named params
     for (const [key, value] of Object.entries(props)) {
       if (key === 'children') continue; // handled below
+      if (key in gestureProps) continue; // pulled out for the GestureDetector wrapper
       // `<MaterialApp routes="./routes">` is the fsx file-based-routing directive,
       // not a Flutter prop — it drives MaterialApp.router, never emitted as `routes:`.
       if (tagName === 'MaterialApp' && key === 'routes') continue;
@@ -563,13 +574,16 @@ export class CodegenContext {
     });
 
     if (meaningfulChildren.length > 0) {
-      const childSlot = CHILD_SLOT_MAP.get(tagName);
+      const childSlot = CHILD_SLOT_MAP.get(emitTag);
 
       if (tagName === 'Text') {
         // Text: children become positional string arg
         const textContent = this.extractTextChildren(meaningfulChildren);
         if (textContent) {
-          return `Text(${textContent}${parts.length > 0 ? ', ' + parts.join(', ') : ''})`;
+          return this.wrapGestures(
+            `Text(${textContent}${parts.length > 0 ? ', ' + parts.join(', ') : ''})`,
+            gestureProps,
+          );
         }
       } else if (childSlot === 'children') {
         // Multi-child slot — extract self-slots then collect the rest as array
@@ -613,9 +627,78 @@ export class CodegenContext {
     }
 
     if (parts.length === 0) {
-      return `${tagName}()`;
+      return this.wrapGestures(`${emitTag}()`, gestureProps);
     }
-    return `${tagName}(${parts.join(', ')})`;
+    return this.wrapGestures(`${emitTag}(${parts.join(', ')})`, gestureProps);
+  }
+
+  /**
+   * If `animate` is set, swaps the tag for its Animated* twin (consuming the
+   * `animate` flag and normalising `duration`/`curve`), mutating `props`.
+   * Returns the Dart class name to emit. Throws for non-animatable widgets.
+   */
+  private applyAnimate(tagName: string, props: Record<string, string>): string {
+    if (!('animate' in props)) return tagName;
+    delete props.animate;
+
+    const twin = ANIMATED_TWIN[tagName];
+    if (!twin) {
+      throw new Error(
+        `[fsx] \`animate\` is not supported on <${tagName}>. ` +
+          `Animatable widgets: ${Object.keys(ANIMATED_TWIN).join(', ')}.`,
+      );
+    }
+
+    // duration: a bare number is milliseconds; default 300ms; anything else
+    // (e.g. a Duration variable) is passed through untouched.
+    if ('duration' in props) {
+      const raw = props.duration.trim();
+      if (/^\d+$/.test(raw)) props.duration = `Duration(milliseconds: ${raw})`;
+    } else {
+      props.duration = `Duration(milliseconds: ${DEFAULT_ANIMATION_DURATION_MS})`;
+    }
+
+    // curve: a string name → Curves.<name> (e.g. "easeInOut" → Curves.easeInOut).
+    if ('curve' in props) {
+      const named = props.curve.match(/^'([A-Za-z][A-Za-z0-9]*)'$/);
+      if (named) props.curve = `Curves.${named[1]}`;
+    }
+
+    return twin;
+  }
+
+  /**
+   * Pulls gesture props (onTap/onDoubleTap/onLongPress) that the widget does NOT
+   * declare natively out of `props`, so the caller can wrap the widget in a
+   * GestureDetector. Natively-supported gestures (GestureDetector, InkWell, …)
+   * are left in place to pass straight through.
+   */
+  private extractGestureProps(
+    tagName: string,
+    props: Record<string, string>,
+  ): Record<string, string> {
+    const widgetDef = WIDGET_MAP.get(tagName);
+    const out: Record<string, string> = {};
+    for (const gesture of GESTURE_PROPS) {
+      if (!(gesture in props)) continue;
+      const native =
+        (widgetDef?.props.some((p) => p.tsxProp === gesture) ?? false) ||
+        (widgetDef?.styling.some((p) => p.tsxProp === gesture) ?? false);
+      if (native) continue;
+      out[gesture] = props[gesture];
+    }
+    return out;
+  }
+
+  /** Wraps `inner` in a GestureDetector when non-native gesture props exist. */
+  private wrapGestures(
+    inner: string,
+    gestureProps: Record<string, string>,
+  ): string {
+    const keys = Object.keys(gestureProps);
+    if (keys.length === 0) return inner;
+    const args = keys.map((k) => `${k}: ${gestureProps[k]}`).join(', ');
+    return `GestureDetector(${args}, child: ${inner})`;
   }
 
   /**
@@ -1108,6 +1191,15 @@ export class CodegenContext {
       propName === 'activeColor'
     ) {
       if (ts.isStringLiteral(expr)) return transformColor(expr.text);
+      // A color name inside a ternary (e.g. `color={on ? 'blue' : 'grey'}`,
+      // the common animated-color case) — convert each string-literal branch.
+      if (ts.isConditionalExpression(expr)) {
+        const branch = (e: ts.Expression): string =>
+          ts.isStringLiteral(e)
+            ? transformColor(e.text)
+            : e.getText(this.sourceFile);
+        return `${expr.condition.getText(this.sourceFile)} ? ${branch(expr.whenTrue)} : ${branch(expr.whenFalse)}`;
+      }
       return raw;
     }
 
