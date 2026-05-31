@@ -67,7 +67,7 @@ const useInAppPurchase: HookRecipe = {
 const products = await iap.getProducts(['com.example.premium']);
 await iap.purchase('com.example.premium');`,
   dartExample: `final response = await InAppPurchase.instance.queryProductDetails({'com.example.premium'});
-await InAppPurchase.instance.buyNonConsumable(purchaseParam: PurchaseParam(productDetails: ...))`,
+await InAppPurchase.instance.buyNonConsumable(purchaseParam: PurchaseParam(productDetails: response.productDetails.first));`,
   hookDef: {
     name: 'inAppPurchase',
     dartPackage: 'package:in_app_purchase/in_app_purchase.dart',

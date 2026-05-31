@@ -50,7 +50,7 @@ const googleMap: WidgetPluginRecipe = {
       "import 'package:google_maps_flutter/google_maps_flutter.dart';",
     tsxExample: `const map = useMapController();
 map.animateTo({ lat: 48.8566, lng: 2.3522, zoom: 13 });`,
-    dartExample: `_mapController?.animateCamera(CameraUpdate.newCameraPosition(...))`,
+    dartExample: `_mapController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(48.8566, 2.3522), zoom: 13)))`,
     hookDef: {
       name: 'mapController',
       dartPackage: 'package:google_maps_flutter/google_maps_flutter.dart',

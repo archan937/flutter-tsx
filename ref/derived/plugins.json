@@ -93,7 +93,7 @@
     "pubspecDep": "google_maps_flutter: ^2.10.0",
     "dartImport": "import 'package:google_maps_flutter/google_maps_flutter.dart';",
     "tsxExample": "const map = useMapController();\nmap.animateTo({ lat: 48.8566, lng: 2.3522, zoom: 13 });",
-    "dartExample": "_mapController?.animateCamera(CameraUpdate.newCameraPosition(...))"
+    "dartExample": "_mapController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(48.8566, 2.3522), zoom: 13)))"
   },
   {
     "name": "useLocation",
@@ -331,7 +331,7 @@
     "pubspecDep": "in_app_purchase: ^3.2.0",
     "dartImport": "import 'package:in_app_purchase/in_app_purchase.dart';",
     "tsxExample": "const iap = useInAppPurchase();\nconst products = await iap.getProducts(['com.example.premium']);\nawait iap.purchase('com.example.premium');",
-    "dartExample": "final response = await InAppPurchase.instance.queryProductDetails({'com.example.premium'});\nawait InAppPurchase.instance.buyNonConsumable(purchaseParam: PurchaseParam(productDetails: ...))"
+    "dartExample": "final response = await InAppPurchase.instance.queryProductDetails({'com.example.premium'});\nawait InAppPurchase.instance.buyNonConsumable(purchaseParam: PurchaseParam(productDetails: response.productDetails.first));"
   },
   {
     "name": "Router",
