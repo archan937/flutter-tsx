@@ -91,13 +91,13 @@ const WHY = `<section class="why">
         }
         .why-prose strong { color: #fff; font-weight: 700; }
         .why-prose .accent { color: #54a4ff; font-weight: 700; }
-        /* Yellow marker highlight for the punchiest phrases. */
+        /* Soft yellow marker highlight — reserved for Flutter.tsx's wins. */
         .hl {
-          background: #ffe066; color: #1a1a1a; font-weight: 600;
+          background: #f3e7ad; color: #1a1a1a; font-weight: 600;
           padding: 0.05em 0.3em; border-radius: 3px;
           box-decoration-break: clone; -webkit-box-decoration-break: clone;
         }
-        .hl-violet { background: #ffe066; }
+        .hl-violet { background: #f3e7ad; }
 
         .cmp-title {
           text-align: center; font-size: 1.25rem; font-weight: 700;
@@ -150,13 +150,12 @@ const WHY = `<section class="why">
         <p>
           Cross-platform has always forced a trade-off. <strong>React Native</strong>
           gives you the syntax the whole industry already knows — JSX and hooks — but
-          it ships your UI over a <span class="hl">JavaScript bridge</span>, leans on a
-          patchwork of <span class="hl">community-maintained native modules</span>, and
-          asks you to chase a steady stream of <span class="hl">breaking upgrades</span>.
-          <strong>Flutter</strong> answers all of that with a GPU-rendered engine,
-          pixel-perfect consistency, and the backing of a full-time Google team — but
-          the price of admission is <span class="hl">learning Dart</span> and an
-          unfamiliar ecosystem.
+          it ships your UI over a JavaScript bridge, leans on a patchwork of
+          community-maintained native modules, and asks you to chase a steady stream of
+          breaking upgrades. <strong>Flutter</strong> answers all of that with a
+          GPU-rendered engine, pixel-perfect consistency, and the backing of a
+          full-time Google team — but the price of admission is learning
+          <strong>Dart</strong> and an unfamiliar ecosystem.
         </p>
         <p>
           <span class="hl hl-violet">Flutter.tsx removes the trade-off.</span> You write
