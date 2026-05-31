@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flutter.tsx — write Flutter in TSX</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: #0d1117;
+        color: #e6edf3;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 64px 24px;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 56px;
+      }
+
+      header h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        background: linear-gradient(135deg, #54a4ff 0%, #a78bfa 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 16px;
+      }
+
+      header p {
+        font-size: 1.2rem;
+        color: #8b949e;
+        max-width: 560px;
+        line-height: 1.6;
+      }
+
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 32px;
+        padding: 14px 28px;
+        background: linear-gradient(135deg, #54a4ff 0%, #a78bfa 100%);
+        color: #0d1117;
+        font-weight: 700;
+        font-size: 1rem;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: opacity 0.15s;
+      }
+
+      .cta:hover {
+        opacity: 0.88;
+      }
+
+      /* ── Example code block with tabs ── */
+      .code-block {
+        width: 100%;
+        max-width: 720px;
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 48px;
+      }
+
+      .tab-btns {
+        display: flex;
+        background: #21262d;
+        border-bottom: 1px solid #30363d;
+      }
+
+      .tab-btn {
+        background: none;
+        border: none;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -1px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #8b949e;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        transition: color 0.15s;
+      }
+
+      .tab-btn:hover {
+        color: #e6edf3;
+      }
+
+      .tab-btn.active {
+        color: #54a4ff;
+        border-bottom-color: #54a4ff;
+      }
+
+      .tab-panel {
+        display: none;
+      }
+      .tab-panel.active {
+        display: block;
+      }
+
+      pre {
+        padding: 24px;
+        font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+        font-size: 0.875rem;
+        line-height: 1.7;
+        overflow-x: auto;
+        tab-size: 2;
+      }
+
+      .kw {
+        color: #ff7b72;
+      }
+      .fn {
+        color: #d2a8ff;
+      }
+      .str {
+        color: #a5d6ff;
+      }
+      .cmt {
+        color: #8b949e;
+        font-style: italic;
+      }
+      .tag {
+        color: #7ee787;
+      }
+      .attr {
+        color: #79c0ff;
+      }
+      .dart-kw {
+        color: #ff7b72;
+      }
+      .dart-cls {
+        color: #ffa657;
+      }
+      .dart-str {
+        color: #a5d6ff;
+      }
+      .dart-cmt {
+        color: #8b949e;
+        font-style: italic;
+      }
+      .dart-num {
+        color: #79c0ff;
+      }
+      .dart-ann {
+        color: #d2a8ff;
+      }
+
+      /* ── Stats ── */
+      .stats {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 48px;
+      }
+
+      .stat {
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        padding: 20px 28px;
+        text-align: center;
+        min-width: 140px;
+      }
+
+      .stat-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #54a4ff;
+      }
+
+      .stat-label {
+        font-size: 0.8rem;
+        color: #8b949e;
+        margin-top: 4px;
+      }
+
+      /* ── Feature grid ── */
+      .features {
+        width: 100%;
+        max-width: 720px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin-bottom: 56px;
+      }
+
+      .feature {
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        padding: 20px;
+      }
+
+      .feature h3 {
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #e6edf3;
+      }
+
+      .feature p {
+        font-size: 0.82rem;
+        color: #8b949e;
+        line-height: 1.5;
+      }
+
+      footer {
+        margin-top: auto;
+        padding-top: 40px;
+        font-size: 0.8rem;
+        color: #484f58;
+        text-align: center;
+      }
+
+      footer a {
+        color: #484f58;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Flutter.tsx</h1>
+      <p>
+        Write cross-platform Flutter apps in TypeScript + JSX.<br />
+        Compile to idiomatic Dart. Ship everywhere.
+      </p>
+      <a class="cta" href="./api-reference.html">
+        Browse the API Reference →
+      </a>
+    </header>
+
+    <div class="code-block">
+      <div class="tab-btns" role="tablist">
+        <button
+          class="tab-btn active"
+          data-tab="tsx"
+          role="tab"
+          aria-selected="true"
+        >
+          TSX
+        </button>
+        <button
+          class="tab-btn"
+          data-tab="dart"
+          role="tab"
+          aria-selected="false"
+        >
+          Dart
+        </button>
+      </div>
+
+      <div class="tab-panel active" data-panel="tsx">
+        <pre><span class="cmt">// src/Counter.tsx</span>
+<span class="kw">import</span> { MaterialApp, Scaffold, AppBar, Center, ElevatedButton } <span class="kw">from</span> <span class="str">'flutter-tsx'</span>;
+<span class="kw">import</span> { useState } <span class="kw">from</span> <span class="str">'flutter-tsx'</span>;
+
+<span class="kw">export const</span> <span class="fn">Counter</span> = () => {
+  <span class="kw">const</span> [count, setCount] = <span class="fn">useState</span>(<span class="dart-num">0</span>);
+  <span class="kw">return</span> (
+    &lt;<span class="tag">MaterialApp</span> <span class="attr">title</span>=<span class="str">"Counter"</span>&gt;
+      &lt;<span class="tag">Scaffold</span>&gt;
+        &lt;<span class="tag">AppBar</span> <span class="attr">title</span>=<span class="str">"Counter"</span> /&gt;
+        &lt;<span class="tag">Center</span>&gt;
+          &lt;<span class="tag">ElevatedButton</span> <span class="attr">onClick</span>={() => <span class="fn">setCount</span>(count + <span class="dart-num">1</span>)}&gt;
+            {<span class="str">'Count: '</span> + count}
+          &lt;/<span class="tag">ElevatedButton</span>&gt;
+        &lt;/<span class="tag">Center</span>&gt;
+      &lt;/<span class="tag">Scaffold</span>&gt;
+    &lt;/<span class="tag">MaterialApp</span>&gt;
+  );
+};</pre>
+      </div>
+
+      <div class="tab-panel" data-panel="dart">
+        <pre><span class="dart-cmt">// GENERATED — do not edit. Source: Counter.tsx</span>
+<span class="kw">import</span> <span class="str">'package:flutter/material.dart'</span>;
+
+<span class="dart-kw">class</span> <span class="dart-cls">Counter</span> <span class="dart-kw">extends</span> <span class="dart-cls">StatefulWidget</span> {
+  <span class="dart-kw">const</span> Counter({<span class="dart-kw">super</span>.key});
+  <span class="dart-ann">@override</span>
+  <span class="dart-cls">State</span>&lt;<span class="dart-cls">Counter</span>&gt; createState() => <span class="dart-cls">_CounterState</span>();
+}
+
+<span class="dart-kw">class</span> <span class="dart-cls">_CounterState</span> <span class="dart-kw">extends</span> <span class="dart-cls">State</span>&lt;<span class="dart-cls">Counter</span>&gt; {
+  <span class="dart-kw">int</span> count = <span class="dart-num">0</span>;
+  <span class="dart-ann">@override</span>
+  <span class="dart-cls">Widget</span> build(<span class="dart-cls">BuildContext</span> context) {
+    <span class="dart-kw">return</span> <span class="dart-cls">MaterialApp</span>(
+      title: <span class="dart-str">'Counter'</span>,
+      home: <span class="dart-cls">Scaffold</span>(
+        appBar: <span class="dart-cls">AppBar</span>(title: <span class="dart-str">'Counter'</span>),
+        body: <span class="dart-cls">Center</span>(
+          child: <span class="dart-cls">ElevatedButton</span>(
+            onPressed: () { setState(() { count = count + <span class="dart-num">1</span>; }); },
+            child: <span class="dart-str">'Count: '</span> + count,
+          ),
+        ),
+      ),
+    );
+  }
+}</pre>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-value">539</div>
+        <div class="stat-label">Flutter Widgets</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">38</div>
+        <div class="stat-label">Native Plugins</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">10</div>
+        <div class="stat-label">Hooks &amp; Core APIs</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">147</div>
+        <div class="stat-label">Enums</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">767</div>
+        <div class="stat-label">Types</div>
+      </div>
+    </div>
+
+    <div class="features">
+      <div class="feature">
+        <h3>🔷 Full TypeScript</h3>
+        <p>Every widget prop is typed. Full IntelliSense, zero guessing.</p>
+      </div>
+      <div class="feature">
+        <h3>⚡ Hot Reload</h3>
+        <p>
+          <code>fsx dev</code> watches your TSX and hot-reloads Flutter on every
+          save.
+        </p>
+      </div>
+      <div class="feature">
+        <h3>🎯 Idiomatic Dart</h3>
+        <p>
+          Generated code is identical to what a Flutter developer would write by
+          hand.
+        </p>
+      </div>
+      <div class="feature">
+        <h3>📦 Native Plugins</h3>
+        <p>
+          Camera, maps, storage, auth and more — just call a hook, get Dart.
+        </p>
+      </div>
+      <div class="feature">
+        <h3>🧩 Real-app primitives</h3>
+        <p>
+          File-based routing, <code>createStore</code> state,
+          <code>useAsync</code> + <code>fetch</code>, <code>TabView</code>,
+          modals, and system-tray apps.
+        </p>
+      </div>
+      <div class="feature">
+        <h3>✅ 100% Tested</h3>
+        <p>
+          Every example is real TSX compiled by the real transpiler. Coverage
+          gated.
+        </p>
+      </div>
+      <div class="feature">
+        <h3>🚀 Zero Runtime</h3>
+        <p>
+          No bridge, no JS engine. Pure Dart output, pure Flutter performance.
+        </p>
+      </div>
+    </div>
+
+    <footer>
+      <p>
+        Flutter.tsx · <a href="./api-reference.html">API Reference</a> · MIT
+        License
+      </p>
+    </footer>
+
+    <script>
+      document.querySelectorAll('.tab-btns').forEach(function (bar) {
+        bar.addEventListener('click', function (e) {
+          const btn = e.target.closest('.tab-btn');
+          if (!btn) return;
+          const block = bar.closest('.code-block');
+          const tab = btn.dataset.tab;
+          block.querySelectorAll('.tab-btn').forEach(function (b) {
+            const active = b.dataset.tab === tab;
+            b.classList.toggle('active', active);
+            b.setAttribute('aria-selected', String(active));
+          });
+          block.querySelectorAll('.tab-panel').forEach(function (p) {
+            p.classList.toggle('active', p.dataset.panel === tab);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
