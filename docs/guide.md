@@ -68,7 +68,125 @@ return <Text>User {id}</Text>;
 
 No routes prop / directory → your app stays a single screen (`MaterialApp(home: …)`), zero router overhead.
 
-## 5. Build & sign
+## 5. State management
+
+Define a shared store (Zustand-style) — state + actions in one factory. fsx
+generates an idiomatic `ChangeNotifier`, provides it at the app root, and adds
+the `provider` dependency automatically:
+
+```tsx
+// src/stores/counter.tsx
+import { createStore } from 'flutter-tsx';
+
+export const useCounter = createStore((set) => ({
+  count: 0,
+  increment: () => set((s) => ({ count: s.count + 1 })),
+}));
+```
+
+Use it in any screen — destructure like React. Reads become `context.watch`, and
+actions are bound calls:
+
+```tsx
+import { useCounter } from '../stores/counter';
+
+export const Screen = () => {
+  const { count, increment } = useCounter();
+  return (
+    <ElevatedButton onClick={increment}>
+      <Text>{count}</Text>
+    </ElevatedButton>
+  );
+};
+```
+
+Stores resolve across files; the `ChangeNotifierProvider`s are wired into
+`main.dart` for you.
+
+## 6. Async data & `fetch`
+
+`useAsync` runs a future and exposes `{ data, loading, error }` — it compiles to
+a `FutureBuilder`. `fetch()` is a built-in HTTP source (over the `http` package)
+that composes with it:
+
+```tsx
+import {
+  useAsync,
+  fetch,
+  Center,
+  CircularProgressIndicator,
+  Text,
+} from 'flutter-tsx';
+
+export const Feed = () => {
+  const { data, loading, error } = useAsync(() =>
+    fetch('https://api.example.com/posts'),
+  );
+  if (loading)
+    return (
+      <Center>
+        <CircularProgressIndicator />
+      </Center>
+    );
+  if (error)
+    return (
+      <Center>
+        <Text>Something went wrong</Text>
+      </Center>
+    );
+  return <Text>{data.body}</Text>; // also: data.ok, data.status, data.json
+};
+```
+
+The loading branch maps to the not-done connection state, the error branch to
+`snapshot.hasError`, and `data` binds from `snapshot.data!`.
+
+## 7. Tabs & modals
+
+`<TabView>` is a bottom-navigation shell (Scaffold + `BottomNavigationBar` +
+`IndexedStack`, so tab state is preserved):
+
+```tsx
+import { TabView } from 'flutter-tsx';
+
+<TabView
+  tabs={[
+    { label: 'Home', icon: 'home', screen: <HomeScreen /> },
+    { label: 'Profile', icon: 'person', screen: <ProfileScreen /> },
+  ]}
+/>;
+```
+
+Modals are imperative (they map 1:1 to Flutter) — call them from a handler:
+
+```tsx
+import { showSheet, showDialog } from 'flutter-tsx';
+
+<ElevatedButton onClick={() => showSheet(<CartView />)}>Cart</ElevatedButton>
+<ElevatedButton onClick={() => showDialog(<ConfirmDelete />)}>Delete</ElevatedButton>
+```
+
+## 8. System-tray / menubar apps (desktop)
+
+Add a `config/tray.ts` to turn a desktop app into a tray/menubar app — fsx emits
+the `window_manager` + `tray_manager` bootstrap (tray icon, context menu, and
+Show/Hide/Quit wiring) into `main.dart`; your TSX is just the window UI:
+
+```ts
+// config/tray.ts
+import type { TrayConfig } from 'flutter-tsx/config';
+
+export default {
+  tooltip: 'My App',
+  menu: [
+    { label: 'Show', action: 'show' },
+    { label: 'Hide', action: 'hide' },
+    { label: 'Quit', action: 'quit' },
+  ],
+} satisfies TrayConfig;
+```
+
+## 9. Build & sign
 
 ```sh
 bun run build              # fsx build — release artifact for config/app.ts target

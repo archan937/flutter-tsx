@@ -216,6 +216,27 @@ describe('examples-data — Dart output anchors', () => {
   it('todo-list: full Dart output', () => {
     expect(getBody('todo-list')).toResemble(`
       import 'package:flutter/material.dart';
+      import 'package:provider/provider.dart';
+
+      class TodosStore extends ChangeNotifier {
+        var items = [];
+        var done = [];
+        void add(dynamic text) {
+          items = [...items, text];
+          notifyListeners();
+        }
+        void remove(dynamic text) {
+          items = items.where((t) => t != text).toList();
+          done = done.where((t) => t != text).toList();
+          notifyListeners();
+        }
+        void toggle(dynamic text) {
+          done = done.contains(text)
+            ? done.where((t) => t != text).toList()
+            : [...done, text];
+          notifyListeners();
+        }
+      }
 
       class TodoList extends StatefulWidget {
         const TodoList({super.key});
@@ -223,15 +244,16 @@ describe('examples-data — Dart output anchors', () => {
         State<TodoList> createState() => _TodoListState();
       }
       class _TodoListState extends State<TodoList> {
-        List<dynamic> todos = [];
-        String input = '';
+        String draft = '';
         @override
         Widget build(BuildContext context) {
-          return Column(children: [TextField(decoration: InputDecoration(labelText: 'New todo'), onChanged: (value) { setState(() { input = value; }); }), ElevatedButton(onPressed: _addTodo, child: Text('Add')), ...todos.map((todo) => Text('$todo')).toList()]);
-        }
-        void _addTodo() {
-          setState(() { todos = [...todos, input]; });
-          setState(() { input = ''; });
+          final todosStore = context.watch<TodosStore>();
+          final items = todosStore.items;
+          final done = todosStore.done;
+          final add = todosStore.add;
+          final remove = todosStore.remove;
+          final toggle = todosStore.toggle;
+          return Scaffold(appBar: AppBar(title: Text('Todos')), body: Column(children: [TextField(decoration: InputDecoration(labelText: 'New todo'), onChanged: (value) { setState(() { draft = value; }); }), ElevatedButton(onPressed: () { add(draft); }, child: Text('Add')), ListView(children: [...items.map((todo) => ListTile(title: Text(todo), leading: Checkbox(value: done.contains(todo), onChanged: (v) { toggle(todo); }), onTap: () { remove(todo); })).toList()])]));
         }
       }
     `);
@@ -302,16 +324,48 @@ describe('examples-data — Dart output anchors', () => {
     expect(getBody('multi-screen')).toResemble(`
       import 'package:flutter/material.dart';
 
-      class MultiScreenApp extends StatefulWidget {
-        const MultiScreenApp({super.key});
+      class _FsxTabs0 extends StatefulWidget {
+        const _FsxTabs0({super.key});
         @override
-        State<MultiScreenApp> createState() => _MultiScreenAppState();
+        State<_FsxTabs0> createState() => _FsxTabs0State();
       }
-      class _MultiScreenAppState extends State<MultiScreenApp> {
-        int tab = 0;
+
+      class _FsxTabs0State extends State<_FsxTabs0> {
+        int _index = 0;
         @override
         Widget build(BuildContext context) {
-          return MaterialApp(title: 'Multi Screen', home: Scaffold(appBar: AppBar(title: Text('Multi Screen')), body: Column(children: [Center(child: Text('Screen' + '$tab')), Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [ElevatedButton(onPressed: () { setState(() { tab = 0; }); }, child: Text('Home')), ElevatedButton(onPressed: () { setState(() { tab = 1; }); }, child: Text('Profile'))])])));
+          return Scaffold(
+            body: IndexedStack(index: _index, children: [HomeScreen(), ProfileScreen()]),
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: _index,
+              onTap: (i) => setState(() => _index = i),
+              items: const [BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'), BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile')],
+            ),
+          );
+        }
+      }
+
+      class HomeScreen extends StatelessWidget {
+        const HomeScreen({super.key});
+        @override
+        Widget build(BuildContext context) {
+          return Center(child: Text('Home'));
+        }
+      }
+
+      class ProfileScreen extends StatelessWidget {
+        const ProfileScreen({super.key});
+        @override
+        Widget build(BuildContext context) {
+          return Center(child: Text('Profile'));
+        }
+      }
+
+      class MultiScreenApp extends StatelessWidget {
+        const MultiScreenApp({super.key});
+        @override
+        Widget build(BuildContext context) {
+          return MaterialApp(title: 'Multi Screen', home: _FsxTabs0());
         }
       }
     `);
@@ -321,11 +375,18 @@ describe('examples-data — Dart output anchors', () => {
     expect(getBody('drawer-menu')).toResemble(`
       import 'package:flutter/material.dart';
 
-      class DrawerApp extends StatelessWidget {
+      final PAGES = ['Home', 'Profile', 'Settings'];
+
+      class DrawerApp extends StatefulWidget {
         const DrawerApp({super.key});
         @override
+        State<DrawerApp> createState() => _DrawerAppState();
+      }
+      class _DrawerAppState extends State<DrawerApp> {
+        int page = 0;
+        @override
         Widget build(BuildContext context) {
-          return MaterialApp(title: 'Drawer Demo', home: Scaffold(appBar: AppBar(title: Text('Drawer Demo')), drawer: Drawer(child: DrawerHeader(child: Text('Menu'))), body: Center(child: Text('Main content'))));
+          return MaterialApp(title: 'Drawer Demo', home: Scaffold(appBar: AppBar(title: Text('Drawer Demo')), drawer: Drawer(child: ListView(children: [DrawerHeader(child: Text('Menu')), ListTile(title: Text('Home'), onTap: () { setState(() { page = 0; }); }), ListTile(title: Text('Profile'), onTap: () { setState(() { page = 1; }); }), ListTile(title: Text('Settings'), onTap: () { setState(() { page = 2; }); })])), body: Center(child: Text('\${PAGES[page]}'))));
         }
       }
     `);

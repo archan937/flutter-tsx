@@ -16,6 +16,7 @@ import { EXAMPLES } from './examples-data';
 import { synthesizeTsx } from './synthesize';
 import {
   DOMAIN_LABELS,
+  CORE_APIS,
   enumSection,
   examplesSection,
   hooksSection,
@@ -101,6 +102,7 @@ interface BuildResult {
   enumCount: number;
   typeCount: number;
   pluginCount: number;
+  hookCount: number;
   failures: number;
 }
 
@@ -265,12 +267,15 @@ export const buildApiReference = (): BuildResult => {
 ${catDetailsItems}
 </details>`;
 
-  // Hooks: useState, useEffect
+  // Hooks & Core APIs (from the same CORE_APIS source as the section).
+  const hookNavLinks = CORE_APIS.map((h) => {
+    const id = h.name.split(' ')[0];
+    return `<li data-name="${h.name}"><a href="#${id}">${h.name}</a></li>`;
+  }).join('\n');
   const hooksNavDetails = `<details>
-<summary>Hooks<span class="nav-count">2</span></summary>
+<summary>Hooks &amp; Core APIs<span class="nav-count">${CORE_APIS.length}</span></summary>
 <ul>
-<li data-name="useState"><a href="#useState">useState</a></li>
-<li data-name="useEffect"><a href="#useEffect">useEffect</a></li>
+${hookNavLinks}
 </ul>
 </details>`;
 
@@ -353,6 +358,7 @@ ${typeNavLinks}
     enums: enums.length,
     types: types.length,
     plugins: plugins.length,
+    hooks: CORE_APIS.length,
   });
 
   return {
@@ -361,6 +367,7 @@ ${typeNavLinks}
     enumCount: enums.length,
     typeCount: types.length,
     pluginCount: plugins.length,
+    hookCount: CORE_APIS.length,
     failures,
   };
 };

@@ -134,24 +134,29 @@ export function WelcomeBanner() {
     id: 'fab-scaffold',
     title: 'Scaffold with FAB',
     description:
-      'A Scaffold with an AppBar, body, and FloatingActionButton — the standard Material shell.',
+      'The standard Material shell — AppBar, body, and a FloatingActionButton wired to state.',
     tsx: `\
 import {
   MaterialApp, Scaffold, AppBar, Center, Text,
-  FloatingActionButton,
+  FloatingActionButton, useState,
 } from 'flutter-tsx';
 
-export const MyApp = () => (
-  <MaterialApp title="FAB Demo">
-    <Scaffold>
-      <AppBar title="FAB Demo" />
-      <Center>
-        <Text>Press the button!</Text>
-      </Center>
-      <FloatingActionButton />
-    </Scaffold>
-  </MaterialApp>
-);`,
+export function FabDemo() {
+  const [count, setCount] = useState(0);
+  return (
+    <MaterialApp title="FAB Demo">
+      <Scaffold>
+        <AppBar title="FAB Demo" />
+        <Center>
+          <Text>Tapped {count} times</Text>
+        </Center>
+        <FloatingActionButton onClick={() => setCount(count + 1)}>
+          <Text>+</Text>
+        </FloatingActionButton>
+      </Scaffold>
+    </MaterialApp>
+  );
+}`,
   },
 
   {
@@ -207,28 +212,50 @@ export function StatusView() {
     id: 'todo-list',
     title: 'Todo List',
     description:
-      'Combines useState (array), a TextField, and .map() rendering to build an interactive list.',
+      'A store-backed todo list: add appends, tapping an item removes it. createStore generates a ChangeNotifier; the TextField draft is local useState.',
     tsx: `\
-import { Column, TextField, Text, ElevatedButton, useState } from 'flutter-tsx';
+import {
+  Scaffold, AppBar, Column, ListView, ListTile, Checkbox,
+  TextField, ElevatedButton, useState, createStore,
+} from 'flutter-tsx';
+
+export const useTodos = createStore((set) => ({
+  items: [],
+  done: [],
+  add: (text) => set((s) => ({ items: [...s.items, text] })),
+  remove: (text) => set((s) => ({
+    items: s.items.where((t) => t != text).toList(),
+    done: s.done.where((t) => t != text).toList(),
+  })),
+  toggle: (text) => set((s) => ({
+    done: s.done.contains(text)
+      ? s.done.where((t) => t != text).toList()
+      : [...s.done, text],
+  })),
+}));
 
 export function TodoList() {
-  const [todos, setTodos] = useState<string[]>([]);
-  const [input, setInput] = useState('');
-
-  const addTodo = () => {
-    setTodos([...todos, input]);
-    setInput('');
-  };
+  const { items, done, add, remove, toggle } = useTodos();
+  const [draft, setDraft] = useState('');
 
   return (
-    <Column>
-      <TextField
-        label="New todo"
-        onChange={(e) => setInput(e.target.value)}
-      />
-      <ElevatedButton onClick={addTodo}>Add</ElevatedButton>
-      {todos.map((todo) => <Text>{todo}</Text>)}
-    </Column>
+    <Scaffold>
+      <AppBar title="Todos" />
+      <Column>
+        <TextField label="New todo" onChange={(e) => setDraft(e.target.value)} />
+        <ElevatedButton onClick={() => add(draft)}>Add</ElevatedButton>
+        <ListView>
+          {items.map((todo) => (
+            <ListTile
+              key={todo}
+              title={todo}
+              leading={<Checkbox value={done.contains(todo)} onChange={(v) => toggle(todo)} />}
+              onTap={() => remove(todo)}
+            />
+          ))}
+        </ListView>
+      </Column>
+    </Scaffold>
   );
 }`,
   },
@@ -290,60 +317,60 @@ export const MapScreen = () => {
     id: 'multi-screen',
     title: 'Multi-Screen App',
     description:
-      'Tab-based navigation using useState for the active screen index — Row of buttons drives content switching.',
+      'A tabbed app composed from separate screen components. <TabView> generates a Scaffold + BottomNavigationBar + IndexedStack (each tab keeps its state).',
     tsx: `\
-import {
-  MaterialApp, Scaffold, AppBar, Column, Center,
-  Text, Row, ElevatedButton, useState,
-} from 'flutter-tsx';
+import { MaterialApp, TabView, Center, Text } from 'flutter-tsx';
 
-export function MultiScreenApp() {
-  const [tab, setTab] = useState(0);
-  return (
-    <MaterialApp title="Multi Screen">
-      <Scaffold>
-        <AppBar title="Multi Screen" />
-        <Column>
-          <Center>
-            <Text>Screen {tab}</Text>
-          </Center>
-          <Row mainAxisAlignment="spaceEvenly">
-            <ElevatedButton onClick={() => setTab(0)}>Home</ElevatedButton>
-            <ElevatedButton onClick={() => setTab(1)}>Profile</ElevatedButton>
-          </Row>
-        </Column>
-      </Scaffold>
-    </MaterialApp>
-  );
-}`,
+export const HomeScreen = () => (
+  <Center><Text>Home</Text></Center>
+);
+
+export const ProfileScreen = () => (
+  <Center><Text>Profile</Text></Center>
+);
+
+export const MultiScreenApp = () => (
+  <MaterialApp title="Multi Screen">
+    <TabView tabs={[
+      { label: 'Home', icon: 'home', screen: <HomeScreen /> },
+      { label: 'Profile', icon: 'person', screen: <ProfileScreen /> },
+    ]} />
+  </MaterialApp>
+);`,
   },
 
   {
     id: 'drawer-menu',
     title: 'Drawer Menu',
     description:
-      'A Scaffold with a side Drawer — the standard Flutter navigation pattern for burger menus.',
+      'A hamburger drawer (the AppBar shows the menu button automatically) whose ListTiles switch the body content.',
     tsx: `\
 import {
-  MaterialApp, Scaffold, AppBar, Center,
-  Text, Drawer, DrawerHeader,
+  MaterialApp, Scaffold, AppBar, Center, Text,
+  Drawer, DrawerHeader, ListView, ListTile, useState,
 } from 'flutter-tsx';
 
-export const DrawerApp = () => (
-  <MaterialApp title="Drawer Demo">
-    <Scaffold>
-      <AppBar title="Drawer Demo" />
-      <Drawer>
-        <DrawerHeader>
-          <Text>Menu</Text>
-        </DrawerHeader>
-      </Drawer>
-      <Center>
-        <Text>Main content</Text>
-      </Center>
-    </Scaffold>
-  </MaterialApp>
-);`,
+const PAGES = ['Home', 'Profile', 'Settings'];
+
+export function DrawerApp() {
+  const [page, setPage] = useState(0);
+  return (
+    <MaterialApp title="Drawer Demo">
+      <Scaffold>
+        <AppBar title="Drawer Demo" />
+        <Drawer>
+          <ListView>
+            <DrawerHeader><Text>Menu</Text></DrawerHeader>
+            <ListTile title="Home" onTap={() => setPage(0)} />
+            <ListTile title="Profile" onTap={() => setPage(1)} />
+            <ListTile title="Settings" onTap={() => setPage(2)} />
+          </ListView>
+        </Drawer>
+        <Center><Text>{PAGES[page]}</Text></Center>
+      </Scaffold>
+    </MaterialApp>
+  );
+}`,
   },
 
   {
@@ -434,6 +461,101 @@ export function LoginForm() {
       />
       <ElevatedButton onClick={submit}>Login</ElevatedButton>
       {submitted && <Text>Logged in!</Text>}
+    </Column>
+  );
+}`,
+  },
+
+  {
+    id: 'store',
+    title: 'Shared Store',
+    description:
+      'createStore (Zustand-style) generates an idiomatic ChangeNotifier; destructured usage becomes context.watch reads + action calls.',
+    tsx: `\
+import { createStore, Column, Text, ElevatedButton } from 'flutter-tsx';
+
+export const useCounter = createStore((set) => ({
+  count: 0,
+  increment: () => set((s) => ({ count: s.count + 1 })),
+}));
+
+export function CounterScreen() {
+  const { count, increment } = useCounter();
+  return (
+    <Column>
+      <Text>Count: {count}</Text>
+      <ElevatedButton onClick={increment}>Increment</ElevatedButton>
+    </Column>
+  );
+}`,
+  },
+
+  {
+    id: 'async-fetch',
+    title: 'Async Data + fetch',
+    description:
+      'useAsync runs a future and compiles to a FutureBuilder; fetch() is a built-in HTTP source over the http package.',
+    tsx: `\
+import { useAsync, fetch, Center, CircularProgressIndicator, Text } from 'flutter-tsx';
+
+export function Feed() {
+  const { data, loading, error } = useAsync(() => fetch('https://api.example.com/posts'));
+  if (loading) return <Center><CircularProgressIndicator /></Center>;
+  if (error) return <Center><Text>Failed to load</Text></Center>;
+  return <Text>{data.body}</Text>;
+}`,
+  },
+
+  {
+    id: 'tabs',
+    title: 'Bottom Tabs',
+    description:
+      'TabView generates a Scaffold + BottomNavigationBar + IndexedStack (tab state preserved).',
+    tsx: `\
+import { TabView, Center, Text } from 'flutter-tsx';
+
+export function Tabs() {
+  return (
+    <TabView tabs={[
+      { label: 'Home', icon: 'home', screen: <Center><Text>Home</Text></Center> },
+      { label: 'Profile', icon: 'person', screen: <Center><Text>Profile</Text></Center> },
+    ]} />
+  );
+}`,
+  },
+
+  {
+    id: 'modals',
+    title: 'Modals',
+    description:
+      'Imperative showSheet / showDialog map 1:1 to showModalBottomSheet / showDialog.',
+    tsx: `\
+import { Column, ElevatedButton, Text, showSheet, showDialog } from 'flutter-tsx';
+
+export function Actions() {
+  return (
+    <Column>
+      <ElevatedButton onClick={() => showSheet(<Text>Cart</Text>)}>Cart</ElevatedButton>
+      <ElevatedButton onClick={() => showDialog(<Text>Delete?</Text>)}>Delete</ElevatedButton>
+    </Column>
+  );
+}`,
+  },
+
+  {
+    id: 'navigate',
+    title: 'Navigation',
+    description:
+      'useNavigate rewrites go/push/replace/pop to context.* (go_router).',
+    tsx: `\
+import { useNavigate, Column, ElevatedButton, Text } from 'flutter-tsx';
+
+export function Nav() {
+  const nav = useNavigate();
+  return (
+    <Column>
+      <Text>Home</Text>
+      <ElevatedButton onClick={() => nav.push('/details')}>Open details</ElevatedButton>
     </Column>
   );
 }`,

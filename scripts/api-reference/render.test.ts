@@ -249,7 +249,7 @@ describe('pageShell', () => {
 <details><summary>Enums<span class="nav-count">130</span></summary>
 <ul><li data-name="ThemeMode"><a href="#ThemeMode">ThemeMode</a></li></ul>
 </details>
-<details><summary>Hooks<span class="nav-count">2</span></summary>
+<details><summary>Hooks &amp; Core APIs<span class="nav-count">10</span></summary>
 <ul><li data-name="useState"><a href="#useState">useState</a></li></ul>
 </details>`;
 

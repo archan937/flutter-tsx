@@ -53,6 +53,28 @@ These are Dart-level — no native files involved, so they're identical on every
 
 ---
 
+## System tray / menubar — `config/tray.ts` (desktop)
+
+Presence of `config/tray.ts` turns a desktop app into a tray/menubar app. fsx
+generates an async `main.dart` bootstrap and adds the native deps.
+
+| fsx config       | Output                                                                                                                                 | Platforms               |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
+| `config/tray.ts` | `window_manager` + `tray_manager` deps; `main.dart` tray bootstrap (icon from `icons/icon.png`, context menu, Show/Hide/Quit listener) | macOS · Windows · Linux |
+
+```ts
+import type { TrayConfig } from 'flutter-tsx/config';
+export default {
+  tooltip: 'My App',
+  menu: [
+    { label: 'Show', action: 'show' },
+    { label: 'Quit', action: 'quit' },
+  ],
+} satisfies TrayConfig;
+```
+
+---
+
 ## Signing & release — `config/platforms/<os>.ts` + gitignored `signing/<os>/`
 
 The genuinely platform-bound surface. Typed config is committed; the credential **files** live in gitignored `signing/<os>/` and are referenced by path. Passwords come from environment variables (named in the config), never source.

@@ -423,11 +423,11 @@
         spellcheck="false"
       />
       <div class="meta-info">
-        539 widgets · 38 plugins · 767 types · 147 enums
+        539 widgets · 38 plugins · 10 hooks · 767 types · 147 enums
       </div>
       <nav id="sidebar-nav">
         <details open>
-          <summary>Examples<span class="nav-count">17</span></summary>
+          <summary>Examples<span class="nav-count">22</span></summary>
           <ul>
             <li data-name="hello-world">
               <a href="#ex-hello-world">Hello World</a>
@@ -474,13 +474,36 @@
             <li data-name="login-form">
               <a href="#ex-login-form">Login Form</a>
             </li>
+            <li data-name="store"><a href="#ex-store">Shared Store</a></li>
+            <li data-name="async-fetch">
+              <a href="#ex-async-fetch">Async Data + fetch</a>
+            </li>
+            <li data-name="tabs"><a href="#ex-tabs">Bottom Tabs</a></li>
+            <li data-name="modals"><a href="#ex-modals">Modals</a></li>
+            <li data-name="navigate"><a href="#ex-navigate">Navigation</a></li>
           </ul>
         </details>
         <details>
-          <summary>Hooks<span class="nav-count">2</span></summary>
+          <summary>
+            Hooks &amp; Core APIs<span class="nav-count">10</span>
+          </summary>
           <ul>
             <li data-name="useState"><a href="#useState">useState</a></li>
             <li data-name="useEffect"><a href="#useEffect">useEffect</a></li>
+            <li data-name="createStore">
+              <a href="#createStore">createStore</a>
+            </li>
+            <li data-name="useStore"><a href="#useStore">useStore</a></li>
+            <li data-name="useAsync"><a href="#useAsync">useAsync</a></li>
+            <li data-name="fetch"><a href="#fetch">fetch</a></li>
+            <li data-name="useParams"><a href="#useParams">useParams</a></li>
+            <li data-name="useTranslations">
+              <a href="#useTranslations">useTranslations</a>
+            </li>
+            <li data-name="TabView"><a href="#TabView">TabView</a></li>
+            <li data-name="showSheet / showDialog">
+              <a href="#showSheet">showSheet / showDialog</a>
+            </li>
           </ul>
         </details>
         <details>
@@ -5263,13 +5286,14 @@ export const App = () =&gt; (
             </div>
             <div class="tab-panel" data-panel="dart" role="tabpanel">
               <pre><code class="language-dart">// GENERATED — do not edit. Source: hello-world.tsx
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, prefer_const_declarations, file_names, non_constant_identifier_names, constant_identifier_names, use_key_in_widget_constructors, unused_element_parameter, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_to_list_in_spreads, avoid_unnecessary_containers, sized_box_for_whitespace
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'My App', home: Scaffold(appBar: AppBar(title: 'My App'), body: Center(child: Text('Hello, World!'))));
+    return MaterialApp(title: 'My App', home: Scaffold(appBar: AppBar(title: Text('My App')), body: Center(child: Text('Hello, World!'))));
   }
 }
 </code></pre>
@@ -5322,6 +5346,7 @@ export function Counter() {
             </div>
             <div class="tab-panel" data-panel="dart" role="tabpanel">
               <pre><code class="language-dart">// GENERATED — do not edit. Source: counter.tsx
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, prefer_const_declarations, file_names, non_constant_identifier_names, constant_identifier_names, use_key_in_widget_constructors, unused_element_parameter, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_to_list_in_spreads, avoid_unnecessary_containers, sized_box_for_whitespace
 import 'package:flutter/material.dart';
 
 class Counter extends StatefulWidget {
@@ -5333,7 +5358,7 @@ class _CounterState extends State&lt;Counter&gt; {
   int count = 0;
   @override
   Widget build(BuildContext context) {
-    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [Text('Count:' + '${count}'), ElevatedButton(onPressed: () { setState(() { count = count + 1; }); }, child: Text('Increment'))]);
+    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [Text('Count:' + '$count'), ElevatedButton(onPressed: () { setState(() { count = count + 1; }); }, child: Text('Increment'))]);
   }
 }
 </code></pre>
@@ -5387,6 +5412,7 @@ export function NameEntry() {
             </div>
             <div class="tab-panel" data-panel="dart" role="tabpanel">
               <pre><code class="language-dart">// GENERATED — do not edit. Source: text-input.tsx
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, prefer_const_declarations, file_names, non_constant_identifier_names, constant_identifier_names, use_key_in_widget_constructors, unused_element_parameter, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_to_list_in_spreads, avoid_unnecessary_containers, sized_box_for_whitespace
 import 'package:flutter/material.dart';
 
 class NameEntry extends StatefulWidget {
@@ -5398,7 +5424,7 @@ class _NameEntryState extends State&lt;NameEntry&gt; {
   String name = '';
   @override
   Widget build(BuildContext context) {
-    return Column(children: [TextField(decoration: InputDecoration(labelText: 'Your name'), onChanged: (value) { setState(() { name = value; }); }), Text('Hello,' + '${name}' + '!')]);
+    return Column(children: [TextField(decoration: InputDecoration(labelText: 'Your name'), onChanged: (value) { setState(() { name = value; }); }), Text('Hello,' + '$name' + '!')]);
   }
 }
 </code></pre>
@@ -5444,6 +5470,7 @@ export function ThemeToggle() {
             </div>
             <div class="tab-panel" data-panel="dart" role="tabpanel">
               <pre><code class="language-dart">// GENERATED — do not edit. Source: toggle.tsx
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, prefer_const_declarations, file_names, non_constant_identifier_names, constant_identifier_names, use_key_in_widget_constructors, unused_element_parameter, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_to_list_in_spreads, avoid_unnecessary_containers, sized_box_for_whitespace
 import 'package:flutter/material.dart';
 
 class ThemeToggle extends StatefulWidget {
@@ -5510,6 +5537,7 @@ export const ProfileCard = () =&gt; (
             </div>
             <div class="tab-panel" data-panel="dart" role="tabpanel">
               <pre><code class="language-dart">// GENERATED — do not edit. Source: profile-card.tsx
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, prefer_const_declarations, file_names, non_constant_identifier_names, constant_identifier_names, use_key_in_widget_constructors, unused_element_parameter, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_to_list_in_spreads, avoid_unnecessary_containers, sized_box_for_whitespace
 import 'package:flutter/material.dart';
 
 class ProfileCard extends StatelessWidget {
@@ -5567,6 +5595,7 @@ export function WelcomeBanner() {
             </div>
             <div class="tab-panel" data-panel="dart" role="tabpanel">
               <pre><code class="language-dart">// GENERATED — do not edit. Source: lifecycle.tsx
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, prefer_const_declarations, file_names, non_constant_identifier_names, constant_identifier_names, use_key_in_widget_constructors, unused_element_parameter, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_to_list_in_spreads, avoid_unnecessary_containers, sized_box_for_whitespace
 import 'package:flutter/material.dart';
 
 class WelcomeBanner extends StatefulWidget {
@@ -5578,7 +5607,7 @@ class _WelcomeBannerState extends State&lt;WelcomeBanner&gt; {
   String message = 'Loading...';
   @override
   Widget build(BuildContext context) {
-    return Text('${message}');
+    return Text('$message');
   }
   @override
   void initState() {
@@ -5597,8 +5626,8 @@ class _WelcomeBannerState extends State&lt;WelcomeBanner&gt; {
         >
           <h3>Scaffold with FAB</h3>
           <p class="doc">
-            A Scaffold with an AppBar, body, and FloatingActionButton — the
-            standard Material shell.
+            The standard Material shell — AppBar, body, and a
+            FloatingActionButton wired to state.
           </p>
           <div class="tabs">
             <div class="tab-btns" role="tablist">
@@ -5622,30 +5651,41 @@ class _WelcomeBannerState extends State&lt;WelcomeBanner&gt; {
             <div class="tab-panel active" data-panel="tsx" role="tabpanel">
               <pre><code class="language-tsx">import {
   MaterialApp, Scaffold, AppBar, Center, Text,
-  FloatingActionButton,
+  FloatingActionButton, useState,
 } from 'flutter-tsx';
 
-export const MyApp = () =&gt; (
-  &lt;MaterialApp title=&quot;FAB Demo&quot;&gt;
-    &lt;Scaffold&gt;
-      &lt;AppBar title=&quot;FAB Demo&quot; /&gt;
-      &lt;Center&gt;
-        &lt;Text&gt;Press the button!&lt;/Text&gt;
-      &lt;/Center&gt;
-      &lt;FloatingActionButton /&gt;
-    &lt;/Scaffold&gt;
-  &lt;/MaterialApp&gt;
-);</code></pre>
+export function FabDemo() {
+  const [count, setCount] = useState(0);
+  return (
+    &lt;MaterialApp title=&quot;FAB Demo&quot;&gt;
+      &lt;Scaffold&gt;
+        &lt;AppBar title=&quot;FAB Demo&quot; /&gt;
+        &lt;Center&gt;
+          &lt;Text&gt;Tapped {count} times&lt;/Text&gt;
+        &lt;/Center&gt;
+        &lt;FloatingActionButton onClick={() =&gt; setCount(count + 1)}&gt;
+          &lt;Text&gt;+&lt;/Text&gt;
+        &lt;/FloatingActionButton&gt;
+      &lt;/Scaffold&gt;
+    &lt;/MaterialApp&gt;
+  );
+}</code></pre>
             </div>
             <div class="tab-panel" data-panel="dart" role="tabpanel">
               <pre><code class="language-dart">// GENERATED — do not edit. Source: fab-scaffold.tsx
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, prefer_const_declarations, file_names, non_constant_identifier_names, constant_identifier_names, use_key_in_widget_constructors, unused_element_parameter, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_to_list_in_spreads, avoid_unnecessary_containers, sized_box_for_whitespace
 import 'package:flutter/material.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class FabDemo extends StatefulWidget {
+  const FabDemo({super.key});
+  @override
+  State&lt;FabDemo&gt; createState() =&gt; _FabDemoState();
+}
+class _FabDemoState extends State&lt;FabDemo&gt; {
+  int count = 0;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'FAB Demo', home: Scaffold(appBar: AppBar(title: 'FAB Demo'), floatingActionButton: FloatingActionButton(), body: Center(child: Text('Press the button!'))));
+    return MaterialApp(title: 'FAB Demo', home: Scaffold(appBar: AppBar(title: Text('FAB Demo')), floatingActionButton: FloatingActionButton(onPressed: () { setState(() { count = count + 1; }); }, child: Text('+')), body: Center(child: Text('Tapped' + '$count' + 'times'))));
   }
 }
 </code></pre>
@@ -5702,6 +5742,7 @@ export function SettingsScreen() {
             </div>
             <div class="tab-panel" data-panel="dart" role="tabpanel">
               <pre><code class="language-dart">// GENERATED — do not edit. Source: settings.tsx
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, prefer_const_declarations, file_names, non_constant_identifier_names, constant_identifier_names, use_key_in_widget_constructors, unused_element_parameter, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_to_list_in_spreads, avoid_unnecessary_containers, sized_box_for_whitespace
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -5770,6 +5811,7 @@ export function StatusView() {
             </div>
             <div class="tab-panel" data-panel="dart" role="tabpanel">
               <pre><code class="language-dart">// GENERATED — do not edit. Source: loading-state.tsx
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, prefer_const_declarations, file_names, non_constant_identifier_names, constant_identifier_names, use_key_in_widget_constructors, unused_element_parameter, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_to_list_in_spreads, avoid_unnecessary_containers, sized_box_for_whitespace
 import 'package:flutter/material.dart';
 
 class StatusView extends StatefulWidget {
@@ -5783,7 +5825,7 @@ class _StatusViewState extends State&lt;StatusView&gt; {
   @override
   Widget build(BuildContext context) {
     if (loading) return CircularProgressIndicator();
-    return Text('${status}');
+    return Text('$status');
   }
   @override
   void initState() {
@@ -5803,8 +5845,9 @@ class _StatusViewState extends State&lt;StatusView&gt; {
         >
           <h3>Todo List</h3>
           <p class="doc">
-            Combines useState (array), a TextField, and .map() rendering to
-            build an interactive list.
+            A store-backed todo list: add appends, tapping an item removes it.
+            createStore generates a ChangeNotifier; the TextField draft is local
+            useState.
           </p>
           <div class="tabs">
             <div class="tab-btns" role="tablist">
@@ -5826,32 +5869,76 @@ class _StatusViewState extends State&lt;StatusView&gt; {
               </button>
             </div>
             <div class="tab-panel active" data-panel="tsx" role="tabpanel">
-              <pre><code class="language-tsx">import { Column, TextField, Text, ElevatedButton, useState } from 'flutter-tsx';
+              <pre><code class="language-tsx">import {
+  Scaffold, AppBar, Column, ListView, ListTile, Checkbox,
+  TextField, ElevatedButton, useState, createStore,
+} from 'flutter-tsx';
+
+export const useTodos = createStore((set) =&gt; ({
+  items: [],
+  done: [],
+  add: (text) =&gt; set((s) =&gt; ({ items: [...s.items, text] })),
+  remove: (text) =&gt; set((s) =&gt; ({
+    items: s.items.where((t) =&gt; t != text).toList(),
+    done: s.done.where((t) =&gt; t != text).toList(),
+  })),
+  toggle: (text) =&gt; set((s) =&gt; ({
+    done: s.done.contains(text)
+      ? s.done.where((t) =&gt; t != text).toList()
+      : [...s.done, text],
+  })),
+}));
 
 export function TodoList() {
-  const [todos, setTodos] = useState&lt;string[]&gt;([]);
-  const [input, setInput] = useState('');
-
-  const addTodo = () =&gt; {
-    setTodos([...todos, input]);
-    setInput('');
-  };
+  const { items, done, add, remove, toggle } = useTodos();
+  const [draft, setDraft] = useState('');
 
   return (
-    &lt;Column&gt;
-      &lt;TextField
-        label=&quot;New todo&quot;
-        onChange={(e) =&gt; setInput(e.target.value)}
-      /&gt;
-      &lt;ElevatedButton onClick={addTodo}&gt;Add&lt;/ElevatedButton&gt;
-      {todos.map((todo) =&gt; &lt;Text&gt;{todo}&lt;/Text&gt;)}
-    &lt;/Column&gt;
+    &lt;Scaffold&gt;
+      &lt;AppBar title=&quot;Todos&quot; /&gt;
+      &lt;Column&gt;
+        &lt;TextField label=&quot;New todo&quot; onChange={(e) =&gt; setDraft(e.target.value)} /&gt;
+        &lt;ElevatedButton onClick={() =&gt; add(draft)}&gt;Add&lt;/ElevatedButton&gt;
+        &lt;ListView&gt;
+          {items.map((todo) =&gt; (
+            &lt;ListTile
+              key={todo}
+              title={todo}
+              leading={&lt;Checkbox value={done.contains(todo)} onChange={(v) =&gt; toggle(todo)} /&gt;}
+              onTap={() =&gt; remove(todo)}
+            /&gt;
+          ))}
+        &lt;/ListView&gt;
+      &lt;/Column&gt;
+    &lt;/Scaffold&gt;
   );
 }</code></pre>
             </div>
             <div class="tab-panel" data-panel="dart" role="tabpanel">
               <pre><code class="language-dart">// GENERATED — do not edit. Source: todo-list.tsx
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, prefer_const_declarations, file_names, non_constant_identifier_names, constant_identifier_names, use_key_in_widget_constructors, unused_element_parameter, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_to_list_in_spreads, avoid_unnecessary_containers, sized_box_for_whitespace
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+class TodosStore extends ChangeNotifier {
+  var items = [];
+  var done = [];
+  void add(dynamic text) {
+    items = [...items, text];
+    notifyListeners();
+  }
+  void remove(dynamic text) {
+    items = items.where((t) =&gt; t != text).toList();
+    done = done.where((t) =&gt; t != text).toList();
+    notifyListeners();
+  }
+  void toggle(dynamic text) {
+    done = done.contains(text)
+      ? done.where((t) =&gt; t != text).toList()
+      : [...done, text];
+    notifyListeners();
+  }
+}
 
 class TodoList extends StatefulWidget {
   const TodoList({super.key});
@@ -5859,15 +5946,16 @@ class TodoList extends StatefulWidget {
   State&lt;TodoList&gt; createState() =&gt; _TodoListState();
 }
 class _TodoListState extends State&lt;TodoList&gt; {
-  List&lt;dynamic&gt; todos = [];
-  String input = '';
+  String draft = '';
   @override
   Widget build(BuildContext context) {
-    return Column(children: [TextField(decoration: InputDecoration(labelText: 'New todo'), onChanged: (value) { setState(() { input = value; }); }), ElevatedButton(onPressed: _addTodo, child: Text('Add')), ...todos.map((todo) =&gt; Text('${todo}')).toList()]);
-  }
-  void _addTodo() {
-    setState(() { todos = [...todos, input]; });
-    setState(() { input = ''; });
+    final todosStore = context.watch&lt;TodosStore&gt;();
+    final items = todosStore.items;
+    final done = todosStore.done;
+    final add = todosStore.add;
+    final remove = todosStore.remove;
+    final toggle = todosStore.toggle;
+    return Scaffold(appBar: AppBar(title: Text('Todos')), body: Column(children: [TextField(decoration: InputDecoration(labelText: 'New todo'), onChanged: (value) { setState(() { draft = value; }); }), ElevatedButton(onPressed: () { add(draft); }, child: Text('Add')), ListView(children: [...items.map((todo) =&gt; ListTile(title: Text(todo), leading: Checkbox(value: done.contains(todo), onChanged: (v) { toggle(todo); }), onTap: () { remove(todo); })).toList()])]));
   }
 }
 </code></pre>
@@ -5922,6 +6010,7 @@ export const CameraScreen = () =&gt; {
             </div>
             <div class="tab-panel" data-panel="dart" role="tabpanel">
               <pre><code class="language-dart">// GENERATED — do not edit. Source: camera.tsx
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, prefer_const_declarations, file_names, non_constant_identifier_names, constant_identifier_names, use_key_in_widget_constructors, unused_element_parameter, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_to_list_in_spreads, avoid_unnecessary_containers, sized_box_for_whitespace
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 
@@ -6009,6 +6098,7 @@ export const MapScreen = () =&gt; {
             </div>
             <div class="tab-panel" data-panel="dart" role="tabpanel">
               <pre><code class="language-dart">// GENERATED — do not edit. Source: google-map.tsx
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, prefer_const_declarations, file_names, non_constant_identifier_names, constant_identifier_names, use_key_in_widget_constructors, unused_element_parameter, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_to_list_in_spreads, avoid_unnecessary_containers, sized_box_for_whitespace
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -6037,8 +6127,9 @@ class _MapScreenState extends State&lt;MapScreen&gt; {
         >
           <h3>Multi-Screen App</h3>
           <p class="doc">
-            Tab-based navigation using useState for the active screen index —
-            Row of buttons drives content switching.
+            A tabbed app composed from separate screen components.
+            &lt;TabView&gt; generates a Scaffold + BottomNavigationBar +
+            IndexedStack (each tab keeps its state).
           </p>
           <div class="tabs">
             <div class="tab-btns" role="tablist">
@@ -6060,45 +6151,72 @@ class _MapScreenState extends State&lt;MapScreen&gt; {
               </button>
             </div>
             <div class="tab-panel active" data-panel="tsx" role="tabpanel">
-              <pre><code class="language-tsx">import {
-  MaterialApp, Scaffold, AppBar, Column, Center,
-  Text, Row, ElevatedButton, useState,
-} from 'flutter-tsx';
+              <pre><code class="language-tsx">import { MaterialApp, TabView, Center, Text } from 'flutter-tsx';
 
-export function MultiScreenApp() {
-  const [tab, setTab] = useState(0);
-  return (
-    &lt;MaterialApp title=&quot;Multi Screen&quot;&gt;
-      &lt;Scaffold&gt;
-        &lt;AppBar title=&quot;Multi Screen&quot; /&gt;
-        &lt;Column&gt;
-          &lt;Center&gt;
-            &lt;Text&gt;Screen {tab}&lt;/Text&gt;
-          &lt;/Center&gt;
-          &lt;Row mainAxisAlignment=&quot;spaceEvenly&quot;&gt;
-            &lt;ElevatedButton onClick={() =&gt; setTab(0)}&gt;Home&lt;/ElevatedButton&gt;
-            &lt;ElevatedButton onClick={() =&gt; setTab(1)}&gt;Profile&lt;/ElevatedButton&gt;
-          &lt;/Row&gt;
-        &lt;/Column&gt;
-      &lt;/Scaffold&gt;
-    &lt;/MaterialApp&gt;
-  );
-}</code></pre>
+export const HomeScreen = () =&gt; (
+  &lt;Center&gt;&lt;Text&gt;Home&lt;/Text&gt;&lt;/Center&gt;
+);
+
+export const ProfileScreen = () =&gt; (
+  &lt;Center&gt;&lt;Text&gt;Profile&lt;/Text&gt;&lt;/Center&gt;
+);
+
+export const MultiScreenApp = () =&gt; (
+  &lt;MaterialApp title=&quot;Multi Screen&quot;&gt;
+    &lt;TabView tabs={[
+      { label: 'Home', icon: 'home', screen: &lt;HomeScreen /&gt; },
+      { label: 'Profile', icon: 'person', screen: &lt;ProfileScreen /&gt; },
+    ]} /&gt;
+  &lt;/MaterialApp&gt;
+);</code></pre>
             </div>
             <div class="tab-panel" data-panel="dart" role="tabpanel">
               <pre><code class="language-dart">// GENERATED — do not edit. Source: multi-screen.tsx
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, prefer_const_declarations, file_names, non_constant_identifier_names, constant_identifier_names, use_key_in_widget_constructors, unused_element_parameter, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_to_list_in_spreads, avoid_unnecessary_containers, sized_box_for_whitespace
 import 'package:flutter/material.dart';
 
-class MultiScreenApp extends StatefulWidget {
-  const MultiScreenApp({super.key});
+class _FsxTabs0 extends StatefulWidget {
+  const _FsxTabs0({super.key});
   @override
-  State&lt;MultiScreenApp&gt; createState() =&gt; _MultiScreenAppState();
+  State&lt;_FsxTabs0&gt; createState() =&gt; _FsxTabs0State();
 }
-class _MultiScreenAppState extends State&lt;MultiScreenApp&gt; {
-  int tab = 0;
+
+class _FsxTabs0State extends State&lt;_FsxTabs0&gt; {
+  int _index = 0;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Multi Screen', home: Scaffold(appBar: AppBar(title: 'Multi Screen'), body: Column(children: [Center(child: Text('Screen' + '${tab}')), Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [ElevatedButton(onPressed: () { setState(() { tab = 0; }); }, child: Text('Home')), ElevatedButton(onPressed: () { setState(() { tab = 1; }); }, child: Text('Profile'))])])));
+    return Scaffold(
+      body: IndexedStack(index: _index, children: [HomeScreen(), ProfileScreen()]),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _index,
+        onTap: (i) =&gt; setState(() =&gt; _index = i),
+        items: const [BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'), BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile')],
+      ),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: Text('Home'));
+  }
+}
+
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: Text('Profile'));
+  }
+}
+
+class MultiScreenApp extends StatelessWidget {
+  const MultiScreenApp({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(title: 'Multi Screen', home: _FsxTabs0());
   }
 }
 </code></pre>
@@ -6112,8 +6230,8 @@ class _MultiScreenAppState extends State&lt;MultiScreenApp&gt; {
         >
           <h3>Drawer Menu</h3>
           <p class="doc">
-            A Scaffold with a side Drawer — the standard Flutter navigation
-            pattern for burger menus.
+            A hamburger drawer (the AppBar shows the menu button automatically)
+            whose ListTiles switch the body content.
           </p>
           <div class="tabs">
             <div class="tab-btns" role="tablist">
@@ -6136,35 +6254,49 @@ class _MultiScreenAppState extends State&lt;MultiScreenApp&gt; {
             </div>
             <div class="tab-panel active" data-panel="tsx" role="tabpanel">
               <pre><code class="language-tsx">import {
-  MaterialApp, Scaffold, AppBar, Center,
-  Text, Drawer, DrawerHeader,
+  MaterialApp, Scaffold, AppBar, Center, Text,
+  Drawer, DrawerHeader, ListView, ListTile, useState,
 } from 'flutter-tsx';
 
-export const DrawerApp = () =&gt; (
-  &lt;MaterialApp title=&quot;Drawer Demo&quot;&gt;
-    &lt;Scaffold&gt;
-      &lt;AppBar title=&quot;Drawer Demo&quot; /&gt;
-      &lt;Drawer&gt;
-        &lt;DrawerHeader&gt;
-          &lt;Text&gt;Menu&lt;/Text&gt;
-        &lt;/DrawerHeader&gt;
-      &lt;/Drawer&gt;
-      &lt;Center&gt;
-        &lt;Text&gt;Main content&lt;/Text&gt;
-      &lt;/Center&gt;
-    &lt;/Scaffold&gt;
-  &lt;/MaterialApp&gt;
-);</code></pre>
+const PAGES = ['Home', 'Profile', 'Settings'];
+
+export function DrawerApp() {
+  const [page, setPage] = useState(0);
+  return (
+    &lt;MaterialApp title=&quot;Drawer Demo&quot;&gt;
+      &lt;Scaffold&gt;
+        &lt;AppBar title=&quot;Drawer Demo&quot; /&gt;
+        &lt;Drawer&gt;
+          &lt;ListView&gt;
+            &lt;DrawerHeader&gt;&lt;Text&gt;Menu&lt;/Text&gt;&lt;/DrawerHeader&gt;
+            &lt;ListTile title=&quot;Home&quot; onTap={() =&gt; setPage(0)} /&gt;
+            &lt;ListTile title=&quot;Profile&quot; onTap={() =&gt; setPage(1)} /&gt;
+            &lt;ListTile title=&quot;Settings&quot; onTap={() =&gt; setPage(2)} /&gt;
+          &lt;/ListView&gt;
+        &lt;/Drawer&gt;
+        &lt;Center&gt;&lt;Text&gt;{PAGES[page]}&lt;/Text&gt;&lt;/Center&gt;
+      &lt;/Scaffold&gt;
+    &lt;/MaterialApp&gt;
+  );
+}</code></pre>
             </div>
             <div class="tab-panel" data-panel="dart" role="tabpanel">
               <pre><code class="language-dart">// GENERATED — do not edit. Source: drawer-menu.tsx
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, prefer_const_declarations, file_names, non_constant_identifier_names, constant_identifier_names, use_key_in_widget_constructors, unused_element_parameter, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_to_list_in_spreads, avoid_unnecessary_containers, sized_box_for_whitespace
 import 'package:flutter/material.dart';
 
-class DrawerApp extends StatelessWidget {
+final PAGES = ['Home', 'Profile', 'Settings'];
+
+class DrawerApp extends StatefulWidget {
   const DrawerApp({super.key});
   @override
+  State&lt;DrawerApp&gt; createState() =&gt; _DrawerAppState();
+}
+class _DrawerAppState extends State&lt;DrawerApp&gt; {
+  int page = 0;
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Drawer Demo', home: Scaffold(appBar: AppBar(title: 'Drawer Demo'), drawer: Drawer(child: DrawerHeader(child: Text('Menu'))), body: Center(child: Text('Main content'))));
+    return MaterialApp(title: 'Drawer Demo', home: Scaffold(appBar: AppBar(title: Text('Drawer Demo')), drawer: Drawer(child: ListView(children: [DrawerHeader(child: Text('Menu')), ListTile(title: Text('Home'), onTap: () { setState(() { page = 0; }); }), ListTile(title: Text('Profile'), onTap: () { setState(() { page = 1; }); }), ListTile(title: Text('Settings'), onTap: () { setState(() { page = 2; }); })])), body: Center(child: Text('${PAGES[page]}'))));
   }
 }
 </code></pre>
@@ -6223,6 +6355,7 @@ export function PhotoGallery() {
             </div>
             <div class="tab-panel" data-panel="dart" role="tabpanel">
               <pre><code class="language-dart">// GENERATED — do not edit. Source: photo-gallery.tsx
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, prefer_const_declarations, file_names, non_constant_identifier_names, constant_identifier_names, use_key_in_widget_constructors, unused_element_parameter, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_to_list_in_spreads, avoid_unnecessary_containers, sized_box_for_whitespace
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -6236,7 +6369,7 @@ class _PhotoGalleryState extends State&lt;PhotoGallery&gt; {
   final ImagePicker _imagePicker = ImagePicker();
   @override
   Widget build(BuildContext context) {
-    return Column(children: [Text('Photos:' + '${count}'), ElevatedButton(onPressed: _pick, child: Text('Pick Photo'))]);
+    return Column(children: [Text('Photos:' + '$count'), ElevatedButton(onPressed: _pick, child: Text('Pick Photo'))]);
   }
   Future&lt;void&gt; _pick() async {
     await _imagePicker.pickImage(source: ImageSource.gallery);
@@ -6302,6 +6435,7 @@ export function WorldCities() {
             </div>
             <div class="tab-panel" data-panel="dart" role="tabpanel">
               <pre><code class="language-dart">// GENERATED — do not edit. Source: world-cities.tsx
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, prefer_const_declarations, file_names, non_constant_identifier_names, constant_identifier_names, use_key_in_widget_constructors, unused_element_parameter, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_to_list_in_spreads, avoid_unnecessary_containers, sized_box_for_whitespace
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -6387,6 +6521,7 @@ export function LoginForm() {
             </div>
             <div class="tab-panel" data-panel="dart" role="tabpanel">
               <pre><code class="language-dart">// GENERATED — do not edit. Source: login-form.tsx
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, prefer_const_declarations, file_names, non_constant_identifier_names, constant_identifier_names, use_key_in_widget_constructors, unused_element_parameter, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_to_list_in_spreads, avoid_unnecessary_containers, sized_box_for_whitespace
 import 'package:flutter/material.dart';
 
 class LoginForm extends StatefulWidget {
@@ -6410,21 +6545,11 @@ class _LoginFormState extends State&lt;LoginForm&gt; {
             </div>
           </div>
         </article>
-      </section>
-      <section id="hooks">
-        <h2>Hooks</h2>
-        <p>
-          Two core hooks handle reactive state and lifecycle. Native capability
-          hooks — <code>useCamera</code>, <code>useLocation</code>,
-          <code>useStorage</code>, and more — are documented in the
-          <strong>Native Plugins</strong> section below.
-        </p>
-
-        <article class="widget" id="useState" data-name="useState">
-          <h3>useState</h3>
+        <article class="widget example-card" id="ex-store" data-name="store">
+          <h3>Shared Store</h3>
           <p class="doc">
-            Declares a reactive state variable. The transpiler rewrites calls to
-            a Dart <code>StatefulWidget</code> with <code>setState()</code>.
+            createStore (Zustand-style) generates an idiomatic ChangeNotifier;
+            destructured usage becomes context.watch reads + action calls.
           </p>
           <div class="tabs">
             <div class="tab-btns" role="tablist">
@@ -6446,34 +6571,456 @@ class _LoginFormState extends State&lt;LoginForm&gt; {
               </button>
             </div>
             <div class="tab-panel active" data-panel="tsx" role="tabpanel">
-              <pre><code class="language-tsx">export function Counter() {
-  const [count, setCount] = useState(0);
-  return &lt;Text&gt;{count}&lt;/Text&gt;;
+              <pre><code class="language-tsx">import { createStore, Column, Text, ElevatedButton } from 'flutter-tsx';
+
+export const useCounter = createStore((set) =&gt; ({
+  count: 0,
+  increment: () =&gt; set((s) =&gt; ({ count: s.count + 1 })),
+}));
+
+export function CounterScreen() {
+  const { count, increment } = useCounter();
+  return (
+    &lt;Column&gt;
+      &lt;Text&gt;Count: {count}&lt;/Text&gt;
+      &lt;ElevatedButton onClick={increment}&gt;Increment&lt;/ElevatedButton&gt;
+    &lt;/Column&gt;
+  );
 }</code></pre>
             </div>
             <div class="tab-panel" data-panel="dart" role="tabpanel">
-              <pre><code class="language-dart">class Counter extends StatefulWidget {
-  const Counter({super.key});
-  @override
-  State&lt;Counter&gt; createState() =&gt; _CounterState();
-}
-class _CounterState extends State&lt;Counter&gt; {
+              <pre><code class="language-dart">// GENERATED — do not edit. Source: store.tsx
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, prefer_const_declarations, file_names, non_constant_identifier_names, constant_identifier_names, use_key_in_widget_constructors, unused_element_parameter, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_to_list_in_spreads, avoid_unnecessary_containers, sized_box_for_whitespace
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+class CounterStore extends ChangeNotifier {
   int count = 0;
+  void increment() {
+    count = count + 1;
+    notifyListeners();
+  }
+}
+
+class CounterScreen extends StatelessWidget {
+  const CounterScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return Text('${count}');
+    final counterStore = context.watch&lt;CounterStore&gt;();
+    final count = counterStore.count;
+    final increment = counterStore.increment;
+    return Column(children: [Text('Count:' + '$count'), ElevatedButton(onPressed: increment, child: Text('Increment'))]);
   }
+}
+</code></pre>
+            </div>
+          </div>
+        </article>
+        <article
+          class="widget example-card"
+          id="ex-async-fetch"
+          data-name="async-fetch"
+        >
+          <h3>Async Data + fetch</h3>
+          <p class="doc">
+            useAsync runs a future and compiles to a FutureBuilder; fetch() is a
+            built-in HTTP source over the http package.
+          </p>
+          <div class="tabs">
+            <div class="tab-btns" role="tablist">
+              <button
+                class="tab-btn active"
+                data-tab="tsx"
+                role="tab"
+                aria-selected="true"
+              >
+                TSX
+              </button>
+              <button
+                class="tab-btn"
+                data-tab="dart"
+                role="tab"
+                aria-selected="false"
+              >
+                Dart
+              </button>
+            </div>
+            <div class="tab-panel active" data-panel="tsx" role="tabpanel">
+              <pre><code class="language-tsx">import { useAsync, fetch, Center, CircularProgressIndicator, Text } from 'flutter-tsx';
+
+export function Feed() {
+  const { data, loading, error } = useAsync(() =&gt; fetch('https://api.example.com/posts'));
+  if (loading) return &lt;Center&gt;&lt;CircularProgressIndicator /&gt;&lt;/Center&gt;;
+  if (error) return &lt;Center&gt;&lt;Text&gt;Failed to load&lt;/Text&gt;&lt;/Center&gt;;
+  return &lt;Text&gt;{data.body}&lt;/Text&gt;;
+}</code></pre>
+            </div>
+            <div class="tab-panel" data-panel="dart" role="tabpanel">
+              <pre><code class="language-dart">// GENERATED — do not edit. Source: async-fetch.tsx
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, prefer_const_declarations, file_names, non_constant_identifier_names, constant_identifier_names, use_key_in_widget_constructors, unused_element_parameter, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_to_list_in_spreads, avoid_unnecessary_containers, sized_box_for_whitespace
+import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'dart:convert';
+
+class _FetchResponse {
+  final bool ok;
+  final int status;
+  final String body;
+  const _FetchResponse(this.ok, this.status, this.body);
+  dynamic get json =&gt; jsonDecode(body);
+}
+
+Future&lt;_FetchResponse&gt; _fsxFetch(String url) async {
+  final res = await get(Uri.parse(url));
+  return _FetchResponse(
+    res.statusCode &gt;= 200 &amp;&amp; res.statusCode &lt; 300,
+    res.statusCode,
+    res.body,
+  );
+}
+
+class Feed extends StatelessWidget {
+  const Feed({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder&lt;dynamic&gt;(
+      future: _fsxFetch('https://api.example.com/posts'),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return Center(child: CircularProgressIndicator());
+        }
+        if (snapshot.hasError) {
+          return Center(child: Text('Failed to load'));
+        }
+        final data = snapshot.data!;
+        return Text('${data.body}');
+      },
+    );
+  }
+}
+</code></pre>
+            </div>
+          </div>
+        </article>
+        <article class="widget example-card" id="ex-tabs" data-name="tabs">
+          <h3>Bottom Tabs</h3>
+          <p class="doc">
+            TabView generates a Scaffold + BottomNavigationBar + IndexedStack
+            (tab state preserved).
+          </p>
+          <div class="tabs">
+            <div class="tab-btns" role="tablist">
+              <button
+                class="tab-btn active"
+                data-tab="tsx"
+                role="tab"
+                aria-selected="true"
+              >
+                TSX
+              </button>
+              <button
+                class="tab-btn"
+                data-tab="dart"
+                role="tab"
+                aria-selected="false"
+              >
+                Dart
+              </button>
+            </div>
+            <div class="tab-panel active" data-panel="tsx" role="tabpanel">
+              <pre><code class="language-tsx">import { TabView, Center, Text } from 'flutter-tsx';
+
+export function Tabs() {
+  return (
+    &lt;TabView tabs={[
+      { label: 'Home', icon: 'home', screen: &lt;Center&gt;&lt;Text&gt;Home&lt;/Text&gt;&lt;/Center&gt; },
+      { label: 'Profile', icon: 'person', screen: &lt;Center&gt;&lt;Text&gt;Profile&lt;/Text&gt;&lt;/Center&gt; },
+    ]} /&gt;
+  );
+}</code></pre>
+            </div>
+            <div class="tab-panel" data-panel="dart" role="tabpanel">
+              <pre><code class="language-dart">// GENERATED — do not edit. Source: tabs.tsx
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, prefer_const_declarations, file_names, non_constant_identifier_names, constant_identifier_names, use_key_in_widget_constructors, unused_element_parameter, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_to_list_in_spreads, avoid_unnecessary_containers, sized_box_for_whitespace
+import 'package:flutter/material.dart';
+
+class _FsxTabs0 extends StatefulWidget {
+  const _FsxTabs0({super.key});
+  @override
+  State&lt;_FsxTabs0&gt; createState() =&gt; _FsxTabs0State();
+}
+
+class _FsxTabs0State extends State&lt;_FsxTabs0&gt; {
+  int _index = 0;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: IndexedStack(index: _index, children: [Center(child: Text('Home')), Center(child: Text('Profile'))]),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _index,
+        onTap: (i) =&gt; setState(() =&gt; _index = i),
+        items: const [BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'), BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile')],
+      ),
+    );
+  }
+}
+
+class Tabs extends StatelessWidget {
+  const Tabs({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return _FsxTabs0();
+  }
+}
+</code></pre>
+            </div>
+          </div>
+        </article>
+        <article class="widget example-card" id="ex-modals" data-name="modals">
+          <h3>Modals</h3>
+          <p class="doc">
+            Imperative showSheet / showDialog map 1:1 to showModalBottomSheet /
+            showDialog.
+          </p>
+          <div class="tabs">
+            <div class="tab-btns" role="tablist">
+              <button
+                class="tab-btn active"
+                data-tab="tsx"
+                role="tab"
+                aria-selected="true"
+              >
+                TSX
+              </button>
+              <button
+                class="tab-btn"
+                data-tab="dart"
+                role="tab"
+                aria-selected="false"
+              >
+                Dart
+              </button>
+            </div>
+            <div class="tab-panel active" data-panel="tsx" role="tabpanel">
+              <pre><code class="language-tsx">import { Column, ElevatedButton, Text, showSheet, showDialog } from 'flutter-tsx';
+
+export function Actions() {
+  return (
+    &lt;Column&gt;
+      &lt;ElevatedButton onClick={() =&gt; showSheet(&lt;Text&gt;Cart&lt;/Text&gt;)}&gt;Cart&lt;/ElevatedButton&gt;
+      &lt;ElevatedButton onClick={() =&gt; showDialog(&lt;Text&gt;Delete?&lt;/Text&gt;)}&gt;Delete&lt;/ElevatedButton&gt;
+    &lt;/Column&gt;
+  );
+}</code></pre>
+            </div>
+            <div class="tab-panel" data-panel="dart" role="tabpanel">
+              <pre><code class="language-dart">// GENERATED — do not edit. Source: modals.tsx
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, prefer_const_declarations, file_names, non_constant_identifier_names, constant_identifier_names, use_key_in_widget_constructors, unused_element_parameter, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_to_list_in_spreads, avoid_unnecessary_containers, sized_box_for_whitespace
+import 'package:flutter/material.dart';
+
+class Actions extends StatelessWidget {
+  const Actions({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [ElevatedButton(onPressed: () { showModalBottomSheet(context: context, builder: (context) =&gt; Text('Cart')); }, child: Text('Cart')), ElevatedButton(onPressed: () { showDialog(context: context, builder: (context) =&gt; Text('Delete?')); }, child: Text('Delete'))]);
+  }
+}
+</code></pre>
+            </div>
+          </div>
+        </article>
+        <article
+          class="widget example-card"
+          id="ex-navigate"
+          data-name="navigate"
+        >
+          <h3>Navigation</h3>
+          <p class="doc">
+            useNavigate rewrites go/push/replace/pop to context.* (go_router).
+          </p>
+          <div class="tabs">
+            <div class="tab-btns" role="tablist">
+              <button
+                class="tab-btn active"
+                data-tab="tsx"
+                role="tab"
+                aria-selected="true"
+              >
+                TSX
+              </button>
+              <button
+                class="tab-btn"
+                data-tab="dart"
+                role="tab"
+                aria-selected="false"
+              >
+                Dart
+              </button>
+            </div>
+            <div class="tab-panel active" data-panel="tsx" role="tabpanel">
+              <pre><code class="language-tsx">import { useNavigate, Column, ElevatedButton, Text } from 'flutter-tsx';
+
+export function Nav() {
+  const nav = useNavigate();
+  return (
+    &lt;Column&gt;
+      &lt;Text&gt;Home&lt;/Text&gt;
+      &lt;ElevatedButton onClick={() =&gt; nav.push('/details')}&gt;Open details&lt;/ElevatedButton&gt;
+    &lt;/Column&gt;
+  );
+}</code></pre>
+            </div>
+            <div class="tab-panel" data-panel="dart" role="tabpanel">
+              <pre><code class="language-dart">// GENERATED — do not edit. Source: navigate.tsx
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, prefer_const_declarations, file_names, non_constant_identifier_names, constant_identifier_names, use_key_in_widget_constructors, unused_element_parameter, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_to_list_in_spreads, avoid_unnecessary_containers, sized_box_for_whitespace
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+class Nav extends StatefulWidget {
+  const Nav({super.key});
+  @override
+  State&lt;Nav&gt; createState() =&gt; _NavState();
+}
+class _NavState extends State&lt;Nav&gt; {
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [Text('Home'), ElevatedButton(onPressed: () { context.push('/details'); }, child: Text('Open details'))]);
+  }
+}
+</code></pre>
+            </div>
+          </div>
+        </article>
+      </section>
+      <section id="hooks">
+        <h2>Hooks &amp; Core APIs (10)</h2>
+        <p>
+          Core hooks for state, async data, routing, and i18n, plus composite
+          widgets (TabView) and modals. Native capability hooks —
+          <code>useCamera</code>, <code>useLocation</code>,
+          <code>useNavigate</code>, and more — are in the
+          <strong>Native Plugins</strong> section below.
+        </p>
+        <article class="widget" id="useState" data-name="useState">
+          <h3>useState</h3>
+          <p class="doc">
+            Declares a reactive state variable. Rewritten to a Dart
+            StatefulWidget with setState().
+          </p>
+          <div class="tabs">
+            <div class="tab-btns" role="tablist">
+              <button
+                class="tab-btn active"
+                data-tab="tsx"
+                role="tab"
+                aria-selected="true"
+              >
+                TSX
+              </button>
+              <button
+                class="tab-btn"
+                data-tab="dart"
+                role="tab"
+                aria-selected="false"
+              >
+                Dart
+              </button>
+            </div>
+            <div class="tab-panel active" data-panel="tsx" role="tabpanel">
+              <pre><code class="language-tsx">const [count, setCount] = useState(0);
+return &lt;Text&gt;{count}&lt;/Text&gt;;</code></pre>
+            </div>
+            <div class="tab-panel" data-panel="dart" role="tabpanel">
+              <pre><code class="language-dart">int count = 0;
+// setCount(x) -&gt; setState(() { count = x; });
+Widget build(BuildContext context) =&gt; Text('$count');</code></pre>
+            </div>
+          </div>
+        </article>
+        <article class="widget" id="useEffect" data-name="useEffect">
+          <h3>useEffect</h3>
+          <p class="doc">
+            Runs a side-effect on mount, with optional cleanup. Transpiles to
+            initState + dispose.
+          </p>
+          <div class="tabs">
+            <div class="tab-btns" role="tablist">
+              <button
+                class="tab-btn active"
+                data-tab="tsx"
+                role="tab"
+                aria-selected="true"
+              >
+                TSX
+              </button>
+              <button
+                class="tab-btn"
+                data-tab="dart"
+                role="tab"
+                aria-selected="false"
+              >
+                Dart
+              </button>
+            </div>
+            <div class="tab-panel active" data-panel="tsx" role="tabpanel">
+              <pre><code class="language-tsx">useEffect(() =&gt; {
+  final id = startTimer();
+  return () =&gt; cancel(id);
+}, []);</code></pre>
+            </div>
+            <div class="tab-panel" data-panel="dart" role="tabpanel">
+              <pre><code class="language-dart">@override
+void initState() { super.initState(); /* effect */ }
+@override
+void dispose() { /* cleanup */ super.dispose(); }</code></pre>
+            </div>
+          </div>
+        </article>
+        <article class="widget" id="createStore" data-name="createStore">
+          <h3>createStore</h3>
+          <p class="doc">
+            Defines a shared store (Zustand-style). Generates an idiomatic
+            ChangeNotifier, provided at the app root via provider.
+          </p>
+          <div class="tabs">
+            <div class="tab-btns" role="tablist">
+              <button
+                class="tab-btn active"
+                data-tab="tsx"
+                role="tab"
+                aria-selected="true"
+              >
+                TSX
+              </button>
+              <button
+                class="tab-btn"
+                data-tab="dart"
+                role="tab"
+                aria-selected="false"
+              >
+                Dart
+              </button>
+            </div>
+            <div class="tab-panel active" data-panel="tsx" role="tabpanel">
+              <pre><code class="language-tsx">export const useCounter = createStore((set) =&gt; ({
+  count: 0,
+  increment: () =&gt; set((s) =&gt; ({ count: s.count + 1 })),
+}));</code></pre>
+            </div>
+            <div class="tab-panel" data-panel="dart" role="tabpanel">
+              <pre><code class="language-dart">class CounterStore extends ChangeNotifier {
+  int count = 0;
+  void increment() { count = count + 1; notifyListeners(); }
 }</code></pre>
             </div>
           </div>
         </article>
-
-        <article class="widget" id="useEffect" data-name="useEffect">
-          <h3>useEffect</h3>
+        <article class="widget" id="useStore" data-name="useStore">
+          <h3>useStore</h3>
           <p class="doc">
-            Runs a side-effect on mount (and optionally on cleanup). Transpiles
-            to <code>initState</code> + <code>dispose</code> in a
-            <code>StatefulWidget</code>.
+            Reads a store in a screen. Destructuring the hook becomes
+            context.watch reads + action calls; the ChangeNotifierProvider is
+            wired into main.dart.
           </p>
           <div class="tabs">
             <div class="tab-btns" role="tablist">
@@ -6495,27 +7042,243 @@ class _CounterState extends State&lt;Counter&gt; {
               </button>
             </div>
             <div class="tab-panel active" data-panel="tsx" role="tabpanel">
-              <pre><code class="language-tsx">export function Timer() {
-  const [x, setX] = useState(0);
-  useEffect(() =&gt; {
-    const id = setInterval(() =&gt; {}, 1000);
-    return () =&gt; clearInterval(id);
-  }, []);
-  return &lt;Text&gt;{x}&lt;/Text&gt;;
-}</code></pre>
+              <pre><code class="language-tsx">const { count, increment } = useCounter();
+return &lt;Text&gt;{count}&lt;/Text&gt;;</code></pre>
             </div>
             <div class="tab-panel" data-panel="dart" role="tabpanel">
-              <pre><code class="language-dart">// initState and dispose generated automatically
-@override
-void initState() {
-  super.initState();
-  // effect body
-}
-@override
-void dispose() {
-  clearInterval(id);
-  super.dispose();
-}</code></pre>
+              <pre><code class="language-dart">final counterStore = context.watch&lt;CounterStore&gt;();
+final count = counterStore.count;
+final increment = counterStore.increment;</code></pre>
+            </div>
+          </div>
+        </article>
+        <article class="widget" id="useAsync" data-name="useAsync">
+          <h3>useAsync</h3>
+          <p class="doc">
+            Runs a future and exposes { data, loading, error }. Compiles to a
+            FutureBuilder.
+          </p>
+          <div class="tabs">
+            <div class="tab-btns" role="tablist">
+              <button
+                class="tab-btn active"
+                data-tab="tsx"
+                role="tab"
+                aria-selected="true"
+              >
+                TSX
+              </button>
+              <button
+                class="tab-btn"
+                data-tab="dart"
+                role="tab"
+                aria-selected="false"
+              >
+                Dart
+              </button>
+            </div>
+            <div class="tab-panel active" data-panel="tsx" role="tabpanel">
+              <pre><code class="language-tsx">const { data, loading, error } = useAsync(() =&gt; fetch(url));
+if (loading) return &lt;CircularProgressIndicator /&gt;;
+return &lt;Text&gt;{data.body}&lt;/Text&gt;;</code></pre>
+            </div>
+            <div class="tab-panel" data-panel="dart" role="tabpanel">
+              <pre><code class="language-dart">return FutureBuilder(
+  future: _fsxFetch(url),
+  builder: (context, snapshot) {
+    if (snapshot.connectionState != ConnectionState.done) {
+      return const CircularProgressIndicator();
+    }
+    final data = snapshot.data!;
+    return Text(data.body);
+  },
+);</code></pre>
+            </div>
+          </div>
+        </article>
+        <article class="widget" id="fetch" data-name="fetch">
+          <h3>fetch</h3>
+          <p class="doc">
+            Built-in HTTP source over the http package. Resolves to a { ok,
+            status, body, json } response; composes with useAsync.
+          </p>
+          <div class="tabs">
+            <div class="tab-btns" role="tablist">
+              <button
+                class="tab-btn active"
+                data-tab="tsx"
+                role="tab"
+                aria-selected="true"
+              >
+                TSX
+              </button>
+              <button
+                class="tab-btn"
+                data-tab="dart"
+                role="tab"
+                aria-selected="false"
+              >
+                Dart
+              </button>
+            </div>
+            <div class="tab-panel active" data-panel="tsx" role="tabpanel">
+              <pre><code class="language-tsx">const { data } = useAsync(() =&gt; fetch('https://api.example.com/posts'));</code></pre>
+            </div>
+            <div class="tab-panel" data-panel="dart" role="tabpanel">
+              <pre><code class="language-dart">// generated helper over package:http
+future: _fsxFetch('https://api.example.com/posts')</code></pre>
+            </div>
+          </div>
+        </article>
+        <article class="widget" id="useParams" data-name="useParams">
+          <h3>useParams</h3>
+          <p class="doc">
+            Reads a route path parameter inside a screen (file-based routing).
+          </p>
+          <div class="tabs">
+            <div class="tab-btns" role="tablist">
+              <button
+                class="tab-btn active"
+                data-tab="tsx"
+                role="tab"
+                aria-selected="true"
+              >
+                TSX
+              </button>
+              <button
+                class="tab-btn"
+                data-tab="dart"
+                role="tab"
+                aria-selected="false"
+              >
+                Dart
+              </button>
+            </div>
+            <div class="tab-panel active" data-panel="tsx" role="tabpanel">
+              <pre><code class="language-tsx">const id = useParams('id'); // on /users/[id]
+return &lt;Text&gt;{id}&lt;/Text&gt;;</code></pre>
+            </div>
+            <div class="tab-panel" data-panel="dart" role="tabpanel">
+              <pre><code class="language-dart">final id = GoRouterState.of(context).pathParameters['id']!;</code></pre>
+            </div>
+          </div>
+        </article>
+        <article
+          class="widget"
+          id="useTranslations"
+          data-name="useTranslations"
+        >
+          <h3>useTranslations</h3>
+          <p class="doc">
+            Returns t(key) resolving from locales/*.json; the transpiler
+            generates l10n.dart.
+          </p>
+          <div class="tabs">
+            <div class="tab-btns" role="tablist">
+              <button
+                class="tab-btn active"
+                data-tab="tsx"
+                role="tab"
+                aria-selected="true"
+              >
+                TSX
+              </button>
+              <button
+                class="tab-btn"
+                data-tab="dart"
+                role="tab"
+                aria-selected="false"
+              >
+                Dart
+              </button>
+            </div>
+            <div class="tab-panel active" data-panel="tsx" role="tabpanel">
+              <pre><code class="language-tsx">const t = useTranslations();
+return &lt;Text&gt;{t('app.title')}&lt;/Text&gt;;</code></pre>
+            </div>
+            <div class="tab-panel" data-panel="dart" role="tabpanel">
+              <pre><code class="language-dart">// from generated l10n.dart
+Text(t('app.title'))</code></pre>
+            </div>
+          </div>
+        </article>
+        <article class="widget" id="TabView" data-name="TabView">
+          <h3>TabView</h3>
+          <p class="doc">
+            Bottom-navigation shell. Generates a Scaffold + BottomNavigationBar
+            + IndexedStack (tab state preserved).
+          </p>
+          <div class="tabs">
+            <div class="tab-btns" role="tablist">
+              <button
+                class="tab-btn active"
+                data-tab="tsx"
+                role="tab"
+                aria-selected="true"
+              >
+                TSX
+              </button>
+              <button
+                class="tab-btn"
+                data-tab="dart"
+                role="tab"
+                aria-selected="false"
+              >
+                Dart
+              </button>
+            </div>
+            <div class="tab-panel active" data-panel="tsx" role="tabpanel">
+              <pre><code class="language-tsx">&lt;TabView tabs={[
+  { label: 'Home', icon: 'home', screen: &lt;Home /&gt; },
+  { label: 'Profile', icon: 'person', screen: &lt;Profile /&gt; },
+]} /&gt;</code></pre>
+            </div>
+            <div class="tab-panel" data-panel="dart" role="tabpanel">
+              <pre><code class="language-dart">Scaffold(
+  body: IndexedStack(index: _index, children: [Home(), Profile()]),
+  bottomNavigationBar: BottomNavigationBar(
+    currentIndex: _index,
+    onTap: (i) =&gt; setState(() =&gt; _index = i),
+    items: const [ /* … */ ],
+  ),
+)</code></pre>
+            </div>
+          </div>
+        </article>
+        <article
+          class="widget"
+          id="showSheet"
+          data-name="showSheet / showDialog"
+        >
+          <h3>showSheet / showDialog</h3>
+          <p class="doc">
+            Imperative modals. Call from a handler; map 1:1 to
+            showModalBottomSheet / showDialog.
+          </p>
+          <div class="tabs">
+            <div class="tab-btns" role="tablist">
+              <button
+                class="tab-btn active"
+                data-tab="tsx"
+                role="tab"
+                aria-selected="true"
+              >
+                TSX
+              </button>
+              <button
+                class="tab-btn"
+                data-tab="dart"
+                role="tab"
+                aria-selected="false"
+              >
+                Dart
+              </button>
+            </div>
+            <div class="tab-panel active" data-panel="tsx" role="tabpanel">
+              <pre><code class="language-tsx">&lt;ElevatedButton onClick={() =&gt; showSheet(&lt;Cart /&gt;)}&gt;Cart&lt;/ElevatedButton&gt;</code></pre>
+            </div>
+            <div class="tab-panel" data-panel="dart" role="tabpanel">
+              <pre><code class="language-dart">showModalBottomSheet(context: context, builder: (context) =&gt; Cart())</code></pre>
             </div>
           </div>
         </article>
@@ -7594,10 +8357,10 @@ final data = jsonDecode(res.body);</code></pre>
                 </button>
               </div>
               <div class="tab-panel active" data-panel="tsx" role="tabpanel">
-                <pre><code class="language-tsx">await share('Check out @tsx/flutter!', subject: 'Flutter TSX');</code></pre>
+                <pre><code class="language-tsx">await share('Check out flutter-tsx!', subject: 'Flutter TSX');</code></pre>
               </div>
               <div class="tab-panel" data-panel="dart" role="tabpanel">
-                <pre><code class="language-dart">await Share.share('Check out @tsx/flutter!', subject: 'Flutter TSX')</code></pre>
+                <pre><code class="language-dart">await Share.share('Check out flutter-tsx!', subject: 'Flutter TSX')</code></pre>
               </div>
             </div>
           </article>
@@ -7721,7 +8484,7 @@ await InAppPurchase.instance.buyNonConsumable(purchaseParam: PurchaseParam(produ
                 </button>
               </div>
               <div class="tab-panel active" data-panel="tsx" role="tabpanel">
-                <pre><code class="language-tsx">import { Router, Route } from '@tsx/flutter';
+                <pre><code class="language-tsx">import { Router, Route } from 'flutter-tsx';
 
 export function App() {
   return (

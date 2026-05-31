@@ -179,75 +179,94 @@ export const pluginSection = (plugin: PluginDef): string => {
 
 // ─── Hooks section ────────────────────────────────────────────────────────────
 
-export const hooksSection = (): string => `<section id="hooks">
-<h2>Hooks</h2>
-<p>Two core hooks handle reactive state and lifecycle. Native capability hooks — <code>useCamera</code>, <code>useLocation</code>, <code>useStorage</code>, and more — are documented in the <strong>Native Plugins</strong> section below.</p>
-
-<article class="widget" id="useState" data-name="useState">
-<h3>useState</h3>
-<p class="doc">Declares a reactive state variable. The transpiler rewrites calls to a Dart <code>StatefulWidget</code> with <code>setState()</code>.</p>
-<div class="tabs">
-<div class="tab-btns" role="tablist">
-<button class="tab-btn active" data-tab="tsx" role="tab" aria-selected="true">TSX</button>
-<button class="tab-btn" data-tab="dart" role="tab" aria-selected="false">Dart</button>
-</div>
-<div class="tab-panel active" data-panel="tsx" role="tabpanel">
-<pre><code class="language-tsx">export function Counter() {
-  const [count, setCount] = useState(0);
-  return &lt;Text&gt;{count}&lt;/Text&gt;;
-}</code></pre>
-</div>
-<div class="tab-panel" data-panel="dart" role="tabpanel">
-<pre><code class="language-dart">class Counter extends StatefulWidget {
-  const Counter({super.key});
-  @override
-  State&lt;Counter&gt; createState() =&gt; _CounterState();
+interface CoreApi {
+  name: string;
+  doc: string;
+  tsx: string;
+  dart: string;
 }
-class _CounterState extends State&lt;Counter&gt; {
-  int count = 0;
-  @override
-  Widget build(BuildContext context) {
-    return Text('\${count}');
-  }
-}</code></pre>
-</div>
-</div>
-</article>
 
-<article class="widget" id="useEffect" data-name="useEffect">
-<h3>useEffect</h3>
-<p class="doc">Runs a side-effect on mount (and optionally on cleanup). Transpiles to <code>initState</code> + <code>dispose</code> in a <code>StatefulWidget</code>.</p>
-<div class="tabs">
-<div class="tab-btns" role="tablist">
-<button class="tab-btn active" data-tab="tsx" role="tab" aria-selected="true">TSX</button>
-<button class="tab-btn" data-tab="dart" role="tab" aria-selected="false">Dart</button>
-</div>
-<div class="tab-panel active" data-panel="tsx" role="tabpanel">
-<pre><code class="language-tsx">export function Timer() {
-  const [x, setX] = useState(0);
-  useEffect(() =&gt; {
-    const id = setInterval(() =&gt; {}, 1000);
-    return () =&gt; clearInterval(id);
-  }, []);
-  return &lt;Text&gt;{x}&lt;/Text&gt;;
-}</code></pre>
-</div>
-<div class="tab-panel" data-panel="dart" role="tabpanel">
-<pre><code class="language-dart">// initState and dispose generated automatically
-@override
-void initState() {
-  super.initState();
-  // effect body
-}
-@override
-void dispose() {
-  clearInterval(id);
-  super.dispose();
-}</code></pre>
-</div>
-</div>
-</article>
+// Hand-authored core hooks + APIs (not SDK-derived). Native capability hooks
+// (useCamera, useLocation, …) and useNavigate live in the Native Plugins section.
+export const CORE_APIS: CoreApi[] = [
+  {
+    name: 'useState',
+    doc: 'Declares a reactive state variable. Rewritten to a Dart StatefulWidget with setState().',
+    tsx: `const [count, setCount] = useState(0);\nreturn <Text>{count}</Text>;`,
+    dart: `int count = 0;\n// setCount(x) -> setState(() { count = x; });\nWidget build(BuildContext context) => Text('$count');`,
+  },
+  {
+    name: 'useEffect',
+    doc: 'Runs a side-effect on mount, with optional cleanup. Transpiles to initState + dispose.',
+    tsx: `useEffect(() => {\n  final id = startTimer();\n  return () => cancel(id);\n}, []);`,
+    dart: `@override\nvoid initState() { super.initState(); /* effect */ }\n@override\nvoid dispose() { /* cleanup */ super.dispose(); }`,
+  },
+  {
+    name: 'createStore',
+    doc: 'Defines a shared store (Zustand-style). Generates an idiomatic ChangeNotifier, provided at the app root via provider.',
+    tsx: `export const useCounter = createStore((set) => ({\n  count: 0,\n  increment: () => set((s) => ({ count: s.count + 1 })),\n}));`,
+    dart: `class CounterStore extends ChangeNotifier {\n  int count = 0;\n  void increment() { count = count + 1; notifyListeners(); }\n}`,
+  },
+  {
+    name: 'useStore',
+    doc: 'Reads a store in a screen. Destructuring the hook becomes context.watch reads + action calls; the ChangeNotifierProvider is wired into main.dart.',
+    tsx: `const { count, increment } = useCounter();\nreturn <Text>{count}</Text>;`,
+    dart: `final counterStore = context.watch<CounterStore>();\nfinal count = counterStore.count;\nfinal increment = counterStore.increment;`,
+  },
+  {
+    name: 'useAsync',
+    doc: 'Runs a future and exposes { data, loading, error }. Compiles to a FutureBuilder.',
+    tsx: `const { data, loading, error } = useAsync(() => fetch(url));\nif (loading) return <CircularProgressIndicator />;\nreturn <Text>{data.body}</Text>;`,
+    dart: `return FutureBuilder(\n  future: _fsxFetch(url),\n  builder: (context, snapshot) {\n    if (snapshot.connectionState != ConnectionState.done) {\n      return const CircularProgressIndicator();\n    }\n    final data = snapshot.data!;\n    return Text(data.body);\n  },\n);`,
+  },
+  {
+    name: 'fetch',
+    doc: 'Built-in HTTP source over the http package. Resolves to a { ok, status, body, json } response; composes with useAsync.',
+    tsx: `const { data } = useAsync(() => fetch('https://api.example.com/posts'));`,
+    dart: `// generated helper over package:http\nfuture: _fsxFetch('https://api.example.com/posts')`,
+  },
+  {
+    name: 'useParams',
+    doc: 'Reads a route path parameter inside a screen (file-based routing).',
+    tsx: `const id = useParams('id'); // on /users/[id]\nreturn <Text>{id}</Text>;`,
+    dart: `final id = GoRouterState.of(context).pathParameters['id']!;`,
+  },
+  {
+    name: 'useTranslations',
+    doc: 'Returns t(key) resolving from locales/*.json; the transpiler generates l10n.dart.',
+    tsx: `const t = useTranslations();\nreturn <Text>{t('app.title')}</Text>;`,
+    dart: `// from generated l10n.dart\nText(t('app.title'))`,
+  },
+  {
+    name: 'TabView',
+    doc: 'Bottom-navigation shell. Generates a Scaffold + BottomNavigationBar + IndexedStack (tab state preserved).',
+    tsx: `<TabView tabs={[\n  { label: 'Home', icon: 'home', screen: <Home /> },\n  { label: 'Profile', icon: 'person', screen: <Profile /> },\n]} />`,
+    dart: `Scaffold(\n  body: IndexedStack(index: _index, children: [Home(), Profile()]),\n  bottomNavigationBar: BottomNavigationBar(\n    currentIndex: _index,\n    onTap: (i) => setState(() => _index = i),\n    items: const [ /* … */ ],\n  ),\n)`,
+  },
+  {
+    name: 'showSheet / showDialog',
+    doc: 'Imperative modals. Call from a handler; map 1:1 to showModalBottomSheet / showDialog.',
+    tsx: `<ElevatedButton onClick={() => showSheet(<Cart />)}>Cart</ElevatedButton>`,
+    dart: `showModalBottomSheet(context: context, builder: (context) => Cart())`,
+  },
+];
+
+export const hooksSection = (): string => {
+  const articles = CORE_APIS.map(
+    (
+      h,
+    ) => `<article class="widget" id="${h.name.split(' ')[0]}" data-name="${h.name}">
+<h3>${h.name}</h3>
+<p class="doc">${h.doc}</p>
+${exampleTabs(h.tsx, h.dart)}
+</article>`,
+  ).join('\n');
+  return `<section id="hooks">
+<h2>Hooks &amp; Core APIs (${CORE_APIS.length})</h2>
+<p>Core hooks for state, async data, routing, and i18n, plus composite widgets (TabView) and modals. Native capability hooks — <code>useCamera</code>, <code>useLocation</code>, <code>useNavigate</code>, and more — are in the <strong>Native Plugins</strong> section below.</p>
+${articles}
 </section>`;
+};
 
 // ─── Examples section ─────────────────────────────────────────────────────────
 
@@ -296,7 +315,13 @@ ${cards}
 export const pageShell = (
   content: string,
   navHtml: string,
-  counts: { widgets: number; enums: number; types?: number; plugins?: number },
+  counts: {
+    widgets: number;
+    enums: number;
+    types?: number;
+    plugins?: number;
+    hooks?: number;
+  },
 ): string => `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -433,7 +458,7 @@ details details > ul { padding-left: 24px; }
 <body>
 <aside id="sidebar">
   <input id="search" type="search" placeholder="Search widgets…" autocomplete="off" spellcheck="false">
-  <div class="meta-info">${counts.widgets} widgets · ${counts.plugins !== undefined ? `${counts.plugins} plugins · ` : ''}${counts.types !== undefined ? `${counts.types} types · ` : ''}${counts.enums} enums</div>
+  <div class="meta-info">${counts.widgets} widgets · ${counts.plugins !== undefined ? `${counts.plugins} plugins · ` : ''}${counts.hooks !== undefined ? `${counts.hooks} hooks · ` : ''}${counts.types !== undefined ? `${counts.types} types · ` : ''}${counts.enums} enums</div>
   <nav id="sidebar-nav">
 ${navHtml}
   </nav>

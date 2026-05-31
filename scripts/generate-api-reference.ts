@@ -20,24 +20,42 @@ import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
 import { buildApiReference } from './api-reference/build';
+import { landingHtml } from './api-reference/landing';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Output into docs/ alongside README.html
-const outPath = join(__dirname, '../docs/api-reference.html');
+const docsDir = join(__dirname, '../docs');
+const outPath = join(docsDir, 'api-reference.html');
+const landingPath = join(docsDir, 'index.html');
 
 const run = (): void => {
   console.log('[docs] Building API reference…');
-  const { html, widgetCount, enumCount, typeCount, pluginCount, failures } =
-    buildApiReference();
+  const {
+    html,
+    widgetCount,
+    enumCount,
+    typeCount,
+    pluginCount,
+    hookCount,
+    failures,
+  } = buildApiReference();
 
   writeFileSync(outPath, html, 'utf-8');
 
+  // Landing page stats are generated from the same live counts (single source
+  // of truth) so they never drift from the reference.
+  writeFileSync(
+    landingPath,
+    landingHtml({ widgetCount, pluginCount, hookCount, enumCount, typeCount }),
+    'utf-8',
+  );
+
   console.log(
-    `[docs] ✓ ${widgetCount} widgets · ${pluginCount} plugins · ${typeCount} types · ${enumCount} enums · 2 hooks`,
+    `[docs] ✓ ${widgetCount} widgets · ${pluginCount} plugins · ${typeCount} types · ${enumCount} enums · ${hookCount} hooks & core APIs`,
   );
   console.log(`[docs] → ${outPath}`);
+  console.log(`[docs] → ${landingPath}`);
 
   if (failures > 0) {
     console.warn(

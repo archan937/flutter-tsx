@@ -4,6 +4,24 @@ All notable changes to **flutter-tsx** are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/), and the project adheres to
 [Semantic Versioning](https://semver.org/) (pre-1.0: minor = features, patch = fixes).
 
+## [0.2.1] — 2026-05-31
+
+### Fixed
+
+- **CI green.** The `quality` job failed on ubuntu while passing on macOS:
+  `runner.ts`'s darwin-only `xcodebuild` arch detection is unreachable on Linux,
+  so the file fell under the 90% per-file line-coverage gate there. Allowlisted
+  `runner.ts` as process-orchestration (same rationale as `project.ts`).
+
+### Documentation
+
+- README, guide, and `config-mapping` now cover the full 0.2.0 surface — state
+  (`createStore`/`useStore`), async (`useAsync` + `fetch`), tabs & modals
+  (`<TabView>`, `showSheet`/`showDialog`), and system-tray apps (`config/tray.ts`).
+- API reference is complete: a full **Hooks & Core APIs** section (state, async,
+  fetch, routing params, i18n, TabView, modals) plus new gallery examples
+  (shared store, async + fetch, bottom tabs, modals, navigation).
+
 ## [0.2.0] — 2026-05-31
 
 The capability release: real apps now have routing, shared state, async data,
