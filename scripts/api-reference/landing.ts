@@ -91,13 +91,18 @@ const WHY = `<section class="why">
         }
         .why-prose strong { color: #fff; font-weight: 700; }
         .why-prose .accent { color: #54a4ff; font-weight: 700; }
+        /* Subtle blue chip for framework / tech names. */
+        .fw {
+          color: #79c0ff; background: rgba(84,164,255,0.12); font-weight: 700;
+          padding: 0.02em 0.3em; border-radius: 3px;
+          box-decoration-break: clone; -webkit-box-decoration-break: clone;
+        }
         /* Soft yellow marker highlight — reserved for Flutter.tsx's wins. */
         .hl {
           background: #f3e7ad; color: #1a1a1a; font-weight: 600;
           padding: 0.05em 0.3em; border-radius: 3px;
           box-decoration-break: clone; -webkit-box-decoration-break: clone;
         }
-        .hl-violet { background: #f3e7ad; }
 
         .cmp-title {
           text-align: center; font-size: 1.25rem; font-weight: 700;
@@ -148,30 +153,30 @@ const WHY = `<section class="why">
 
       <div class="why-prose">
         <p>
-          Cross-platform has always forced a trade-off. <strong>React Native</strong>
+          Cross-platform has always forced a trade-off. <span class="fw">React Native</span>
           gives you the syntax the whole industry already knows — JSX and hooks — but
           it ships your UI over a JavaScript bridge, leans on a patchwork of
           community-maintained native modules, and asks you to chase a steady stream of
-          breaking upgrades. <strong>Flutter</strong> answers all of that with a
+          breaking upgrades. <span class="fw">Flutter</span> answers all of that with a
           GPU-rendered engine, pixel-perfect consistency, and the backing of a
           full-time Google team — but the price of admission is learning
-          <strong>Dart</strong> and an unfamiliar ecosystem.
+          <span class="fw">Dart</span> and an unfamiliar ecosystem.
         </p>
         <p>
-          <span class="hl hl-violet">Flutter.tsx removes the trade-off.</span> You write
-          your app in plain <strong>TSX</strong> — the same components, props, and hooks
-          you already use in React — and it compiles to
-          <span class="hl">idiomatic Dart</span> that runs directly on Google's Flutter
-          engine. There is <span class="hl">no bridge and no embedded JavaScript
-          runtime</span>: the output is exactly what a seasoned Flutter engineer would
-          write by hand, so you get <strong>Flutter's performance with React's
-          ergonomics</strong>.
+          <span class="fw">Flutter.tsx</span> <span class="hl">removes the trade-off.</span>
+          You write your app in plain <span class="fw">TSX</span> — the same components,
+          props, and hooks you already use in <span class="fw">React</span> — and it
+          compiles to <span class="hl">idiomatic Dart</span> that runs directly on
+          Google's <span class="fw">Flutter</span> engine. There is
+          <span class="hl">no bridge and no embedded JavaScript runtime</span>: the
+          output is exactly what a seasoned Flutter engineer would write by hand, so you
+          get <strong>Flutter's performance with React's ergonomics</strong>.
         </p>
         <p>
-          And because you build <em>on top of</em> Flutter rather than reinventing it,
-          the hard parts stay solved for you. Google absorbs
-          <span class="hl">breaking SDK changes</span> under the hood. Camera, photos,
-          audio, maps, storage and auth are
+          And because you build <em>on top of</em> <span class="fw">Flutter</span> rather
+          than reinventing it, the hard parts stay solved for you. Google ships the SDK
+          churn upstream and fsx absorbs it under the hood — <span class="hl">no breaking
+          upgrades to chase</span>. Camera, photos, audio, maps, storage and auth are
           <span class="hl">typed first-party hooks</span> — not a gamble on an
           unmaintained npm package. And
           <span class="hl">ESLint, Prettier, and end-to-end TypeScript types</span> are
