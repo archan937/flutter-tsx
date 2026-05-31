@@ -9,7 +9,12 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; font-size: 16px; }
 body { display: flex; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: #e6edf3; background: #0d1117; line-height: 1.6; }
+  color: #e6edf3; line-height: 1.6;
+  background:
+    radial-gradient(1100px 520px at 50% -120px, rgba(84,164,255,0.16), transparent 70%),
+    radial-gradient(900px 500px at 85% 8%, rgba(167,139,250,0.12), transparent 65%),
+    #0d1117;
+  background-attachment: fixed; }
 
 /* ── Sidebar ─── */
 #sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto;
@@ -134,14 +139,15 @@ details details > ul { padding-left: 24px; }
 <body>
 <aside id="sidebar">
   <input id="search" type="search" placeholder="Search widgets…" autocomplete="off" spellcheck="false">
-  <div class="meta-info">539 widgets · 38 plugins · 10 hooks · 767 types · 147 enums</div>
+  <div class="meta-info">539 widgets · 38 plugins · 12 hooks · 767 types · 147 enums</div>
   <nav id="sidebar-nav">
 <details open>
-<summary>Examples<span class="nav-count">22</span></summary>
+<summary>Examples<span class="nav-count">23</span></summary>
 <ul><li data-name="hello-world"><a href="#ex-hello-world">Hello World</a></li>
 <li data-name="counter"><a href="#ex-counter">Counter</a></li>
 <li data-name="text-input"><a href="#ex-text-input">Controlled Text Input</a></li>
 <li data-name="toggle"><a href="#ex-toggle">Light / Dark Toggle</a></li>
+<li data-name="tap-to-animate"><a href="#ex-tap-to-animate">Tap to Animate</a></li>
 <li data-name="profile-card"><a href="#ex-profile-card">Profile Card</a></li>
 <li data-name="lifecycle"><a href="#ex-lifecycle">Lifecycle with useEffect</a></li>
 <li data-name="fab-scaffold"><a href="#ex-fab-scaffold">Scaffold with FAB</a></li>
@@ -162,7 +168,7 @@ details details > ul { padding-left: 24px; }
 <li data-name="navigate"><a href="#ex-navigate">Navigation</a></li></ul>
 </details>
 <details>
-<summary>Hooks &amp; Core APIs<span class="nav-count">10</span></summary>
+<summary>Hooks &amp; Core APIs<span class="nav-count">12</span></summary>
 <ul>
 <li data-name="useState"><a href="#useState">useState</a></li>
 <li data-name="useEffect"><a href="#useEffect">useEffect</a></li>
@@ -174,6 +180,8 @@ details details > ul { padding-left: 24px; }
 <li data-name="useTranslations"><a href="#useTranslations">useTranslations</a></li>
 <li data-name="TabView"><a href="#TabView">TabView</a></li>
 <li data-name="showSheet / showDialog"><a href="#showSheet">showSheet / showDialog</a></li>
+<li data-name="Gesture props"><a href="#Gesture">Gesture props</a></li>
+<li data-name="animate"><a href="#animate">animate</a></li>
 </ul>
 </details>
 <details>
@@ -1915,6 +1923,59 @@ class _ThemeToggleState extends State&lt;ThemeToggle&gt; {
 </div>
 </div>
 </article>
+<article class="widget example-card" id="ex-tap-to-animate" data-name="tap-to-animate">
+<h3>Tap to Animate</h3>
+<p class="doc">Gesture props + the animate prop. onTap works on any widget (auto-wrapped in a GestureDetector); animate swaps Container for AnimatedContainer so size and color tween on each tap.</p>
+<div class="tabs">
+<div class="tab-btns" role="tablist">
+<button class="tab-btn active" data-tab="tsx" role="tab" aria-selected="true">TSX</button>
+<button class="tab-btn" data-tab="dart" role="tab" aria-selected="false">Dart</button>
+</div>
+<div class="tab-panel active" data-panel="tsx" role="tabpanel">
+<pre><code class="language-tsx">import { Center, Container, Text, useState } from 'flutter-tsx';
+
+export function TapBox() {
+  const [open, setOpen] = useState(false);
+  return (
+    &lt;Center&gt;
+      &lt;Container
+        animate
+        duration={300}
+        curve=&quot;easeInOut&quot;
+        width={open ? 240 : 120}
+        height={open ? 240 : 120}
+        color={open ? 'blue' : 'grey'}
+        onTap={() =&gt; setOpen(!open)}
+      &gt;
+        &lt;Center&gt;
+          &lt;Text&gt;{open ? 'Tap to shrink' : 'Tap to grow'}&lt;/Text&gt;
+        &lt;/Center&gt;
+      &lt;/Container&gt;
+    &lt;/Center&gt;
+  );
+}</code></pre>
+</div>
+<div class="tab-panel" data-panel="dart" role="tabpanel">
+<pre><code class="language-dart">// GENERATED — do not edit. Source: tap-to-animate.tsx
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, prefer_const_declarations, file_names, non_constant_identifier_names, constant_identifier_names, use_key_in_widget_constructors, unused_element_parameter, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_to_list_in_spreads, avoid_unnecessary_containers, sized_box_for_whitespace
+import 'package:flutter/material.dart';
+
+class TapBox extends StatefulWidget {
+  const TapBox({super.key});
+  @override
+  State&lt;TapBox&gt; createState() =&gt; _TapBoxState();
+}
+class _TapBoxState extends State&lt;TapBox&gt; {
+  bool open = false;
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: GestureDetector(onTap: () { setState(() { open = !open; }); }, child: AnimatedContainer(duration: Duration(milliseconds: 300), curve: Curves.easeInOut, width: open ? 240 : 120, height: open ? 240 : 120, color: open ? Colors.blue : Colors.grey, child: Center(child: Text('${open ? 'Tap to shrink' : 'Tap to grow'}')))));
+  }
+}
+</code></pre>
+</div>
+</div>
+</article>
 <article class="widget example-card" id="ex-profile-card" data-name="profile-card">
 <h3>Profile Card</h3>
 <p class="doc">A Card with nested Column, styled Text, and padding — shows widget composition and TextStyle.</p>
@@ -2956,7 +3017,7 @@ class _NavState extends State&lt;Nav&gt; {
 </article>
 </section>
 <section id="hooks">
-<h2>Hooks &amp; Core APIs (10)</h2>
+<h2>Hooks &amp; Core APIs (12)</h2>
 <p>Core hooks for state, async data, routing, and i18n, plus composite widgets (TabView) and modals. Native capability hooks — <code>useCamera</code>, <code>useLocation</code>, <code>useNavigate</code>, and more — are in the <strong>Native Plugins</strong> section below.</p>
 <article class="widget" id="useState" data-name="useState">
 <h3>useState</h3>
@@ -3161,6 +3222,51 @@ Text(t('app.title'))</code></pre>
 </div>
 </div>
 </article>
+<article class="widget" id="Gesture" data-name="Gesture props">
+<h3>Gesture props</h3>
+<p class="doc">onTap / onDoubleTap / onLongPress on ANY widget. Native gesture widgets (GestureDetector, InkWell) pass through; everything else is auto-wrapped in a GestureDetector.</p>
+<div class="tabs">
+<div class="tab-btns" role="tablist">
+<button class="tab-btn active" data-tab="tsx" role="tab" aria-selected="true">TSX</button>
+<button class="tab-btn" data-tab="dart" role="tab" aria-selected="false">Dart</button>
+</div>
+<div class="tab-panel active" data-panel="tsx" role="tabpanel">
+<pre><code class="language-tsx">&lt;Container onTap={() =&gt; select(id)} onLongPress={() =&gt; remove(id)}&gt;
+  &lt;Text&gt;{label}&lt;/Text&gt;
+&lt;/Container&gt;</code></pre>
+</div>
+<div class="tab-panel" data-panel="dart" role="tabpanel">
+<pre><code class="language-dart">GestureDetector(
+  onTap: () { select(id); },
+  onLongPress: () { remove(id); },
+  child: Container(child: Text(label)),
+)</code></pre>
+</div>
+</div>
+</article>
+<article class="widget" id="animate" data-name="animate">
+<h3>animate</h3>
+<p class="doc">Implicit animation. Add `animate` (+ optional duration/curve) to an animatable widget and its prop changes tween automatically — the transpiler swaps it for its Animated* twin.</p>
+<div class="tabs">
+<div class="tab-btns" role="tablist">
+<button class="tab-btn active" data-tab="tsx" role="tab" aria-selected="true">TSX</button>
+<button class="tab-btn" data-tab="dart" role="tab" aria-selected="false">Dart</button>
+</div>
+<div class="tab-panel active" data-panel="tsx" role="tabpanel">
+<pre><code class="language-tsx">&lt;Container animate duration={300} curve=&quot;easeInOut&quot;
+  width={open ? 240 : 120}
+  color={open ? 'blue' : 'grey'} /&gt;</code></pre>
+</div>
+<div class="tab-panel" data-panel="dart" role="tabpanel">
+<pre><code class="language-dart">AnimatedContainer(
+  duration: Duration(milliseconds: 300),
+  curve: Curves.easeInOut,
+  width: open ? 240 : 120,
+  color: open ? Colors.blue : Colors.grey,
+)</code></pre>
+</div>
+</div>
+</article>
 </section>
 <section id="native-plugins">
 <h2>Native Plugins (38)</h2>
@@ -3181,8 +3287,10 @@ const photo = await cam.takePicture();
 console.log(photo.path);</code></pre>
 </div>
 <div class="tab-panel" data-panel="dart" role="tabpanel">
-<pre><code class="language-dart">// Camera controller managed by hook
-// Call takePicture() to capture</code></pre>
+<pre><code class="language-dart">final cam = CameraController(cameras.first, ResolutionPreset.medium);
+await cam.initialize();
+final XFile photo = await cam.takePicture();
+debugPrint(photo.path);</code></pre>
 </div>
 </div>
 </article>
@@ -3200,7 +3308,8 @@ const image = await picker.pickImage('gallery');
 if (image) console.log(image.path);</code></pre>
 </div>
 <div class="tab-panel" data-panel="dart" role="tabpanel">
-<pre><code class="language-dart">final file = await ImagePicker().pickImage(source: ImageSource.gallery);</code></pre>
+<pre><code class="language-dart">final file = await ImagePicker().pickImage(source: ImageSource.gallery);
+if (file != null) debugPrint(file.path);</code></pre>
 </div>
 </div>
 </article>
@@ -3234,7 +3343,8 @@ ctrl.play();
 ctrl.pause();</code></pre>
 </div>
 <div class="tab-panel" data-panel="dart" role="tabpanel">
-<pre><code class="language-dart">_videoController?.play();</code></pre>
+<pre><code class="language-dart">_videoController?.play();
+_videoController?.pause();</code></pre>
 </div>
 </div>
 </article>
@@ -3313,7 +3423,7 @@ await audio.play('https://example.com/sound.mp3');</code></pre>
 map.animateTo({ lat: 48.8566, lng: 2.3522, zoom: 13 });</code></pre>
 </div>
 <div class="tab-panel" data-panel="dart" role="tabpanel">
-<pre><code class="language-dart">_mapController?.animateCamera(CameraUpdate.newCameraPosition(...))</code></pre>
+<pre><code class="language-dart">_mapController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(48.8566, 2.3522), zoom: 13)))</code></pre>
 </div>
 </div>
 </article>
@@ -3330,7 +3440,8 @@ map.animateTo({ lat: 48.8566, lng: 2.3522, zoom: 13 });</code></pre>
 return &lt;Text&gt;{latitude}, {longitude}&lt;/Text&gt;;</code></pre>
 </div>
 <div class="tab-panel" data-panel="dart" role="tabpanel">
-<pre><code class="language-dart">Geolocator.getPositionStream().listen((pos) =&gt; setState(() { _lat = pos.latitude; }))</code></pre>
+<pre><code class="language-dart">final pos = await Geolocator.getCurrentPosition();
+return Text('${pos.latitude}, ${pos.longitude}');</code></pre>
 </div>
 </div>
 </article>
@@ -3413,7 +3524,8 @@ if (ok) doSensitiveAction();</code></pre>
 </div>
 <div class="tab-panel" data-panel="dart" role="tabpanel">
 <pre><code class="language-dart">final auth = LocalAuthentication();
-final ok = await auth.authenticate(localizedReason: 'Confirm your identity');</code></pre>
+final ok = await auth.authenticate(localizedReason: 'Confirm your identity');
+if (ok) doSensitiveAction();</code></pre>
 </div>
 </div>
 </article>
@@ -3434,7 +3546,8 @@ if (file) console.log(file.path, file.name);</code></pre>
 </div>
 <div class="tab-panel" data-panel="dart" role="tabpanel">
 <pre><code class="language-dart">final result = await FilePicker.platform.pickFiles(allowedExtensions: ['pdf', 'docx']);
-final file = result?.files.single;</code></pre>
+final file = result?.files.single;
+if (file != null) debugPrint('${file.path} ${file.name}');</code></pre>
 </div>
 </div>
 </article>
@@ -3451,7 +3564,8 @@ final file = result?.files.single;</code></pre>
 const config = JSON.parse(json);</code></pre>
 </div>
 <div class="tab-panel" data-panel="dart" role="tabpanel">
-<pre><code class="language-dart">final json = await rootBundle.loadString('assets/config.json');</code></pre>
+<pre><code class="language-dart">final json = await rootBundle.loadString('assets/config.json');
+final config = jsonDecode(json);</code></pre>
 </div>
 </div>
 </article>
@@ -3468,7 +3582,8 @@ const config = JSON.parse(json);</code></pre>
 console.log('Documents:', dir);</code></pre>
 </div>
 <div class="tab-panel" data-panel="dart" role="tabpanel">
-<pre><code class="language-dart">final dir = await getApplicationDocumentsDirectory();</code></pre>
+<pre><code class="language-dart">final dir = await getApplicationDocumentsDirectory();
+debugPrint('Documents: ${dir.path}');</code></pre>
 </div>
 </div>
 </article>
@@ -3485,7 +3600,8 @@ console.log('Documents:', dir);</code></pre>
 const cachePath = `${tmp}/image.jpg`;</code></pre>
 </div>
 <div class="tab-panel" data-panel="dart" role="tabpanel">
-<pre><code class="language-dart">final dir = await getTemporaryDirectory();</code></pre>
+<pre><code class="language-dart">final dir = await getTemporaryDirectory();
+final cachePath = '${dir.path}/image.jpg';</code></pre>
 </div>
 </div>
 </article>
@@ -3505,8 +3621,8 @@ const cachePath = `${tmp}/image.jpg`;</code></pre>
 return &lt;Text&gt;{model} running {version}&lt;/Text&gt;;</code></pre>
 </div>
 <div class="tab-panel" data-panel="dart" role="tabpanel">
-<pre><code class="language-dart">final info = await DeviceInfoPlugin().iosInfo;
-final model = info.model;</code></pre>
+<pre><code class="language-dart">final info = await DeviceInfoPlugin().deviceInfo;
+return Text('${info.data['model']} running ${info.data['version']}');</code></pre>
 </div>
 </div>
 </article>
@@ -3523,7 +3639,8 @@ final model = info.model;</code></pre>
 if (!isOnline) return &lt;Text&gt;No connection&lt;/Text&gt;;</code></pre>
 </div>
 <div class="tab-panel" data-panel="dart" role="tabpanel">
-<pre><code class="language-dart">Connectivity().onConnectivityChanged.listen((result) =&gt; setState(() { _type = result; }))</code></pre>
+<pre><code class="language-dart">final result = await Connectivity().checkConnectivity();
+if (result == ConnectivityResult.none) return const Text('No connection');</code></pre>
 </div>
 </div>
 </article>
@@ -3613,7 +3730,8 @@ wvc.loadUrl('https://flutter.dev');</code></pre>
 await launchUrl('mailto:help@example.com');</code></pre>
 </div>
 <div class="tab-panel" data-panel="dart" role="tabpanel">
-<pre><code class="language-dart">await launchUrl(Uri.parse('https://flutter.dev'), mode: LaunchMode.externalApplication)</code></pre>
+<pre><code class="language-dart">await launchUrl(Uri.parse('https://flutter.dev'), mode: LaunchMode.externalApplication);
+await launchUrl(Uri.parse('mailto:help@example.com'));</code></pre>
 </div>
 </div>
 </article>
@@ -3669,7 +3787,7 @@ if (user) console.log(user.email, user.displayName);</code></pre>
 </div>
 <div class="tab-panel" data-panel="dart" role="tabpanel">
 <pre><code class="language-dart">final account = await GoogleSignIn().signIn();
-print('${account?.email}');</code></pre>
+if (account != null) debugPrint('${account.email} ${account.displayName}');</code></pre>
 </div>
 </div>
 </article>
@@ -3688,7 +3806,7 @@ await iap.purchase('com.example.premium');</code></pre>
 </div>
 <div class="tab-panel" data-panel="dart" role="tabpanel">
 <pre><code class="language-dart">final response = await InAppPurchase.instance.queryProductDetails({'com.example.premium'});
-await InAppPurchase.instance.buyNonConsumable(purchaseParam: PurchaseParam(productDetails: ...))</code></pre>
+await InAppPurchase.instance.buyNonConsumable(purchaseParam: PurchaseParam(productDetails: response.productDetails.first));</code></pre>
 </div>
 </div>
 </article>
@@ -3841,7 +3959,7 @@ context.pop();</code></pre>
 <pre><code class="language-tsx">const text = await clipboard.paste();</code></pre>
 </div>
 <div class="tab-panel" data-panel="dart" role="tabpanel">
-<pre><code class="language-dart">final data = await Clipboard.getData('text/plain');</code></pre>
+<pre><code class="language-dart">final text = (await Clipboard.getData('text/plain'))?.text;</code></pre>
 </div>
 </div>
 </article>
