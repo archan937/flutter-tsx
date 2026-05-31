@@ -1,0 +1,48 @@
+name: Deploy Docs
+
+# Publishes the generated documentation site (docs/index.html landing page +
+# docs/api-reference.html, both produced by `bun run docs` from single sources)
+# to the `gh-pages` branch on every push to master. The interactive playground
+# (roadmap #10) is a separate, later effort — this only ships the current docs.
+
+on:
+  push:
+    branches: [master]
+    # Avoid redundant deploys: only when something that affects the docs changes.
+    paths:
+      - 'src/**'
+      - 'ref/derived/**'
+      - 'scripts/api-reference/**'
+      - 'scripts/generate-api-reference.ts'
+      - 'docs/**'
+      - '.github/workflows/docs.yml'
+  workflow_dispatch:
+
+# gh-pages deploy pushes a branch, so the token needs write access.
+permissions:
+  contents: write
+
+# One in-flight deploy at a time; newer pushes supersede older ones.
+concurrency:
+  group: deploy-docs
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install
+      # Regenerate from the single sources (CORE_APIS + ref/derived) so the
+      # published site is never stale relative to the code.
+      - run: bun run docs
+      - name: Publish docs/ to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          publish_branch: gh-pages
+          # docs/ is the site root → index.html is the landing page.
+          # .nojekyll so files/dirs starting with _ are served verbatim.
+          enable_jekyll: false
