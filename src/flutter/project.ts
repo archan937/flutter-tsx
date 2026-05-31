@@ -2,17 +2,30 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { homedir } from 'os';
 import { join } from 'path';
 
-import type { AppConfig } from '../config.js';
-import { mainDart } from '../templates/main-dart.js';
+import type { AppConfig, TrayConfig } from '../config.js';
+import {
+  mainDart,
+  type StoreProvider,
+  trayMainDart,
+} from '../templates/main-dart.js';
 import { pubspecYaml } from '../templates/pubspec-yaml.js';
+import { widgetTestDart } from '../templates/widget-test-dart.js';
 import { detectAssets, generateAssets, hashFile } from './assets.js';
 import { detectFonts, type FontMap } from './fonts.js';
+
+/** Flutter package name derived from the app name (lower_snake, pubspec-safe). */
+const toPackageName = (name: string): string =>
+  name.toLowerCase().replace(/[^a-z0-9_]/g, '_');
 
 export interface EnsureFlutterProjectOptions {
   flutterBin?: string;
   extraDeps?: string[];
   projectRoot?: string;
   dartBin?: string;
+  /** Stores to wire as `ChangeNotifierProvider`s at the app root (main.dart). */
+  stores?: StoreProvider[];
+  /** `config/tray.ts` — turns the app into a system-tray / menubar app. */
+  tray?: TrayConfig;
 }
 
 /**
@@ -54,16 +67,19 @@ export const ensureFlutterProject = async (
     extraDeps = [],
     projectRoot,
     dartBin,
+    stores = [],
+    tray,
   }: EnsureFlutterProjectOptions = {},
 ): Promise<void> => {
   const libDir = join(flutterDir, 'lib');
+  const testDir = join(flutterDir, 'test');
   const pubspecPath = join(flutterDir, 'pubspec.yaml');
   const mainDartPath = join(libDir, 'main.dart');
+  const appName = toPackageName(config.name);
 
   const needsInit = !existsSync(pubspecPath);
 
   if (needsInit) {
-    const appName = config.name.toLowerCase().replace(/[^a-z0-9_]/g, '_');
     const proc = Bun.spawn(flutterCreateArgs(flutterBin, appName, flutterDir), {
       stdout: 'pipe',
       stderr: 'pipe',
@@ -82,13 +98,45 @@ export const ensureFlutterProject = async (
     await syncFonts(projectRoot, flutterDir, fonts);
   }
 
+  // System-tray / menubar mode (config/tray.ts): tray_manager + window_manager
+  // deps, a bundled tray icon (from icons/icon.png), and the tray main.dart
+  // bootstrap in place of the plain runApp entry point.
+  const trayDeps = tray
+    ? ['tray_manager: ^0.2.3', 'window_manager: ^0.4.3']
+    : [];
+  const pubspecConfig = tray
+    ? { ...config, assets: [...(config.assets ?? []), 'assets/tray_icon.png'] }
+    : config;
+  if (tray && projectRoot) {
+    const iconSrc = join(projectRoot, 'icons', 'icon.png');
+    if (existsSync(iconSrc)) {
+      const dest = join(flutterDir, 'assets', 'tray_icon.png');
+      mkdirSync(join(flutterDir, 'assets'), { recursive: true });
+      writeFileSync(dest, readFileSync(iconSrc));
+    }
+  }
+
   mkdirSync(libDir, { recursive: true });
   writeFileSync(
     pubspecPath,
-    pubspecYaml(config, extraDeps, { assets, fonts }),
+    pubspecYaml(pubspecConfig, [...extraDeps, ...trayDeps], { assets, fonts }),
     'utf-8',
   );
-  writeFileSync(mainDartPath, mainDart(), 'utf-8');
+  writeFileSync(
+    mainDartPath,
+    tray ? trayMainDart('MainApp', stores, tray) : mainDart('MainApp', stores),
+    'utf-8',
+  );
+
+  // Replace `flutter create`'s default widget_test.dart (it references `MyApp`,
+  // which fsx apps never define → a `flutter analyze` error) with a smoke test
+  // that pumps the real root + its store providers.
+  mkdirSync(testDir, { recursive: true });
+  writeFileSync(
+    join(testDir, 'widget_test.dart'),
+    widgetTestDart(appName, stores),
+    'utf-8',
+  );
 
   const pubGet = Bun.spawn([flutterBin, 'pub', 'get'], {
     cwd: flutterDir,

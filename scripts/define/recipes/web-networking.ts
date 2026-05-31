@@ -129,10 +129,10 @@ const fetch: FunctionRecipe = {
   version: '^1.2.2',
   pubspecDep: 'http: ^1.2.2',
   dartImport: "import 'package:http/http.dart' as http;",
-  tsxExample: `const res = await fetch('https://api.example.com/data');
-const data = await res.json();`,
-  dartExample: `final res = await http.get(Uri.parse('https://api.example.com/data'));
-final data = jsonDecode(res.body);`,
+  tsxExample: `const { data, loading } = useAsync(() => fetch('https://api.example.com/data'));
+if (loading) return <CircularProgressIndicator />;
+return <Text>{data.body}</Text>; // data.ok, data.status, data.json also available`,
+  dartExample: `FutureBuilder(future: _fsxFetch('https://api.example.com/data'), builder: ...)`,
   args: [
     { name: 'url', tsType: 'string', required: true },
     {
@@ -142,14 +142,20 @@ final data = jsonDecode(res.body);`,
       required: false,
     },
   ],
+  // Resolves to a Response with sync accessors (the body is already awaited):
+  // ok / status / body, plus `json` for the decoded payload. Composes directly
+  // with useAsync (the fetcher returns this Future).
   returns:
-    'Promise<{ ok: boolean; status: number; text(): Promise<string>; json<T = unknown>(): Promise<T> }>',
+    'Promise<{ ok: boolean; status: number; body: string; json: unknown }>',
   dart: {
     imports: [
       "import 'package:http/http.dart' as http;",
       "import 'dart:convert';",
     ],
-    expression: `await http.get(Uri.parse(url))`,
+    // fetch needs a multi-statement async helper (a bare expression can't build
+    // the Response wrapper), so codegen emits `_fsxFetch` + `FetchResponse` and
+    // rewrites `fetch(...)` → `_fsxFetch(...)`. This expression is documentary.
+    expression: `_fsxFetch(url)`,
   },
 };
 

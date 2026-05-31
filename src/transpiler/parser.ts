@@ -18,6 +18,8 @@ export interface ParsedFile {
    * (relative to `src/`), or null. Its presence activates file-based routing.
    */
   routesDir: string | null;
+  /** Names of `useX` hooks this file defines via `createStore`. */
+  storeHooks: string[];
 }
 
 export interface ExportedComponent {
@@ -184,6 +186,25 @@ const extractRoutesDir = (sourceFile: ts.SourceFile): string | null => {
   return dir;
 };
 
+/** Names of `useX` hooks defined via `export const useX = createStore(...)`. */
+const extractStoreHooks = (sourceFile: ts.SourceFile): string[] => {
+  const hooks: string[] = [];
+  for (const statement of sourceFile.statements) {
+    if (!ts.isVariableStatement(statement)) continue;
+    for (const decl of statement.declarationList.declarations) {
+      if (
+        ts.isIdentifier(decl.name) &&
+        decl.initializer &&
+        ts.isCallExpression(decl.initializer) &&
+        decl.initializer.expression.getText(sourceFile) === 'createStore'
+      ) {
+        hooks.push(decl.name.getText(sourceFile));
+      }
+    }
+  }
+  return hooks;
+};
+
 export const parseFile = (filePath: string): ParsedFile => {
   const program = ts.createProgram([filePath], COMPILER_OPTIONS);
   const sourceFile = program.getSourceFile(filePath);
@@ -199,6 +220,7 @@ export const parseFile = (filePath: string): ParsedFile => {
     localComponents: extractLocalComponents(sourceFile),
     usesTranslations: usesTranslationsHook(sourceFile),
     routesDir: extractRoutesDir(sourceFile),
+    storeHooks: extractStoreHooks(sourceFile),
   };
 };
 
@@ -233,6 +255,7 @@ export const parseSource = (
     localComponents: extractLocalComponents(sourceFile),
     usesTranslations: usesTranslationsHook(sourceFile),
     routesDir: extractRoutesDir(sourceFile),
+    storeHooks: extractStoreHooks(sourceFile),
   };
 };
 

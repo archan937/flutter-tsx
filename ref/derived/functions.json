@@ -85,11 +85,11 @@
         "required": false
       }
     ],
-    "returns": "Promise<{ ok: boolean; status: number; text(): Promise<string>; json<T = unknown>(): Promise<T> }>",
+    "returns": "Promise<{ ok: boolean; status: number; body: string; json: unknown }>",
     "dartImport": "import 'package:http/http.dart' as http;",
     "package": "http",
     "pubspecDep": "http: ^1.2.2",
-    "dart": "await http.get(Uri.parse(url))"
+    "dart": "_fsxFetch(url)"
   },
   {
     "name": "share",

@@ -159,3 +159,65 @@ describe('transpileAll', () => {
     );
   });
 });
+
+describe('transpileAll — cross-file stores (createStore)', () => {
+  const scaffold = (): string => {
+    const dir = mkTmp();
+    const src = join(dir, 'src');
+    writeSrc(
+      src,
+      'stores.tsx',
+      `import { createStore } from 'flutter-tsx';
+       export const useCounter = createStore((set) => ({
+         count: 0,
+         increment: () => set((s) => ({ count: s.count + 1 })),
+       }));`,
+    );
+    writeSrc(
+      src,
+      'screens/Counter.tsx',
+      `import { createStore, Column, Text, ElevatedButton } from 'flutter-tsx';
+       import { useCounter } from '../stores';
+       export const Counter = () => {
+         const { count, increment } = useCounter();
+         return (
+           <Column>
+             <Text>{count}</Text>
+             <ElevatedButton onClick={increment}>Add</ElevatedButton>
+           </Column>
+         );
+       };`,
+    );
+    return dir;
+  };
+
+  it('emits the ChangeNotifier class in the store-only file', async () => {
+    const dir = scaffold();
+    await transpileAll(join(dir, 'src'), join(dir, 'out'));
+    const stores = readFileSync(join(dir, 'out', 'stores.dart'), 'utf-8');
+    expect(stores).toContain('class CounterStore extends ChangeNotifier {');
+  });
+
+  it('rewrites cross-file usage to context.watch + imports the store file', async () => {
+    const dir = scaffold();
+    await transpileAll(join(dir, 'src'), join(dir, 'out'));
+    const screen = readFileSync(join(dir, 'out', 'Counter.dart'), 'utf-8');
+    expect(screen).toContain(
+      'final counterStore = context.watch<CounterStore>();',
+    );
+    expect(screen).toContain('final count = counterStore.count;');
+    expect(screen).toContain("import 'stores.dart';");
+    expect(screen).toContain("import 'package:provider/provider.dart';");
+  });
+
+  it('reports the store provider + the provider pubspec dep', async () => {
+    const dir = scaffold();
+    const results = await transpileAll(join(dir, 'src'), join(dir, 'out'));
+    const stores = results.flatMap((r) => r.stores);
+    expect(stores).toContainEqual({
+      className: 'CounterStore',
+      importFile: 'stores.dart',
+    });
+    expect(results.flatMap((r) => r.packages)).toContain('provider: ^6.1.2');
+  });
+});

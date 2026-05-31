@@ -80,12 +80,12 @@ describe('examples-data — every example compiles and is leak-free', () => {
   }
 });
 
-// ─── Helper to get output after the GENERATED comment line ───────────────────
+// ─── Helper to get output after the GENERATED comment + ignore-for-file lines ─
 
 const getBody = (id: string): string => {
   const ex = EXAMPLES.find((e) => e.id === id)!;
   const dart = transpile(ex.tsx, id);
-  return dart.split('\n').slice(1).join('\n').trimStart();
+  return dart.split('\n').slice(2).join('\n').trimStart();
 };
 
 // ─── Per-example Dart exact output assertions ─────────────────────────────────
@@ -118,7 +118,7 @@ describe('examples-data — Dart output anchors', () => {
         int count = 0;
         @override
         Widget build(BuildContext context) {
-          return Column(mainAxisAlignment: MainAxisAlignment.center, children: [Text('Count:' + '\${count}'), ElevatedButton(onPressed: () { setState(() { count = count + 1; }); }, child: Text('Increment'))]);
+          return Column(mainAxisAlignment: MainAxisAlignment.center, children: [Text('Count:' + '$count'), ElevatedButton(onPressed: () { setState(() { count = count + 1; }); }, child: Text('Increment'))]);
         }
       }
     `);
@@ -137,7 +137,7 @@ describe('examples-data — Dart output anchors', () => {
         String name = '';
         @override
         Widget build(BuildContext context) {
-          return Column(children: [TextField(decoration: InputDecoration(labelText: 'Your name'), onChanged: (value) { setState(() { name = value; }); }), Text('Hello,' + '\${name}' + '!')]);
+          return Column(children: [TextField(decoration: InputDecoration(labelText: 'Your name'), onChanged: (value) { setState(() { name = value; }); }), Text('Hello,' + '$name' + '!')]);
         }
       }
     `);
@@ -175,7 +175,7 @@ describe('examples-data — Dart output anchors', () => {
         String message = 'Loading...';
         @override
         Widget build(BuildContext context) {
-          return Text('\${message}');
+          return Text('$message');
         }
         @override
         void initState() {
@@ -201,7 +201,7 @@ describe('examples-data — Dart output anchors', () => {
         @override
         Widget build(BuildContext context) {
           if (loading) return CircularProgressIndicator();
-          return Text('\${status}');
+          return Text('$status');
         }
         @override
         void initState() {
@@ -227,7 +227,7 @@ describe('examples-data — Dart output anchors', () => {
         String input = '';
         @override
         Widget build(BuildContext context) {
-          return Column(children: [TextField(decoration: InputDecoration(labelText: 'New todo'), onChanged: (value) { setState(() { input = value; }); }), ElevatedButton(onPressed: _addTodo, child: Text('Add')), ...todos.map((todo) => Text('\${todo}')).toList()]);
+          return Column(children: [TextField(decoration: InputDecoration(labelText: 'New todo'), onChanged: (value) { setState(() { input = value; }); }), ElevatedButton(onPressed: _addTodo, child: Text('Add')), ...todos.map((todo) => Text('$todo')).toList()]);
         }
         void _addTodo() {
           setState(() { todos = [...todos, input]; });
@@ -311,7 +311,7 @@ describe('examples-data — Dart output anchors', () => {
         int tab = 0;
         @override
         Widget build(BuildContext context) {
-          return MaterialApp(title: 'Multi Screen', home: Scaffold(appBar: AppBar(title: Text('Multi Screen')), body: Column(children: [Center(child: Text('Screen' + '\${tab}')), Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [ElevatedButton(onPressed: () { setState(() { tab = 0; }); }, child: Text('Home')), ElevatedButton(onPressed: () { setState(() { tab = 1; }); }, child: Text('Profile'))])])));
+          return MaterialApp(title: 'Multi Screen', home: Scaffold(appBar: AppBar(title: Text('Multi Screen')), body: Column(children: [Center(child: Text('Screen' + '$tab')), Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [ElevatedButton(onPressed: () { setState(() { tab = 0; }); }, child: Text('Home')), ElevatedButton(onPressed: () { setState(() { tab = 1; }); }, child: Text('Profile'))])])));
         }
       }
     `);
@@ -346,7 +346,7 @@ describe('examples-data — Dart output anchors', () => {
         final ImagePicker _imagePicker = ImagePicker();
         @override
         Widget build(BuildContext context) {
-          return Column(children: [Text('Photos:' + '\${count}'), ElevatedButton(onPressed: _pick, child: Text('Pick Photo'))]);
+          return Column(children: [Text('Photos:' + '$count'), ElevatedButton(onPressed: _pick, child: Text('Pick Photo'))]);
         }
         Future<void> _pick() async {
           await _imagePicker.pickImage(source: ImageSource.gallery);

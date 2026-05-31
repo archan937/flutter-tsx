@@ -1,6 +1,14 @@
 import { describe, expect, it } from 'bun:test';
 
-import { useEffect, useState } from '@src/core/hooks.js';
+import {
+  createStore,
+  useAsync,
+  useEffect,
+  useParams,
+  useState,
+  useStore,
+  useTranslations,
+} from '@src/core/hooks.js';
 
 describe('useState', () => {
   it('returns initial value and a setter', () => {
@@ -62,5 +70,69 @@ describe('useEffect', () => {
 
   it('accepts empty dependency array', () => {
     expect(() => useEffect(() => undefined, [])).not.toThrow();
+  });
+});
+
+interface Counter {
+  count: number;
+  increment: () => void;
+  set5: () => void;
+}
+
+describe('createStore', () => {
+  const make = (): (() => Counter) =>
+    createStore<Counter>((set) => ({
+      count: 0,
+      increment: () => set((s) => ({ count: s.count + 1 })), // function updater
+      set5: () => set({ count: 5 }), // partial object
+    }));
+
+  it('exposes initial state + actions via the returned hook', () => {
+    const store = make()();
+    expect(store.count).toBe(0);
+    expect(typeof store.increment).toBe('function');
+  });
+
+  it('set() with a function updater merges state', () => {
+    const useC = make();
+    useC().increment();
+    expect(useC().count).toBe(1);
+  });
+
+  it('set() with a partial object merges state', () => {
+    const useC = make();
+    useC().set5();
+    expect(useC().count).toBe(5);
+  });
+});
+
+describe('useStore', () => {
+  const useC = createStore<{ a: number; b: number }>(() => ({ a: 1, b: 2 }));
+
+  it('returns the full state without a selector', () => {
+    expect(useStore(useC).a).toBe(1);
+  });
+
+  it('applies a selector', () => {
+    expect(useStore(useC, (s) => s.b)).toBe(2);
+  });
+});
+
+describe('useAsync stub', () => {
+  it('returns a loading result with the documented shape', () => {
+    const result = useAsync(() => Promise.resolve(42));
+    expect(result.loading).toBe(true);
+    expect(result.error).toBeUndefined();
+    expect(result.data).toBeUndefined();
+  });
+});
+
+describe('useParams / useTranslations stubs', () => {
+  it('useParams echoes the key', () => {
+    expect(useParams('id')).toBe('id');
+  });
+
+  it('useTranslations returns a t() that echoes the key', () => {
+    expect(useTranslations()('app.title')).toBe('app.title');
   });
 });

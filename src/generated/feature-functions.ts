@@ -32,7 +32,7 @@ export function launchUrl(url: string, externalApp?: boolean): Promise<void> {
 }
 
 /** Make HTTP requests — a familiar fetch-style API over the http package. */
-export function fetch(url: string, options?: { method?: 'GET' | 'POST' | 'PUT' | 'DELETE'; body?: string; headers?: Record<string, string> }): Promise<{ ok: boolean; status: number; text(): Promise<string>; json<T = unknown>(): Promise<T> }> {
+export function fetch(url: string, options?: { method?: 'GET' | 'POST' | 'PUT' | 'DELETE'; body?: string; headers?: Record<string, string> }): Promise<{ ok: boolean; status: number; body: string; json: unknown }> {
   // Runtime stub — transpiler rewrites to Dart
   return undefined as never;
 }

@@ -2,6 +2,7 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 import ts from 'typescript';
 
+import { GENERATED_IGNORES } from '../dart-lint.js';
 import { CHILD_SLOT_MAP, SELF_SLOT_MAP } from '../generated/slot-map.js';
 import { WIDGET_MAP } from '../generated/widget-map.js';
 import {
@@ -92,6 +93,38 @@ const substitutePluginArgs = (
   return result;
 };
 
+/**
+ * Dart string interpolation for an embedded expression. A bare identifier uses
+ * the brace-free `$id` form (Dart's `unnecessary_brace_in_string_interps` lint
+ * flags `${id}`); anything else (member access, calls) keeps `${…}`.
+ */
+const SIMPLE_DART_IDENTIFIER = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/;
+const dartInterpolation = (exprText: string): string =>
+  SIMPLE_DART_IDENTIFIER.test(exprText) ? `$${exprText}` : `\${${exprText}}`;
+
+/**
+ * Library-private helper emitted into any file that calls `fetch(...)`. Private
+ * (`_`-prefixed) names are library-scoped, so per-file copies never collide
+ * across the flat output. `fetch(url)` is rewritten to `_fsxFetch(url)`.
+ */
+const FETCH_HELPER = `class _FetchResponse {
+  final bool ok;
+  final int status;
+  final String body;
+  const _FetchResponse(this.ok, this.status, this.body);
+  dynamic get json => jsonDecode(body);
+}
+
+Future<_FetchResponse> _fsxFetch(String url) async {
+  final res = await get(Uri.parse(url));
+  return _FetchResponse(
+    res.statusCode >= 200 && res.statusCode < 300,
+    res.statusCode,
+    res.body,
+  );
+}`;
+const HTTP_IMPORT = 'package:http/http.dart';
+
 // ---------------------------------------------------------------------------
 // CodegenContext
 // ---------------------------------------------------------------------------
@@ -113,6 +146,12 @@ export interface CodegenOptions {
    * `buildGoRouter(...)` output; `imports` are the route components' Dart files.
    */
   router?: { decl: string; imports: string[] };
+  /**
+   * Names of `createStore` hooks (e.g. `useCounter`) visible to this file,
+   * including those defined in other files. A `const { … } = useCounter()` call
+   * to one of these is rewritten to a `context.watch<CounterStore>()` binding.
+   */
+  storeHooks?: ReadonlySet<string>;
 }
 
 export class CodegenContext {
@@ -130,13 +169,19 @@ export class CodegenContext {
   private readonly localComponents: Map<string, string>;
   private readonly materialAppProps: Record<string, string>;
   private readonly router?: { decl: string; imports: string[] };
+  private readonly storeHooks: ReadonlySet<string>;
   routerUsed = false;
+  storesUsed = false;
+  usesFetch = false;
+  /** Generated `_FsxTabsN` StatefulWidget classes, one per `<TabView>` usage. */
+  readonly tabWidgets: string[] = [];
 
   constructor(sourceFile: ts.SourceFile, options: CodegenOptions = {}) {
     this.sourceFile = sourceFile;
     this.localComponents = options.localComponents ?? new Map();
     this.materialAppProps = options.materialAppProps ?? {};
     this.router = options.router;
+    this.storeHooks = options.storeHooks ?? new Set();
     if (options.usesTranslations) this.imports.add('l10n.dart');
   }
 
@@ -340,9 +385,103 @@ export class CodegenContext {
       ? node.openingElement.attributes
       : node.attributes;
 
+    if (tagName === 'TabView') return this.buildTabView(attributes);
+
     const children = ts.isJsxElement(node) ? [...node.children] : [];
 
     return this.buildWidgetCall(tagName, attributes, children);
+  }
+
+  /**
+   * `<TabView tabs={[{label, icon, screen}, …]} />` → a reference to a generated
+   * library-private `_FsxTabsN` StatefulWidget (Scaffold + BottomNavigationBar +
+   * IndexedStack, preserving tab state). The class is collected for file emission.
+   */
+  private buildTabView(attributes: ts.JsxAttributes): string {
+    const src = this.sourceFile;
+    const tabsAttr = attributes.properties.find(
+      (p): p is ts.JsxAttribute =>
+        ts.isJsxAttribute(p) && p.name.getText(src) === 'tabs',
+    );
+
+    const screens: string[] = [];
+    const items: string[] = [];
+    const arr =
+      tabsAttr?.initializer && ts.isJsxExpression(tabsAttr.initializer)
+        ? tabsAttr.initializer.expression
+        : undefined;
+    if (arr && ts.isArrayLiteralExpression(arr)) {
+      for (const el of arr.elements) {
+        if (!ts.isObjectLiteralExpression(el)) continue;
+        const prop = (key: string): ts.Expression | undefined =>
+          el.properties.find(
+            (p): p is ts.PropertyAssignment =>
+              ts.isPropertyAssignment(p) && p.name.getText(src) === key,
+          )?.initializer;
+        const label = prop('label');
+        const icon = prop('icon');
+        const screen = prop('screen');
+        const labelText = label && ts.isStringLiteral(label) ? label.text : '';
+        const iconText =
+          icon && ts.isStringLiteral(icon) ? icon.text : 'circle';
+        screens.push(
+          screen ? this.transformReturnExpr(screen) : 'const SizedBox.shrink()',
+        );
+        items.push(
+          `BottomNavigationBarItem(icon: Icon(Icons.${iconText}), label: '${labelText}')`,
+        );
+      }
+    }
+
+    const name = `_FsxTabs${this.tabWidgets.length}`;
+    const cls = [
+      `class ${name} extends StatefulWidget {`,
+      `  const ${name}({super.key});`,
+      `  @override`,
+      `  State<${name}> createState() => ${name}State();`,
+      `}`,
+      ``,
+      `class ${name}State extends State<${name}> {`,
+      `  int _index = 0;`,
+      `  @override`,
+      `  Widget build(BuildContext context) {`,
+      `    return Scaffold(`,
+      `      body: IndexedStack(index: _index, children: [${screens.join(', ')}]),`,
+      `      bottomNavigationBar: BottomNavigationBar(`,
+      `        currentIndex: _index,`,
+      `        onTap: (i) => setState(() => _index = i),`,
+      `        items: const [${items.join(', ')}],`,
+      `      ),`,
+      `    );`,
+      `  }`,
+      `}`,
+    ].join('\n');
+    this.tabWidgets.push(cls);
+    return `${name}()`;
+  }
+
+  /**
+   * `showSheet(<X/>)` → `showModalBottomSheet(...)`, `showDialog(<X/>)` →
+   * `showDialog(...)`. Returns the Dart call (no trailing `;`), or null.
+   */
+  private rewriteModalCall(node: ts.CallExpression): string | null {
+    const callee = node.expression.getText(this.sourceFile);
+    const builder =
+      callee === 'showSheet'
+        ? 'showModalBottomSheet'
+        : callee === 'showDialog'
+          ? 'showDialog'
+          : null;
+    if (!builder) return null;
+    const arg = node.arguments[0];
+    const child =
+      arg &&
+      (ts.isJsxElement(arg) ||
+        ts.isJsxSelfClosingElement(arg) ||
+        ts.isJsxFragment(arg))
+        ? this.visitJSX(arg, null)
+        : (arg?.getText(this.sourceFile) ?? 'const SizedBox.shrink()');
+    return `${builder}(context: context, builder: (context) => ${child})`;
   }
 
   private visitFragment(
@@ -546,7 +685,7 @@ export class CodegenContext {
           } else {
             const exprText =
               this.rewriteParamsCall(expr) ?? expr.getText(this.sourceFile);
-            parts.push(`'\${${exprText}}'`);
+            parts.push(`'${dartInterpolation(exprText)}'`);
           }
         }
       }
@@ -567,16 +706,27 @@ export class CodegenContext {
       return `    return ${this.transformReturnExpr(body)};`;
     }
 
+    const asyncBody = this.tryBuildAsyncBody(body);
+    if (asyncBody) return asyncBody;
+
     const lines: string[] = [];
     for (const stmt of body.statements) {
       if (ts.isReturnStatement(stmt) && stmt.expression) {
         lines.push(`    return ${this.transformReturnExpr(stmt.expression)};`);
       } else if (ts.isVariableStatement(stmt)) {
-        // Emit `const id = useParams('id')` as a build()-local Dart final.
         for (const decl of stmt.declarationList.declarations) {
-          if (!ts.isIdentifier(decl.name) || !decl.initializer) continue;
-          const params = this.rewriteParamsCall(decl.initializer);
-          if (params) lines.push(`    final ${decl.name.text} = ${params};`);
+          if (!decl.initializer) continue;
+          // `const { count, increment } = useCounter()` → store binding.
+          const store = this.tryStoreHook(decl);
+          if (store) {
+            lines.push(...store);
+            continue;
+          }
+          // `const id = useParams('id')` → build()-local Dart final.
+          if (ts.isIdentifier(decl.name)) {
+            const params = this.rewriteParamsCall(decl.initializer);
+            if (params) lines.push(`    final ${decl.name.text} = ${params};`);
+          }
         }
       } else if (ts.isIfStatement(stmt)) {
         const guardText = stmt.expression.getText(this.sourceFile);
@@ -590,6 +740,197 @@ export class CodegenContext {
     return lines.length > 0
       ? lines.join('\n')
       : '    return const Placeholder();';
+  }
+
+  /** The future expression for `useAsync(fetcher)` — arrow body, or `fn()`. */
+  private asyncFutureExpr(fetcher: ts.Expression | undefined): string {
+    if (!fetcher) return 'Future.value()';
+    if (ts.isArrowFunction(fetcher)) {
+      const fnBody = fetcher.body;
+      if (ts.isBlock(fnBody)) {
+        const ret = fnBody.statements.find(ts.isReturnStatement);
+        return ret?.expression
+          ? this.asyncExprText(ret.expression)
+          : 'Future.value()';
+      }
+      return this.asyncExprText(fnBody);
+    }
+    // Bare reference: `useAsync(loadUser)` → `loadUser()`.
+    return `${fetcher.getText(this.sourceFile)}()`;
+  }
+
+  /** Future-position expression text, rewriting `fetch(...)` → `_fsxFetch(...)`. */
+  private asyncExprText(expr: ts.Expression): string {
+    return this.rewriteFetchCall(expr) ?? expr.getText(this.sourceFile);
+  }
+
+  /**
+   * `fetch(url)` → `_fsxFetch(url)`, registering the helper + http/convert
+   * imports. Returns null when `expr` isn't a fetch call.
+   */
+  private rewriteFetchCall(expr: ts.Expression): string | null {
+    if (
+      !ts.isCallExpression(expr) ||
+      expr.expression.getText(this.sourceFile) !== 'fetch'
+    ) {
+      return null;
+    }
+    this.usesFetch = true;
+    this.imports.add(HTTP_IMPORT);
+    this.imports.add('dart:convert');
+    const url = expr.arguments[0]?.getText(this.sourceFile) ?? "''";
+    return `_fsxFetch(${url})`;
+  }
+
+  /** Emits build()-local `final` declarations for store/useParams var stmts. */
+  private buildLocalDecls(stmt: ts.VariableStatement): string[] {
+    const lines: string[] = [];
+    for (const decl of stmt.declarationList.declarations) {
+      if (!decl.initializer) continue;
+      const store = this.tryStoreHook(decl);
+      if (store) {
+        lines.push(...store);
+        continue;
+      }
+      if (ts.isIdentifier(decl.name)) {
+        const params = this.rewriteParamsCall(decl.initializer);
+        if (params) lines.push(`    final ${decl.name.text} = ${params};`);
+      }
+    }
+    return lines;
+  }
+
+  /**
+   * `const { data, loading, error } = useAsync(() => fetch())` rewrites the
+   * whole build body to a `FutureBuilder<T>`: the loading guard → not-done
+   * connection state, the error guard → `snapshot.hasError`, `data` ←
+   * `snapshot.data!`. Preceding hook locals (useParams/store) are emitted first.
+   * Returns null when the component doesn't use `useAsync`.
+   */
+  private tryBuildAsyncBody(body: ts.Block): string | null {
+    let asyncDecl: ts.VariableDeclaration | undefined;
+    for (const stmt of body.statements) {
+      if (!ts.isVariableStatement(stmt)) continue;
+      for (const decl of stmt.declarationList.declarations) {
+        if (
+          decl.initializer &&
+          ts.isCallExpression(decl.initializer) &&
+          decl.initializer.expression.getText(this.sourceFile) === 'useAsync'
+        ) {
+          asyncDecl = decl;
+        }
+      }
+    }
+    if (!asyncDecl || !ts.isObjectBindingPattern(asyncDecl.name)) return null;
+
+    const call = asyncDecl.initializer as ts.CallExpression;
+    const futureExpr = this.asyncFutureExpr(call.arguments[0]);
+    const typeArg =
+      call.typeArguments?.[0]?.getText(this.sourceFile) ?? 'dynamic';
+
+    const names: Record<string, string> = {};
+    for (const el of asyncDecl.name.elements) {
+      const key = (el.propertyName ?? el.name).getText(this.sourceFile);
+      names[key] = el.name.getText(this.sourceFile);
+    }
+    const { data: dataName, loading: loadingName, error: errorName } = names;
+
+    const preLines: string[] = [];
+    let loadingTree: string | null = null;
+    let errorTree: string | null = null;
+    let dataTree: string | null = null;
+
+    let seenAsync = false;
+    for (const stmt of body.statements) {
+      if (ts.isVariableStatement(stmt)) {
+        if (stmt.declarationList.declarations.some((d) => d === asyncDecl)) {
+          seenAsync = true;
+          continue;
+        }
+        if (!seenAsync) preLines.push(...this.buildLocalDecls(stmt));
+        continue;
+      }
+      if (ts.isIfStatement(stmt)) {
+        const guard = stmt.expression.getText(this.sourceFile);
+        const ret = this.extractGuardReturn(stmt.thenStatement);
+        if (ret === null) continue;
+        if (loadingName && guard === loadingName) loadingTree = ret;
+        else if (errorName && guard === errorName) errorTree = ret;
+        continue;
+      }
+      if (ts.isReturnStatement(stmt) && stmt.expression) {
+        dataTree = this.transformReturnExpr(stmt.expression);
+      }
+    }
+
+    const loadingBody =
+      loadingTree ?? 'const Center(child: CircularProgressIndicator())';
+    const lines: string[] = [...preLines];
+    lines.push(`    return FutureBuilder<${typeArg}>(`);
+    lines.push(`      future: ${futureExpr},`);
+    lines.push(`      builder: (context, snapshot) {`);
+    lines.push(
+      `        if (snapshot.connectionState != ConnectionState.done) {`,
+    );
+    lines.push(`          return ${loadingBody};`);
+    lines.push(`        }`);
+    const usesLocal = (
+      name: string | undefined,
+      tree: string | null,
+    ): boolean =>
+      Boolean(name && tree && new RegExp(`\\b${name}\\b`).test(tree));
+    lines.push(`        if (snapshot.hasError) {`);
+    // Only bind the error/data locals when the branch actually reads them
+    // (else Dart flags an unused local).
+    if (usesLocal(errorName, errorTree)) {
+      lines.push(`          final ${errorName} = snapshot.error;`);
+    }
+    lines.push(`          return ${errorTree ?? "Text('${snapshot.error}')"};`);
+    lines.push(`        }`);
+    if (usesLocal(dataName, dataTree)) {
+      lines.push(`        final ${dataName} = snapshot.data!;`);
+    }
+    lines.push(`        return ${dataTree ?? 'const SizedBox.shrink()'};`);
+    lines.push(`      },`);
+    lines.push(`    );`);
+    return lines.join('\n');
+  }
+
+  /**
+   * Rewrites `const { count, increment } = useCounter()` (or `const c =
+   * useCounter()`) to a `context.watch<CounterStore>()` binding plus a local
+   * `final` per destructured name (state reads + action tear-offs alike), so
+   * existing JSX references resolve unchanged. Returns null if not a store hook.
+   */
+  private tryStoreHook(decl: ts.VariableDeclaration): string[] | null {
+    const init = decl.initializer;
+    if (!init || !ts.isCallExpression(init)) return null;
+    const hookName = init.expression.getText(this.sourceFile);
+    if (!this.storeHooks.has(hookName)) return null;
+
+    this.storesUsed = true;
+    this.imports.add('package:provider/provider.dart');
+    // Cross-file store: import the Dart file holding the ChangeNotifier class.
+    const storeFile = this.localComponents.get(hookName);
+    if (storeFile) this.imports.add(storeFile);
+    const className = storeClassName(hookName);
+
+    if (ts.isIdentifier(decl.name)) {
+      return [`    final ${decl.name.text} = context.watch<${className}>();`];
+    }
+
+    if (ts.isObjectBindingPattern(decl.name)) {
+      const local = storeLocalName(hookName);
+      const lines = [`    final ${local} = context.watch<${className}>();`];
+      for (const el of decl.name.elements) {
+        const prop = (el.propertyName ?? el.name).getText(this.sourceFile);
+        const alias = el.name.getText(this.sourceFile);
+        lines.push(`    final ${alias} = ${local}.${prop};`);
+      }
+      return lines;
+    }
+
+    return null;
   }
 
   private extractGuardReturn(stmt: ts.Statement): string | null {
@@ -913,6 +1254,12 @@ export class CodegenContext {
       }
     }
 
+    // showSheet/showDialog(<X/>) → showModalBottomSheet/showDialog(...)
+    if (ts.isCallExpression(node)) {
+      const modal = this.rewriteModalCall(node);
+      if (modal) return `${modal};`;
+    }
+
     // setX(value) → setState(() { x = value; })
     if (ts.isCallExpression(node)) {
       const callee = node.expression.getText(src);
@@ -973,7 +1320,7 @@ export class CodegenContext {
 
     for (const span of node.templateSpans) {
       const exprText = span.expression.getText(this.sourceFile);
-      parts.push(`\${${exprText}}`);
+      parts.push(dartInterpolation(exprText));
       parts.push(span.literal.text);
     }
 
@@ -1094,15 +1441,173 @@ const collectDataConsts = (
   return lines;
 };
 
+// ---------------------------------------------------------------------------
+// createStore → ChangeNotifier (Zustand-style state management)
+// ---------------------------------------------------------------------------
+
+const cap = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
+
+/** `useCounter` → `CounterStore`. */
+export const storeClassName = (hookName: string): string =>
+  `${cap(hookName.startsWith('use') ? hookName.slice(3) : hookName)}Store`;
+
+/** `useCounter` → `counterStore` (the build()-local watched instance). */
+const storeLocalName = (hookName: string): string => {
+  const base = hookName.startsWith('use') ? hookName.slice(3) : hookName;
+  return `${base.charAt(0).toLowerCase() + base.slice(1)}Store`;
+};
+
+/** Infers a Dart field type from a state literal (int/double/String/bool/var). */
+const dartFieldType = (init: ts.Expression): string => {
+  if (ts.isNumericLiteral(init))
+    return init.text.includes('.') ? 'double' : 'int';
+  if (ts.isStringLiteral(init)) return 'String';
+  if (
+    init.kind === ts.SyntaxKind.TrueKeyword ||
+    init.kind === ts.SyntaxKind.FalseKeyword
+  )
+    return 'bool';
+  return 'var';
+};
+
+/** `set((s) => ({ f: s.f + 1 }))` → ['f = f + 1;', …] (state param stripped). */
+const translateSetMutations = (
+  setCall: ts.CallExpression,
+  src: ts.SourceFile,
+): string[] => {
+  const arrow = setCall.arguments[0];
+  if (!arrow || !ts.isArrowFunction(arrow)) return [];
+  const param = arrow.parameters[0]?.name.getText(src);
+  let body: ts.Node = arrow.body;
+  if (ts.isParenthesizedExpression(body)) body = body.expression;
+  if (!ts.isObjectLiteralExpression(body)) return [];
+  const lines: string[] = [];
+  for (const prop of body.properties) {
+    if (!ts.isPropertyAssignment(prop)) continue;
+    const field = prop.name.getText(src);
+    let expr = prop.initializer.getText(src);
+    if (param) expr = expr.replace(new RegExp(`\\b${param}\\.`, 'g'), '');
+    lines.push(`    ${field} = ${expr};`);
+  }
+  return lines;
+};
+
+/** Builds one `ChangeNotifier` method from a store action arrow. */
+const buildStoreAction = (
+  name: string,
+  fn: ts.ArrowFunction | ts.FunctionExpression,
+  src: ts.SourceFile,
+): string => {
+  const params = fn.parameters
+    .map((p) => `dynamic ${p.name.getText(src)}`)
+    .join(', ');
+  let body: ts.Node = fn.body;
+  if (ts.isBlock(body)) {
+    const ret = body.statements.find(ts.isExpressionStatement);
+    body = ret ? ret.expression : body;
+  }
+  const mutations =
+    ts.isCallExpression(body) && body.expression.getText(src) === 'set'
+      ? translateSetMutations(body, src)
+      : [];
+  return [
+    `  void ${name}(${params}) {`,
+    ...mutations,
+    '    notifyListeners();',
+    '  }',
+  ].join('\n');
+};
+
+/** Generates a `ChangeNotifier` class from a `createStore` factory. */
+const buildStoreClass = (
+  hookName: string,
+  factory: ts.ArrowFunction | ts.FunctionExpression,
+  src: ts.SourceFile,
+): string | null => {
+  let body: ts.Node = factory.body;
+  if (ts.isParenthesizedExpression(body)) body = body.expression;
+  if (ts.isBlock(body)) {
+    const ret = body.statements.find(ts.isReturnStatement);
+    if (ret?.expression) body = ret.expression;
+  }
+  if (!ts.isObjectLiteralExpression(body)) return null;
+
+  const fields: string[] = [];
+  const methods: string[] = [];
+  for (const prop of body.properties) {
+    if (!ts.isPropertyAssignment(prop)) continue;
+    const name = prop.name.getText(src);
+    const init = prop.initializer;
+    if (ts.isArrowFunction(init) || ts.isFunctionExpression(init)) {
+      methods.push(buildStoreAction(name, init, src));
+    } else {
+      fields.push(`  ${dartFieldType(init)} ${name} = ${init.getText(src)};`);
+    }
+  }
+  return [
+    `class ${storeClassName(hookName)} extends ChangeNotifier {`,
+    ...fields,
+    ...methods,
+    `}`,
+  ].join('\n');
+};
+
+/** Scans a file for `export const useX = createStore(...)` → ChangeNotifier classes. */
+const buildStoreClasses = (sourceFile: ts.SourceFile): string[] => {
+  const classes: string[] = [];
+  for (const stmt of sourceFile.statements) {
+    if (!ts.isVariableStatement(stmt)) continue;
+    for (const decl of stmt.declarationList.declarations) {
+      if (!decl.initializer || !ts.isCallExpression(decl.initializer)) continue;
+      if (decl.initializer.expression.getText(sourceFile) !== 'createStore')
+        continue;
+      const factory = decl.initializer.arguments[0];
+      if (
+        ts.isIdentifier(decl.name) &&
+        factory &&
+        (ts.isArrowFunction(factory) || ts.isFunctionExpression(factory))
+      ) {
+        const cls = buildStoreClass(decl.name.text, factory, sourceFile);
+        if (cls) classes.push(cls);
+      }
+    }
+  }
+  return classes;
+};
+
+/** Names of the `useX` hooks defined via `createStore` in a file. */
+const extractStoreHookNames = (sourceFile: ts.SourceFile): string[] => {
+  const names: string[] = [];
+  for (const stmt of sourceFile.statements) {
+    if (!ts.isVariableStatement(stmt)) continue;
+    for (const decl of stmt.declarationList.declarations) {
+      if (
+        ts.isIdentifier(decl.name) &&
+        decl.initializer &&
+        ts.isCallExpression(decl.initializer) &&
+        decl.initializer.expression.getText(sourceFile) === 'createStore'
+      ) {
+        names.push(decl.name.text);
+      }
+    }
+  }
+  return names;
+};
+
 const buildDartOutput = (
   sourceFile: ts.SourceFile,
   components: ExportedComponent[],
   options?: CodegenOptions,
 ): { code: string; ctx: CodegenContext } => {
-  const ctx = new CodegenContext(sourceFile, options);
+  const storeHooks = new Set([
+    ...(options?.storeHooks ?? []),
+    ...extractStoreHookNames(sourceFile),
+  ]);
+  const ctx = new CodegenContext(sourceFile, { ...options, storeHooks });
 
   const componentNames = new Set(components.map((c) => c.name));
   const dataConsts = collectDataConsts(sourceFile, componentNames);
+  const storeClasses = buildStoreClasses(sourceFile);
 
   const componentBodies = components
     .map((c) => ctx.generateComponent(c))
@@ -1113,10 +1618,14 @@ const buildDartOutput = (
 
   const parts: string[] = [
     `// GENERATED — do not edit. Source: ${sourceFile.fileName}`,
+    GENERATED_IGNORES,
     importLines,
     ``,
     ...(routerDecl ? [routerDecl, ''] : []),
+    ...(ctx.usesFetch ? [FETCH_HELPER, ''] : []),
     ...(dataConsts.length > 0 ? [dataConsts.join('\n'), ''] : []),
+    ...storeClasses.flatMap((cls) => [cls, '']),
+    ...ctx.tabWidgets.flatMap((cls) => [cls, '']),
     ...componentBodies.flatMap((body, idx) =>
       idx < componentBodies.length - 1 ? [body, ''] : [body],
     ),

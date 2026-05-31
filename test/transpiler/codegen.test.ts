@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'bun:test';
 
+import { GENERATED_IGNORES } from '@src/dart-lint.js';
 import {
   generateDartFile,
   generateDartFileResult,
@@ -54,6 +55,7 @@ const todo = (label: string): void =>
 
 const HEADER = [
   '// GENERATED — do not edit. Source: virtual.tsx',
+  GENERATED_IGNORES,
   `import 'package:flutter/material.dart';`,
   ``,
 ].join('\n');
@@ -70,7 +72,7 @@ const getBody = (src: string): string => {
 
 const getAll = (tsx: string): string => {
   const out = transpile(tsx);
-  return out.split('\n').slice(1).join('\n').trimStart();
+  return out.split('\n').slice(2).join('\n').trimStart();
 };
 
 describe('generateDartFile — header', () => {
@@ -94,7 +96,7 @@ describe('generateDartFile — header', () => {
     const { sourceFile } = parseSource('');
     const out = generateDartFile(sourceFile, []);
     expect(out.trimEnd()).toBe(
-      `// GENERATED — do not edit. Source: virtual.tsx\nimport 'package:flutter/material.dart';`,
+      `// GENERATED — do not edit. Source: virtual.tsx\n${GENERATED_IGNORES}\nimport 'package:flutter/material.dart';`,
     );
   });
 
@@ -201,7 +203,7 @@ describe('generateDartFile — useParams', () => {
     expect(out).toContain(
       "final id = GoRouterState.of(context).pathParameters['id']!;",
     );
-    expect(out).toContain("Text('${id}')");
+    expect(out).toContain("Text('$id')");
   });
 });
 
@@ -214,7 +216,7 @@ describe('generateDartFile — useNavigate arg substitution', () => {
         '  return <ListView>{[1,2].map((i) => <ListTile key={i} title="x" onTap={() => nav.push(`/items/${i}`)} />)}</ListView>;\n' +
         '};',
     );
-    expect(out).toContain("context.push('/items/${i}')");
+    expect(out).toContain("context.push('/items/$i')");
     expect(out).not.toContain('`/items/');
   });
 
@@ -436,7 +438,7 @@ describe('generateDartFile — StatefulWidget', () => {
         int count = 0;
         @override
         Widget build(BuildContext context) {
-          return Text('\${count}');
+          return Text('$count');
         }
       }
     `);
@@ -463,7 +465,7 @@ describe('generateDartFile — StatefulWidget', () => {
         int x = 0;
         @override
         Widget build(BuildContext context) {
-          return Text('\${x}');
+          return Text('$x');
         }
         @override
         void initState() {
@@ -496,7 +498,7 @@ describe('generateDartFile — StatefulWidget', () => {
         int x = 0;
         @override
         Widget build(BuildContext context) {
-          return Text('\${x}');
+          return Text('$x');
         }
         @override
         void initState() {
@@ -546,7 +548,7 @@ describe('generateDartFile — Text widget', () => {
         int n = 0;
         @override
         Widget build(BuildContext context) {
-          return Text('\${n}');
+          return Text('$n');
         }
       }
     `);
@@ -857,7 +859,7 @@ describe('generateDartFile — template literals', () => {
         int n = 0;
         @override
         Widget build(BuildContext context) {
-          return Text('Count: \${n}');
+          return Text('Count: $n');
         }
       }
     `);
@@ -1087,7 +1089,7 @@ describe('Phase B — list rendering via .map()', () => {
         const List({super.key});
         @override
         Widget build(BuildContext context) {
-          return Column(children: [...items.map((item) => Text('\${item}')).toList()]);
+          return Column(children: [...items.map((item) => Text('$item')).toList()]);
         }
       }
     `);
@@ -1109,7 +1111,7 @@ describe('Phase B — list rendering via .map()', () => {
         const List({super.key});
         @override
         Widget build(BuildContext context) {
-          return Column(children: [...items.asMap().entries.map((entry) { final i = entry.key; final item = entry.value; return Text('\${item}'); }).toList()]);
+          return Column(children: [...items.asMap().entries.map((entry) { final i = entry.key; final item = entry.value; return Text('$item'); }).toList()]);
         }
       }
     `);
@@ -1131,7 +1133,7 @@ describe('Phase B — list rendering via .map()', () => {
         const List({super.key});
         @override
         Widget build(BuildContext context) {
-          return Column(children: [...items.asMap().entries.map((entry) { final i = entry.key; final item = entry.value; return Text('\${item}'); }).toList()]);
+          return Column(children: [...items.asMap().entries.map((entry) { final i = entry.key; final item = entry.value; return Text('$item'); }).toList()]);
         }
       }
     `);
@@ -1257,7 +1259,7 @@ describe('Phase B — list rendering — block body callback', () => {
         const List({super.key});
         @override
         Widget build(BuildContext context) {
-          return Column(children: [...items.map((item) => Text('\${item}')).toList()]);
+          return Column(children: [...items.map((item) => Text('$item')).toList()]);
         }
       }
     `);
@@ -1618,7 +1620,7 @@ describe('Phase E — examples compile without raw-JS leakage', () => {
         int tab = 0;
         @override
         Widget build(BuildContext context) {
-          return MaterialApp(title: 'Multi Screen', home: Scaffold(appBar: AppBar(title: Text('Multi Screen')), body: Column(children: [Center(child: Text('Screen' + '\${tab}')), Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [ElevatedButton(onPressed: () { setState(() { tab = 0; }); }, child: Text('Home')), ElevatedButton(onPressed: () { setState(() { tab = 1; }); }, child: Text('Profile'))])])));
+          return MaterialApp(title: 'Multi Screen', home: Scaffold(appBar: AppBar(title: Text('Multi Screen')), body: Column(children: [Center(child: Text('Screen' + '$tab')), Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [ElevatedButton(onPressed: () { setState(() { tab = 0; }); }, child: Text('Home')), ElevatedButton(onPressed: () { setState(() { tab = 1; }); }, child: Text('Profile'))])])));
         }
       }
     `);
@@ -1684,7 +1686,7 @@ describe('Phase E — examples compile without raw-JS leakage', () => {
         String input = '';
         @override
         Widget build(BuildContext context) {
-          return Column(children: [TextField(decoration: InputDecoration(labelText: 'New todo'), onChanged: (value) { setState(() { input = value; }); }), ElevatedButton(onPressed: _addTodo, child: Text('Add')), ...todos.map((todo) => Text('\${todo}')).toList()]);
+          return Column(children: [TextField(decoration: InputDecoration(labelText: 'New todo'), onChanged: (value) { setState(() { input = value; }); }), ElevatedButton(onPressed: _addTodo, child: Text('Add')), ...todos.map((todo) => Text('$todo')).toList()]);
         }
         void _addTodo() {
           setState(() { todos = [...todos, input]; });
@@ -1728,7 +1730,7 @@ describe('Phase E — examples compile without raw-JS leakage', () => {
         final ImagePicker _imagePicker = ImagePicker();
         @override
         Widget build(BuildContext context) {
-          return Column(children: [Text('Photos:' + '\${count}'), ElevatedButton(onPressed: _pick, child: Text('Pick Photo'))]);
+          return Column(children: [Text('Photos:' + '$count'), ElevatedButton(onPressed: _pick, child: Text('Pick Photo'))]);
         }
         Future<void> _pick() async {
           await _imagePicker.pickImage(source: ImageSource.gallery);

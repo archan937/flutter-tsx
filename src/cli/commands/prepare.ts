@@ -1,7 +1,13 @@
 import { existsSync } from 'fs';
 import { join } from 'path';
 
-import type { AppConfig, Links, MacosConfig, Theme } from '../../config.js';
+import type {
+  AppConfig,
+  Links,
+  MacosConfig,
+  Theme,
+  TrayConfig,
+} from '../../config.js';
 import { envToDartDefines } from '../../flutter/env.js';
 import { ensureFlutterProject } from '../../flutter/project.js';
 import {
@@ -12,10 +18,18 @@ import {
   loadSurfaceConfig,
 } from '../../flutter/surface.js';
 import { themeToMaterialAppProps } from '../../flutter/theme.js';
+import type { StoreProvider } from '../../templates/main-dart.js';
 import { transpileAll, type TranspileOptions } from '../../transpiler/index.js';
 import { readConfig, resolveTarget } from '../utils/config.js';
 import { logger } from '../utils/logger.js';
 import { FLUTTER_BIN } from './install.js';
+
+/** Collapses duplicate stores (same class declared/imported across files). */
+const dedupeStores = (stores: StoreProvider[]): StoreProvider[] => {
+  const byClass = new Map<string, StoreProvider>();
+  for (const store of stores) byClass.set(store.className, store);
+  return [...byClass.values()];
+};
 
 export interface PreparedProject {
   flutterBin: string;
@@ -80,22 +94,33 @@ export const prepareProject = async (
   logger.start('Transpiling TSX → Dart...');
   let detectedPackages: string[] = [];
   let detectedCapabilities: string[] = [];
+  let detectedStores: StoreProvider[] = [];
   try {
     const results = await transpileAll(srcDir, outDir, transpileOptions);
     detectedPackages = [...new Set(results.flatMap((r) => r.packages))];
     detectedCapabilities = [...new Set(results.flatMap((r) => r.capabilities))];
+    detectedStores = dedupeStores(results.flatMap((r) => r.stores));
     logger.success(`Transpiled ${results.length} file(s)`);
   } catch (err) {
     logger.error('Transpile error:', err);
   }
 
-  if (detectedPackages.length > 0) {
+  // config/tray.ts → system-tray / menubar app (tray_manager + window_manager
+  // bootstrap, tray icon, Show/Hide/Quit menu).
+  const tray = await loadSurfaceConfig<TrayConfig>(root, 'tray');
+
+  // Re-sync the project with discovered plugin packages + store providers + tray
+  // mode (the initial scaffold ran before transpile, so main.dart/pubspec are
+  // rewritten here with the final picture).
+  if (detectedPackages.length > 0 || detectedStores.length > 0 || tray) {
     logger.start('Installing plugin packages...');
     try {
       await ensureFlutterProject(flutterDir, config, {
         flutterBin,
         extraDeps: detectedPackages,
         projectRoot: root,
+        stores: detectedStores,
+        tray: tray ?? undefined,
       });
       logger.success('Plugin packages installed');
     } catch (err) {

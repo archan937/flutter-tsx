@@ -13,11 +13,18 @@ export { isWidgetNode } from './core/widget-node.js';
 export type { ComponentOptions } from './core/define-component.js';
 export { defineComponent } from './core/define-component.js';
 
+// Composite fsx widgets + imperative modals
+export type { TabItem } from './core/widgets.js';
+export { showDialog, showSheet, TabView } from './core/widgets.js';
+
 // Hooks
 export {
+  createStore,
+  useAsync,
   useEffect,
   useParams,
   useState,
+  useStore,
   useTranslations,
 } from './core/hooks.js';
 

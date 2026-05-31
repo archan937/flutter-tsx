@@ -3,15 +3,23 @@ import { basename, dirname, join } from 'path';
 
 import { HOOK_PERMISSIONS } from '../flutter/permissions.js';
 import { PLUGIN_MAP } from '../generated/plugin-map.js';
-import { generateDartFileResult } from './codegen.js';
+import type { StoreProvider } from '../templates/main-dart.js';
+import { generateDartFileResult, storeClassName } from './codegen.js';
 import { parseFile } from './parser.js';
 import { buildGoRouter, discoverRoutes, type RouteDef } from './routing.js';
+
+const PROVIDER_IMPORT = 'package:provider/provider.dart';
+const PROVIDER_DEP = 'provider: ^6.1.2';
+const HTTP_IMPORT = 'package:http/http.dart';
+const HTTP_DEP = 'http: ^1.2.2';
 
 export interface TranspileResult {
   path: string;
   packages: string[];
   /** Permission capabilities inferred from the plugin hooks the file uses. */
   capabilities: string[];
+  /** Stores (createStore → ChangeNotifier) this file defines, for root wiring. */
+  stores: StoreProvider[];
 }
 
 export interface TranspileOptions {
@@ -21,6 +29,8 @@ export interface TranspileOptions {
   router?: { decl: string; imports: string[] };
   /** Override the output Dart filename (route files → `<Component>.dart`). */
   outName?: string;
+  /** Names of every `createStore` hook in the project (for usage rewriting). */
+  storeHooks?: ReadonlySet<string>;
 }
 
 export const transpileFile = async (
@@ -30,9 +40,12 @@ export const transpileFile = async (
 ): Promise<TranspileResult> => {
   const parsed = parseFile(tsxPath);
 
-  if (parsed.exports.length === 0) {
-    return { path: '', packages: [], capabilities: [] };
+  // A store-only file (no components) still emits its ChangeNotifier class.
+  if (parsed.exports.length === 0 && parsed.storeHooks.length === 0) {
+    return { path: '', packages: [], capabilities: [], stores: [] };
   }
+
+  const dartFileName = options.outName ?? `${basename(tsxPath, '.tsx')}.dart`;
 
   const { code: dartCode, imports } = generateDartFileResult(
     parsed.sourceFile,
@@ -42,10 +55,10 @@ export const transpileFile = async (
       materialAppProps: options.materialAppProps,
       usesTranslations: parsed.usesTranslations,
       router: options.router,
+      storeHooks: options.storeHooks,
     },
   );
 
-  const dartFileName = options.outName ?? `${basename(tsxPath, '.tsx')}.dart`;
   const dartPath = join(outDir, dartFileName);
 
   if (!existsSync(dirname(dartPath))) {
@@ -56,7 +69,11 @@ export const transpileFile = async (
 
   const packages = collectPackages(imports);
   const capabilities = collectCapabilities(imports);
-  return { path: dartPath, packages, capabilities };
+  const stores: StoreProvider[] = parsed.storeHooks.map((hook) => ({
+    className: storeClassName(hook),
+    importFile: dartFileName,
+  }));
+  return { path: dartPath, packages, capabilities, stores };
 };
 
 const FLUTTER_BASE_PACKAGES = new Set([
@@ -68,6 +85,11 @@ const FLUTTER_BASE_PACKAGES = new Set([
 
 const collectPackages = (imports: Set<string>): string[] => {
   const pubspecDeps = new Set<string>();
+
+  // `provider` (createStore/useStore) and `http` (fetch) aren't plugins in
+  // PLUGIN_MAP, so map their imports to deps directly.
+  if (imports.has(PROVIDER_IMPORT)) pubspecDeps.add(PROVIDER_DEP);
+  if (imports.has(HTTP_IMPORT)) pubspecDeps.add(HTTP_DEP);
 
   for (const imp of imports) {
     if (!imp.startsWith('package:')) continue;
@@ -107,6 +129,21 @@ const collectCapabilities = (imports: Set<string>): string[] => {
   }
 
   return [...capabilities];
+};
+
+/** Scans every `.tsx` file under `srcDir` for `createStore` hook names. */
+const collectStoreHooks = async (srcDir: string): Promise<Set<string>> => {
+  const hooks = new Set<string>();
+  if (!existsSync(srcDir)) return hooks;
+  const files = await Array.fromAsync(
+    new Bun.Glob('**/*.tsx').scan({ cwd: srcDir }),
+  );
+  for (const file of files) {
+    for (const hook of parseFile(join(srcDir, file)).storeHooks) {
+      hooks.add(hook);
+    }
+  }
+  return hooks;
 };
 
 /** Normalizes a `routes="./routes"` prop value to a src-relative dir ("routes"). */
@@ -171,15 +208,24 @@ export const transpileAll = async (
   outDir: string,
   options: TranspileOptions = {},
 ): Promise<TranspileResult[]> => {
+  // Pre-scan every file for `createStore` hooks so a store defined in one file
+  // can be recognised (and rewritten to `context.watch<Store>()`) when used in
+  // another. Cross-file usage needs this global set before any file is emitted.
+  const storeHooks = await collectStoreHooks(srcDir);
+  const baseOptions: TranspileOptions = {
+    ...options,
+    storeHooks: storeHooks.size > 0 ? storeHooks : options.storeHooks,
+  };
+
   // File-based routing is activated by `<MaterialApp routes="./routes">` — the
   // explicit, visible connection. Transpile that dir first → the router config
   // the app's MaterialApp is rewritten to MaterialApp.router with.
   const routesRel = await findRoutesDir(srcDir);
   const { results: routeResults, router } = routesRel
-    ? await transpileRoutes(join(srcDir, routesRel), outDir, options)
+    ? await transpileRoutes(join(srcDir, routesRel), outDir, baseOptions)
     : { results: [], router: undefined };
   const appOptions: TranspileOptions = {
-    ...options,
+    ...baseOptions,
     router: router ?? options.router,
   };
 

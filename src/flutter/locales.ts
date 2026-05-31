@@ -2,6 +2,7 @@ import { existsSync, readdirSync, readFileSync } from 'fs';
 import { join } from 'path';
 
 import { logger } from '../cli/utils/logger.js';
+import { GENERATED_IGNORES } from '../dart-lint.js';
 import { dartString } from '../transpiler/dart-helpers.js';
 
 export interface LocaleData {
@@ -131,6 +132,7 @@ export const localesToL10nDart = (data: LocaleData): string => {
 
   return [
     '// GENERATED — do not edit. Source: locales/',
+    GENERATED_IGNORES,
     '',
     `String _fsxLocale = ${dartString(data.default)};`,
     '',
