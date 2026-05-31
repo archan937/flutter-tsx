@@ -63,8 +63,7 @@ const PLUGIN_CODEGEN_MAP: Record<string, DartCodegen> = loadCodegenMap();
 const substitutePluginArgs = (
   template: string,
   args: readonly ts.Expression[],
-  sourceFile: ts.SourceFile,
-  argToDart: (arg: ts.Expression) => string = (arg) => arg.getText(sourceFile),
+  argToDart: (arg: ts.Expression) => string = (arg) => arg.getText(),
 ): string => {
   let result = template;
 
@@ -76,11 +75,11 @@ const substitutePluginArgs = (
         if (ts.isObjectLiteralExpression(arg)) {
           const prop = arg.properties.find(
             (p): p is ts.PropertyAssignment =>
-              ts.isPropertyAssignment(p) && p.name.getText(sourceFile) === key,
+              ts.isPropertyAssignment(p) && p.name.getText() === key,
           );
-          if (prop) return prop.initializer.getText(sourceFile);
+          if (prop) return prop.initializer.getText();
         }
-        return `${arg.getText(sourceFile)}.${key}`;
+        return `${arg.getText()}.${key}`;
       },
     );
     // Replace bare $N (template literals → Dart string interpolation, etc.)
@@ -903,7 +902,6 @@ export class CodegenContext {
           const substituted = substitutePluginArgs(
             template,
             node.arguments,
-            this.sourceFile,
             (arg) =>
               ts.isTemplateLiteral(arg)
                 ? this.transformTemplateLiteral(arg)
