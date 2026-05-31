@@ -18,8 +18,6 @@ const THRESHOLD = 90; // minimum % line coverage per owned src/ file
 const ALLOWLIST: Record<string, string> = {
   'src/flutter/project.ts':
     'ensureFlutterProject spawns flutter create/pub get/asset-gen — e2e + mock-flutter tested',
-  'src/flutter/runner.ts':
-    'FlutterRunner spawns `flutter run`; getMacOSArch shells out to `xcodebuild` only on darwin, so line coverage diverges by OS (macOS covers the xcodebuild path, Linux CI cannot) — verified by mock-flutter tests + e2e, not unit line coverage',
 };
 
 const run = Bun.spawnSync(['bun', 'test', '--coverage'], {

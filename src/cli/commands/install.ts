@@ -3,6 +3,11 @@ import { defineCommand } from 'citty';
 import { existsSync, mkdirSync, rmSync } from 'fs';
 import { join } from 'path';
 
+import {
+  type ReleaseEntry,
+  selectStableRelease,
+} from '../../flutter/release.js';
+
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? '~';
 const FSX_DIR = join(HOME, '.fsx');
 const INSTALL_DIR = join(FSX_DIR, 'flutter');
@@ -38,18 +43,14 @@ const fetchLatestRelease = async (): Promise<Release> => {
   const data = (await res.json()) as {
     base_url: string;
     current_release: { stable: string };
-    releases: {
-      hash: string;
-      channel: string;
-      version: string;
-      archive: string;
-    }[];
+    releases: ReleaseEntry[];
   };
-  const stableHash = data.current_release.stable;
-  const release = data.releases.find(
-    (r) => r.hash === stableHash && r.channel === 'stable',
+  // process.arch is "arm64" | "x64" — the same vocabulary as `dart_sdk_arch`.
+  const release = selectStableRelease(
+    data.releases,
+    data.current_release.stable,
+    process.arch,
   );
-  if (!release) throw new Error('Could not find stable Flutter release');
   return {
     url: `${data.base_url}/${release.archive}`,
     version: release.version,

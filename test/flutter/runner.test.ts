@@ -5,12 +5,6 @@ import { join } from 'path';
 
 import { FlutterRunner } from '@src/flutter/runner.js';
 
-// Private static helpers — exercised via a typed cast (no behavior change).
-const Internals = FlutterRunner as unknown as {
-  unameM(): Promise<string | null>;
-  getMacOSArch(flutterDir: string): Promise<string>;
-};
-
 /**
  * Writes a fake `flutter` executable that prints a stdout line + a stderr noise
  * line (to exercise pipeOutput + the XCODE_NOISE filter), then echoes each
@@ -114,18 +108,5 @@ describe('FlutterRunner lifecycle', () => {
     await runner.hotRestart();
     await runner.stop();
     expect(runner.isRunning).toBe(false);
-  });
-});
-
-describe('FlutterRunner arch detection', () => {
-  it('unameM returns a known arch', async () => {
-    const arch = await Internals.unameM();
-    expect(['x86_64', 'arm64', null]).toContain(arch);
-    if (arch !== null) expect(['x86_64', 'arm64']).toContain(arch);
-  });
-
-  it('getMacOSArch falls back to a valid arch when xcodebuild yields nothing', async () => {
-    const arch = await Internals.getMacOSArch('/nonexistent-flutter-dir');
-    expect(['x86_64', 'arm64']).toContain(arch);
   });
 });

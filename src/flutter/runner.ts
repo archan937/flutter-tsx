@@ -49,66 +49,6 @@ export class FlutterRunner {
     return [flutterBin, 'run', '-d', deviceId, ...dartDefines];
   }
 
-  /** macOS arch that Xcode actually has a destination for (avoids "Unable to find a device matching arch"). */
-  private static async getMacOSArch(flutterDir: string): Promise<string> {
-    if (process.platform !== 'darwin')
-      return process.arch === 'x64' ? 'x86_64' : 'arm64';
-    const macosDir = `${flutterDir}/macos`;
-    const projectPath = `${macosDir}/Runner.xcodeproj`;
-    try {
-      const proc = Bun.spawn(
-        [
-          'xcodebuild',
-          '-showdestinations',
-          '-scheme',
-          'Runner',
-          '-project',
-          projectPath,
-        ],
-        { cwd: macosDir, stdout: 'pipe', stderr: 'pipe' },
-      );
-      const out = await new Response(proc.stdout).text();
-      await new Response(proc.stderr).text();
-      await proc.exited;
-      const macArchs = new Set<string>();
-      for (const line of out.split('\n')) {
-        const m =
-          line.match(/platform:macOS[^}]*arch:(\w+)/i) ??
-          line.match(/arch:(\w+)[^}]*platform:macOS/i);
-        if (m && (m[1] === 'x86_64' || m[1] === 'arm64')) macArchs.add(m[1]);
-      }
-      if (macArchs.size === 1) return [...macArchs][0];
-      if (macArchs.size >= 2) {
-        const uname = (await FlutterRunner.unameM()) ?? 'arm64';
-        const preferred = uname === 'x86_64' ? 'x86_64' : 'arm64';
-        if (macArchs.has(preferred)) return preferred;
-        return [...macArchs][0];
-      }
-    } catch {
-      // fall through
-    }
-    return (
-      (await FlutterRunner.unameM()) ??
-      (process.arch === 'x64' ? 'x86_64' : 'arm64')
-    );
-  }
-
-  private static async unameM(): Promise<string | null> {
-    try {
-      const proc = Bun.spawn(['uname', '-m'], {
-        stdout: 'pipe',
-        stderr: 'pipe',
-      });
-      const out = await new Response(proc.stdout).text();
-      await proc.exited;
-      const arch = out.trim().toLowerCase();
-      if (arch === 'x86_64' || arch === 'arm64') return arch;
-    } catch {
-      // ignore
-    }
-    return null;
-  }
-
   async start(): Promise<void> {
     if (this.proc) {
       throw new Error('FlutterRunner already started');
@@ -120,20 +60,11 @@ export class FlutterRunner {
       this.dartDefines,
     );
 
-    let env: Record<string, string> | undefined;
-    if (this.target === 'macos') {
-      env = {
-        ...process.env,
-        FLUTTER_XCODE_ARCHS: await FlutterRunner.getMacOSArch(this.flutterDir),
-      };
-    }
-
     const proc = Bun.spawn(args, {
       cwd: this.flutterDir,
       stdin: 'pipe',
       stdout: 'pipe',
       stderr: 'pipe',
-      ...(env && { env }),
     });
     this.proc = proc;
 

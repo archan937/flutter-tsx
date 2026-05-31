@@ -4,6 +4,23 @@ All notable changes to **flutter-tsx** are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/), and the project adheres to
 [Semantic Versioning](https://semver.org/) (pre-1.0: minor = features, patch = fixes).
 
+## [0.2.2] — 2026-05-31
+
+### Fixed
+
+- **`fsx install` downloaded the x86_64 Flutter SDK on Apple silicon.** The
+  Flutter releases feed lists one SDK per CPU arch under the same stable hash
+  (macOS ships both an `x64` and an `arm64` build), and `fsx` picked the first
+  match — always `x64`. On an M-series Mac this ran the whole toolchain under
+  Rosetta, and `fsx dev`/`build` for macOS failed with `Unable to find a device
+matching … { platform:macOS, arch:arm64 }` (Flutter detects the arm64 host but
+  the Rosetta xcodebuild can only produce x86_64). `fsx install` now selects the
+  SDK whose `dart_sdk_arch` matches the host CPU. **If you hit this, reinstall:
+  `fsx install --force`.**
+- **`fsx init` scaffolded apps were pinned to `flutter-tsx@^0.1.0`**, which by
+  semver excludes 0.2.x — so a fresh app silently installed 0.1.0 and missed
+  routing, state, async, tabs, and modals. The template now pins `^0.2.0`.
+
 ## [0.2.1] — 2026-05-31
 
 ### Fixed
