@@ -180,6 +180,31 @@ describe('generateDartFile — file-based router injection', () => {
   });
 });
 
+describe('generateDartFile — useParams', () => {
+  it('rewrites useParams("id") directly in JSX to a GoRouter path param', () => {
+    const out = transpile(`
+      import { useParams } from 'flutter-tsx';
+      export const A = () => (<Text>{useParams('id')}</Text>);
+    `);
+    expect(out).toContain("GoRouterState.of(context).pathParameters['id']!");
+    expect(out).toContain("import 'package:go_router/go_router.dart';");
+  });
+
+  it('emits `const id = useParams("id")` as a local in build()', () => {
+    const out = transpile(`
+      import { useParams } from 'flutter-tsx';
+      export const A = () => {
+        const id = useParams('id');
+        return <Text>{id}</Text>;
+      };
+    `);
+    expect(out).toContain(
+      "final id = GoRouterState.of(context).pathParameters['id']!;",
+    );
+    expect(out).toContain("Text('${id}')");
+  });
+});
+
 describe('generateDartFile — useNavigate arg substitution', () => {
   it('substitutes the path argument into go_router calls', () => {
     const out = getBody(`

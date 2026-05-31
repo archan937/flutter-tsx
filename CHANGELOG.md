@@ -17,6 +17,8 @@ All notable changes to **flutter-tsx** are documented here. The format follows
   Flutter's manual routes map. No `routes` prop → single-screen `MaterialApp(home: …)`.
 - `useNavigate()` is now fully functional: `go`/`push`/`replace`/`pop` →
   `context.go/push/replace/pop`.
+- `useParams('id')` — read a route path param in a screen →
+  `GoRouterState.of(context).pathParameters['id']!`.
 - Docs: routing section in the guide.
 
 ### Fixed

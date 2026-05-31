@@ -14,7 +14,12 @@ export type { ComponentOptions } from './core/define-component.js';
 export { defineComponent } from './core/define-component.js';
 
 // Hooks
-export { useEffect, useState, useTranslations } from './core/hooks.js';
+export {
+  useEffect,
+  useParams,
+  useState,
+  useTranslations,
+} from './core/hooks.js';
 
 // Generated widget components (populated after `fsx define`)
 export * from './generated/widget-components.js';

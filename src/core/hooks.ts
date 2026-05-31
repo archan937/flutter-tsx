@@ -34,3 +34,15 @@ export const useTranslations =
   (): ((key: string) => string) =>
   (key: string): string =>
     key;
+
+/**
+ * Reads a route path parameter for the current screen (file-based routing).
+ * `useParams('id')` on a `/users/[id]` route returns that segment's value. The
+ * transpiler rewrites it to `GoRouterState.of(context).pathParameters['id']!`.
+ *
+ * ```tsx
+ * const id = useParams('id');
+ * <Text>{id}</Text>
+ * ```
+ */
+export const useParams = (key: string): string => key;

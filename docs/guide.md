@@ -58,7 +58,15 @@ nav.go('/about'); // context.go
 nav.pop(); // context.pop
 ```
 
-No `src/routes/` directory → your app stays a single screen (`MaterialApp(home: …)`), zero router overhead. (Reading a route param inside a screen — `useParams()` — is coming next.)
+Read a route param inside a screen with `useParams`:
+
+```tsx
+import { useParams } from 'flutter-tsx';
+const id = useParams('id'); // on /users/[id] → GoRouterState path param
+return <Text>User {id}</Text>;
+```
+
+No routes prop / directory → your app stays a single screen (`MaterialApp(home: …)`), zero router overhead.
 
 ## 5. Build & sign
 

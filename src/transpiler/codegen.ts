@@ -544,7 +544,8 @@ export class CodegenContext {
           if (ts.isTemplateLiteral(expr)) {
             parts.push(this.transformTemplateLiteral(expr));
           } else {
-            const exprText = expr.getText(this.sourceFile);
+            const exprText =
+              this.rewriteParamsCall(expr) ?? expr.getText(this.sourceFile);
             parts.push(`'\${${exprText}}'`);
           }
         }
@@ -570,6 +571,13 @@ export class CodegenContext {
     for (const stmt of body.statements) {
       if (ts.isReturnStatement(stmt) && stmt.expression) {
         lines.push(`    return ${this.transformReturnExpr(stmt.expression)};`);
+      } else if (ts.isVariableStatement(stmt)) {
+        // Emit `const id = useParams('id')` as a build()-local Dart final.
+        for (const decl of stmt.declarationList.declarations) {
+          if (!ts.isIdentifier(decl.name) || !decl.initializer) continue;
+          const params = this.rewriteParamsCall(decl.initializer);
+          if (params) lines.push(`    final ${decl.name.text} = ${params};`);
+        }
       } else if (ts.isIfStatement(stmt)) {
         const guardText = stmt.expression.getText(this.sourceFile);
         const thenReturn = this.extractGuardReturn(stmt.thenStatement);
@@ -968,6 +976,23 @@ export class CodegenContext {
     return `'${parts.join('')}'`;
   }
 
+  /**
+   * `useParams('key')` → `GoRouterState.of(context).pathParameters['key']!`
+   * (file-based routing param access), or null if `expr` isn't a useParams call.
+   */
+  private rewriteParamsCall(expr: ts.Expression): string | null {
+    if (
+      ts.isCallExpression(expr) &&
+      expr.expression.getText(this.sourceFile) === 'useParams' &&
+      expr.arguments.length === 1 &&
+      ts.isStringLiteral(expr.arguments[0])
+    ) {
+      this.imports.add('package:go_router/go_router.dart');
+      return `GoRouterState.of(context).pathParameters['${expr.arguments[0].text}']!`;
+    }
+    return null;
+  }
+
   private transformExpression(expr: ts.Expression): string {
     const src = this.sourceFile;
 
@@ -992,6 +1017,8 @@ export class CodegenContext {
     }
 
     if (ts.isCallExpression(expr)) {
+      const params = this.rewriteParamsCall(expr);
+      if (params) return params;
       const result = tryTransformMapCall(expr, src, (n) =>
         this.visitJSX(n, null),
       );
