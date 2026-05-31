@@ -157,18 +157,17 @@ const WHY = `<section class="why">
           gives you the syntax the whole industry already knows — JSX and hooks — but
           it ships your UI over a JavaScript bridge, leans on a patchwork of
           community-maintained native modules, and asks you to chase a steady stream of
-          breaking upgrades. <span class="fw">Flutter</span> answers all of that with a
-          GPU-rendered engine, pixel-perfect consistency, and
+          breaking upgrades. <span class="fw">Flutter</span> answers all of that with
+          <span class="hl">a GPU-rendered engine</span>, pixel-perfect consistency, and
           <span class="hl">the backing of a full-time Google team</span> — but the
-          price of admission is learning
-          <span class="fw">Dart</span> and an unfamiliar ecosystem.
+          price of admission is learning Dart and an unfamiliar ecosystem.
         </p>
         <p>
           <span class="fw">Flutter.tsx</span> removes the trade-off. You
           <span class="hl">write your app in plain TSX</span> — the same components,
           props, and hooks you already use in <span class="fw">React</span> — and it
           <span class="hl">compiles to idiomatic Dart</span> that runs directly on
-          Google's <span class="fw">Flutter</span> engine. There is
+          <span class="hl">Google's Flutter engine</span>. There is
           <span class="hl">no bridge and no embedded JavaScript runtime</span>: the
           output is exactly what a seasoned Flutter engineer would write by hand, so you
           <span class="hl">get Flutter's performance with React's ergonomics</span>.
