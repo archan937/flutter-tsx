@@ -259,6 +259,7 @@ export class CodegenContext {
 
   generateComponent(component: ExportedComponent): string {
     const body = getFunctionBody(component.node);
+    let handlers: HandlerDef[] = [];
 
     if (body && ts.isBlock(body)) {
       const analysis = analyzeHooks(body, this.sourceFile);
@@ -280,9 +281,12 @@ export class CodegenContext {
       if (hasState || hasPlugins) {
         return this.genStatefulWidget(component, analysis);
       }
+      // No state/plugins, but named handlers still need method bodies on the
+      // StatelessWidget (otherwise `onPressed: _go` dangles).
+      handlers = analysis.handlerFunctions;
     }
 
-    return this.genStatelessWidget(component);
+    return this.genStatelessWidget(component, handlers);
   }
 
   private applyPluginUsages(usages: PluginUsage[]): void {
@@ -322,8 +326,14 @@ export class CodegenContext {
   // StatelessWidget
   // -------------------------------------------------------------------------
 
-  private genStatelessWidget(component: ExportedComponent): string {
+  private genStatelessWidget(
+    component: ExportedComponent,
+    handlers: HandlerDef[] = [],
+  ): string {
     const { name } = component;
+    const handlerMethods = handlers
+      .map((h) => this.emitHandlerMethod(h))
+      .join('\n');
 
     return [
       `class ${name} extends StatelessWidget {`,
@@ -332,8 +342,11 @@ export class CodegenContext {
       `  Widget build(BuildContext context) {`,
       this.buildMethodBody(component),
       `  }`,
+      handlerMethods || '',
       `}`,
-    ].join('\n');
+    ]
+      .filter((l) => l !== '')
+      .join('\n');
   }
 
   // -------------------------------------------------------------------------

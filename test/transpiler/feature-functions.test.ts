@@ -68,6 +68,18 @@ describe('feature-function codegen', () => {
     );
   });
 
+  it('stateless component still emits named handler methods (no dangling ref)', () => {
+    const out =
+      dart(`import { ElevatedButton, Text, launchUrl } from 'flutter-tsx';
+export function App() {
+  const go = async () => { await launchUrl('https://x'); };
+  return <ElevatedButton onClick={go}><Text>Go</Text></ElevatedButton>;
+}`);
+    expect(out).toContain('extends StatelessWidget');
+    expect(out).toContain('onPressed: _go');
+    expect(out).toContain('Future<void> _go() async {');
+  });
+
   it('inline arrow handler becomes an async closure when its body awaits', () => {
     const out = dart(`import { ElevatedButton, launchUrl } from 'flutter-tsx';
 export function App() {
