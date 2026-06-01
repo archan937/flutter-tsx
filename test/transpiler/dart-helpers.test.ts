@@ -3,7 +3,6 @@ import { describe, expect, it } from 'bun:test';
 import {
   dartString,
   escapeDartString,
-  transformAlignment,
   transformCallback,
   transformColor,
   transformPadding,
@@ -241,30 +240,6 @@ describe('transformTextStyle', () => {
     expect(transformTextStyle(null as unknown as Record<string, unknown>)).toBe(
       'const TextStyle()',
     );
-  });
-});
-
-describe('transformAlignment', () => {
-  it('maps start', () => {
-    expect(transformAlignment('start', 'MainAxisAlignment')).toBe(
-      'MainAxisAlignment.start',
-    );
-  });
-
-  it('maps center', () => {
-    expect(transformAlignment('center', 'CrossAxisAlignment')).toBe(
-      'CrossAxisAlignment.center',
-    );
-  });
-
-  it('maps spaceBetween', () => {
-    expect(transformAlignment('spaceBetween', 'MainAxisAlignment')).toBe(
-      'MainAxisAlignment.spaceBetween',
-    );
-  });
-
-  it('passes through unknown values', () => {
-    expect(transformAlignment('custom', 'Alignment')).toBe('Alignment.custom');
   });
 });
 

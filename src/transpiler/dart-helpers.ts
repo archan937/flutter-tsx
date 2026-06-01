@@ -137,21 +137,6 @@ export const transformTextStyle = (value: Record<string, unknown>): string => {
   return `TextStyle(${parts.join(', ')})`;
 };
 
-export const transformAlignment = (value: string, enumName: string): string => {
-  const map: Record<string, string> = {
-    start: 'start',
-    end: 'end',
-    center: 'center',
-    spaceBetween: 'spaceBetween',
-    spaceAround: 'spaceAround',
-    spaceEvenly: 'spaceEvenly',
-    stretch: 'stretch',
-    baseline: 'baseline',
-  };
-  const key = map[value] ?? value;
-  return `${enumName}.${key}`;
-};
-
 export const escapeDartString = (value: string): string =>
   value
     .replace(/\\/g, '\\\\')

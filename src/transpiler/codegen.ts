@@ -1367,11 +1367,7 @@ export class CodegenContext {
       if (ts.isJsxExpression(initializer)) {
         const expr = initializer.expression;
         if (!expr) continue;
-        result[dartParam] = this.transformExprProp(
-          tsxName,
-          expr,
-          propDef?.transform === 'widget',
-        );
+        result[dartParam] = this.transformExprProp(tsxName, expr, propDef);
       }
     }
 
@@ -1383,41 +1379,39 @@ export class CodegenContext {
     propName: string,
     value: string,
   ): string {
-    if (
-      propName.toLowerCase().includes('color') ||
-      propName === 'backgroundColor' ||
-      propName === 'activeColor'
-    ) {
-      return transformColor(value);
-    }
-
-    // A string assigned to a Widget-typed prop (e.g. AppBar.title,
-    // ListTile.title) must be wrapped in a Text widget.
-    const widgetTypedDef = WIDGET_MAP.get(tagName);
-    const widgetTypedProp =
-      widgetTypedDef?.props.find((p) => p.tsxProp === propName) ??
-      widgetTypedDef?.styling.find((p) => p.tsxProp === propName);
-    if (widgetTypedProp?.transform === 'widget') {
-      return `Text(${dartString(value)})`;
-    }
-
-    // TextField label convenience prop → InputDecoration(labelText: ...)
-    if (propName === 'label') {
-      return `InputDecoration(labelText: ${dartString(value)})`;
-    }
-
-    if (propName === 'padding' || propName === 'margin') {
-      return transformPadding(Number(value) || value);
-    }
-
-    // Enum props: look up the widget's prop definition to emit EnumClass.value
+    // Dispatch on the SDK-derived `transform` classification — single source of
+    // truth, no per-prop hardcoding.
     const widgetDef = WIDGET_MAP.get(tagName);
     const propDef =
       widgetDef?.props.find((p) => p.tsxProp === propName) ??
       widgetDef?.styling.find((p) => p.tsxProp === propName);
-    if (propDef?.transform === 'enum') {
-      const enumClass = propDef.dartType.replace('?', '');
-      return `${enumClass}.${value}`;
+
+    switch (propDef?.transform) {
+      case 'color':
+        return transformColor(value);
+      case 'edgeinsets':
+        return transformPadding(Number(value) || value);
+      case 'enum':
+        return `${propDef.dartType.replace('?', '')}.${value}`;
+      // A string on a Widget-typed prop (AppBar.title, ListTile.title) → Text.
+      case 'widget':
+        return `Text(${dartString(value)})`;
+    }
+
+    // Convenience props with no SDK backing (flutter-tsx sugar, not Flutter API):
+    // TextField `label` → InputDecoration(labelText:).
+    if (propName === 'label') {
+      return `InputDecoration(labelText: ${dartString(value)})`;
+    }
+
+    // The extractor leaves many Color/EdgeInsets props as `dynamic`/`none`
+    // (unresolved generics); recover those by name until the extractor
+    // classifies them. Tracked as the derive-stage gap, not new static logic.
+    if (propDef?.transform === undefined || propDef.transform === 'none') {
+      if (propName.toLowerCase().includes('color')) return transformColor(value);
+      if (propName === 'padding' || propName === 'margin') {
+        return transformPadding(Number(value) || value);
+      }
     }
 
     return dartString(value);
@@ -1426,9 +1420,19 @@ export class CodegenContext {
   private transformExprProp(
     propName: string,
     expr: ts.Expression,
-    isWidgetTyped = false,
+    propDef?: { transform: string; dartType: string },
   ): string {
     const raw = expr.getText(this.sourceFile);
+    const transform = propDef?.transform;
+    // The extractor leaves some Color/EdgeInsets props as `dynamic`/`none`;
+    // fall back to the prop name for those until it classifies them.
+    const underClassified = transform === undefined || transform === 'none';
+    const isColor =
+      transform === 'color' ||
+      (underClassified && propName.toLowerCase().includes('color'));
+    const isEdgeInsets =
+      transform === 'edgeinsets' ||
+      (underClassified && (propName === 'padding' || propName === 'margin'));
 
     // JSX passed as a prop value (e.g. icon={<Icon name="home" />}) must be
     // transpiled to its Dart widget, not emitted as raw TSX.
@@ -1443,7 +1447,7 @@ export class CodegenContext {
     // A non-JSX value bound to a Widget-typed prop (e.g. ListTile title={item})
     // is a string-ish value that must be wrapped in a Text widget.
     if (
-      isWidgetTyped &&
+      transform === 'widget' &&
       (ts.isIdentifier(expr) ||
         ts.isPropertyAccessExpression(expr) ||
         ts.isStringLiteral(expr) ||
@@ -1456,11 +1460,7 @@ export class CodegenContext {
       return `Text(${raw})`;
     }
 
-    if (
-      propName.toLowerCase().includes('color') ||
-      propName === 'backgroundColor' ||
-      propName === 'activeColor'
-    ) {
+    if (isColor) {
       if (ts.isStringLiteral(expr)) return transformColor(expr.text);
       // A color name inside a ternary (e.g. `color={on ? 'blue' : 'grey'}`,
       // the common animated-color case) — convert each string-literal branch.
@@ -1474,13 +1474,19 @@ export class CodegenContext {
       return raw;
     }
 
-    if (propName === 'padding' || propName === 'margin') {
+    if (isEdgeInsets) {
       if (ts.isArrayLiteralExpression(expr)) {
         const arr = expr.elements.map((e) =>
           parseFloat(e.getText(this.sourceFile)),
         );
         return transformPadding(arr);
       }
+      // A bare number → EdgeInsets.all(n) (must precede the generic numeric
+      // pass-through below, which would otherwise emit an invalid `padding: 16`).
+      if (raw.trim() !== '' && !isNaN(Number(raw))) {
+        return transformPadding(Number(raw));
+      }
+      return raw;
     }
 
     if (propName.startsWith('on')) {
