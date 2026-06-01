@@ -4,7 +4,9 @@
 
 <h1 align="center">Flutter.tsx</h1>
 
-<p align="center">Write Flutter 3 apps in TypeScript + JSX with full IDE autocomplete — transpiles to idiomatic Dart.</p>
+<p align="center">Write Flutter apps in TypeScript + JSX with full IDE autocomplete — transpiles to idiomatic Dart.</p>
+
+<p align="center"><sub>Typed against <b>Flutter 3.41.2</b> · runs on the latest stable Flutter the CLI installs.</sub></p>
 
 ---
 

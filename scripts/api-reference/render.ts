@@ -333,6 +333,7 @@ export const pageShell = (
     types?: number;
     plugins?: number;
     hooks?: number;
+    flutterVersion?: string;
   },
 ): string => `<!DOCTYPE html>
 <html lang="en">
@@ -513,7 +514,7 @@ ${navHtml}
 </aside>
 <main>
   <h1>Flutter.tsx — API Reference</h1>
-  <p class="subtitle">Auto-generated from the live Flutter widget catalog. Run <code>bun run docs</code> to regenerate.</p>
+  <p class="subtitle">Auto-generated from the Flutter ${counts.flutterVersion ?? '3'} widget catalog. Run <code>bun run docs</code> to regenerate.</p>
 ${content}
   <p id="no-results">No widgets match your search.</p>
 </main>

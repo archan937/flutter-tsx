@@ -8,6 +8,7 @@ export interface LandingCounts {
   hookCount: number;
   enumCount: number;
   typeCount: number;
+  flutterVersion: string;
 }
 
 export const landingHtml = (c: LandingCounts): string => `<!doctype html>
@@ -767,7 +768,7 @@ export const landingHtml = (c: LandingCounts): string => `<!doctype html>
         <div class="compile-bar">
           <span>Counter.tsx</span>
           <span class="arrow">⟶</span>
-          <span>compiles to idiomatic Dart</span>
+          <span>idiomatic Dart · Flutter ${c.flutterVersion}</span>
         </div>
 
         <div class="toggle" role="tablist" id="toggle">

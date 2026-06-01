@@ -43,6 +43,7 @@ interface ApiEntity {
 
 interface ApiJson {
   entities: ApiEntity[];
+  _meta?: { frameworkVersion?: string; dartSdkVersion?: string };
 }
 
 const loadJson = <T>(path: string): T =>
@@ -104,6 +105,8 @@ interface BuildResult {
   pluginCount: number;
   hookCount: number;
   failures: number;
+  flutterVersion: string;
+  dartVersion: string;
 }
 
 export const buildApiReference = (): BuildResult => {
@@ -353,12 +356,16 @@ ${typeNavLinks}
     .filter(Boolean)
     .join('\n');
 
+  const flutterVersion = api._meta?.frameworkVersion ?? '3';
+  const dartVersion = api._meta?.dartSdkVersion ?? '';
+
   const html = pageShell(sections.join('\n'), navHtml, {
     widgets: widgets.length,
     enums: enums.length,
     types: types.length,
     plugins: plugins.length,
     hooks: CORE_APIS.length,
+    flutterVersion,
   });
 
   return {
@@ -369,5 +376,7 @@ ${typeNavLinks}
     pluginCount: plugins.length,
     hookCount: CORE_APIS.length,
     failures,
+    flutterVersion,
+    dartVersion,
   };
 };

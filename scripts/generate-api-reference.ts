@@ -39,6 +39,8 @@ const run = (): void => {
     pluginCount,
     hookCount,
     failures,
+    flutterVersion,
+    dartVersion,
   } = buildApiReference();
 
   writeFileSync(outPath, html, 'utf-8');
@@ -47,12 +49,19 @@ const run = (): void => {
   // of truth) so they never drift from the reference.
   writeFileSync(
     landingPath,
-    landingHtml({ widgetCount, pluginCount, hookCount, enumCount, typeCount }),
+    landingHtml({
+      widgetCount,
+      pluginCount,
+      hookCount,
+      enumCount,
+      typeCount,
+      flutterVersion,
+    }),
     'utf-8',
   );
 
   console.log(
-    `[docs] ✓ ${widgetCount} widgets · ${pluginCount} plugins · ${typeCount} types · ${enumCount} enums · ${hookCount} hooks & core APIs`,
+    `[docs] ✓ ${widgetCount} widgets · ${pluginCount} plugins · ${typeCount} types · ${enumCount} enums · ${hookCount} hooks & core APIs · Flutter ${flutterVersion} (Dart ${dartVersion})`,
   );
   console.log(`[docs] → ${outPath}`);
   console.log(`[docs] → ${landingPath}`);
