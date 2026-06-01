@@ -4,6 +4,10 @@ import { tmpdir } from 'os';
 import { join } from 'path';
 
 import { transpileAll, transpileFile } from '@src/transpiler/index.js';
+import '../helpers/resemble.js';
+
+const bodyOf = (dart: string): string =>
+  dart.split('\n').slice(2).join('\n').trim();
 
 const mkTmp = (): string => mkdtempSync(join(tmpdir(), 'fsx-transpile-'));
 
@@ -41,25 +45,51 @@ describe('transpileAll — file-based routing (src/routes/)', () => {
   it('rewrites the app MaterialApp to MaterialApp.router with a GoRouter', async () => {
     const dir = scaffold();
     await transpileAll(join(dir, 'src'), join(dir, 'out'));
-    const app = readDart(dir, 'App.dart');
-    expect(app).toContain('MaterialApp.router(routerConfig: _fsxRouter');
-    expect(app).toContain('final _fsxRouter = GoRouter(');
-    expect(app).toContain(
-      "GoRoute(path: '/', builder: (context, state) => Home())",
-    );
-    expect(app).toContain(
-      "GoRoute(path: '/users/:id', builder: (context, state) => UserScreen())",
-    );
-    expect(app).toContain("import 'package:go_router/go_router.dart';");
-    expect(app).toContain("import 'Home.dart';");
-    expect(app).toContain("import 'UserScreen.dart';");
+    expect(bodyOf(readDart(dir, 'App.dart'))).toResemble(`
+      import 'package:flutter/material.dart';
+      import 'package:go_router/go_router.dart';
+      import 'Home.dart';
+      import 'UserScreen.dart';
+
+      final _fsxRouter = GoRouter(
+        routes: [
+          GoRoute(path: '/', builder: (context, state) => Home()),
+          GoRoute(path: '/users/:id', builder: (context, state) => UserScreen()),
+        ],
+      );
+
+      class App extends StatelessWidget {
+        const App({super.key});
+        @override
+        Widget build(BuildContext context) {
+          return MaterialApp.router(routerConfig: _fsxRouter, title: 'X');
+        }
+      }`);
   });
 
   it('emits each route component to a Dart file named after the component', async () => {
     const dir = scaffold();
     await transpileAll(join(dir, 'src'), join(dir, 'out'));
-    expect(readDart(dir, 'Home.dart')).toContain('class Home');
-    expect(readDart(dir, 'UserScreen.dart')).toContain('class UserScreen');
+    expect(bodyOf(readDart(dir, 'Home.dart'))).toResemble(`
+      import 'package:flutter/material.dart';
+
+      class Home extends StatelessWidget {
+        const Home({super.key});
+        @override
+        Widget build(BuildContext context) {
+          return Center(child: Text('home'));
+        }
+      }`);
+    expect(bodyOf(readDart(dir, 'UserScreen.dart'))).toResemble(`
+      import 'package:flutter/material.dart';
+
+      class UserScreen extends StatelessWidget {
+        const UserScreen({super.key});
+        @override
+        Widget build(BuildContext context) {
+          return Center(child: Text('user'));
+        }
+      }`);
   });
 
   it('collects go_router as a pubspec dependency', async () => {
@@ -81,9 +111,16 @@ describe('transpileAll — file-based routing (src/routes/)', () => {
       `export const App = () => (<MaterialApp title="X"><Scaffold/></MaterialApp>);`,
     );
     await transpileAll(join(dir, 'src'), join(dir, 'out'));
-    const app = readDart(dir, 'App.dart');
-    expect(app).toContain('MaterialApp(');
-    expect(app).not.toContain('MaterialApp.router');
+    expect(bodyOf(readDart(dir, 'App.dart'))).toResemble(`
+      import 'package:flutter/material.dart';
+
+      class App extends StatelessWidget {
+        const App({super.key});
+        @override
+        Widget build(BuildContext context) {
+          return MaterialApp(title: 'X', home: Scaffold());
+        }
+      }`);
   });
 });
 
@@ -195,19 +232,37 @@ describe('transpileAll — cross-file stores (createStore)', () => {
     const dir = scaffold();
     await transpileAll(join(dir, 'src'), join(dir, 'out'));
     const stores = readFileSync(join(dir, 'out', 'stores.dart'), 'utf-8');
-    expect(stores).toContain('class CounterStore extends ChangeNotifier {');
+    expect(bodyOf(stores)).toResemble(`
+      import 'package:flutter/material.dart';
+
+      class CounterStore extends ChangeNotifier {
+        int count = 0;
+        void increment() {
+          count = count + 1;
+          notifyListeners();
+        }
+      }`);
   });
 
   it('rewrites cross-file usage to context.watch + imports the store file', async () => {
     const dir = scaffold();
     await transpileAll(join(dir, 'src'), join(dir, 'out'));
     const screen = readFileSync(join(dir, 'out', 'Counter.dart'), 'utf-8');
-    expect(screen).toContain(
-      'final counterStore = context.watch<CounterStore>();',
-    );
-    expect(screen).toContain('final count = counterStore.count;');
-    expect(screen).toContain("import 'stores.dart';");
-    expect(screen).toContain("import 'package:provider/provider.dart';");
+    expect(bodyOf(screen)).toResemble(`
+      import 'package:flutter/material.dart';
+      import 'package:provider/provider.dart';
+      import 'stores.dart';
+
+      class Counter extends StatelessWidget {
+        const Counter({super.key});
+        @override
+        Widget build(BuildContext context) {
+          final counterStore = context.watch<CounterStore>();
+          final count = counterStore.count;
+          final increment = counterStore.increment;
+          return Column(children: [Text('$count'), ElevatedButton(onPressed: increment, child: Text('Add'))]);
+        }
+      }`);
   });
 
   it('reports the store provider + the provider pubspec dep', async () => {
