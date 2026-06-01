@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'bun:test';
 
 import { buildGoRouter, discoverRoutes } from '@src/transpiler/routing.js';
+import '../helpers/resemble.js';
 
 describe('discoverRoutes — file-based path mapping (Next/Expo convention)', () => {
   const paths = (files: string[]): Record<string, string> =>
@@ -41,19 +42,22 @@ describe('buildGoRouter — GoRouter Dart codegen', () => {
       { path: '/', component: 'Home' },
       { path: '/users/:id', component: 'User' },
     ]);
-    expect(dart).toContain('final _fsxRouter = GoRouter(');
-    expect(dart).toContain(
-      "GoRoute(path: '/', builder: (context, state) => Home())",
-    );
-    expect(dart).toContain(
-      "GoRoute(path: '/users/:id', builder: (context, state) => User())",
-    );
+    expect(dart).toResemble(`
+      final _fsxRouter = GoRouter(
+        routes: [
+          GoRoute(path: '/', builder: (context, state) => Home()),
+          GoRoute(path: '/users/:id', builder: (context, state) => User()),
+        ],
+      );`);
   });
 
   it('handles a single route', () => {
     const dart = buildGoRouter([{ path: '/', component: 'App' }]);
-    expect(dart).toContain(
-      "GoRoute(path: '/', builder: (context, state) => App())",
-    );
+    expect(dart).toResemble(`
+      final _fsxRouter = GoRouter(
+        routes: [
+          GoRoute(path: '/', builder: (context, state) => App()),
+        ],
+      );`);
   });
 });

@@ -2,10 +2,11 @@ import { describe, expect, it } from 'bun:test';
 
 import { generateDartFile } from '@src/transpiler/codegen.js';
 import { parseSource } from '@src/transpiler/parser.js';
+import '../helpers/resemble.js';
 
 const dartOf = (src: string): string => {
   const { sourceFile, exports } = parseSource(src);
-  return generateDartFile(sourceFile, exports);
+  return generateDartFile(sourceFile, exports).split('\n').slice(2).join('\n');
 };
 
 describe('TabView → BottomNavigationBar + IndexedStack', () => {
@@ -19,34 +20,38 @@ describe('TabView → BottomNavigationBar + IndexedStack', () => {
     );
   `;
 
-  it('renders the TabView as a generated stateful widget reference', () => {
-    expect(dartOf(APP)).toContain('return _FsxTabs0();');
-  });
+  it('generates a private indexed StatefulWidget (BottomNavigationBar + IndexedStack)', () => {
+    expect(dartOf(APP)).toResemble(`
+      import 'package:flutter/material.dart';
 
-  it('generates a private StatefulWidget holding the tab index', () => {
-    const out = dartOf(APP);
-    expect(out).toContain('class _FsxTabs0 extends StatefulWidget {');
-    expect(out).toContain('class _FsxTabs0State extends State<_FsxTabs0> {');
-    expect(out).toContain('int _index = 0;');
-  });
+      class _FsxTabs0 extends StatefulWidget {
+        const _FsxTabs0({super.key});
+        @override
+        State<_FsxTabs0> createState() => _FsxTabs0State();
+      }
 
-  it('swaps screens with an IndexedStack', () => {
-    expect(dartOf(APP)).toContain(
-      'IndexedStack(index: _index, children: [Home(), Profile()])',
-    );
-  });
+      class _FsxTabs0State extends State<_FsxTabs0> {
+        int _index = 0;
+        @override
+        Widget build(BuildContext context) {
+          return Scaffold(
+            body: IndexedStack(index: _index, children: [Home(), Profile()]),
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: _index,
+              onTap: (i) => setState(() => _index = i),
+              items: const [BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'), BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile')],
+            ),
+          );
+        }
+      }
 
-  it('builds the BottomNavigationBar with items + onTap setState', () => {
-    const out = dartOf(APP);
-    expect(out).toContain('bottomNavigationBar: BottomNavigationBar(');
-    expect(out).toContain('currentIndex: _index');
-    expect(out).toContain('onTap: (i) => setState(() => _index = i)');
-    expect(out).toContain(
-      "BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home')",
-    );
-    expect(out).toContain(
-      "BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile')",
-    );
+      class App extends StatelessWidget {
+        const App({super.key});
+        @override
+        Widget build(BuildContext context) {
+          return _FsxTabs0();
+        }
+      }`);
   });
 });
 
@@ -61,15 +66,16 @@ describe('Modal — showSheet / showDialog', () => {
     );
   `;
 
-  it('rewrites showSheet(<X/>) to showModalBottomSheet', () => {
-    expect(dartOf(BAR)).toContain(
-      'showModalBottomSheet(context: context, builder: (context) => CartView())',
-    );
-  });
+  it('rewrites showSheet/showDialog(<X/>) to the Flutter modal builders', () => {
+    expect(dartOf(BAR)).toResemble(`
+      import 'package:flutter/material.dart';
 
-  it('rewrites showDialog(<X/>) to Flutter showDialog', () => {
-    expect(dartOf(BAR)).toContain(
-      'showDialog(context: context, builder: (context) => ConfirmDelete())',
-    );
+      class Bar extends StatelessWidget {
+        const Bar({super.key});
+        @override
+        Widget build(BuildContext context) {
+          return Column(children: [ElevatedButton(onPressed: () { showModalBottomSheet(context: context, builder: (context) => CartView()); }, child: Text('Cart')), ElevatedButton(onPressed: () { showDialog(context: context, builder: (context) => ConfirmDelete()); }, child: Text('Delete'))]);
+        }
+      }`);
   });
 });
