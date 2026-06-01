@@ -649,7 +649,9 @@ export interface CarouselViewProps {
   reverse?: boolean;
   onTap?: (value: number) => void;
   enableSplash?: boolean;
+  infinite?: boolean;
   itemExtent: number;
+  onIndexChanged?: (value: number) => void;
   onDoubleTap?: () => void;
   onLongPress?: () => void;
   children?: FlutterElement | FlutterElement[];
@@ -702,6 +704,7 @@ export interface CheckboxListTileProps {
   materialTapTargetSize?: 'padded' | 'shrinkWrap';
   visualDensity?: unknown;
   focusNode?: unknown;
+  statesController?: unknown;
   autofocus?: boolean;
   shape?: unknown;
   side?: unknown;
@@ -1086,6 +1089,7 @@ export interface SimpleDialogProps {
   titlePadding?: number | [number, number] | [number, number, number, number];
   titleTextStyle?: TextStyleProps;
   contentPadding?: number | [number, number] | [number, number, number, number];
+  contentTextStyle?: TextStyleProps;
   backgroundColor?: unknown;
   elevation?: number;
   shadowColor?: unknown;
@@ -1344,6 +1348,7 @@ export interface DropdownMenuProps {
   cursorHeight?: number;
   restorationId?: string;
   menuController?: unknown;
+  scrollPadding?: number | [number, number] | [number, number, number, number];
   onTap?: () => void;
   onDoubleTap?: () => void;
   onLongPress?: () => void;
@@ -1355,6 +1360,8 @@ export interface DropdownMenuFormFieldProps {
   menuHeight?: number;
   leadingIcon?: string | FlutterElement;
   trailingIcon?: string | FlutterElement;
+  showTrailingIcon?: boolean;
+  trailingIconFocusNode?: unknown;
   label?: string | FlutterElement;
   hintText?: string;
   helperText?: string;
@@ -1372,6 +1379,7 @@ export interface DropdownMenuFormFieldProps {
   onSelected?: (value: unknown) => void;
   focusNode?: unknown;
   requestFocusOnTap?: boolean;
+  selectOnly?: boolean;
   expandedInsets?: number | [number, number] | [number, number, number, number];
   alignmentOffset?: unknown;
   filterCallback?: (entries: unknown[], filter: string) => unknown[];
@@ -1381,6 +1389,8 @@ export interface DropdownMenuFormFieldProps {
   closeBehavior?: 'all' | 'self' | 'none';
   maxLines?: number;
   textInputAction?: 'none' | 'unspecified' | 'done' | 'go' | 'search' | 'send' | 'next' | 'previous' | 'continueAction' | 'join' | 'route' | 'emergencyCall' | 'newline';
+  cursorHeight?: number;
+  menuController?: unknown;
   restorationId?: string;
   onSaved?: (newValue: unknown) => void;
   autovalidateMode?: 'disabled' | 'always' | 'onUserInteraction' | 'onUnfocus' | 'onUserInteractionIfError';
@@ -1487,6 +1497,7 @@ export interface ExpansionTileProps {
   enabled?: boolean;
   expansionAnimationStyle?: unknown;
   internalAddSemanticForOnTap?: boolean;
+  statesController?: unknown;
   onTap?: () => void;
   onDoubleTap?: () => void;
   onLongPress?: () => void;
@@ -2067,6 +2078,8 @@ export interface MenuAnchorProps {
   onClose?: unknown;
   crossAxisUnconstrained?: boolean;
   useRootOverlay?: boolean;
+  animated?: boolean;
+  onAnimationStatusChanged?: (value: 'dismissed' | 'forward' | 'reverse' | 'completed') => void;
   menuChildren: FlutterElement[];
   builder?: (controller: unknown, child: FlutterElement) => FlutterElement;
   child?: string | FlutterElement;
@@ -2167,6 +2180,9 @@ export interface SubmenuButtonProps {
   trailingIcon?: string | FlutterElement;
   submenuIcon?: unknown;
   useRootOverlay?: boolean;
+  hoverOpenDelay?: unknown;
+  animated?: boolean;
+  onAnimationStatusChanged?: (value: 'dismissed' | 'forward' | 'reverse' | 'completed') => void;
   menuChildren: FlutterElement[];
   child?: string | FlutterElement;
   onTap?: () => void;
@@ -2346,6 +2362,7 @@ export interface NavigationRailProps {
   leadingAtTop?: boolean;
   trailingAtBottom?: boolean;
   scrollable?: boolean;
+  mainAxisAlignment?: 'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly';
   onTap?: () => void;
   onDoubleTap?: () => void;
   onLongPress?: () => void;
@@ -2625,6 +2642,7 @@ export interface RadioListTileProps {
   selectedTileColor?: unknown;
   visualDensity?: unknown;
   focusNode?: unknown;
+  statesController?: unknown;
   onFocusChange?: (value: boolean) => void;
   enableFeedback?: boolean;
   horizontalTitleGap?: number;
@@ -2694,7 +2712,8 @@ export interface RefreshIndicatorProps {
 }
 
 export interface ReorderableListViewProps {
-  onReorder: (oldIndex: number, newIndex: number) => void;
+  onReorder?: (oldIndex: number, newIndex: number) => void;
+  onReorderItem?: (oldIndex: number, newIndex: number) => void;
   onReorderStart?: (index: number) => void;
   onReorderEnd?: (index: number) => void;
   itemExtent?: number;
@@ -2713,6 +2732,7 @@ export interface ReorderableListViewProps {
   shrinkWrap?: boolean;
   anchor?: number;
   cacheExtent?: number;
+  scrollCacheExtent?: unknown;
   dragStartBehavior?: string;
   keyboardDismissBehavior?: 'manual' | 'onDrag';
   restorationId?: string;
@@ -3068,6 +3088,8 @@ export interface StepperProps {
   stepIconWidth?: number;
   stepIconMargin?: number | [number, number] | [number, number, number, number];
   clipBehavior?: unknown;
+  headerPadding?: number | [number, number] | [number, number, number, number];
+  contentPadding?: number | [number, number] | [number, number, number, number];
   onTap?: () => void;
   onDoubleTap?: () => void;
   onLongPress?: () => void;
@@ -3128,6 +3150,7 @@ export interface SwitchListTileProps {
   overlayColor?: unknown;
   splashRadius?: number;
   focusNode?: unknown;
+  statesController?: unknown;
   onFocusChange?: (value: boolean) => void;
   autofocus?: boolean;
   tileColor?: unknown;
@@ -3215,6 +3238,7 @@ export interface TabProps {
 export interface TabBarProps {
   tabs: FlutterElement[];
   controller?: unknown;
+  scrollController?: unknown;
   isScrollable?: boolean;
   padding?: number | [number, number] | [number, number, number, number];
   indicatorColor?: unknown;
@@ -3372,6 +3396,7 @@ export interface TextFieldProps {
   scribbleEnabled?: boolean;
   stylusHandwritingEnabled?: boolean;
   enableIMEPersonalizedLearning?: boolean;
+  enableInlinePrediction?: boolean;
   contextMenuBuilder?: (editableTextState: unknown) => FlutterElement;
   canRequestFocus?: boolean;
   spellCheckConfiguration?: unknown;
@@ -3707,6 +3732,7 @@ export interface AnimatedCrossFadeProps {
   reverseDuration?: unknown;
   layoutBuilder?: (topChild: FlutterElement, topChildKey: unknown, bottomChild: FlutterElement, bottomChildKey: unknown) => FlutterElement;
   excludeBottomFocus?: boolean;
+  onEnd?: unknown;
   onTap?: () => void;
   onDoubleTap?: () => void;
   onLongPress?: () => void;
@@ -3723,6 +3749,7 @@ export interface AnimatedListProps {
   shrinkWrap?: boolean;
   padding?: number | [number, number] | [number, number, number, number];
   clipBehavior?: unknown;
+  scrollCacheExtent?: unknown;
   onTap?: () => void;
   onDoubleTap?: () => void;
   onLongPress?: () => void;
@@ -3739,6 +3766,7 @@ export interface AnimatedGridProps {
   physics?: unknown;
   padding?: number | [number, number] | [number, number, number, number];
   clipBehavior?: unknown;
+  scrollCacheExtent?: unknown;
   onTap?: () => void;
   onDoubleTap?: () => void;
   onLongPress?: () => void;
@@ -5187,6 +5215,7 @@ export interface EditableTextProps {
   magnifierConfiguration?: unknown;
   undoController?: unknown;
   hintLocales?: unknown[];
+  enableInlinePrediction?: boolean;
   onTap?: () => void;
   onDoubleTap?: () => void;
   onLongPress?: () => void;
@@ -5462,6 +5491,8 @@ export interface HeroProps {
   flightShuttleBuilder?: (animation: unknown, flightDirection: 'push' | 'pop') => FlutterElement;
   placeholderBuilder?: (heroSize: unknown, child: FlutterElement) => FlutterElement;
   transitionOnUserGestures?: boolean;
+  curve?: unknown;
+  reverseCurve?: unknown;
   child?: string | FlutterElement;
   onTap?: () => void;
   onDoubleTap?: () => void;
@@ -6043,6 +6074,7 @@ export interface OverflowBarProps {
 export interface OverlayProps {
   initialEntries?: unknown[];
   clipBehavior?: unknown;
+  alwaysSizeToContent?: boolean;
   onTap?: () => void;
   onDoubleTap?: () => void;
   onLongPress?: () => void;
@@ -6101,6 +6133,7 @@ export interface PageViewProps {
   onPageChanged?: (value: number) => void;
   dragStartBehavior?: string;
   allowImplicitScrolling?: boolean;
+  scrollCacheExtent?: unknown;
   restorationId?: string;
   clipBehavior?: unknown;
   hitTestBehavior?: 'deferToChild' | 'opaque' | 'translucent';
@@ -6339,6 +6372,7 @@ export interface RawTooltipProps {
   onTriggered?: unknown;
   animationStyle?: unknown;
   positionDelegate?: (context: unknown) => unknown;
+  ignorePointer?: boolean;
   child?: string | FlutterElement;
   onTap?: () => void;
   onDoubleTap?: () => void;
@@ -6349,7 +6383,8 @@ export interface RawTooltipProps {
 export interface ReorderableListProps {
   itemBuilder: (index: number) => FlutterElement;
   itemCount: number;
-  onReorder: (oldIndex: number, newIndex: number) => void;
+  onReorder?: (oldIndex: number, newIndex: number) => void;
+  onReorderItem?: (oldIndex: number, newIndex: number) => void;
   onReorderStart?: (index: number) => void;
   onReorderEnd?: (index: number) => void;
   itemExtent?: number;
@@ -6365,6 +6400,7 @@ export interface ReorderableListProps {
   shrinkWrap?: boolean;
   anchor?: number;
   cacheExtent?: number;
+  scrollCacheExtent?: unknown;
   dragStartBehavior?: string;
   keyboardDismissBehavior?: 'manual' | 'onDrag';
   restorationId?: string;
@@ -6380,7 +6416,8 @@ export interface SliverReorderableListProps {
   itemBuilder: (index: number) => FlutterElement;
   findChildIndexCallback?: (key: unknown) => number;
   itemCount: number;
-  onReorder: (oldIndex: number, newIndex: number) => void;
+  onReorder?: (oldIndex: number, newIndex: number) => void;
+  onReorderItem?: (oldIndex: number, newIndex: number) => void;
   onReorderStart?: (p0: number) => void;
   onReorderEnd?: (p0: number) => void;
   itemExtent?: number;
@@ -6529,6 +6566,7 @@ export interface CustomScrollViewProps {
   center?: unknown;
   anchor?: number;
   cacheExtent?: number;
+  scrollCacheExtent?: unknown;
   paintOrder?: 'firstIsTop' | 'lastIsTop';
   slivers?: FlutterElement[];
   semanticChildCount?: number;
@@ -6557,6 +6595,7 @@ export interface ListViewProps {
   addRepaintBoundaries?: boolean;
   addSemanticIndexes?: boolean;
   cacheExtent?: number;
+  scrollCacheExtent?: unknown;
   semanticChildCount?: number;
   dragStartBehavior?: string;
   keyboardDismissBehavior?: 'manual' | 'onDrag';
@@ -6582,6 +6621,7 @@ export interface GridViewProps {
   addRepaintBoundaries?: boolean;
   addSemanticIndexes?: boolean;
   cacheExtent?: number;
+  scrollCacheExtent?: unknown;
   semanticChildCount?: number;
   dragStartBehavior?: string;
   clipBehavior?: unknown;
@@ -6891,6 +6931,7 @@ export interface SliverFillViewportProps {
   delegate: unknown;
   viewportFraction?: number;
   padEnds?: boolean;
+  allowImplicitScrolling?: boolean;
   onTap?: () => void;
   onDoubleTap?: () => void;
   onLongPress?: () => void;
@@ -7226,6 +7267,7 @@ export interface SizeTransitionProps {
   axis?: 'horizontal' | 'vertical';
   sizeFactor: unknown;
   axisAlignment?: number;
+  alignment?: string;
   fixedCrossAxisSizeFactor?: number;
   child?: string | FlutterElement;
   onTap?: () => void;
@@ -7409,6 +7451,7 @@ export interface ViewportProps {
   center?: unknown;
   cacheExtent?: number;
   cacheExtentStyle?: string;
+  scrollCacheExtent?: unknown;
   paintOrder?: 'firstIsTop' | 'lastIsTop';
   clipBehavior?: unknown;
   slivers?: FlutterElement[];
@@ -7423,6 +7466,9 @@ export interface ShrinkWrappingViewportProps {
   offset: unknown;
   paintOrder?: 'firstIsTop' | 'lastIsTop';
   clipBehavior?: unknown;
+  cacheExtent?: number;
+  cacheExtentStyle?: string;
+  scrollCacheExtent?: unknown;
   slivers?: FlutterElement[];
   onTap?: () => void;
   onDoubleTap?: () => void;
@@ -7876,6 +7922,63 @@ export interface CupertinoMagnifierProps {
   onLongPress?: () => void;
 }
 
+export interface CupertinoMenuAnchorProps {
+  controller?: unknown;
+  onOpen?: unknown;
+  onClose?: unknown;
+  onAnimationStatusChanged?: (status: 'dismissed' | 'forward' | 'reverse' | 'completed') => void;
+  constraints?: unknown;
+  constrainCrossAxis?: boolean;
+  consumeOutsideTaps?: boolean;
+  enableSwipe?: boolean;
+  enableLongPressToOpen?: boolean;
+  useRootOverlay?: boolean;
+  overlayPadding?: number | [number, number] | [number, number, number, number];
+  menuChildren: FlutterElement[];
+  builder?: (controller: unknown, child: FlutterElement) => FlutterElement;
+  child?: string | FlutterElement;
+  childFocusNode?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
+  children?: FlutterElement | FlutterElement[];
+}
+
+export interface CupertinoMenuDividerProps {
+  color?: unknown;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
+}
+
+export interface CupertinoMenuItemProps {
+  child?: string | FlutterElement;
+  subtitle?: string | FlutterElement;
+  leading?: string | FlutterElement;
+  leadingWidth?: number;
+  leadingMidpointAlignment?: string;
+  trailing?: string | FlutterElement;
+  trailingWidth?: number;
+  trailingMidpointAlignment?: string;
+  padding?: number | [number, number] | [number, number, number, number];
+  constraints?: unknown;
+  autofocus?: boolean;
+  focusNode?: unknown;
+  onFocusChange?: (value: boolean) => void;
+  onHover?: (value: boolean) => void;
+  onClick?: unknown;
+  decoration?: unknown;
+  mouseCursor?: unknown;
+  behavior?: 'deferToChild' | 'opaque' | 'translucent';
+  requestCloseOnActivate?: boolean;
+  requestFocusOnHover?: boolean;
+  isDestructiveAction?: boolean;
+  onTap?: () => void;
+  onDoubleTap?: () => void;
+  onLongPress?: () => void;
+  children?: FlutterElement | FlutterElement[];
+}
+
 export interface CupertinoNavigationBarProps {
   leading?: string | FlutterElement;
   automaticallyImplyLeading?: boolean;
@@ -8278,6 +8381,7 @@ export interface CupertinoTextFieldProps {
   scribbleEnabled?: boolean;
   stylusHandwritingEnabled?: boolean;
   enableIMEPersonalizedLearning?: boolean;
+  enableInlinePrediction?: boolean;
   contextMenuBuilder?: (editableTextState: unknown) => FlutterElement;
   spellCheckConfiguration?: unknown;
   magnifierConfiguration?: unknown;

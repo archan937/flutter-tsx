@@ -77,8 +77,9 @@ map.animateTo({ lat: 48.8566, lng: 2.3522, zoom: 13 });`,
         "import 'package:google_maps_flutter/google_maps_flutter.dart';",
       ],
       methods: {
+        // $0 is the call's first argument (substitutePluginArgs replaces $0.key).
         animateTo:
-          'await _mapController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(position.lat, position.lng), zoom: position.zoom ?? 12)))',
+          'await _mapController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng($0.lat, $0.lng), zoom: $0.zoom ?? 12)))',
       },
     },
   },

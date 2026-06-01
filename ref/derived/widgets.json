@@ -3980,6 +3980,15 @@
         "transform": "none"
       },
       {
+        "name": "infinite",
+        "tsxProp": "infinite",
+        "dartParam": "infinite",
+        "tsType": "boolean",
+        "dartType": "bool",
+        "required": false,
+        "transform": "none"
+      },
+      {
         "name": "itemExtent",
         "tsxProp": "itemExtent",
         "dartParam": "itemExtent",
@@ -3996,6 +4005,15 @@
         "dartType": "List<Widget>",
         "required": true,
         "transform": "none"
+      },
+      {
+        "name": "onIndexChanged",
+        "tsxProp": "onIndexChanged",
+        "dartParam": "onIndexChanged",
+        "tsType": "(value: number) => void",
+        "dartType": "void Function(int)?",
+        "required": false,
+        "transform": "callback"
       }
     ],
     "styling": [],
@@ -4324,6 +4342,15 @@
         "dartParam": "focusNode",
         "tsType": "unknown",
         "dartType": "FocusNode?",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "statesController",
+        "tsxProp": "statesController",
+        "dartParam": "statesController",
+        "tsType": "unknown",
+        "dartType": "WidgetStatesController?",
         "required": false,
         "transform": "none"
       },
@@ -6947,6 +6974,15 @@
         "transform": "edgeinsets"
       },
       {
+        "name": "contentTextStyle",
+        "tsxProp": "contentTextStyle",
+        "dartParam": "contentTextStyle",
+        "tsType": "TextStyleProps",
+        "dartType": "TextStyle?",
+        "required": false,
+        "transform": "textStyle"
+      },
+      {
         "name": "backgroundColor",
         "tsxProp": "backgroundColor",
         "dartParam": "backgroundColor",
@@ -8654,6 +8690,15 @@
         "dartType": "MenuController?",
         "required": false,
         "transform": "none"
+      },
+      {
+        "name": "scrollPadding",
+        "tsxProp": "scrollPadding",
+        "dartParam": "scrollPadding",
+        "tsType": "number | [number, number] | [number, number, number, number]",
+        "dartType": "EdgeInsets",
+        "required": false,
+        "transform": "edgeinsets"
       }
     ],
     "styling": [],
@@ -8710,6 +8755,24 @@
         "dartType": "Widget?",
         "required": false,
         "transform": "widget"
+      },
+      {
+        "name": "showTrailingIcon",
+        "tsxProp": "showTrailingIcon",
+        "dartParam": "showTrailingIcon",
+        "tsType": "boolean",
+        "dartType": "bool",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "trailingIconFocusNode",
+        "tsxProp": "trailingIconFocusNode",
+        "dartParam": "trailingIconFocusNode",
+        "tsType": "unknown",
+        "dartType": "FocusNode?",
+        "required": false,
+        "transform": "none"
       },
       {
         "name": "label",
@@ -8865,6 +8928,15 @@
         "transform": "none"
       },
       {
+        "name": "selectOnly",
+        "tsxProp": "selectOnly",
+        "dartParam": "selectOnly",
+        "tsType": "boolean",
+        "dartType": "bool",
+        "required": false,
+        "transform": "none"
+      },
+      {
         "name": "expandedInsets",
         "tsxProp": "expandedInsets",
         "dartParam": "expandedInsets",
@@ -8944,6 +9016,24 @@
         "dartType": "TextInputAction?",
         "required": false,
         "transform": "enum"
+      },
+      {
+        "name": "cursorHeight",
+        "tsxProp": "cursorHeight",
+        "dartParam": "cursorHeight",
+        "tsType": "number",
+        "dartType": "double?",
+        "required": false,
+        "transform": "double"
+      },
+      {
+        "name": "menuController",
+        "tsxProp": "menuController",
+        "dartParam": "menuController",
+        "tsType": "unknown",
+        "dartType": "MenuController?",
+        "required": false,
+        "transform": "none"
       },
       {
         "name": "restorationId",
@@ -9448,7 +9538,7 @@
         "tsxProp": "expandedAlignment",
         "dartParam": "expandedAlignment",
         "tsType": "string",
-        "dartType": "Alignment?",
+        "dartType": "AlignmentGeometry?",
         "required": false,
         "transform": "none"
       },
@@ -9629,6 +9719,15 @@
         "dartParam": "internalAddSemanticForOnTap",
         "tsType": "boolean",
         "dartType": "bool",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "statesController",
+        "tsxProp": "statesController",
+        "dartParam": "statesController",
+        "tsType": "unknown",
+        "dartType": "WidgetStatesController?",
         "required": false,
         "transform": "none"
       }
@@ -13654,6 +13753,24 @@
         "transform": "none"
       },
       {
+        "name": "animated",
+        "tsxProp": "animated",
+        "dartParam": "animated",
+        "tsType": "boolean",
+        "dartType": "bool",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "onAnimationStatusChanged",
+        "tsxProp": "onAnimationStatusChanged",
+        "dartParam": "onAnimationStatusChanged",
+        "tsType": "(value: 'dismissed' | 'forward' | 'reverse' | 'completed') => void",
+        "dartType": "void Function(AnimationStatus)?",
+        "required": false,
+        "transform": "callback"
+      },
+      {
         "name": "menuChildren",
         "tsxProp": "menuChildren",
         "dartParam": "menuChildren",
@@ -14301,6 +14418,33 @@
         "dartType": "bool",
         "required": false,
         "transform": "none"
+      },
+      {
+        "name": "hoverOpenDelay",
+        "tsxProp": "hoverOpenDelay",
+        "dartParam": "hoverOpenDelay",
+        "tsType": "unknown",
+        "dartType": "Duration",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "animated",
+        "tsxProp": "animated",
+        "dartParam": "animated",
+        "tsType": "boolean",
+        "dartType": "bool",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "onAnimationStatusChanged",
+        "tsxProp": "onAnimationStatusChanged",
+        "dartParam": "onAnimationStatusChanged",
+        "tsType": "(value: 'dismissed' | 'forward' | 'reverse' | 'completed') => void",
+        "dartType": "void Function(AnimationStatus)?",
+        "required": false,
+        "transform": "callback"
       },
       {
         "name": "menuChildren",
@@ -15247,6 +15391,15 @@
         "dartType": "bool",
         "required": false,
         "transform": "none"
+      },
+      {
+        "name": "mainAxisAlignment",
+        "tsxProp": "mainAxisAlignment",
+        "dartParam": "mainAxisAlignment",
+        "tsType": "'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly'",
+        "dartType": "MainAxisAlignment?",
+        "required": false,
+        "transform": "enum"
       }
     ],
     "styling": [],
@@ -17070,6 +17223,15 @@
         "transform": "none"
       },
       {
+        "name": "statesController",
+        "tsxProp": "statesController",
+        "dartParam": "statesController",
+        "tsType": "unknown",
+        "dartType": "WidgetStatesController?",
+        "required": false,
+        "transform": "none"
+      },
+      {
         "name": "onFocusChange",
         "tsxProp": "onFocusChange",
         "dartParam": "onFocusChange",
@@ -17505,8 +17667,17 @@
         "tsxProp": "onReorder",
         "dartParam": "onReorder",
         "tsType": "(oldIndex: number, newIndex: number) => void",
-        "dartType": "void Function(int, int)",
-        "required": true,
+        "dartType": "void Function(int, int)?",
+        "required": false,
+        "transform": "callback"
+      },
+      {
+        "name": "onReorderItem",
+        "tsxProp": "onReorderItem",
+        "dartParam": "onReorderItem",
+        "tsType": "(oldIndex: number, newIndex: number) => void",
+        "dartType": "void Function(int, int)?",
+        "required": false,
         "transform": "callback"
       },
       {
@@ -17670,6 +17841,15 @@
         "dartType": "double?",
         "required": false,
         "transform": "double"
+      },
+      {
+        "name": "scrollCacheExtent",
+        "tsxProp": "scrollCacheExtent",
+        "dartParam": "scrollCacheExtent",
+        "tsType": "unknown",
+        "dartType": "ScrollCacheExtent?",
+        "required": false,
+        "transform": "none"
       },
       {
         "name": "dragStartBehavior",
@@ -19967,6 +20147,24 @@
         "dartType": "dynamic",
         "required": false,
         "transform": "none"
+      },
+      {
+        "name": "headerPadding",
+        "tsxProp": "headerPadding",
+        "dartParam": "headerPadding",
+        "tsType": "number | [number, number] | [number, number, number, number]",
+        "dartType": "EdgeInsetsGeometry?",
+        "required": false,
+        "transform": "edgeinsets"
+      },
+      {
+        "name": "contentPadding",
+        "tsxProp": "contentPadding",
+        "dartParam": "contentPadding",
+        "tsType": "number | [number, number] | [number, number, number, number]",
+        "dartType": "EdgeInsetsGeometry?",
+        "required": false,
+        "transform": "edgeinsets"
       }
     ],
     "styling": [],
@@ -20419,6 +20617,15 @@
         "dartParam": "focusNode",
         "tsType": "unknown",
         "dartType": "FocusNode?",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "statesController",
+        "tsxProp": "statesController",
+        "dartParam": "statesController",
+        "tsType": "unknown",
+        "dartType": "WidgetStatesController?",
         "required": false,
         "transform": "none"
       },
@@ -20942,6 +21149,15 @@
         "dartParam": "controller",
         "tsType": "unknown",
         "dartType": "TabController?",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "scrollController",
+        "tsxProp": "scrollController",
+        "dartParam": "scrollController",
+        "tsType": "unknown",
+        "dartType": "TabBarScrollController?",
         "required": false,
         "transform": "none"
       },
@@ -22097,6 +22313,15 @@
         "dartParam": "enableIMEPersonalizedLearning",
         "tsType": "boolean",
         "dartType": "bool",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "enableInlinePrediction",
+        "tsxProp": "enableInlinePrediction",
+        "dartParam": "enableInlinePrediction",
+        "tsType": "boolean",
+        "dartType": "bool?",
         "required": false,
         "transform": "none"
       },
@@ -24198,6 +24423,15 @@
         "dartType": "bool",
         "required": false,
         "transform": "none"
+      },
+      {
+        "name": "onEnd",
+        "tsxProp": "onEnd",
+        "dartParam": "onEnd",
+        "tsType": "unknown",
+        "dartType": "dynamic",
+        "required": false,
+        "transform": "callback"
       }
     ],
     "styling": [],
@@ -24299,6 +24533,15 @@
         "dartType": "dynamic",
         "required": false,
         "transform": "none"
+      },
+      {
+        "name": "scrollCacheExtent",
+        "tsxProp": "scrollCacheExtent",
+        "dartParam": "scrollCacheExtent",
+        "tsType": "unknown",
+        "dartType": "ScrollCacheExtent?",
+        "required": false,
+        "transform": "none"
       }
     ],
     "styling": [],
@@ -24398,6 +24641,15 @@
         "dartParam": "clipBehavior",
         "tsType": "unknown",
         "dartType": "dynamic",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "scrollCacheExtent",
+        "tsxProp": "scrollCacheExtent",
+        "dartParam": "scrollCacheExtent",
+        "tsType": "unknown",
+        "dartType": "ScrollCacheExtent?",
         "required": false,
         "transform": "none"
       }
@@ -32015,6 +32267,15 @@
         "dartType": "List<dynamic>?",
         "required": false,
         "transform": "none"
+      },
+      {
+        "name": "enableInlinePrediction",
+        "tsxProp": "enableInlinePrediction",
+        "dartParam": "enableInlinePrediction",
+        "tsType": "boolean",
+        "dartType": "bool?",
+        "required": false,
+        "transform": "none"
       }
     ],
     "styling": [],
@@ -33737,6 +33998,24 @@
         "dartParam": "transitionOnUserGestures",
         "tsType": "boolean",
         "dartType": "bool",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "curve",
+        "tsxProp": "curve",
+        "dartParam": "curve",
+        "tsType": "unknown",
+        "dartType": "Curve",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "reverseCurve",
+        "tsxProp": "reverseCurve",
+        "dartParam": "reverseCurve",
+        "tsType": "unknown",
+        "dartType": "Curve?",
         "required": false,
         "transform": "none"
       },
@@ -36885,6 +37164,15 @@
         "dartType": "dynamic",
         "required": false,
         "transform": "none"
+      },
+      {
+        "name": "alwaysSizeToContent",
+        "tsxProp": "alwaysSizeToContent",
+        "dartParam": "alwaysSizeToContent",
+        "tsType": "boolean",
+        "dartType": "bool",
+        "required": false,
+        "transform": "none"
       }
     ],
     "styling": [],
@@ -37163,6 +37451,15 @@
         "dartParam": "allowImplicitScrolling",
         "tsType": "boolean",
         "dartType": "bool",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "scrollCacheExtent",
+        "tsxProp": "scrollCacheExtent",
+        "dartParam": "scrollCacheExtent",
+        "tsType": "unknown",
+        "dartType": "ScrollCacheExtent?",
         "required": false,
         "transform": "none"
       },
@@ -38298,6 +38595,15 @@
         "transform": "callback"
       },
       {
+        "name": "ignorePointer",
+        "tsxProp": "ignorePointer",
+        "dartParam": "ignorePointer",
+        "tsType": "boolean",
+        "dartType": "bool",
+        "required": false,
+        "transform": "none"
+      },
+      {
         "name": "child",
         "tsxProp": "child",
         "dartParam": "child",
@@ -38340,8 +38646,17 @@
         "tsxProp": "onReorder",
         "dartParam": "onReorder",
         "tsType": "(oldIndex: number, newIndex: number) => void",
-        "dartType": "void Function(int, int)",
-        "required": true,
+        "dartType": "void Function(int, int)?",
+        "required": false,
+        "transform": "callback"
+      },
+      {
+        "name": "onReorderItem",
+        "tsxProp": "onReorderItem",
+        "dartParam": "onReorderItem",
+        "tsType": "(oldIndex: number, newIndex: number) => void",
+        "dartType": "void Function(int, int)?",
+        "required": false,
         "transform": "callback"
       },
       {
@@ -38480,6 +38795,15 @@
         "transform": "double"
       },
       {
+        "name": "scrollCacheExtent",
+        "tsxProp": "scrollCacheExtent",
+        "dartParam": "scrollCacheExtent",
+        "tsType": "unknown",
+        "dartType": "ScrollCacheExtent?",
+        "required": false,
+        "transform": "none"
+      },
+      {
         "name": "dragStartBehavior",
         "tsxProp": "dragStartBehavior",
         "dartParam": "dragStartBehavior",
@@ -38576,8 +38900,17 @@
         "tsxProp": "onReorder",
         "dartParam": "onReorder",
         "tsType": "(oldIndex: number, newIndex: number) => void",
-        "dartType": "void Function(int, int)",
-        "required": true,
+        "dartType": "void Function(int, int)?",
+        "required": false,
+        "transform": "callback"
+      },
+      {
+        "name": "onReorderItem",
+        "tsxProp": "onReorderItem",
+        "dartParam": "onReorderItem",
+        "tsType": "(oldIndex: number, newIndex: number) => void",
+        "dartType": "void Function(int, int)?",
+        "required": false,
         "transform": "callback"
       },
       {
@@ -39264,6 +39597,15 @@
         "transform": "double"
       },
       {
+        "name": "scrollCacheExtent",
+        "tsxProp": "scrollCacheExtent",
+        "dartParam": "scrollCacheExtent",
+        "tsType": "unknown",
+        "dartType": "ScrollCacheExtent?",
+        "required": false,
+        "transform": "none"
+      },
+      {
         "name": "paintOrder",
         "tsxProp": "paintOrder",
         "dartParam": "paintOrder",
@@ -39473,6 +39815,15 @@
         "transform": "double"
       },
       {
+        "name": "scrollCacheExtent",
+        "tsxProp": "scrollCacheExtent",
+        "dartParam": "scrollCacheExtent",
+        "tsType": "unknown",
+        "dartType": "ScrollCacheExtent?",
+        "required": false,
+        "transform": "none"
+      },
+      {
         "name": "children",
         "tsxProp": "children",
         "dartParam": "children",
@@ -39653,6 +40004,15 @@
         "dartType": "double?",
         "required": false,
         "transform": "double"
+      },
+      {
+        "name": "scrollCacheExtent",
+        "tsxProp": "scrollCacheExtent",
+        "dartParam": "scrollCacheExtent",
+        "tsType": "unknown",
+        "dartType": "ScrollCacheExtent?",
+        "required": false,
+        "transform": "none"
       },
       {
         "name": "children",
@@ -41013,6 +41373,15 @@
         "name": "padEnds",
         "tsxProp": "padEnds",
         "dartParam": "padEnds",
+        "tsType": "boolean",
+        "dartType": "bool",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "allowImplicitScrolling",
+        "tsxProp": "allowImplicitScrolling",
+        "dartParam": "allowImplicitScrolling",
         "tsType": "boolean",
         "dartType": "bool",
         "required": false,
@@ -42608,9 +42977,18 @@
         "tsxProp": "axisAlignment",
         "dartParam": "axisAlignment",
         "tsType": "number",
-        "dartType": "double",
+        "dartType": "double?",
         "required": false,
         "transform": "double"
+      },
+      {
+        "name": "alignment",
+        "tsxProp": "alignment",
+        "dartParam": "alignment",
+        "tsType": "string",
+        "dartType": "AlignmentGeometry?",
+        "required": false,
+        "transform": "none"
       },
       {
         "name": "fixedCrossAxisSizeFactor",
@@ -43394,6 +43772,15 @@
         "transform": "enum"
       },
       {
+        "name": "scrollCacheExtent",
+        "tsxProp": "scrollCacheExtent",
+        "dartParam": "scrollCacheExtent",
+        "tsType": "unknown",
+        "dartType": "ScrollCacheExtent?",
+        "required": false,
+        "transform": "none"
+      },
+      {
         "name": "paintOrder",
         "tsxProp": "paintOrder",
         "dartParam": "paintOrder",
@@ -43473,6 +43860,33 @@
         "dartParam": "clipBehavior",
         "tsType": "unknown",
         "dartType": "dynamic",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "cacheExtent",
+        "tsxProp": "cacheExtent",
+        "dartParam": "cacheExtent",
+        "tsType": "number",
+        "dartType": "double?",
+        "required": false,
+        "transform": "double"
+      },
+      {
+        "name": "cacheExtentStyle",
+        "tsxProp": "cacheExtentStyle",
+        "dartParam": "cacheExtentStyle",
+        "tsType": "string",
+        "dartType": "CacheExtentStyle",
+        "required": false,
+        "transform": "enum"
+      },
+      {
+        "name": "scrollCacheExtent",
+        "tsxProp": "scrollCacheExtent",
+        "dartParam": "scrollCacheExtent",
+        "tsType": "unknown",
+        "dartType": "ScrollCacheExtent?",
         "required": false,
         "transform": "none"
       },
@@ -45904,6 +46318,372 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "selfSlot": "",
+    "category": "other"
+  },
+  {
+    "name": "CupertinoMenuAnchor",
+    "dartClass": "CupertinoMenuAnchor",
+    "props": [
+      {
+        "name": "controller",
+        "tsxProp": "controller",
+        "dartParam": "controller",
+        "tsType": "unknown",
+        "dartType": "MenuController?",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "onOpen",
+        "tsxProp": "onOpen",
+        "dartParam": "onOpen",
+        "tsType": "unknown",
+        "dartType": "dynamic",
+        "required": false,
+        "transform": "callback"
+      },
+      {
+        "name": "onClose",
+        "tsxProp": "onClose",
+        "dartParam": "onClose",
+        "tsType": "unknown",
+        "dartType": "dynamic",
+        "required": false,
+        "transform": "callback"
+      },
+      {
+        "name": "onAnimationStatusChanged",
+        "tsxProp": "onAnimationStatusChanged",
+        "dartParam": "onAnimationStatusChanged",
+        "tsType": "(status: 'dismissed' | 'forward' | 'reverse' | 'completed') => void",
+        "dartType": "void Function(AnimationStatus)?",
+        "required": false,
+        "transform": "callback"
+      },
+      {
+        "name": "constraints",
+        "tsxProp": "constraints",
+        "dartParam": "constraints",
+        "tsType": "unknown",
+        "dartType": "BoxConstraints?",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "constrainCrossAxis",
+        "tsxProp": "constrainCrossAxis",
+        "dartParam": "constrainCrossAxis",
+        "tsType": "boolean",
+        "dartType": "bool",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "consumeOutsideTaps",
+        "tsxProp": "consumeOutsideTaps",
+        "dartParam": "consumeOutsideTaps",
+        "tsType": "boolean",
+        "dartType": "bool",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "enableSwipe",
+        "tsxProp": "enableSwipe",
+        "dartParam": "enableSwipe",
+        "tsType": "boolean",
+        "dartType": "bool",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "enableLongPressToOpen",
+        "tsxProp": "enableLongPressToOpen",
+        "dartParam": "enableLongPressToOpen",
+        "tsType": "boolean",
+        "dartType": "bool",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "useRootOverlay",
+        "tsxProp": "useRootOverlay",
+        "dartParam": "useRootOverlay",
+        "tsType": "boolean",
+        "dartType": "bool",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "overlayPadding",
+        "tsxProp": "overlayPadding",
+        "dartParam": "overlayPadding",
+        "tsType": "number | [number, number] | [number, number, number, number]",
+        "dartType": "EdgeInsetsGeometry",
+        "required": false,
+        "transform": "edgeinsets"
+      },
+      {
+        "name": "menuChildren",
+        "tsxProp": "menuChildren",
+        "dartParam": "menuChildren",
+        "tsType": "FlutterElement[]",
+        "dartType": "List<Widget>",
+        "required": true,
+        "transform": "none"
+      },
+      {
+        "name": "builder",
+        "tsxProp": "builder",
+        "dartParam": "builder",
+        "tsType": "(controller: unknown, child: FlutterElement) => FlutterElement",
+        "dartType": "Widget Function(BuildContext, MenuController, Widget?)?",
+        "required": false,
+        "transform": "callback"
+      },
+      {
+        "name": "child",
+        "tsxProp": "child",
+        "dartParam": "child",
+        "tsType": "FlutterElement",
+        "dartType": "Widget?",
+        "required": false,
+        "transform": "widget"
+      },
+      {
+        "name": "childFocusNode",
+        "tsxProp": "childFocusNode",
+        "dartParam": "childFocusNode",
+        "tsType": "unknown",
+        "dartType": "FocusNode?",
+        "required": false,
+        "transform": "none"
+      }
+    ],
+    "styling": [],
+    "defaultChildSlot": "child",
+    "singleChild": true,
+    "selfSlot": "",
+    "category": "other"
+  },
+  {
+    "name": "CupertinoMenuDivider",
+    "dartClass": "CupertinoMenuDivider",
+    "props": [
+      {
+        "name": "color",
+        "tsxProp": "color",
+        "dartParam": "color",
+        "tsType": "unknown",
+        "dartType": "dynamic",
+        "required": false,
+        "transform": "none"
+      }
+    ],
+    "styling": [],
+    "defaultChildSlot": "none",
+    "singleChild": false,
+    "selfSlot": "",
+    "category": "other"
+  },
+  {
+    "name": "CupertinoMenuItem",
+    "dartClass": "CupertinoMenuItem",
+    "props": [
+      {
+        "name": "child",
+        "tsxProp": "child",
+        "dartParam": "child",
+        "tsType": "FlutterElement",
+        "dartType": "Widget",
+        "required": true,
+        "transform": "widget"
+      },
+      {
+        "name": "subtitle",
+        "tsxProp": "subtitle",
+        "dartParam": "subtitle",
+        "tsType": "FlutterElement",
+        "dartType": "Widget?",
+        "required": false,
+        "transform": "widget"
+      },
+      {
+        "name": "leading",
+        "tsxProp": "leading",
+        "dartParam": "leading",
+        "tsType": "FlutterElement",
+        "dartType": "Widget?",
+        "required": false,
+        "transform": "widget"
+      },
+      {
+        "name": "leadingWidth",
+        "tsxProp": "leadingWidth",
+        "dartParam": "leadingWidth",
+        "tsType": "number",
+        "dartType": "double?",
+        "required": false,
+        "transform": "double"
+      },
+      {
+        "name": "leadingMidpointAlignment",
+        "tsxProp": "leadingMidpointAlignment",
+        "dartParam": "leadingMidpointAlignment",
+        "tsType": "string",
+        "dartType": "AlignmentGeometry?",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "trailing",
+        "tsxProp": "trailing",
+        "dartParam": "trailing",
+        "tsType": "FlutterElement",
+        "dartType": "Widget?",
+        "required": false,
+        "transform": "widget"
+      },
+      {
+        "name": "trailingWidth",
+        "tsxProp": "trailingWidth",
+        "dartParam": "trailingWidth",
+        "tsType": "number",
+        "dartType": "double?",
+        "required": false,
+        "transform": "double"
+      },
+      {
+        "name": "trailingMidpointAlignment",
+        "tsxProp": "trailingMidpointAlignment",
+        "dartParam": "trailingMidpointAlignment",
+        "tsType": "string",
+        "dartType": "AlignmentGeometry?",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "padding",
+        "tsxProp": "padding",
+        "dartParam": "padding",
+        "tsType": "number | [number, number] | [number, number, number, number]",
+        "dartType": "EdgeInsetsGeometry?",
+        "required": false,
+        "transform": "edgeinsets"
+      },
+      {
+        "name": "constraints",
+        "tsxProp": "constraints",
+        "dartParam": "constraints",
+        "tsType": "unknown",
+        "dartType": "BoxConstraints?",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "autofocus",
+        "tsxProp": "autofocus",
+        "dartParam": "autofocus",
+        "tsType": "boolean",
+        "dartType": "bool",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "focusNode",
+        "tsxProp": "focusNode",
+        "dartParam": "focusNode",
+        "tsType": "unknown",
+        "dartType": "FocusNode?",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "onFocusChange",
+        "tsxProp": "onFocusChange",
+        "dartParam": "onFocusChange",
+        "tsType": "(value: boolean) => void",
+        "dartType": "void Function(bool)?",
+        "required": false,
+        "transform": "callback"
+      },
+      {
+        "name": "onHover",
+        "tsxProp": "onHover",
+        "dartParam": "onHover",
+        "tsType": "(value: boolean) => void",
+        "dartType": "void Function(bool)?",
+        "required": false,
+        "transform": "callback"
+      },
+      {
+        "name": "onPressed",
+        "tsxProp": "onClick",
+        "dartParam": "onPressed",
+        "tsType": "unknown",
+        "dartType": "dynamic",
+        "required": false,
+        "transform": "callback"
+      },
+      {
+        "name": "decoration",
+        "tsxProp": "decoration",
+        "dartParam": "decoration",
+        "tsType": "unknown",
+        "dartType": "WidgetStateProperty?",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "mouseCursor",
+        "tsxProp": "mouseCursor",
+        "dartParam": "mouseCursor",
+        "tsType": "unknown",
+        "dartType": "WidgetStateProperty?",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "behavior",
+        "tsxProp": "behavior",
+        "dartParam": "behavior",
+        "tsType": "'deferToChild' | 'opaque' | 'translucent'",
+        "dartType": "HitTestBehavior",
+        "required": false,
+        "transform": "enum"
+      },
+      {
+        "name": "requestCloseOnActivate",
+        "tsxProp": "requestCloseOnActivate",
+        "dartParam": "requestCloseOnActivate",
+        "tsType": "boolean",
+        "dartType": "bool",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "requestFocusOnHover",
+        "tsxProp": "requestFocusOnHover",
+        "dartParam": "requestFocusOnHover",
+        "tsType": "boolean",
+        "dartType": "bool",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "isDestructiveAction",
+        "tsxProp": "isDestructiveAction",
+        "dartParam": "isDestructiveAction",
+        "tsType": "boolean",
+        "dartType": "bool",
+        "required": false,
+        "transform": "none"
+      }
+    ],
+    "styling": [],
+    "defaultChildSlot": "child",
+    "singleChild": true,
     "selfSlot": "",
     "category": "other"
   },
@@ -48569,6 +49349,15 @@
         "dartParam": "enableIMEPersonalizedLearning",
         "tsType": "boolean",
         "dartType": "bool",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "enableInlinePrediction",
+        "tsxProp": "enableInlinePrediction",
+        "dartParam": "enableInlinePrediction",
+        "tsType": "boolean",
+        "dartType": "bool?",
         "required": false,
         "transform": "none"
       },

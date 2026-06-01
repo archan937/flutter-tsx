@@ -4849,7 +4849,7 @@
     "name": "OutlineInputBorder",
     "dartClass": "OutlineInputBorder",
     "library": "material",
-    "doc": "/// Draws a rounded rectangle around an [InputDecorator]'s container.\n///\n/// When the input decorator's label is floating, for example because its\n/// input child has the focus, the label appears in a gap in the border outline.\n///\n/// The input decorator's \"container\" is the optionally filled area above the\n/// decorator's helper, error, and counter.\n///\n/// See also:\n///\n///  * [UnderlineInputBorder], the default [InputDecorator] border which\n///    draws a horizontal line at the bottom of the input decorator's container.\n///  * [InputDecoration], which is used to configure an [InputDecorator].",
+    "doc": "/// Draws a rounded rectangle around an [InputDecorator]'s container.\n///\n/// When the input decorator's label is floating, for example because its\n/// input child has the focus, the label appears in a gap in the border outline.\n///\n/// The input decorator's \"container\" is the optionally filled area above the\n/// decorator's helper, error, and counter.\n///\n/// See also:\n///\n///  * [UnderlineInputBorder], the default [InputDecorator] border which\n///    draws a horizontal line at the bottom of the input decorator's container.\n///  * [ShapedInputBorder], an [InputDecorator] border which draws a custom\n///    [ShapeBorder] around the input decorator's container.\n///  * [InputDecoration], which is used to configure an [InputDecorator].",
     "params": [
       {
         "name": "borderSide",
@@ -4867,6 +4867,41 @@
         "tsType": "unknown",
         "dartType": "BorderRadius",
         "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "gapPadding",
+        "tsxProp": "gapPadding",
+        "dartParam": "gapPadding",
+        "tsType": "number",
+        "dartType": "double",
+        "required": false,
+        "transform": "double"
+      }
+    ]
+  },
+  {
+    "name": "ShapedInputBorder",
+    "dartClass": "ShapedInputBorder",
+    "library": "material",
+    "doc": "/// Draws a custom shape around an [InputDecorator]'s container.\n///\n/// This border allows any [ShapeBorder] to be used as an input decorator border.\n/// This provides maximum flexibility for custom border shapes while maintaining\n/// the gap functionality for floating labels.\n///\n/// When the input decorator's label is floating, for example because its\n/// input child has the focus, the label appears in a gap in the border outline.\n///\n/// The input decorator's \"container\" is the optionally filled area above the\n/// decorator's helper, error, and counter.\n///\n/// {@tool dartpad}\n/// This sample shows how to use [ShapedInputBorder] with different\n/// [ShapeBorder] implementations.\n///\n/// ** See code in examples/api/lib/material/shaped_input_border/shaped_input_border.0.dart **\n/// {@end-tool}\n///\n/// See also:\n///\n///  * [OutlineInputBorder], a traditional rounded rectangle border.\n///  * [UnderlineInputBorder], the default [InputDecorator] border which\n///    draws a horizontal line at the bottom of the input decorator's container.\n///  * [RoundedSuperellipseBorder], which can be used with this border for iOS-style shapes.\n///  * [InputDecoration], which is used to configure an [InputDecorator].",
+    "params": [
+      {
+        "name": "borderSide",
+        "tsxProp": "borderSide",
+        "dartParam": "borderSide",
+        "tsType": "unknown",
+        "dartType": "BorderSide",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "shape",
+        "tsxProp": "shape",
+        "dartParam": "shape",
+        "tsType": "unknown",
+        "dartType": "ShapeBorder",
+        "required": true,
         "transform": "none"
       },
       {
@@ -6878,7 +6913,7 @@
     "name": "FadeForwardsPageTransitionsBuilder",
     "dartClass": "FadeForwardsPageTransitionsBuilder",
     "library": "material",
-    "doc": "/// Used by [PageTransitionsTheme] to define a horizontal [MaterialPageRoute] page\n/// transition animation that looks like the default page transition\n/// used on Android U.\n///\n/// {@tool dartpad}\n/// This example shows the default page transition on Android.\n///\n/// ** See code in examples/api/lib/material/page_transitions_theme/page_transitions_theme.3.dart **\n/// {@end-tool}\n///\n/// See also:\n///\n///  * [FadeUpwardsPageTransitionsBuilder], which defines a page transition\n///    that's similar to the one provided by Android O.\n///  * [OpenUpwardsPageTransitionsBuilder], which defines a page transition\n///    that's similar to the one provided by Andoird P.\n///  * [ZoomPageTransitionsBuilder], which defines the default page transition\n///    that's similar to the one provided in Android Q.\n///  * [CupertinoPageTransitionsBuilder], which defines a horizontal page\n///    transition that matches native iOS page transitions.\n///  * [PredictiveBackPageTransitionsBuilder], which defines a page\n///    transition that allows peeking behind the current route on Android.\n///  * [FadeForwardsPageTransitionsBuilder], which defines a page transition\n///    that's similar to the one provided by Android U.",
+    "doc": "/// Used by [PageTransitionsTheme] to define a horizontal [MaterialPageRoute] page\n/// transition animation that looks like the default page transition\n/// used on Android U.\n///\n/// {@tool dartpad}\n/// This example shows the default page transition on Android.\n///\n/// ** See code in examples/api/lib/material/page_transitions_theme/page_transitions_theme.3.dart **\n/// {@end-tool}\n///\n/// See also:\n///\n///  * [FadeUpwardsPageTransitionsBuilder], which defines a page transition\n///    that's similar to the one provided by Android O.\n///  * [OpenUpwardsPageTransitionsBuilder], which defines a page transition\n///    that's similar to the one provided by Android P.\n///  * [ZoomPageTransitionsBuilder], which defines the default page transition\n///    that's similar to the one provided in Android Q.\n///  * [CupertinoPageTransitionsBuilder], which defines a horizontal page\n///    transition that matches native iOS page transitions.\n///  * [PredictiveBackPageTransitionsBuilder], which defines a page\n///    transition that allows peeking behind the current route on Android.\n///  * [FadeForwardsPageTransitionsBuilder], which defines a page transition\n///    that's similar to the one provided by Android U.",
     "params": [
       {
         "name": "backgroundColor",
@@ -6925,13 +6960,6 @@
         "transform": "none"
       }
     ]
-  },
-  {
-    "name": "CupertinoPageTransitionsBuilder",
-    "dartClass": "CupertinoPageTransitionsBuilder",
-    "library": "material",
-    "doc": "/// Used by [PageTransitionsTheme] to define a horizontal [MaterialPageRoute]\n/// page transition animation that matches native iOS page transitions.\n///\n/// See also:\n///\n///  * [FadeUpwardsPageTransitionsBuilder], which defines a page transition\n///    that's similar to the one provided by Android O.\n///  * [OpenUpwardsPageTransitionsBuilder], which defines a page transition\n///    that's similar to the one provided by Android P.\n///  * [ZoomPageTransitionsBuilder], which defines the default page transition\n///    that's similar to the one provided in Android Q.\n///  * [PredictiveBackPageTransitionsBuilder], which defines a page\n///    transition that allows peeking behind the current route on Android.",
-    "params": []
   },
   {
     "name": "PageTransitionsTheme",
@@ -7100,15 +7128,35 @@
     "name": "PredictiveBackPageTransitionsBuilder",
     "dartClass": "PredictiveBackPageTransitionsBuilder",
     "library": "material",
-    "doc": "/// Used by [PageTransitionsTheme] to define a [MaterialPageRoute] page\n/// transition animation that looks like the default page transition used on\n/// Android U and above when using predictive back.\n///\n/// Predictive back is only supported on Android U and above, and if this\n/// [PageTransitionsBuilder] is used by any other platform, it will fall back to\n/// [FadeForwardsPageTransitionsBuilder].\n///\n/// When used on Android U and above, animates along with the back gesture to\n/// reveal the destination route. Can be canceled by dragging back towards the\n/// edge of the screen.\n///\n/// See also:\n///\n///  * [PredictiveBackFullscreenPageTransitionsBuilder], which is another\n///    variant of Android's predictive back page transitition.\n///  * [FadeForwardsPageTransitionsBuilder], which defines the default page transition\n///    that's similar to the one provided in Android 16.\n///  * [ZoomPageTransitionsBuilder], which defines the default page transition\n///    that's similar to the one provided in Android 10.\n///  * [OpenUpwardsPageTransitionsBuilder], which defines a page transition\n///    that's similar to the one provided by Android 9.\n///  * [FadeUpwardsPageTransitionsBuilder], which defines a page transition\n///    that's similar to the one provided by Android 8.\n///  * [CupertinoPageTransitionsBuilder], which defines a horizontal page\n///    transition that matches native iOS page transitions.\n///  * https://developer.android.com/design/ui/mobile/guides/patterns/predictive-back#shared-element-transition,\n///    which is the Android spec for this page transition, called the Shared\n///    Element page transition.",
-    "params": []
+    "doc": "/// Used by [PageTransitionsTheme] to define a [MaterialPageRoute] page\n/// transition animation that looks like the default page transition used on\n/// Android U and above when using predictive back.\n///\n/// Predictive back is only supported on Android U and above, and if this\n/// [PageTransitionsBuilder] is used by any other platform, it will fall back to\n/// [FadeForwardsPageTransitionsBuilder].\n///\n/// When used on Android U and above, animates along with the back gesture to\n/// reveal the destination route. Can be canceled by dragging back towards the\n/// edge of the screen.\n///\n/// See also:\n///\n///  * [PredictiveBackFullscreenPageTransitionsBuilder], which is another\n///    variant of Android's predictive back page transition.\n///  * [FadeForwardsPageTransitionsBuilder], which defines the default page transition\n///    that's similar to the one provided in Android 16.\n///  * [ZoomPageTransitionsBuilder], which defines the default page transition\n///    that's similar to the one provided in Android 10.\n///  * [OpenUpwardsPageTransitionsBuilder], which defines a page transition\n///    that's similar to the one provided by Android 9.\n///  * [FadeUpwardsPageTransitionsBuilder], which defines a page transition\n///    that's similar to the one provided by Android 8.\n///  * [CupertinoPageTransitionsBuilder], which defines a horizontal page\n///    transition that matches native iOS page transitions.\n///  * https://developer.android.com/design/ui/mobile/guides/patterns/predictive-back#shared-element-transition,\n///    which is the Android spec for this page transition, called the Shared\n///    Element page transition.",
+    "params": [
+      {
+        "name": "fallbackColor",
+        "tsxProp": "fallbackColor",
+        "dartParam": "fallbackColor",
+        "tsType": "unknown",
+        "dartType": "dynamic",
+        "required": false,
+        "transform": "none"
+      }
+    ]
   },
   {
     "name": "PredictiveBackFullscreenPageTransitionsBuilder",
     "dartClass": "PredictiveBackFullscreenPageTransitionsBuilder",
     "library": "material",
     "doc": "/// Used by [PageTransitionsTheme] to define a [MaterialPageRoute] page\n/// transition animation that looks like Android's Full Screen page transition.\n///\n/// Predictive back is only supported on Android U and above, and if this\n/// [PageTransitionsBuilder] is used by any other platform, it will fall back to\n/// [ZoomPageTransitionsBuilder].\n///\n/// When used on Android U and above, animates along with the back gesture to\n/// reveal the destination route. Can be canceled by dragging back towards the\n/// edge of the screen.\n///\n/// See also:\n///\n///  * [PredictiveBackPageTransitionsBuilder], which is the default Android\n///    predictive back page transition.\n///  * [FadeForwardsPageTransitionsBuilder], which defines the default page\n///  transition that's similar to the one provided in Android 16.\n///  * [ZoomPageTransitionsBuilder], which defines the default page transition\n///    that's similar to the one provided in Android 10.\n///  * [OpenUpwardsPageTransitionsBuilder], which defines a page transition\n///    that's similar to the one provided by Android 9.\n///  * [FadeUpwardsPageTransitionsBuilder], which defines a page transition\n///    that's similar to the one provided by Android 8.\n///  * [CupertinoPageTransitionsBuilder], which defines a horizontal page\n///    transition that matches native iOS page transitions.\n///  * https://developer.android.com/design/ui/mobile/guides/patterns/predictive-back#full-screen-surfaces,\n///    which is the native Android docs for this page transition.",
-    "params": []
+    "params": [
+      {
+        "name": "fallbackColor",
+        "tsxProp": "fallbackColor",
+        "dartParam": "fallbackColor",
+        "tsType": "unknown",
+        "dartType": "dynamic",
+        "required": false,
+        "transform": "none"
+      }
+    ]
   },
   {
     "name": "ProgressIndicatorThemeData",
@@ -9285,6 +9333,13 @@
         "transform": "edgeinsets"
       }
     ]
+  },
+  {
+    "name": "TabBarScrollController",
+    "dartClass": "TabBarScrollController",
+    "library": "material",
+    "doc": "/// The [ScrollController] for a [TabBar] widget.",
+    "params": []
   },
   {
     "name": "TextButtonThemeData",
@@ -14550,6 +14605,15 @@
         "dartType": "String?",
         "required": false,
         "transform": "string"
+      },
+      {
+        "name": "semanticsLabel",
+        "tsxProp": "semanticsLabel",
+        "dartParam": "semanticsLabel",
+        "tsType": "string",
+        "dartType": "String?",
+        "required": false,
+        "transform": "string"
       }
     ]
   },
@@ -17281,6 +17345,15 @@
         "dartType": "double?",
         "required": false,
         "transform": "double"
+      },
+      {
+        "name": "displayCornerRadii",
+        "tsxProp": "displayCornerRadii",
+        "dartParam": "displayCornerRadii",
+        "tsType": "unknown",
+        "dartType": "BorderRadius?",
+        "required": false,
+        "transform": "none"
       }
     ]
   },
@@ -18244,14 +18317,14 @@
     "name": "ReorderableListState",
     "dartClass": "ReorderableListState",
     "library": "material",
-    "doc": "/// The state for a list that allows the user to interactively reorder\n/// the list items.\n///\n/// An app that needs to start a new item drag or cancel an existing one\n/// can refer to the [ReorderableList]'s state with a global key:\n///\n/// ```dart\n/// GlobalKey<ReorderableListState> listKey = GlobalKey<ReorderableListState>();\n/// // ...\n/// Widget build(BuildContext context) {\n///   return ReorderableList(\n///     key: listKey,\n///     itemBuilder: (BuildContext context, int index) => const SizedBox(height: 10.0),\n///     itemCount: 5,\n///     onReorder: (int oldIndex, int newIndex) {\n///        // ...\n///     },\n///   );\n/// }\n/// // ...\n/// listKey.currentState!.cancelReorder();\n/// ```",
+    "doc": "/// The state for a list that allows the user to interactively reorder\n/// the list items.\n///\n/// An app that needs to start a new item drag or cancel an existing one\n/// can refer to the [ReorderableList]'s state with a global key:\n///\n/// ```dart\n/// GlobalKey<ReorderableListState> listKey = GlobalKey<ReorderableListState>();\n/// // ...\n/// Widget build(BuildContext context) {\n///   return ReorderableList(\n///     key: listKey,\n///     itemBuilder: (BuildContext context, int index) => const SizedBox(height: 10.0),\n///     itemCount: 5,\n///     onReorderItem: (int oldIndex, int newIndex) {\n///        // ...\n///     },\n///   );\n/// }\n/// // ...\n/// listKey.currentState!.cancelReorder();\n/// ```",
     "params": []
   },
   {
     "name": "SliverReorderableListState",
     "dartClass": "SliverReorderableListState",
     "library": "material",
-    "doc": "/// The state for a sliver list that allows the user to interactively reorder\n/// the list items.\n///\n/// An app that needs to start a new item drag or cancel an existing one\n/// can refer to the [SliverReorderableList]'s state with a global key:\n///\n/// ```dart\n/// // (e.g. in a stateful widget)\n/// GlobalKey<SliverReorderableListState> listKey = GlobalKey<SliverReorderableListState>();\n///\n/// // ...\n///\n/// @override\n/// Widget build(BuildContext context) {\n///   return SliverReorderableList(\n///     key: listKey,\n///     itemBuilder: (BuildContext context, int index) => const SizedBox(height: 10.0),\n///     itemCount: 5,\n///     onReorder: (int oldIndex, int newIndex) {\n///        // ...\n///     },\n///   );\n/// }\n///\n/// // ...\n///\n/// void _stop() {\n///   listKey.currentState!.cancelReorder();\n/// }\n/// ```\n///\n/// [ReorderableDragStartListener] and [ReorderableDelayedDragStartListener]\n/// refer to their [SliverReorderableList] with the static\n/// [SliverReorderableList.of] method.",
+    "doc": "/// The state for a sliver list that allows the user to interactively reorder\n/// the list items.\n///\n/// An app that needs to start a new item drag or cancel an existing one\n/// can refer to the [SliverReorderableList]'s state with a global key:\n///\n/// ```dart\n/// // (e.g. in a stateful widget)\n/// GlobalKey<SliverReorderableListState> listKey = GlobalKey<SliverReorderableListState>();\n///\n/// // ...\n///\n/// @override\n/// Widget build(BuildContext context) {\n///   return SliverReorderableList(\n///     key: listKey,\n///     itemBuilder: (BuildContext context, int index) => const SizedBox(height: 10.0),\n///     itemCount: 5,\n///     onReorderItem: (int oldIndex, int newIndex) {\n///        // ...\n///     },\n///   );\n/// }\n///\n/// // ...\n///\n/// void _stop() {\n///   listKey.currentState!.cancelReorder();\n/// }\n/// ```\n///\n/// [ReorderableDragStartListener] and [ReorderableDelayedDragStartListener]\n/// refer to their [SliverReorderableList] with the static\n/// [SliverReorderableList.of] method.",
     "params": []
   },
   {
@@ -21427,23 +21500,6 @@
     "dartClass": "ScrollToDocumentBoundaryIntent",
     "library": "material",
     "doc": "/// Scrolls to the beginning or end of the document depending on the [forward]\n/// parameter.",
-    "params": [
-      {
-        "name": "forward",
-        "tsxProp": "forward",
-        "dartParam": "forward",
-        "tsType": "boolean",
-        "dartType": "bool",
-        "required": true,
-        "transform": "none"
-      }
-    ]
-  },
-  {
-    "name": "ExtendSelectionByPageIntent",
-    "dartClass": "ExtendSelectionByPageIntent",
-    "library": "material",
-    "doc": "/// Scrolls up or down by page depending on the [forward] parameter.\n/// Extends the selection up or down by page based on the [forward] parameter.",
     "params": [
       {
         "name": "forward",
@@ -25477,10 +25533,17 @@
     ]
   },
   {
+    "name": "CupertinoPageTransitionsBuilder",
+    "dartClass": "CupertinoPageTransitionsBuilder",
+    "library": "cupertino",
+    "doc": "/// A [PageTransitionsBuilder] that provides an iOS-style page transition\n/// animation.\n///\n/// The page slides in from the right and exits in reverse. It also shifts\n/// to the left in a parallax motion when another page enters to cover it.\n/// This transition is commonly seen in native iOS applications.\n///\n/// In a [CupertinoApp], this transition is used automatically when navigating\n/// with [CupertinoPageRoute].\n///\n/// See also:\n///\n///  * [CupertinoPageRoute], which uses this transition style by default for\n///    Cupertino apps.\n///  * [CupertinoPageTransition], the widget that implements the iOS page\n///    transition animation.\n///  * [MaterialPageRoute], an adaptive [PageRoute] that can use this builder\n///    through [PageTransitionsTheme].\n///  * [PageTransitionsTheme], which defines the page transitions used by\n///    [MaterialPageRoute] for different target platforms.",
+    "params": []
+  },
+  {
     "name": "CupertinoSheetRoute",
     "dartClass": "CupertinoSheetRoute",
     "library": "cupertino",
-    "doc": "/// Route for displaying an iOS sheet styled page.\n///\n/// {@youtube 560 315 https://www.youtube.com/watch?v=5H-WvH5O29I}\n///\n/// The `CupertinoSheetRoute` will slide up from the bottom of the screen and stop\n/// below the top of the screen. If the previous route is a non-sheet route, then\n/// it will animate downwards to stack behind the new sheet. If the previous route\n/// is a sheet route, then it will animate slightly upwards to look like it is laying\n/// on top of the previous stack of sheets.\n///\n/// Typically called by [showCupertinoSheet], which provides some boilerplate for\n/// pushing the `CupertinoSheetRoute` to the root navigator and providing simple\n/// nested navigation.\n///\n/// The sheet will be dismissed by dragging downwards on the screen, or a call to\n/// [CupertinoSheetRoute.popSheet].\n///\n/// {@tool dartpad}\n/// This example shows how to navigate to [CupertinoSheetRoute] by using it the\n/// same as a regular route.\n///\n/// ** See code in examples/api/lib/cupertino/sheet/cupertino_sheet.0.dart **\n/// {@end-tool}\n///\n/// {@tool dartpad}\n/// This example shows how to show a Cupertino Sheet with nested navigation manually\n/// set up in order to enable restorable state.\n///\n/// ** See code in examples/api/lib/cupertino/sheet/cupertino_sheet.2.dart **\n/// {@end-tool}\n///\n/// See also:\n///   * [showCupertinoSheet], which is a convenience method for pushing a\n///     `CupertinoSheetRoute`, with optional nested navigation built in.",
+    "doc": "/// Route for displaying an iOS sheet styled page.\n///\n/// {@youtube 560 315 https://www.youtube.com/watch?v=5H-WvH5O29I}\n///\n/// The `CupertinoSheetRoute` will slide up from the bottom of the screen and stop\n/// below the top of the screen. If the previous route is a non-sheet route, then\n/// it will animate downwards to stack behind the new sheet. If the previous route\n/// is a sheet route, then it will animate slightly upwards to look like it is laying\n/// on top of the previous stack of sheets.\n///\n/// Typically called by [showCupertinoSheet], which provides some boilerplate for\n/// pushing the `CupertinoSheetRoute` to the root navigator and providing simple\n/// nested navigation.\n///\n/// The sheet will be dismissed by dragging downwards on the screen, or a call to\n/// [CupertinoSheetRoute.popSheet].\n///\n/// Any time a CupertinoSheetRoute contains a large scrollable that might conflict\n/// with the dismiss drag gesture, pass the provided [ScrollController] from `scrollableBuilder`\n/// to the scrollable. A scrollable widget used within the sheet that does not use\n/// this [ScrollController] will still scroll in response to user gestures, but\n/// the drag to dismiss behavior of the sheet will not trigger. If there is no\n/// scrollable area within the sheet, this parameter can be ignored. See below\n/// for an example.\n///\n/// {@tool dartpad}\n/// This example shows how to navigate to [CupertinoSheetRoute] by using it the\n/// same as a regular route.\n///\n/// ** See code in examples/api/lib/cupertino/sheet/cupertino_sheet.0.dart **\n/// {@end-tool}\n///\n/// {@tool dartpad}\n/// This example shows how to show a Cupertino Sheet with nested navigation manually\n/// set up in order to enable restorable state.\n///\n/// ** See code in examples/api/lib/cupertino/sheet/cupertino_sheet.2.dart **\n/// {@end-tool}\n///\n/// {@tool dartpad}\n/// This example shows how to show a Cupertino Sheet with scrollable content.\n///\n/// ** See code in examples/api/lib/cupertino/sheet/cupertino_sheet.3.dart **\n/// {@end-tool}\n///\n/// See also:\n///   * [showCupertinoSheet], which is a convenience method for pushing a\n///     `CupertinoSheetRoute`, with optional nested navigation built in.",
     "params": [
       {
         "name": "settings",
@@ -25496,14 +25559,32 @@
         "tsxProp": "builder",
         "dartParam": "builder",
         "tsType": "() => FlutterElement",
-        "dartType": "Widget Function(BuildContext)",
-        "required": true,
+        "dartType": "Widget Function(BuildContext)?",
+        "required": false,
+        "transform": "callback"
+      },
+      {
+        "name": "scrollableBuilder",
+        "tsxProp": "scrollableBuilder",
+        "dartParam": "scrollableBuilder",
+        "tsType": "(scrollController: unknown) => FlutterElement",
+        "dartType": "Widget Function(BuildContext, ScrollController)?",
+        "required": false,
         "transform": "callback"
       },
       {
         "name": "enableDrag",
         "tsxProp": "enableDrag",
         "dartParam": "enableDrag",
+        "tsType": "boolean",
+        "dartType": "bool",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "showDragHandle",
+        "tsxProp": "showDragHandle",
+        "dartParam": "showDragHandle",
         "tsType": "boolean",
         "dartType": "bool",
         "required": false,
@@ -25517,15 +25598,6 @@
         "dartType": "double?",
         "required": false,
         "transform": "double"
-      },
-      {
-        "name": "showDragHandle",
-        "tsxProp": "showDragHandle",
-        "dartParam": "showDragHandle",
-        "tsType": "boolean",
-        "dartType": "bool",
-        "required": false,
-        "transform": "none"
       }
     ]
   },
@@ -26120,6 +26192,15 @@
         "dartParam": "hintLocales",
         "tsType": "unknown[]",
         "dartType": "List<dynamic>?",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "enableInlinePrediction",
+        "tsxProp": "enableInlinePrediction",
+        "dartParam": "enableInlinePrediction",
+        "tsType": "boolean",
+        "dartType": "bool?",
         "required": false,
         "transform": "none"
       }
@@ -28863,6 +28944,86 @@
     ]
   },
   {
+    "name": "TextInputStyle",
+    "dartClass": "TextInputStyle",
+    "library": "services",
+    "doc": "/// Text styling information for the current input client.\n///\n/// See also:\n///\n///  * [TextInputConnection.updateStyle], which uses this class to send style\n///    information to the platform.\n///  * [TextInputControl.updateStyle], which receives this style information\n///    in custom text input controls.",
+    "params": [
+      {
+        "name": "fontFamily",
+        "tsxProp": "fontFamily",
+        "dartParam": "fontFamily",
+        "tsType": "string",
+        "dartType": "String?",
+        "required": false,
+        "transform": "string"
+      },
+      {
+        "name": "fontSize",
+        "tsxProp": "fontSize",
+        "dartParam": "fontSize",
+        "tsType": "number",
+        "dartType": "double?",
+        "required": false,
+        "transform": "double"
+      },
+      {
+        "name": "fontWeight",
+        "tsxProp": "fontWeight",
+        "dartParam": "fontWeight",
+        "tsType": "unknown",
+        "dartType": "dynamic",
+        "required": false,
+        "transform": "none"
+      },
+      {
+        "name": "textDirection",
+        "tsxProp": "textDirection",
+        "dartParam": "textDirection",
+        "tsType": "unknown",
+        "dartType": "dynamic",
+        "required": true,
+        "transform": "none"
+      },
+      {
+        "name": "textAlign",
+        "tsxProp": "textAlign",
+        "dartParam": "textAlign",
+        "tsType": "unknown",
+        "dartType": "dynamic",
+        "required": true,
+        "transform": "none"
+      },
+      {
+        "name": "letterSpacing",
+        "tsxProp": "letterSpacing",
+        "dartParam": "letterSpacing",
+        "tsType": "number",
+        "dartType": "double?",
+        "required": false,
+        "transform": "double"
+      },
+      {
+        "name": "wordSpacing",
+        "tsxProp": "wordSpacing",
+        "dartParam": "wordSpacing",
+        "tsType": "number",
+        "dartType": "double?",
+        "required": false,
+        "transform": "double"
+      },
+      {
+        "name": "lineHeight",
+        "tsxProp": "lineHeight",
+        "dartParam": "lineHeight",
+        "tsType": "number",
+        "dartType": "double?",
+        "required": false,
+        "transform": "double"
+      }
+    ]
+  },
+  {
     "name": "TextInput",
     "dartClass": "TextInput",
     "library": "services",
@@ -30617,6 +30778,13 @@
     ]
   },
   {
+    "name": "ErrorToConsoleDumper",
+    "dartClass": "ErrorToConsoleDumper",
+    "library": "foundation",
+    "doc": "/// Dumps error messages to the console.",
+    "params": []
+  },
+  {
     "name": "LicenseParagraph",
     "dartClass": "LicenseParagraph",
     "library": "foundation",
@@ -30646,7 +30814,7 @@
     "name": "LicenseEntryWithLineBreaks",
     "dartClass": "LicenseEntryWithLineBreaks",
     "library": "foundation",
-    "doc": "/// Variant of [LicenseEntry] for licenses that separate paragraphs with blank\n/// lines and that hard-wrap text within paragraphs. Lines that begin with one\n/// or more space characters are also assumed to introduce new paragraphs,\n/// unless they start with the same number of spaces as the previous line, in\n/// which case it's assumed they are a continuation of an indented paragraph.\n///\n/// {@tool snippet}\n///\n/// For example, the BSD license in this format could be encoded as follows:\n///\n/// ```dart\n/// void initMyLibrary() {\n///   LicenseRegistry.addLicense(() => Stream<LicenseEntry>.value(\n///     const LicenseEntryWithLineBreaks(<String>['my_library'], '''\n/// Copyright 2016 The Sample Authors. All rights reserved.\n///\n/// Redistribution and use in source and binary forms, with or without\n/// modification, are permitted provided that the following conditions are\n/// met:\n///\n///    * Redistributions of source code must retain the above copyright\n/// notice, this list of conditions and the following disclaimer.\n///    * Redistributions in binary form must reproduce the above\n/// copyright notice, this list of conditions and the following disclaimer\n/// in the documentation and/or other materials provided with the\n/// distribution.\n///    * Neither the name of Example Inc. nor the names of its\n/// contributors may be used to endorse or promote products derived from\n/// this software without specific prior written permission.\n///\n/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n/// \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\n/// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\n/// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT\n/// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\n/// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT\n/// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,\n/// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY\n/// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n/// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n/// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',\n///     ),\n///   ));\n/// }\n/// ```\n/// {@end-tool}\n///\n/// This would result in a license with six [paragraphs], the third, fourth, and\n/// fifth being indented one level.\n///\n/// ## Performance considerations\n///\n/// Computing the paragraphs is relatively expensive. Doing the work for one\n/// license per frame is reasonable; doing more at the same time is ill-advised.\n/// Consider doing all the work at once using [compute] to move the work to\n/// another thread, or spreading the work across multiple frames using\n/// [SchedulerBinding.scheduleTask].",
+    "doc": "/// Variant of [LicenseEntry] for licenses that separate paragraphs with blank\n/// lines and that hard-wrap text within paragraphs.\n///\n/// Lines that begin with one or more space characters are also assumed to\n/// introduce new paragraphs, unless they start with the same number of spaces\n/// as the previous line, in which case it's assumed they are a continuation of\n/// an indented paragraph.\n///\n/// {@tool snippet}\n///\n/// For example, the BSD license in this format could be encoded as follows:\n///\n/// ```dart\n/// void initMyLibrary() {\n///   LicenseRegistry.addLicense(() => Stream<LicenseEntry>.value(\n///     const LicenseEntryWithLineBreaks(<String>['my_library'], '''\n/// Copyright 2016 The Sample Authors. All rights reserved.\n///\n/// Redistribution and use in source and binary forms, with or without\n/// modification, are permitted provided that the following conditions are\n/// met:\n///\n///    * Redistributions of source code must retain the above copyright\n/// notice, this list of conditions and the following disclaimer.\n///    * Redistributions in binary form must reproduce the above\n/// copyright notice, this list of conditions and the following disclaimer\n/// in the documentation and/or other materials provided with the\n/// distribution.\n///    * Neither the name of Example Inc. nor the names of its\n/// contributors may be used to endorse or promote products derived from\n/// this software without specific prior written permission.\n///\n/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n/// \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\n/// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\n/// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT\n/// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\n/// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT\n/// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,\n/// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY\n/// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n/// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n/// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',\n///     ),\n///   ));\n/// }\n/// ```\n/// {@end-tool}\n///\n/// This would result in a license with six [paragraphs], the third, fourth, and\n/// fifth being indented one level.\n///\n/// ## Performance considerations\n///\n/// Computing the paragraphs is relatively expensive. Doing the work for one\n/// license per frame is reasonable; doing more at the same time is ill-advised.\n/// Consider doing all the work at once using [compute] to move the work to\n/// another thread, or spreading the work across multiple frames using\n/// [SchedulerBinding.scheduleTask].",
     "params": [
       {
         "name": "packages",
@@ -30731,7 +30899,7 @@
     "name": "AbstractNode",
     "dartClass": "AbstractNode",
     "library": "foundation",
-    "doc": "/// Deprecated. Unused by the framework and will be removed in a future version\n/// of Flutter. If needed, inline any required functionality of this class\n/// directly in the subclass.\n///\n/// An abstract node in a tree.\n///\n/// AbstractNode has as notion of depth, attachment, and parent, but does not\n/// have a model for children.\n///\n/// When a subclass is changing the parent of a child, it should call either\n/// `parent.adoptChild(child)` or `parent.dropChild(child)` as appropriate.\n/// Subclasses can expose an API for manipulating the tree if desired (e.g. a\n/// setter for a `child` property, or an `add()` method to manipulate a list).\n///\n/// The current parent node is exposed by the [parent] property.\n///\n/// The current attachment state is exposed by [attached]. The root of any tree\n/// that is to be considered attached should be manually attached by calling\n/// [attach]. Other than that, the [attach] and [detach] methods should not be\n/// called directly; attachment is managed automatically by the aforementioned\n/// [adoptChild] and [dropChild] methods.\n///\n/// Subclasses that have children must override [attach] and [detach] as\n/// described in the documentation for those methods.\n///\n/// Nodes always have a [depth] greater than their ancestors'. There's no\n/// guarantee regarding depth between siblings. The depth of a node is used to\n/// ensure that nodes are processed in depth order. The [depth] of a child can\n/// be more than one greater than the [depth] of the parent, because the [depth]\n/// values are never decreased: all that matters is that it's greater than the\n/// parent. Consider a tree with a root node A, a child B, and a grandchild C.\n/// Initially, A will have [depth] 0, B [depth] 1, and C [depth] 2. If C is\n/// moved to be a child of A, sibling of B, then the numbers won't change. C's\n/// [depth] will still be 2. The [depth] is automatically maintained by the\n/// [adoptChild] and [dropChild] methods.",
+    "doc": "/// Deprecated; unused by the framework and will be removed in a future version\n/// of Flutter.\n///\n/// If needed, inline any required functionality of this class directly in the\n/// subclass.\n///\n/// An abstract node in a tree.\n///\n/// AbstractNode has as notion of depth, attachment, and parent, but does not\n/// have a model for children.\n///\n/// When a subclass is changing the parent of a child, it should call either\n/// `parent.adoptChild(child)` or `parent.dropChild(child)` as appropriate.\n/// Subclasses can expose an API for manipulating the tree if desired (e.g. a\n/// setter for a `child` property, or an `add()` method to manipulate a list).\n///\n/// The current parent node is exposed by the [parent] property.\n///\n/// The current attachment state is exposed by [attached]. The root of any tree\n/// that is to be considered attached should be manually attached by calling\n/// [attach]. Other than that, the [attach] and [detach] methods should not be\n/// called directly; attachment is managed automatically by the aforementioned\n/// [adoptChild] and [dropChild] methods.\n///\n/// Subclasses that have children must override [attach] and [detach] as\n/// described in the documentation for those methods.\n///\n/// Nodes always have a [depth] greater than their ancestors'. There's no\n/// guarantee regarding depth between siblings. The depth of a node is used to\n/// ensure that nodes are processed in depth order. The [depth] of a child can\n/// be more than one greater than the [depth] of the parent, because the [depth]\n/// values are never decreased: all that matters is that it's greater than the\n/// parent. Consider a tree with a root node A, a child B, and a grandchild C.\n/// Initially, A will have [depth] 0, B [depth] 1, and C [depth] 2. If C is\n/// moved to be a child of A, sibling of B, then the numbers won't change. C's\n/// [depth] will still be 2. The [depth] is automatically maintained by the\n/// [adoptChild] and [dropChild] methods.",
     "params": []
   },
   {

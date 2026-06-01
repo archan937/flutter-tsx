@@ -513,6 +513,9 @@ import type {
   CupertinoListTileChevronProps,
   CupertinoTextMagnifierProps,
   CupertinoMagnifierProps,
+  CupertinoMenuAnchorProps,
+  CupertinoMenuDividerProps,
+  CupertinoMenuItemProps,
   CupertinoNavigationBarProps,
   CupertinoSliverNavigationBarProps,
   CupertinoNavigationBarBackButtonProps,
@@ -1054,6 +1057,9 @@ export const CupertinoListTile = defineComponent<CupertinoListTileProps>({ singl
 export const CupertinoListTileChevron = defineComponent<CupertinoListTileChevronProps>({ single: 'CupertinoListTileChevron' });
 export const CupertinoTextMagnifier = defineComponent<CupertinoTextMagnifierProps>({ single: 'CupertinoTextMagnifier' });
 export const CupertinoMagnifier = defineComponent<CupertinoMagnifierProps>({ single: 'CupertinoMagnifier' });
+export const CupertinoMenuAnchor = defineComponent<CupertinoMenuAnchorProps>({ single: 'CupertinoMenuAnchor' });
+export const CupertinoMenuDivider = defineComponent<CupertinoMenuDividerProps>({ single: 'CupertinoMenuDivider' });
+export const CupertinoMenuItem = defineComponent<CupertinoMenuItemProps>({ single: 'CupertinoMenuItem' });
 export const CupertinoNavigationBar = defineComponent<CupertinoNavigationBarProps>({ single: 'CupertinoNavigationBar' });
 export const CupertinoSliverNavigationBar = defineComponent<CupertinoSliverNavigationBarProps>({ single: 'CupertinoSliverNavigationBar' });
 export const CupertinoNavigationBarBackButton = defineComponent<CupertinoNavigationBarBackButtonProps>({ single: 'CupertinoNavigationBarBackButton' });

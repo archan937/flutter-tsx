@@ -475,7 +475,8 @@
       "fastReassemble",
       "profileWidgetBuilds",
       "profileUserWidgetBuilds",
-      "debugAllowBanner"
+      "debugAllowBanner",
+      "accessibilityEvaluations"
     ]
   },
   {

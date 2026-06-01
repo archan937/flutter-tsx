@@ -133,7 +133,15 @@ const fetch: FunctionRecipe = {
   tsxExample: `const { data, loading } = useAsync(() => fetch('https://api.example.com/data'));
 if (loading) return <CircularProgressIndicator />;
 return <Text>{data.body}</Text>; // data.ok, data.status, data.json also available`,
-  dartExample: `FutureBuilder(future: _fsxFetch('https://api.example.com/data'), builder: ...)`,
+  dartExample: `FutureBuilder(
+  future: _fsxFetch('https://api.example.com/data'),
+  builder: (context, snapshot) {
+    if (snapshot.connectionState != ConnectionState.done) {
+      return const CircularProgressIndicator();
+    }
+    return Text(snapshot.data!.body);
+  },
+)`,
   args: [
     { name: 'url', tsType: 'string', required: true },
     {

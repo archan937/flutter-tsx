@@ -182,87 +182,9 @@ _notifications.initialize(initSettings);`,
   },
 };
 
-const useTrayManager: HookRecipe = {
-  domain: 'device-system',
-  surface: 'action',
-  tsxName: 'useTrayManager',
-  description:
-    'System-tray / menu-bar icon with a context menu. Desktop only (macOS · Windows · Linux). Use with window_manager to show/hide the window from the tray.',
-  package: 'tray_manager',
-  version: '^0.2.3',
-  pubspecDep: 'tray_manager: ^0.2.3',
-  dartImport: "import 'package:tray_manager/tray_manager.dart';",
-  tsxExample: `const tray = useTrayManager({
-  icon: 'assets/tray_icon.png',
-  tooltip: 'My App',
-});
-
-// Show or hide the window via window_manager
-await tray.show();
-await tray.hide();`,
-  dartExample: `await trayManager.setIcon('assets/tray_icon.png');
-await trayManager.setToolTip('My App');
-await trayManager.setContextMenu(Menu(items: [
-  MenuItem(label: 'Show', onClick: (_) => windowManager.show()),
-  MenuItem(label: 'Quit', onClick: (_) => windowManager.destroy()),
-]));`,
-  hookDef: {
-    name: 'trayManager',
-    dartPackage: 'package:tray_manager/tray_manager.dart',
-    pubspecDep: 'tray_manager: ^0.2.3',
-    tsxHook: 'useTrayManager',
-    functions: [
-      {
-        name: 'show',
-        args: [],
-        returns: 'Promise<void>',
-        behavior: 'Show the app window',
-      },
-      {
-        name: 'hide',
-        args: [],
-        returns: 'Promise<void>',
-        behavior: 'Hide the app window (keeps tray icon visible)',
-      },
-      {
-        name: 'setMenu',
-        args: [
-          {
-            name: 'items',
-            tsType: 'Array<{ label: string; onTap: () => void }>',
-            dartType: 'List<MenuItem>',
-            required: true,
-          },
-        ],
-        returns: 'Promise<void>',
-        behavior: 'Update the tray context menu items',
-      },
-    ],
-  },
-  dart: {
-    imports: [
-      "import 'package:tray_manager/tray_manager.dart';",
-      "import 'package:window_manager/window_manager.dart';",
-    ],
-    initState: `await trayManager.setIcon('assets/tray_icon.png');
-await trayManager.setToolTip('Flutter.tsx App');
-await trayManager.setContextMenu(Menu(items: [
-  MenuItem(label: 'Show', onClick: (_) async => await windowManager.show()),
-  MenuItem(label: 'Quit', onClick: (_) async => await windowManager.destroy()),
-]));`,
-    dispose: 'await trayManager.destroy();',
-    methods: {
-      show: 'await windowManager.show()',
-      hide: 'await windowManager.hide()',
-      setMenu: 'await trayManager.setContextMenu(Menu(items: items))',
-    },
-  },
-};
-
 export const deviceSystemRecipes: PluginRecipe[] = [
   useDeviceInfo,
   useConnectivity,
   usePermission,
   useNotifications,
-  useTrayManager,
 ];

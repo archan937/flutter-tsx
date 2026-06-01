@@ -294,8 +294,8 @@
     "package": "http",
     "pubspecDep": "http: ^1.2.2",
     "dartImport": "import 'package:http/http.dart' as http;",
-    "tsxExample": "const res = await fetch('https://api.example.com/data');\nconst data = await res.json();",
-    "dartExample": "final res = await http.get(Uri.parse('https://api.example.com/data'));\nfinal data = jsonDecode(res.body);"
+    "tsxExample": "const { data, loading } = useAsync(() => fetch('https://api.example.com/data'));\nif (loading) return <CircularProgressIndicator />;\nreturn <Text>{data.body}</Text>; // data.ok, data.status, data.json also available",
+    "dartExample": "FutureBuilder(\n  future: _fsxFetch('https://api.example.com/data'),\n  builder: (context, snapshot) {\n    if (snapshot.connectionState != ConnectionState.done) {\n      return const CircularProgressIndicator();\n    }\n    return Text(snapshot.data!.body);\n  },\n)"
   },
   {
     "name": "share",

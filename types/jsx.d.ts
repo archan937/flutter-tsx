@@ -512,6 +512,9 @@ import type {
   CupertinoListTileChevronProps,
   CupertinoTextMagnifierProps,
   CupertinoMagnifierProps,
+  CupertinoMenuAnchorProps,
+  CupertinoMenuDividerProps,
+  CupertinoMenuItemProps,
   CupertinoNavigationBarProps,
   CupertinoSliverNavigationBarProps,
   CupertinoNavigationBarBackButtonProps,
@@ -1057,6 +1060,9 @@ declare global {
       CupertinoListTileChevron: CupertinoListTileChevronProps;
       CupertinoTextMagnifier: CupertinoTextMagnifierProps;
       CupertinoMagnifier: CupertinoMagnifierProps;
+      CupertinoMenuAnchor: CupertinoMenuAnchorProps;
+      CupertinoMenuDivider: CupertinoMenuDividerProps;
+      CupertinoMenuItem: CupertinoMenuItemProps;
       CupertinoNavigationBar: CupertinoNavigationBarProps;
       CupertinoSliverNavigationBar: CupertinoSliverNavigationBarProps;
       CupertinoNavigationBarBackButton: CupertinoNavigationBarBackButtonProps;
