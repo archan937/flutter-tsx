@@ -383,7 +383,7 @@ body { display: flex; font-family: var(--body); color: var(--text); line-height:
   color: var(--text); font-family: var(--mono); font-weight: 700; font-size: .95rem;
   letter-spacing: -.02em; padding: 4px 6px 16px; }
 .sb-brand .mark { width: 28px; height: 28px; border-radius: 7px; object-fit: cover; display: block;
-  border: 1px solid rgba(167,139,250,.6); box-shadow: 0 4px 12px rgba(84,164,255,.3); }
+  border: 1px solid rgba(97,218,251,.85); box-shadow: 0 0 12px rgba(97,218,251,.55), 0 4px 12px rgba(84,164,255,.25); }
 .sb-brand b { background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 #search { width: 100%; padding: 9px 11px; border: 1px solid var(--line); border-radius: 9px;
   font-family: var(--body); font-size: 13px; margin-bottom: 10px; outline: none;
