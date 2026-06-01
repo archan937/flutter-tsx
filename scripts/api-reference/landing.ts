@@ -147,7 +147,7 @@ export const landingHtml = (c: LandingCounts): string => `<!doctype html>
         object-fit: cover;
         display: block;
         border: 1px solid rgba(97, 218, 251, 0.85);
-        box-shadow: 0 0 12px rgba(97, 218, 251, 0.55), 0 4px 14px rgba(84, 164, 255, 0.25);
+        box-shadow: 0 0 12px rgba(167, 139, 250, 0.6), 0 4px 14px rgba(167, 139, 250, 0.3);
       }
       .brand b {
         background: var(--grad);
