@@ -6,45 +6,7 @@ import {
   generateDartFileResult,
 } from '@src/transpiler/codegen.js';
 import { parseSource } from '@src/transpiler/parser.js';
-
-// ─── Custom matcher ───────────────────────────────────────────────────────────
-
-declare module 'bun:test' {
-  interface Matchers<T> {
-    /**
-     * Asserts that two strings are equal after trimming each line.
-     * Allows readable indented template literals in expected strings.
-     */
-    toResemble(expected: string): T;
-  }
-}
-
-const normalize = (s: string): string =>
-  s
-    .split('\n')
-    .map((l) => l.trim())
-    .join('\n')
-    .trim();
-
-expect.extend({
-  toResemble(received: unknown, expected: string) {
-    const normReceived = normalize(String(received));
-    const normExpected = normalize(expected);
-    const pass = normReceived === normExpected;
-    return {
-      pass,
-      message: (): string =>
-        pass
-          ? `expected strings not to resemble each other`
-          : [
-              `expected strings to resemble each other`,
-              ``,
-              `received: ${JSON.stringify(normReceived)}`,
-              `expected: ${JSON.stringify(normExpected)}`,
-            ].join('\n'),
-    };
-  },
-});
+import '../helpers/resemble.js';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -101,9 +63,10 @@ describe('generateDartFile — header', () => {
   });
 
   it('emits module-level const data as a top-level Dart final', () => {
-    const { sourceFile } = parseSource(`const ITEMS = ['a', 'b'];`);
-    const out = generateDartFile(sourceFile, []);
-    expect(out).toContain(`final ITEMS = ['a', 'b'];`);
+    expect(getAll(`const ITEMS = ['a', 'b'];`)).toResemble(`
+      import 'package:flutter/material.dart';
+
+      final ITEMS = ['a', 'b'];`);
   });
 });
 
@@ -153,23 +116,37 @@ describe('generateDartFile — file-based router injection', () => {
       `export const App = () => (<MaterialApp title="X" routes="./routes" />);`,
     );
     const out = generateDartFile(sourceFile, exports, { router: ROUTER });
-    expect(out).toContain('MaterialApp.router(routerConfig: _fsxRouter');
-    expect(out).toContain('final _fsxRouter = GoRouter(');
-    expect(out).toContain("import 'package:go_router/go_router.dart';");
-    expect(out).toContain("import 'Home.dart';");
-    expect(out).not.toContain('home:');
-    // the `routes` directive is consumed by the router, not leaked as a prop value
-    expect(out).not.toContain("'./routes'");
+    expect(out.split('\n').slice(2).join('\n').trim()).toResemble(`
+      import 'package:flutter/material.dart';
+      import 'package:go_router/go_router.dart';
+      import 'Home.dart';
+
+      final _fsxRouter = GoRouter(routes: [GoRoute(path: '/', builder: (context, state) => Home())]);
+
+      class App extends StatelessWidget {
+        const App({super.key});
+        @override
+        Widget build(BuildContext context) {
+          return MaterialApp.router(routerConfig: _fsxRouter, title: 'X');
+        }
+      }`);
   });
 
   it('leaves MaterialApp untouched when no router is provided (backward compat)', () => {
-    const { sourceFile, exports } = parseSource(
-      `export const App = () => (<MaterialApp title="X"><Scaffold/></MaterialApp>);`,
-    );
-    const out = generateDartFile(sourceFile, exports);
-    expect(out).toContain('MaterialApp(');
-    expect(out).not.toContain('MaterialApp.router');
-    expect(out).not.toContain('_fsxRouter');
+    expect(
+      getAll(
+        `export const App = () => (<MaterialApp title="X"><Scaffold/></MaterialApp>);`,
+      ),
+    ).toResemble(`
+      import 'package:flutter/material.dart';
+
+      class App extends StatelessWidget {
+        const App({super.key});
+        @override
+        Widget build(BuildContext context) {
+          return MaterialApp(title: 'X', home: Scaffold());
+        }
+      }`);
   });
 
   it('does not inject the router decl into files without a MaterialApp', () => {
@@ -177,33 +154,60 @@ describe('generateDartFile — file-based router injection', () => {
       `export const Home = () => (<Center><Text>hi</Text></Center>);`,
     );
     const out = generateDartFile(sourceFile, exports, { router: ROUTER });
-    expect(out).not.toContain('_fsxRouter');
-    expect(out).not.toContain('go_router');
+    expect(out.split('\n').slice(2).join('\n').trim()).toResemble(`
+      import 'package:flutter/material.dart';
+
+      class Home extends StatelessWidget {
+        const Home({super.key});
+        @override
+        Widget build(BuildContext context) {
+          return Center(child: Text('hi'));
+        }
+      }`);
   });
 });
 
 describe('generateDartFile — useParams', () => {
   it('rewrites useParams("id") directly in JSX to a GoRouter path param', () => {
-    const out = transpile(`
-      import { useParams } from 'flutter-tsx';
-      export const A = () => (<Text>{useParams('id')}</Text>);
-    `);
-    expect(out).toContain("GoRouterState.of(context).pathParameters['id']!");
-    expect(out).toContain("import 'package:go_router/go_router.dart';");
+    expect(
+      getAll(`
+        import { useParams } from 'flutter-tsx';
+        export const A = () => (<Text>{useParams('id')}</Text>);
+      `),
+    ).toResemble(`
+      import 'package:flutter/material.dart';
+      import 'package:go_router/go_router.dart';
+
+      class A extends StatelessWidget {
+        const A({super.key});
+        @override
+        Widget build(BuildContext context) {
+          return Text('\${GoRouterState.of(context).pathParameters['id']!}');
+        }
+      }`);
   });
 
   it('emits `const id = useParams("id")` as a local in build()', () => {
-    const out = transpile(`
-      import { useParams } from 'flutter-tsx';
-      export const A = () => {
-        const id = useParams('id');
-        return <Text>{id}</Text>;
-      };
-    `);
-    expect(out).toContain(
-      "final id = GoRouterState.of(context).pathParameters['id']!;",
-    );
-    expect(out).toContain("Text('$id')");
+    expect(
+      getAll(`
+        import { useParams } from 'flutter-tsx';
+        export const A = () => {
+          const id = useParams('id');
+          return <Text>{id}</Text>;
+        };
+      `),
+    ).toResemble(`
+      import 'package:flutter/material.dart';
+      import 'package:go_router/go_router.dart';
+
+      class A extends StatelessWidget {
+        const A({super.key});
+        @override
+        Widget build(BuildContext context) {
+          final id = GoRouterState.of(context).pathParameters['id']!;
+          return Text('$id');
+        }
+      }`);
   });
 });
 
@@ -216,8 +220,20 @@ describe('generateDartFile — useNavigate arg substitution', () => {
         '  return <ListView>{[1,2].map((i) => <ListTile key={i} title="x" onTap={() => nav.push(`/items/${i}`)} />)}</ListView>;\n' +
         '};',
     );
-    expect(out).toContain("context.push('/items/$i')");
-    expect(out).not.toContain('`/items/');
+    expect(out).toResemble(`
+      import 'package:go_router/go_router.dart';
+
+      class A extends StatefulWidget {
+        const A({super.key});
+        @override
+        State<A> createState() => _AState();
+      }
+      class _AState extends State<A> {
+        @override
+        Widget build(BuildContext context) {
+          return ListView(children: [...[1,2].map((i) => ListTile(title: Text('x'), onTap: () { context.push('/items/$i'); })).toList()]);
+        }
+      }`);
   });
 
   it('substitutes the path argument into go_router calls', () => {
@@ -228,8 +244,20 @@ describe('generateDartFile — useNavigate arg substitution', () => {
         return <ElevatedButton onPressed={() => nav.push('/about')}><Text>x</Text></ElevatedButton>;
       };
     `);
-    expect(out).toContain("context.push('/about')");
-    expect(out).not.toContain('context.push(path)');
+    expect(out).toResemble(`
+      import 'package:go_router/go_router.dart';
+
+      class A extends StatefulWidget {
+        const A({super.key});
+        @override
+        State<A> createState() => _AState();
+      }
+      class _AState extends State<A> {
+        @override
+        Widget build(BuildContext context) {
+          return ElevatedButton(onPressed: () { context.push('/about'); }, child: Text('x'));
+        }
+      }`);
   });
 });
 
@@ -248,8 +276,17 @@ describe('generateDartFile — cross-file component imports', () => {
       localComponents,
     });
     expect(imports.has('HomeScreen.dart')).toBe(true);
-    expect(code).toContain("import 'HomeScreen.dart';");
-    expect(code).toContain('HomeScreen()');
+    expect(code.split('\n').slice(2).join('\n').trim()).toResemble(`
+      import 'package:flutter/material.dart';
+      import 'HomeScreen.dart';
+
+      class App extends StatelessWidget {
+        const App({super.key});
+        @override
+        Widget build(BuildContext context) {
+          return Center(child: HomeScreen());
+        }
+      }`);
   });
 
   it('does not emit an import for an unknown, non-imported tag', () => {
@@ -267,9 +304,17 @@ describe('generateDartFile — cross-file component imports', () => {
     expect([...imports].some((i) => i.endsWith('.dart') && i !== '')).toBe(
       true,
     );
-    expect(code).not.toContain("import 'Mystery.dart';");
-    // unknown tag still passes through as a constructor call
-    expect(code).toContain('Mystery()');
+    // No Mystery.dart import; the unknown tag passes through as a constructor.
+    expect(code.split('\n').slice(2).join('\n').trim()).toResemble(`
+      import 'package:flutter/material.dart';
+
+      class App extends StatelessWidget {
+        const App({super.key});
+        @override
+        Widget build(BuildContext context) {
+          return Center(child: Mystery());
+        }
+      }`);
   });
 
   it('does not import a known built-in widget even if a same-name local import exists', () => {
@@ -283,41 +328,72 @@ describe('generateDartFile — cross-file component imports', () => {
       localComponents,
     });
     expect(imports.has('Center.dart')).toBe(false);
-    expect(code).not.toContain("import 'Center.dart';");
+    expect(code.split('\n').slice(2).join('\n').trim()).toResemble(`
+      import 'package:flutter/material.dart';
+
+      class App extends StatelessWidget {
+        const App({super.key});
+        @override
+        Widget build(BuildContext context) {
+          return Center();
+        }
+      }`);
   });
 });
 
 describe('generateDartFile — MaterialApp theme injection', () => {
   const themeProps = { theme: 'ThemeData(colorScheme: SEED)' };
 
-  it('injects theme into MaterialApp when config/theme.ts provides it', () => {
-    const { sourceFile, exports } = parseSource(
-      `export const App = () => <MaterialApp title="X" />;`,
-    );
-    const code = generateDartFile(sourceFile, exports, {
+  const dartWith = (src: string): string => {
+    const { sourceFile, exports } = parseSource(src);
+    return generateDartFile(sourceFile, exports, {
       materialAppProps: themeProps,
-    });
-    expect(code).toContain('theme: ThemeData(colorScheme: SEED)');
+    })
+      .split('\n')
+      .slice(2)
+      .join('\n')
+      .trim();
+  };
+
+  it('injects theme into MaterialApp when config/theme.ts provides it', () => {
+    expect(dartWith(`export const App = () => <MaterialApp title="X" />;`))
+      .toResemble(`
+      import 'package:flutter/material.dart';
+
+      class App extends StatelessWidget {
+        const App({super.key});
+        @override
+        Widget build(BuildContext context) {
+          return MaterialApp(title: 'X', theme: ThemeData(colorScheme: SEED));
+        }
+      }`);
   });
 
   it('does not override a theme the developer already set', () => {
-    const { sourceFile, exports } = parseSource(
-      `export const App = () => <MaterialApp theme={42} />;`,
-    );
-    const code = generateDartFile(sourceFile, exports, {
-      materialAppProps: themeProps,
-    });
-    expect(code).not.toContain('ThemeData(colorScheme: SEED)');
+    expect(dartWith(`export const App = () => <MaterialApp theme={42} />;`))
+      .toResemble(`
+      import 'package:flutter/material.dart';
+
+      class App extends StatelessWidget {
+        const App({super.key});
+        @override
+        Widget build(BuildContext context) {
+          return MaterialApp(theme: 42);
+        }
+      }`);
   });
 
   it('does not inject theme into non-MaterialApp widgets', () => {
-    const { sourceFile, exports } = parseSource(
-      `export const App = () => <Center />;`,
-    );
-    const code = generateDartFile(sourceFile, exports, {
-      materialAppProps: themeProps,
-    });
-    expect(code).not.toContain('ThemeData');
+    expect(dartWith(`export const App = () => <Center />;`)).toResemble(`
+      import 'package:flutter/material.dart';
+
+      class App extends StatelessWidget {
+        const App({super.key});
+        @override
+        Widget build(BuildContext context) {
+          return Center();
+        }
+      }`);
   });
 });
 
@@ -329,14 +405,30 @@ describe('generateDartFile — translations', () => {
     const out = generateDartFile(sourceFile, exports, {
       usesTranslations: true,
     });
-    expect(out).toContain("import 'l10n.dart';");
+    expect(out.split('\n').slice(2).join('\n').trim()).toResemble(`
+      import 'package:flutter/material.dart';
+      import 'l10n.dart';
+
+      class App extends StatelessWidget {
+        const App({super.key});
+        @override
+        Widget build(BuildContext context) {
+          return Center();
+        }
+      }`);
   });
 
   it('does not import l10n.dart otherwise', () => {
-    const { sourceFile, exports } = parseSource(
-      `export const App = () => <Center />;`,
-    );
-    expect(generateDartFile(sourceFile, exports)).not.toContain('l10n.dart');
+    expect(getAll(`export const App = () => <Center />;`)).toResemble(`
+      import 'package:flutter/material.dart';
+
+      class App extends StatelessWidget {
+        const App({super.key});
+        @override
+        Widget build(BuildContext context) {
+          return Center();
+        }
+      }`);
   });
 });
 
@@ -1822,21 +1914,38 @@ describe('Phase E — examples compile without raw-JS leakage', () => {
     `);
   });
 
-  it('no example output contains raw e.target or bare .map( without .toList()', () => {
-    const examples = [
-      `export const A = () => <Center />;`,
-      `export function B() {
-        const [n, setN] = useState(0);
-        return <ElevatedButton onClick={() => setN(n+1)}>+</ElevatedButton>;
-      }`,
-    ];
-    for (const tsx of examples) {
-      const out = transpile(tsx);
-      expect(out).not.toContain('e.target');
-      if (out.includes('.map(')) {
-        expect(out).toContain('.toList()');
+  it('a self-closing widget transpiles to a clean StatelessWidget', () => {
+    expect(getBody(`export const A = () => <Center />;`)).toResemble(`
+      class A extends StatelessWidget {
+        const A({super.key});
+        @override
+        Widget build(BuildContext context) {
+          return Center();
+        }
+      }`);
+  });
+
+  it('a setState handler binds the new value (no raw e.target leak)', () => {
+    expect(
+      getBody(`
+        export function B() {
+          const [n, setN] = useState(0);
+          return <ElevatedButton onClick={() => setN(n+1)}>+</ElevatedButton>;
+        }
+      `),
+    ).toResemble(`
+      class B extends StatefulWidget {
+        const B({super.key});
+        @override
+        State<B> createState() => _BState();
       }
-    }
+      class _BState extends State<B> {
+        int n = 0;
+        @override
+        Widget build(BuildContext context) {
+          return ElevatedButton(onPressed: () { setState(() { n = n+1; }); }, child: Text('+'));
+        }
+      }`);
   });
 
   // tray-menu-bar requires useTrayManager in the generated plugin map (needs bun run define)

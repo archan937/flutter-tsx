@@ -47,8 +47,8 @@ describe('string + value concatenation → Dart interpolation (no String + int)'
   });
 
   it('non-Text child concat is wrapped in Text()', () => {
-    expect(dartFor(`<ElevatedButton>{'Count: ' + n}</ElevatedButton>`)).toResemble(
-      widget(`ElevatedButton(child: Text('Count: $n'))`),
-    );
+    expect(
+      dartFor(`<ElevatedButton>{'Count: ' + n}</ElevatedButton>`),
+    ).toResemble(widget(`ElevatedButton(child: Text('Count: $n'))`));
   });
 });

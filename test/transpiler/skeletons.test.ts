@@ -5,6 +5,7 @@ import { homedir, tmpdir } from 'os';
 import { join } from 'path';
 
 import { transpileAll } from '@src/transpiler/index.js';
+import '../helpers/resemble.js';
 
 // The skeletons being validated live in the sibling create-flutter-tsx
 // package. This is a test-only import — flutter-tsx tests are never shipped,
@@ -102,10 +103,40 @@ describe('multi-file skeletons — cross-file Dart imports (Tier 1)', () => {
       await transpileAll(join(dir, 'src'), outDir);
 
       const appDart = readFileSync(join(outDir, 'App.dart'), 'utf-8');
-      expect(appDart).toContain("import 'HomeScreen.dart';");
-      expect(appDart).toContain("import 'DiscoverScreen.dart';");
-      expect(appDart).toContain("import 'SettingsScreen.dart';");
-      expect(appDart).toContain('HomeScreen()');
+      expect(appDart.split('\n').slice(2).join('\n').trim()).toResemble(`
+        import 'package:flutter/material.dart';
+        import 'HomeScreen.dart';
+        import 'DiscoverScreen.dart';
+        import 'SettingsScreen.dart';
+
+        class _FsxTabs0 extends StatefulWidget {
+          const _FsxTabs0({super.key});
+          @override
+          State<_FsxTabs0> createState() => _FsxTabs0State();
+        }
+
+        class _FsxTabs0State extends State<_FsxTabs0> {
+          int _index = 0;
+          @override
+          Widget build(BuildContext context) {
+            return Scaffold(
+              body: IndexedStack(index: _index, children: [HomeScreen(), DiscoverScreen(), SettingsScreen()]),
+              bottomNavigationBar: BottomNavigationBar(
+                currentIndex: _index,
+                onTap: (i) => setState(() => _index = i),
+                items: const [BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'), BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Discover'), BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings')],
+              ),
+            );
+          }
+        }
+
+        class MainApp extends StatelessWidget {
+          const MainApp({super.key});
+          @override
+          Widget build(BuildContext context) {
+            return MaterialApp(title: 'My App', home: _FsxTabs0());
+          }
+        }`);
     } finally {
       rmSync(dir, { recursive: true, force: true });
     }

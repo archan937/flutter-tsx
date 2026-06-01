@@ -2,30 +2,7 @@ import { describe, expect, it } from 'bun:test';
 
 import { generateDartFile } from '@src/transpiler/codegen.js';
 import { parseSource } from '@src/transpiler/parser.js';
-
-declare module 'bun:test' {
-  interface Matchers<T> {
-    toResemble(expected: string): T;
-  }
-}
-const normalize = (s: string): string =>
-  s
-    .split('\n')
-    .map((l) => l.trim())
-    .filter((l, i, a) => !(l === '' && a[i - 1] === ''))
-    .join('\n')
-    .trim();
-expect.extend({
-  toResemble(received: unknown, expected: string) {
-    const a = normalize(String(received));
-    const b = normalize(expected);
-    return {
-      pass: a === b,
-      message: (): string =>
-        `mismatch\n--- received ---\n${a}\n--- expected ---\n${b}`,
-    };
-  },
-});
+import '../helpers/resemble.js';
 
 const body = (jsx: string, imports: string): string => {
   const src = `import { ${imports} } from 'flutter-tsx';
