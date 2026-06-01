@@ -68,9 +68,9 @@ final token = await storage.read(key: 'token');`,
     controllerField:
       'final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();',
     methods: {
-      read: 'await _secureStorage.read(key: key)',
-      write: 'await _secureStorage.write(key: key, value: value)',
-      delete: 'await _secureStorage.delete(key: key)',
+      read: 'await _secureStorage.read(key: $0)',
+      write: 'await _secureStorage.write(key: $0, value: $1)',
+      delete: 'await _secureStorage.delete(key: $0)',
       readAll: 'await _secureStorage.readAll()',
     },
   },
@@ -124,8 +124,7 @@ if (ok) doSensitiveAction();`,
     controllerField:
       'final LocalAuthentication _localAuth = LocalAuthentication();',
     methods: {
-      authenticate:
-        "await _localAuth.authenticate(localizedReason: reason ?? 'Authenticate')",
+      authenticate: 'await _localAuth.authenticate(localizedReason: $0)',
       isAvailable: 'await _localAuth.canCheckBiometrics',
     },
   },

@@ -6,7 +6,7 @@
     "tsxName": "useCamera",
     "description": "Access the device camera to take photos and record video.",
     "package": "camera",
-    "pubspecDep": "camera: ^0.10.6+2",
+    "pubspecDep": "camera: ^0.11.0",
     "dartImport": "import 'package:camera/camera.dart';",
     "tsxExample": "const cam = useCamera();\nawait cam.initialize();\nconst photo = await cam.takePicture();\nconsole.log(photo.path);",
     "dartExample": "final cam = CameraController(cameras.first, ResolutionPreset.medium);\nawait cam.initialize();\nfinal XFile photo = await cam.takePicture();\ndebugPrint(photo.path);"

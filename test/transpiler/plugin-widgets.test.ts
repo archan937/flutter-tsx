@@ -90,10 +90,10 @@ describe('plugin widgets → real plugin constructors (whole snippet)', () => {
         State<A> createState() => _AState();
       }
       class _AState extends State<A> {
-        late final WebViewController _webViewController;
+        WebViewController? _webViewController;
         @override
         Widget build(BuildContext context) {
-          return WebViewWidget(controller: _webViewController);
+          return WebViewWidget(controller: _webViewController!);
         }
         @override
         void initState() {

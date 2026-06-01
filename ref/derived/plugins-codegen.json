@@ -37,10 +37,11 @@
     "imports": [
       "import 'package:video_player/video_player.dart';"
     ],
+    "controllerField": "VideoPlayerController? _videoController;",
     "methods": {
       "play": "_videoController?.play()",
       "pause": "_videoController?.pause()",
-      "seekTo": "await _videoController?.seekTo(Duration(seconds: seconds))"
+      "seekTo": "await _videoController?.seekTo(Duration(seconds: $0))"
     }
   },
   "useAudio": {
@@ -48,12 +49,12 @@
       "import 'package:audioplayers/audioplayers.dart';"
     ],
     "controllerField": "final AudioPlayer _audioPlayer = AudioPlayer();",
-    "dispose": "await _audioPlayer.dispose();",
+    "dispose": "_audioPlayer.dispose();",
     "methods": {
-      "play": "await _audioPlayer.play(UrlSource(url))",
+      "play": "await _audioPlayer.play(UrlSource($0))",
       "pause": "await _audioPlayer.pause()",
       "stop": "await _audioPlayer.stop()",
-      "setVolume": "await _audioPlayer.setVolume(volume)"
+      "setVolume": "await _audioPlayer.setVolume($0)"
     }
   },
   "CachedNetworkImage": {
@@ -91,6 +92,7 @@
   },
   "useLocation": {
     "imports": [
+      "import 'dart:async';",
       "import 'package:geolocator/geolocator.dart';"
     ],
     "controllerField": "double? _latitude;\ndouble? _longitude;\ndouble? _accuracy;\nStreamSubscription<Position>? _locationSub;",
@@ -107,9 +109,9 @@
     "controllerField": "SharedPreferences? _prefs;",
     "initState": "SharedPreferences.getInstance().then((prefs) => setState(() => _prefs = prefs));",
     "methods": {
-      "get": "_prefs?.get(key)",
-      "set": "await _prefs?.setString(key, value.toString())",
-      "remove": "await _prefs?.remove(key)"
+      "get": "_prefs?.get($0)",
+      "set": "await _prefs?.setString($0, $1.toString())",
+      "remove": "await _prefs?.remove($0)"
     }
   },
   "useDatabase": {
@@ -118,10 +120,10 @@
       "import 'package:path/path.dart';"
     ],
     "controllerField": "Database? _database;",
-    "initState": "openDatabase(join(await getDatabasesPath(), dbName)).then((db) => setState(() => _database = db));",
+    "initState": "getDatabasesPath().then((path) => openDatabase(join(path, 'app.db')).then((db) {\n  if (mounted) setState(() => _database = db);\n}));",
     "methods": {
-      "query": "await _database!.rawQuery(sql, params)",
-      "execute": "await _database!.execute(sql, params)"
+      "query": "await _database!.rawQuery($0, List<Object?>.from($1))",
+      "execute": "await _database!.execute($0, List<Object?>.from($1))"
     }
   },
   "useSecureStorage": {
@@ -130,9 +132,9 @@
     ],
     "controllerField": "final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();",
     "methods": {
-      "read": "await _secureStorage.read(key: key)",
-      "write": "await _secureStorage.write(key: key, value: value)",
-      "delete": "await _secureStorage.delete(key: key)",
+      "read": "await _secureStorage.read(key: $0)",
+      "write": "await _secureStorage.write(key: $0, value: $1)",
+      "delete": "await _secureStorage.delete(key: $0)",
       "readAll": "await _secureStorage.readAll()"
     }
   },
@@ -142,7 +144,7 @@
     ],
     "controllerField": "final LocalAuthentication _localAuth = LocalAuthentication();",
     "methods": {
-      "authenticate": "await _localAuth.authenticate(localizedReason: reason ?? 'Authenticate')",
+      "authenticate": "await _localAuth.authenticate(localizedReason: $0)",
       "isAvailable": "await _localAuth.canCheckBiometrics"
     }
   },
@@ -157,6 +159,7 @@
   },
   "useConnectivity": {
     "imports": [
+      "import 'dart:async';",
       "import 'package:connectivity_plus/connectivity_plus.dart';"
     ],
     "controllerField": "ConnectivityResult _connectivityType = ConnectivityResult.none;\nStreamSubscription<List<ConnectivityResult>>? _connectivitySub;",
@@ -181,17 +184,17 @@
     "controllerField": "final FlutterLocalNotificationsPlugin _notifications = FlutterLocalNotificationsPlugin();",
     "initState": "const initSettings = InitializationSettings(\n  android: AndroidInitializationSettings('@mipmap/ic_launcher'),\n  iOS: DarwinInitializationSettings(),\n);\n_notifications.initialize(initSettings);",
     "methods": {
-      "show": "await _notifications.show(id ?? 0, title, body, null)",
-      "cancel": "await _notifications.cancel(id)"
+      "show": "await _notifications.show($2, $0, $1, null)",
+      "cancel": "await _notifications.cancel($0)"
     }
   },
   "WebView": {
     "imports": [
       "import 'package:webview_flutter/webview_flutter.dart';"
     ],
-    "controllerField": "late final WebViewController _webViewController;",
+    "controllerField": "WebViewController? _webViewController;",
     "initState": "_webViewController = WebViewController()\n  ..setJavaScriptMode(JavaScriptMode.unrestricted)\n  ..loadRequest(Uri.parse($url));",
-    "render": "WebViewWidget(controller: _webViewController)",
+    "render": "WebViewWidget(controller: _webViewController!)",
     "defaults": {
       "url": "''"
     }
@@ -200,11 +203,12 @@
     "imports": [
       "import 'package:webview_flutter/webview_flutter.dart';"
     ],
+    "controllerField": "WebViewController? _webViewController;",
     "methods": {
-      "loadUrl": "await _webViewController.loadRequest(Uri.parse(url))",
-      "reload": "await _webViewController.reload()",
-      "goBack": "await _webViewController.goBack()",
-      "runJavaScript": "await _webViewController.runJavaScript(code)"
+      "loadUrl": "await _webViewController?.loadRequest(Uri.parse($0))",
+      "reload": "await _webViewController?.reload()",
+      "goBack": "await _webViewController?.goBack()",
+      "runJavaScript": "await _webViewController?.runJavaScript($0)"
     }
   },
   "useGoogleSignIn": {
@@ -224,8 +228,8 @@
     ],
     "controllerField": "final InAppPurchase _iap = InAppPurchase.instance;",
     "methods": {
-      "getProducts": "await _iap.queryProductDetails(Set.from(ids))",
-      "purchase": "await _iap.buyNonConsumable(purchaseParam: PurchaseParam(productDetails: productDetails))"
+      "getProducts": "await _iap.queryProductDetails($0.toSet())",
+      "purchase": "await _iap.buyNonConsumable(purchaseParam: PurchaseParam(productDetails: (await _iap.queryProductDetails({$0})).productDetails.first))"
     }
   },
   "Router": {

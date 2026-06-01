@@ -64,7 +64,10 @@ if (result == ConnectivityResult.none) return const Text('No connection');`,
     functions: [],
   },
   dart: {
-    imports: ["import 'package:connectivity_plus/connectivity_plus.dart';"],
+    imports: [
+      "import 'dart:async';",
+      "import 'package:connectivity_plus/connectivity_plus.dart';",
+    ],
     controllerField: `ConnectivityResult _connectivityType = ConnectivityResult.none;
 StreamSubscription<List<ConnectivityResult>>? _connectivitySub;`,
     initState: `_connectivitySub = Connectivity().onConnectivityChanged.listen((results) {
@@ -176,8 +179,8 @@ await notif.show('New message', 'You have 3 unread messages');`,
 );
 _notifications.initialize(initSettings);`,
     methods: {
-      show: 'await _notifications.show(id ?? 0, title, body, null)',
-      cancel: 'await _notifications.cancel(id)',
+      show: 'await _notifications.show($2, $0, $1, null)',
+      cancel: 'await _notifications.cancel($0)',
     },
   },
 };

@@ -59,9 +59,9 @@ final theme = prefs.getString('theme');`,
     controllerField: 'SharedPreferences? _prefs;',
     initState: `SharedPreferences.getInstance().then((prefs) => setState(() => _prefs = prefs));`,
     methods: {
-      get: '_prefs?.get(key)',
-      set: 'await _prefs?.setString(key, value.toString())',
-      remove: 'await _prefs?.remove(key)',
+      get: '_prefs?.get($0)',
+      set: 'await _prefs?.setString($0, $1.toString())',
+      remove: 'await _prefs?.remove($0)',
     },
   },
 };
@@ -121,10 +121,14 @@ final rows = await db.rawQuery('SELECT * FROM users WHERE id = ?', [1]);`,
       "import 'package:path/path.dart';",
     ],
     controllerField: 'Database? _database;',
-    initState: `openDatabase(join(await getDatabasesPath(), dbName)).then((db) => setState(() => _database = db));`,
+    // initState() is not async; chain futures with .then instead of await. The
+    // db file name isn't a hook arg, so use a stable app-scoped default.
+    initState: `getDatabasesPath().then((path) => openDatabase(join(path, 'app.db')).then((db) {
+  if (mounted) setState(() => _database = db);
+}));`,
     methods: {
-      query: 'await _database!.rawQuery(sql, params)',
-      execute: 'await _database!.execute(sql, params)',
+      query: 'await _database!.rawQuery($0, List<Object?>.from($1))',
+      execute: 'await _database!.execute($0, List<Object?>.from($1))',
     },
   },
 };

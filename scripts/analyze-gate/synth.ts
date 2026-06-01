@@ -41,10 +41,11 @@ export const sampleValueForType = (tsType: string): string => {
       .split(';')
       .map((field) => field.trim())
       .filter(Boolean)
-      .filter((field) => !field.includes('?:')) // required keys only
       .map((field) => {
         const [key, fieldType] = field.split(':');
-        return `${key.trim()}: ${sampleValueForType(fieldType ?? 'string')}`;
+        // Optional keys (`zoom?: number`) are included too, so $0.key templates
+        // are fully exercised.
+        return `${key.replace('?', '').trim()}: ${sampleValueForType(fieldType ?? 'string')}`;
       });
     return `{ ${fields.join(', ')} }`;
   }
@@ -54,16 +55,23 @@ export const sampleValueForType = (tsType: string): string => {
   return "'x'";
 };
 
+// Pass ALL args (incl. optional) so every $N placeholder is exercised.
 const callArgs = (args: HookFnArg[]): string =>
-  args
-    .filter((arg) => arg.required !== false)
-    .map((arg) => sampleValueForType(arg.tsType))
-    .join(', ');
+  args.map((arg) => sampleValueForType(arg.tsType)).join(', ');
 
-/** Wrap a body that uses a hook into a valid awaitable TSX component. */
-export const synthHookComponent = (hook: HookDef, index: number): string => {
+/**
+ * Wrap an action-hook usage into a valid TSX component. Only methods that the
+ * codegen map actually wires are called (lifecycle-only entries like a camera's
+ * `dispose` aren't callable), so the gate flags real bugs, not test mis-use.
+ */
+export const synthHookComponent = (
+  hook: HookDef,
+  index: number,
+  wiredMethods: ReadonlySet<string>,
+): string => {
   const local = '_h';
   const calls = hook.functions
+    .filter((fn) => wiredMethods.has(fn.name))
     .map((fn) => `  await ${local}.${fn.name}(${callArgs(fn.args)});`)
     .join('\n');
   return `import { Text, ${hook.tsxHook} } from 'flutter-tsx';
@@ -73,6 +81,25 @@ export function Case${index}() {
 ${calls}
   };
   return <Text onTap={run}>case</Text>;
+}`;
+};
+
+/**
+ * State hooks (no callable methods — they expose reactive values) are used by
+ * destructuring; drive those cases from the recipe's documented tsxExample,
+ * wrapped into a component so it transpiles as a real screen would.
+ */
+export const synthStateHookComponent = (
+  tsxHook: string,
+  tsxExample: string,
+  index: number,
+): string => {
+  const body = tsxExample.includes('return ')
+    ? tsxExample
+    : `${tsxExample}\n  return <Text>case</Text>;`;
+  return `import { Text, ${tsxHook} } from 'flutter-tsx';
+export function Case${index}() {
+  ${body.replace(/\n/g, '\n  ')}
 }`;
 };
 

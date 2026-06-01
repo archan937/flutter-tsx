@@ -16,10 +16,12 @@ import { join } from 'path';
 
 import { generateDartFile } from '../../src/transpiler/codegen.js';
 import { parseSource } from '../../src/transpiler/parser.js';
+import { GENERATED_IGNORES } from '../../src/dart-lint.js';
 import { EXAMPLES } from '../api-reference/examples-data.js';
 import {
   type HookDef,
   synthHookComponent,
+  synthStateHookComponent,
   synthWidgetComponent,
   type WidgetPlugin,
 } from './synth.js';
@@ -29,6 +31,10 @@ interface PluginEntry {
   surface: string;
   pubspecDep?: string;
   tsxExample: string;
+}
+
+interface CodegenSpec {
+  methods?: Record<string, string>;
 }
 
 const REF = join(import.meta.dir, '../../ref/derived');
@@ -45,6 +51,8 @@ interface GateCase {
 const buildCases = (): { cases: GateCase[]; deps: Set<string> } => {
   const plugins = readJson<PluginEntry[]>('plugins.json');
   const hooks = readJson<HookDef[]>('hooks.json');
+  const codegen = readJson<Record<string, CodegenSpec>>('plugins-codegen.json');
+  const exampleFor = new Map(plugins.map((p) => [p.tsxName, p.tsxExample]));
   const deps = new Set<string>();
   for (const plugin of plugins) {
     if (plugin.pubspecDep) deps.add(plugin.pubspecDep);
@@ -57,10 +65,17 @@ const buildCases = (): { cases: GateCase[]; deps: Set<string> } => {
   const cases: GateCase[] = [];
   let index = 0;
   for (const hook of hooks) {
-    cases.push({
-      name: `hook_${hook.tsxHook}`,
-      tsx: synthHookComponent(hook, index++),
-    });
+    const wired = new Set(Object.keys(codegen[hook.tsxHook]?.methods ?? {}));
+    const tsx =
+      wired.size > 0
+        ? synthHookComponent(hook, index, wired)
+        : synthStateHookComponent(
+            hook.tsxHook,
+            exampleFor.get(hook.tsxHook) ?? '',
+            index,
+          );
+    index++;
+    cases.push({ name: `hook_${hook.tsxHook}`, tsx });
   }
   for (const plugin of plugins) {
     if (plugin.surface !== 'widget' || plugin.tsxName === 'Router') continue;
@@ -81,15 +96,17 @@ const buildCases = (): { cases: GateCase[]; deps: Set<string> } => {
 
 const transpile = (tsx: string): string => {
   const { sourceFile, exports } = parseSource(tsx);
-  return generateDartFile(sourceFile, exports);
+  // Match production: every generated file carries the ignore_for_file header.
+  return `${GENERATED_IGNORES}\n${generateDartFile(sourceFile, exports)}`;
 };
 
 const writeProject = (dir: string, deps: Set<string>): void => {
-  // Use unconstrained versions: the gate proves API conformance against the
-  // current published plugin, independent of recipe pin drift.
-  const packages = new Set<string>();
-  for (const dep of deps) packages.add(dep.split(':')[0].trim());
-  const depLines = [...packages].map((pkg) => `  ${pkg}: any`).join('\n');
+  // Pin the recipe versions — the gate proves the generated Dart conforms to
+  // the exact plugin versions we tell users to install. A stale/unresolvable
+  // pin is itself a finding (pub get fails loudly).
+  const byPackage = new Map<string, string>();
+  for (const dep of deps) byPackage.set(dep.split(':')[0].trim(), dep.trim());
+  const depLines = [...byPackage.values()].map((dep) => `  ${dep}`).join('\n');
   writeFileSync(
     join(dir, 'pubspec.yaml'),
     `name: fsxgate
@@ -140,9 +157,17 @@ const run = async (): Promise<void> => {
     .quiet();
   const output = result.stdout.toString() + result.stderr.toString();
 
-  const errorLines = output
-    .split('\n')
-    .filter((line) => /^\s*(error|warning)\s/i.test(line.trim()));
+  const lines = output.split('\n').map((line) => line.trim());
+  const errorLines = lines.filter((line) => /^error\s/i.test(line));
+  // Warnings from unused hook getters are synth artifacts (the minimal usage
+  // doesn't read every returned value); a real app does. Report, don't fail.
+  const warningLines = lines.filter(
+    (line) =>
+      /^warning\s/i.test(line) &&
+      !/(unused_field|unused_local_variable|unused_element|dead_null_aware_expression)/.test(
+        line,
+      ),
+  );
   const broken = new Set<string>();
   for (const line of errorLines) {
     for (const [path, name] of fileFor) {
@@ -150,13 +175,19 @@ const run = async (): Promise<void> => {
     }
   }
 
+  if (warningLines.length > 0) {
+    console.log(`⚠ ${warningLines.length} advisory warning(s):`);
+    for (const line of warningLines) console.log(`  ${line}`);
+  }
   if (errorLines.length === 0) {
-    console.log(`✓ analyze gate: ${cases.length}/${cases.length} cases clean`);
+    console.log(
+      `✓ analyze gate: ${cases.length}/${cases.length} cases error-free`,
+    );
     return;
   }
   console.error(`\n✖ analyze gate: ${broken.size} broken case(s):`);
   for (const name of [...broken].sort()) console.error(`  - ${name}`);
-  console.error('\n--- analyzer output ---\n' + errorLines.join('\n'));
+  console.error('\n--- errors ---\n' + errorLines.join('\n'));
   process.exit(1);
 };
 

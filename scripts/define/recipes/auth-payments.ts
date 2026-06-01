@@ -106,9 +106,10 @@ await InAppPurchase.instance.buyNonConsumable(purchaseParam: PurchaseParam(produ
     imports: ["import 'package:in_app_purchase/in_app_purchase.dart';"],
     controllerField: 'final InAppPurchase _iap = InAppPurchase.instance;',
     methods: {
-      getProducts: 'await _iap.queryProductDetails(Set.from(ids))',
+      getProducts: 'await _iap.queryProductDetails($0.toSet())',
+      // buyNonConsumable needs a ProductDetails; resolve it from the id arg.
       purchase:
-        'await _iap.buyNonConsumable(purchaseParam: PurchaseParam(productDetails: productDetails))',
+        'await _iap.buyNonConsumable(purchaseParam: PurchaseParam(productDetails: (await _iap.queryProductDetails({$0})).productDetails.first))',
     },
   },
 };

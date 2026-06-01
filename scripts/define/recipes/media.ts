@@ -10,8 +10,8 @@ const useCamera: HookRecipe = {
   tsxName: 'useCamera',
   description: 'Access the device camera to take photos and record video.',
   package: 'camera',
-  version: '^0.10.6+2',
-  pubspecDep: 'camera: ^0.10.6+2',
+  version: '^0.11.0',
+  pubspecDep: 'camera: ^0.11.0',
   dartImport: "import 'package:camera/camera.dart';",
   tsxExample: `const cam = useCamera();
 await cam.initialize();
@@ -24,7 +24,7 @@ debugPrint(photo.path);`,
   hookDef: {
     name: 'camera',
     dartPackage: 'package:camera/camera.dart',
-    pubspecDep: 'camera: ^0.10.6+2',
+    pubspecDep: 'camera: ^0.11.0',
     tsxHook: 'useCamera',
     functions: [
       {
@@ -192,10 +192,13 @@ _videoController?.pause();`,
     },
     dart: {
       imports: ["import 'package:video_player/video_player.dart';"],
+      // Declare the controller so the hook also compiles on its own (the
+      // <VideoPlayer> widget declares the same nullable field → deduped).
+      controllerField: 'VideoPlayerController? _videoController;',
       methods: {
         play: '_videoController?.play()',
         pause: '_videoController?.pause()',
-        seekTo: 'await _videoController?.seekTo(Duration(seconds: seconds))',
+        seekTo: 'await _videoController?.seekTo(Duration(seconds: $0))',
       },
     },
   },
@@ -257,12 +260,13 @@ await audio.play('https://example.com/sound.mp3');`,
   dart: {
     imports: ["import 'package:audioplayers/audioplayers.dart';"],
     controllerField: 'final AudioPlayer _audioPlayer = AudioPlayer();',
-    dispose: 'await _audioPlayer.dispose();',
+    // dispose() is sync — don't await (fire-and-forget the player teardown).
+    dispose: '_audioPlayer.dispose();',
     methods: {
-      play: 'await _audioPlayer.play(UrlSource(url))',
+      play: 'await _audioPlayer.play(UrlSource($0))',
       pause: 'await _audioPlayer.pause()',
       stop: 'await _audioPlayer.stop()',
-      setVolume: 'await _audioPlayer.setVolume(volume)',
+      setVolume: 'await _audioPlayer.setVolume($0)',
     },
   },
 };

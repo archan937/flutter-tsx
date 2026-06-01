@@ -21,11 +21,13 @@ const webView: WidgetPluginRecipe = {
   ],
   dart: {
     imports: ["import 'package:webview_flutter/webview_flutter.dart';"],
-    controllerField: 'late final WebViewController _webViewController;',
+    // Nullable (not `late final`) so useWebViewController can declare the same
+    // field and compile standalone (deduped when used with the widget).
+    controllerField: 'WebViewController? _webViewController;',
     initState: `_webViewController = WebViewController()
   ..setJavaScriptMode(JavaScriptMode.unrestricted)
   ..loadRequest(Uri.parse($url));`,
-    render: 'WebViewWidget(controller: _webViewController)',
+    render: 'WebViewWidget(controller: _webViewController!)',
     defaults: { url: "''" },
   },
   additionalHook: {
@@ -88,11 +90,12 @@ wvc.loadUrl('https://flutter.dev');`,
     },
     dart: {
       imports: ["import 'package:webview_flutter/webview_flutter.dart';"],
+      controllerField: 'WebViewController? _webViewController;',
       methods: {
-        loadUrl: 'await _webViewController.loadRequest(Uri.parse(url))',
-        reload: 'await _webViewController.reload()',
-        goBack: 'await _webViewController.goBack()',
-        runJavaScript: 'await _webViewController.runJavaScript(code)',
+        loadUrl: 'await _webViewController?.loadRequest(Uri.parse($0))',
+        reload: 'await _webViewController?.reload()',
+        goBack: 'await _webViewController?.goBack()',
+        runJavaScript: 'await _webViewController?.runJavaScript($0)',
       },
     },
   },

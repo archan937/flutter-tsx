@@ -120,7 +120,10 @@ return Text('\${pos.latitude}, \${pos.longitude}');`,
     ],
   },
   dart: {
-    imports: ["import 'package:geolocator/geolocator.dart';"],
+    imports: [
+      "import 'dart:async';",
+      "import 'package:geolocator/geolocator.dart';",
+    ],
     controllerField: `double? _latitude;
 double? _longitude;
 double? _accuracy;
