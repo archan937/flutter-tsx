@@ -55,6 +55,12 @@ body { display: flex; font-family: var(--body); color: var(--text); line-height:
 #search::placeholder { color: var(--dim); }
 #search:focus { border-color: var(--flutter); box-shadow: 0 0 0 2px rgba(84,164,255,.18); }
 .meta-info { font-family: var(--mono); font-size: 10.5px; color: var(--dim); margin-bottom: 12px; padding: 0 2px; }
+.sb-gh { display: flex; gap: 8px; margin-bottom: 14px; }
+.sb-gh a { display: inline-flex; align-items: center; gap: 6px; padding: 5px 9px; border: 1px solid var(--line);
+  border-radius: 8px; font-family: var(--mono); font-size: 11px; font-weight: 600; color: var(--text);
+  text-decoration: none; background: rgba(7,9,15,.5); transition: border-color .15s; }
+.sb-gh a:hover { border-color: rgba(245,215,97,.45); }
+.sb-gh a.ghstars svg { color: var(--amber); }
 
 /* ── Sidebar accordion ─── */
 details { margin-bottom: 2px; }
@@ -171,6 +177,13 @@ details details > ul { padding-left: 24px; }
   <a class="sb-brand" href="./index.html"><img class="mark" src="./icon.png" alt="flutter.tsx logo" width="28" height="28"><span>flutter<b>.tsx</b></span></a>
   <input id="search" type="search" placeholder="Search widgets…" autocomplete="off" spellcheck="false">
   <div class="meta-info">542 widgets · 38 plugins · 12 hooks · 770 types · 147 enums</div>
+  <div class="sb-gh">
+    <a class="ghstars" href="https://github.com/archan937/flutter-tsx/stargazers" target="_blank" rel="noopener" aria-label="Star flutter-tsx on GitHub">
+      <svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 .25l2.06 4.17 4.6.67-3.33 3.24.79 4.59L8 11.42l-4.12 2.16.79-4.59L1.34 5.09l4.6-.67z" /></svg>
+      <span id="gh-stars">Star</span>
+    </a>
+    <a href="https://github.com/archan937/flutter-tsx" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
   <nav id="sidebar-nav">
 <details open>
 <summary>Examples<span class="nav-count">23</span></summary>
@@ -33694,6 +33707,19 @@ of values.</p>
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+
+  // ── Live GitHub star count ────────────────────────────────────────────────
+  const starsEl = document.getElementById('gh-stars');
+  if (starsEl) {
+    fetch('https://api.github.com/repos/archan937/flutter-tsx')
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (d && typeof d.stargazers_count === 'number') {
+          starsEl.textContent = d.stargazers_count.toLocaleString();
+        }
+      })
+      .catch(function () {});
+  }
 })();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
