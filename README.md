@@ -1,6 +1,10 @@
-# Flutter.tsx
+<p align="center">
+  <img src="docs/icon.png" width="112" height="112" alt="Flutter.tsx logo" />
+</p>
 
-> Write Flutter 3 apps in TypeScript + JSX with full IDE autocomplete — transpiles to idiomatic Dart.
+<h1 align="center">Flutter.tsx</h1>
+
+<p align="center">Write Flutter 3 apps in TypeScript + JSX with full IDE autocomplete — transpiles to idiomatic Dart.</p>
 
 ---
 

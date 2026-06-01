@@ -340,7 +340,7 @@ export const pageShell = (
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Flutter.tsx — API Reference</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='32'%20y2='32'%20gradientUnits='userSpaceOnUse'%3E%3Cstop%20stop-color='%2361dafb'/%3E%3Cstop%20offset='.5'%20stop-color='%2354a4ff'/%3E%3Cstop%20offset='1'%20stop-color='%23a78bfa'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='32'%20height='32'%20rx='8'%20fill='url(%23g)'/%3E%3Cg%20stroke='%2306121f'%20stroke-width='3.4'%20fill='none'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M8%209%20L15%2016%20L8%2023'/%3E%3Cpath%20d='M16%209%20L23%2016%20L16%2023'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" type="image/png" href="./icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -382,8 +382,8 @@ body { display: flex; font-family: var(--body); color: var(--text); line-height:
 .sb-brand { display: flex; align-items: center; gap: 10px; text-decoration: none;
   color: var(--text); font-family: var(--mono); font-weight: 700; font-size: .95rem;
   letter-spacing: -.02em; padding: 4px 6px 16px; }
-.sb-brand .mark { width: 28px; height: 28px; border-radius: 7px; display: grid; place-items: center;
-  background: var(--grad); box-shadow: 0 0 0 1px rgba(255,255,255,.12) inset, 0 5px 14px rgba(84,164,255,.4); }
+.sb-brand .mark { width: 28px; height: 28px; border-radius: 7px; object-fit: cover; display: block;
+  box-shadow: 0 4px 12px rgba(84,164,255,.3); }
 .sb-brand b { background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 #search { width: 100%; padding: 9px 11px; border: 1px solid var(--line); border-radius: 9px;
   font-family: var(--body); font-size: 13px; margin-bottom: 10px; outline: none;
@@ -504,7 +504,7 @@ details details > ul { padding-left: 24px; }
 <div class="bg-layer bg-grid"></div>
 <div class="bg-layer bg-glow"></div>
 <aside id="sidebar">
-  <a class="sb-brand" href="./index.html"><span class="mark"><svg width="17" height="17" viewBox="0 0 32 32" fill="none" aria-hidden="true"><g stroke="#06121f" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9 L15 16 L8 23"/><path d="M16 9 L23 16 L16 23"/></g></svg></span><span>flutter<b>.tsx</b></span></a>
+  <a class="sb-brand" href="./index.html"><img class="mark" src="./icon.png" alt="flutter.tsx logo" width="28" height="28"><span>flutter<b>.tsx</b></span></a>
   <input id="search" type="search" placeholder="Search widgets…" autocomplete="off" spellcheck="false">
   <div class="meta-info">${counts.widgets} widgets · ${counts.plugins !== undefined ? `${counts.plugins} plugins · ` : ''}${counts.hooks !== undefined ? `${counts.hooks} hooks · ` : ''}${counts.types !== undefined ? `${counts.types} types · ` : ''}${counts.enums} enums</div>
   <nav id="sidebar-nav">
