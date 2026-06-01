@@ -116,6 +116,27 @@ export const ensureFlutterProject = async (
     }
   }
 
+  // A tray/menubar app must NOT quit when its window is hidden or closed — but
+  // `flutter create`'s macOS AppDelegate returns true from
+  // applicationShouldTerminateAfterLastWindowClosed, so hiding the window kills
+  // the app. Flip it to false so the app lives on in the tray.
+  if (tray) {
+    const appDelegate = join(
+      flutterDir,
+      'macos',
+      'Runner',
+      'AppDelegate.swift',
+    );
+    if (existsSync(appDelegate)) {
+      const src = readFileSync(appDelegate, 'utf-8');
+      const patched = src.replace(
+        /(applicationShouldTerminateAfterLastWindowClosed\([^)]*\)\s*->\s*Bool\s*\{\s*return\s+)true/,
+        '$1false',
+      );
+      if (patched !== src) writeFileSync(appDelegate, patched, 'utf-8');
+    }
+  }
+
   mkdirSync(libDir, { recursive: true });
   writeFileSync(
     pubspecPath,

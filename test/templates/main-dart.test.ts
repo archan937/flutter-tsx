@@ -85,4 +85,17 @@ describe('trayMainDart', () => {
       'ChangeNotifierProvider(create: (_) => SessionStore())',
     );
   });
+
+  it('keeps the app alive in the tray: prevents close + hides on window close', () => {
+    // Without this, hiding/closing the only window quits the app (the macOS
+    // applicationShouldTerminateAfterLastWindowClosed default).
+    const out = trayMainDart('MainApp', [], TRAY);
+    expect(out).toContain('await windowManager.setPreventClose(true);');
+    expect(out).toContain('with TrayListener, WindowListener');
+    expect(out).toContain('void onWindowClose() async {');
+    expect(out).toContain(
+      'if (await windowManager.isPreventClose()) windowManager.hide();',
+    );
+    expect(out).toContain('windowManager.addListener(fsxTray);');
+  });
 });

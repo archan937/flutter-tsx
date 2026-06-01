@@ -81,7 +81,7 @@ import 'package:tray_manager/tray_manager.dart';
 import 'package:window_manager/window_manager.dart';
 ${providerImport(stores)}import 'App.dart';
 ${storeImportBlock(stores)}
-class _FsxTray with TrayListener {
+class _FsxTray with TrayListener, WindowListener {
   @override
   void onTrayIconMouseDown() => trayManager.popUpContextMenu();
   @override
@@ -90,17 +90,27 @@ class _FsxTray with TrayListener {
   void onTrayMenuItemClick(MenuItem menuItem) {
 ${handlers}
   }
+
+  // Closing the window hides it to the tray instead of quitting the app.
+  @override
+  void onWindowClose() async {
+    if (await windowManager.isPreventClose()) windowManager.hide();
+  }
 }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
+  // Keep the app alive in the tray when its window is hidden or closed.
+  await windowManager.setPreventClose(true);
   await trayManager.setIcon('assets/tray_icon.png');
   await trayManager.setToolTip('${tooltip}');
   await trayManager.setContextMenu(Menu(items: [
 ${menuItems}
   ]));
-  trayManager.addListener(_FsxTray());
+  final fsxTray = _FsxTray();
+  trayManager.addListener(fsxTray);
+  windowManager.addListener(fsxTray);
   runApp(${appRootTree(appWidgetName, stores)});
 }
 `;
