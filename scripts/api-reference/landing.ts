@@ -200,14 +200,14 @@ export const landingHtml = (c: LandingCounts): string => `<!doctype html>
         padding: 92px 0 30px;
       }
       .hero-mark {
-        width: 92px;
-        height: 92px;
-        border-radius: 22px;
+        width: 124px;
+        height: 124px;
+        border-radius: 28px;
         object-fit: cover;
         display: block;
-        margin: 0 auto 26px;
+        margin: 30px auto 4px;
         border: 1px solid rgba(97, 218, 251, 0.35);
-        box-shadow: 0 0 24px rgba(167, 139, 250, 0.28), 0 10px 34px rgba(167, 139, 250, 0.16);
+        box-shadow: 0 16px 38px rgba(167, 139, 250, 0.26);
       }
       .eyebrow {
         display: inline-flex;
@@ -746,9 +746,9 @@ export const landingHtml = (c: LandingCounts): string => `<!doctype html>
 
     <main class="wrap" id="top">
       <header>
-        <img class="hero-mark reveal" src="./icon.png" alt="Flutter.tsx logo" width="92" height="92" />
         <span class="eyebrow reveal"><span class="dot"></span> TSX in · Dart out</span>
         <h1 class="reveal"><span class="grad">Write Flutter<br />in TSX.</span></h1>
+        <img class="hero-mark reveal" src="./icon.png" alt="Flutter.tsx logo" width="124" height="124" />
         <p class="lead reveal">
           Build cross-platform <b>Flutter apps in TypeScript&nbsp;+&nbsp;JSX</b>.
           Compile to idiomatic Dart. Ship everywhere — from one source.
