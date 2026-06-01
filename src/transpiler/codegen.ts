@@ -1386,7 +1386,10 @@ export class CodegenContext {
     }
 
     if (propName.startsWith('on')) {
-      return this.transformCallbackExpr(expr);
+      // `onChange`/`onChanged` is a ValueChanged<T> — its closure must accept the
+      // new value even when the TSX arrow ignores it (Switch, Checkbox, Slider…).
+      const expectsValue = propName === 'onChange' || propName === 'onChanged';
+      return this.transformCallbackExpr(expr, expectsValue);
     }
 
     if (raw === 'true' || raw === 'false') return raw;
@@ -1404,7 +1407,10 @@ export class CodegenContext {
     return raw;
   }
 
-  private transformCallbackExpr(expr: ts.Expression): string {
+  private transformCallbackExpr(
+    expr: ts.Expression,
+    expectsValue = false,
+  ): string {
     const src = this.sourceFile;
 
     if (ts.isArrowFunction(expr) || ts.isFunctionExpression(expr)) {
@@ -1424,9 +1430,14 @@ export class CodegenContext {
       }
 
       // General callback with parameters: (index) => setIdx(index) → (index) { ... }
-      const paramList = parameters.map((p) => p.name.getText(src)).join(', ');
       const transformed = this.transformCallbackBody(body);
       const async = asyncKeyword(transformed);
+      // A ValueChanged<T> callback (onChanged) must accept the value even when
+      // the TSX arrow ignores it — `() => …` becomes `(value) { … }`.
+      const paramList =
+        parameters.length === 0 && expectsValue
+          ? 'value'
+          : parameters.map((p) => p.name.getText(src)).join(', ');
       return paramList
         ? `(${paramList}) ${async}{ ${transformed} }`
         : `() ${async}{ ${transformed} }`;

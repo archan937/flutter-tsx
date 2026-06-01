@@ -156,7 +156,7 @@ describe('examples-data — Dart output anchors', () => {
         bool dark = false;
         @override
         Widget build(BuildContext context) {
-          return Column(mainAxisAlignment: MainAxisAlignment.center, children: [Text('\${dark ? 'Dark mode' : 'Light mode'}'), Switch(value: dark, onChanged: () { setState(() { dark = !dark; }); })]);
+          return Column(mainAxisAlignment: MainAxisAlignment.center, children: [Text('\${dark ? 'Dark mode' : 'Light mode'}'), Switch(value: dark, onChanged: (value) { setState(() { dark = !dark; }); })]);
         }
       }
     `);
@@ -309,6 +309,7 @@ describe('examples-data — Dart output anchors', () => {
         State<MapScreen> createState() => _MapScreenState();
       }
       class _MapScreenState extends State<MapScreen> {
+        GoogleMapController? _mapController;
         @override
         Widget build(BuildContext context) {
           return Column(children: [ElevatedButton(onPressed: _goToParis, child: Text('Fly to Paris'))]);
@@ -428,6 +429,7 @@ describe('examples-data — Dart output anchors', () => {
         State<WorldCities> createState() => _WorldCitiesState();
       }
       class _WorldCitiesState extends State<WorldCities> {
+        GoogleMapController? _mapController;
         @override
         Widget build(BuildContext context) {
           return Column(children: [Text('World Cities'), ElevatedButton(onPressed: _goToParis, child: Text('Paris')), ElevatedButton(onPressed: _goToTokyo, child: Text('Tokyo'))]);

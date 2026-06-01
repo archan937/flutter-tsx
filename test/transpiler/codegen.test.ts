@@ -1768,6 +1768,7 @@ describe('Phase E — examples compile without raw-JS leakage', () => {
         State<WorldCities> createState() => _WorldCitiesState();
       }
       class _WorldCitiesState extends State<WorldCities> {
+        GoogleMapController? _mapController;
         @override
         Widget build(BuildContext context) {
           return Column(children: [Text('Cities'), ElevatedButton(onPressed: _goToParis, child: Text('Paris'))]);

@@ -48,6 +48,7 @@
     "imports": [
       "import 'package:google_maps_flutter/google_maps_flutter.dart';"
     ],
+    "controllerField": "GoogleMapController? _mapController;",
     "methods": {
       "animateTo": "await _mapController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng($0.lat, $0.lng), zoom: $0.zoom ?? 12)))"
     }

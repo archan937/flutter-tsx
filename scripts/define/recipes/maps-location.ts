@@ -76,6 +76,9 @@ map.animateTo({ lat: 48.8566, lng: 2.3522, zoom: 13 });`,
       imports: [
         "import 'package:google_maps_flutter/google_maps_flutter.dart';",
       ],
+      // The controller is assigned via <GoogleMap onMapCreated>; declare it so
+      // useMapController on its own still produces valid (null-safe) Dart.
+      controllerField: 'GoogleMapController? _mapController;',
       methods: {
         // $0 is the call's first argument (substitutePluginArgs replaces $0.key).
         animateTo:
