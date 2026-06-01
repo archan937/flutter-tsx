@@ -521,10 +521,11 @@ export const landingHtml = (c: LandingCounts): string => `<!doctype html>
         -webkit-box-decoration-break: clone;
       }
       .hl {
-        background: linear-gradient(180deg, transparent 58%, rgba(245, 215, 97, 0.45) 58%);
-        color: var(--text);
+        color: var(--amber);
+        background: rgba(245, 215, 97, 0.12);
         font-weight: 600;
-        padding: 0 0.12em;
+        padding: 0.06em 0.36em;
+        border-radius: 5px;
         box-decoration-break: clone;
         -webkit-box-decoration-break: clone;
       }
