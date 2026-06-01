@@ -24,7 +24,7 @@ if (file != null) debugPrint('\${file.path} \${file.name}');`,
   returns: 'Promise<{ path: string; name: string } | null>',
   dart: {
     imports: ["import 'package:file_picker/file_picker.dart';"],
-    expression: `await FilePicker.platform.pickFiles(allowedExtensions: options?.extensions)`,
+    expression: `await FilePicker.platform.pickFiles(allowedExtensions: $0.extensions)`,
   },
 };
 
@@ -42,7 +42,7 @@ final config = jsonDecode(json);`,
   returns: 'Promise<string>',
   dart: {
     imports: ["import 'package:flutter/services.dart';"],
-    expression: `await rootBundle.loadString(path)`,
+    expression: `await rootBundle.loadString($0)`,
   },
 };
 

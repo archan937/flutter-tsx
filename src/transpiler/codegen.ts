@@ -107,6 +107,10 @@ const SIMPLE_DART_IDENTIFIER = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/;
 const dartInterpolation = (exprText: string): string =>
   SIMPLE_DART_IDENTIFIER.test(exprText) ? `$${exprText}` : `\${${exprText}}`;
 
+/** A closure whose transpiled body awaits must be declared `async`. */
+const asyncKeyword = (body: string): string =>
+  /\bawait\s/.test(body) ? 'async ' : '';
+
 /**
  * Library-private helper emitted into any file that calls `fetch(...)`. Private
  * (`_`-prefixed) names are library-scoped, so per-file copies never collide
@@ -129,6 +133,49 @@ Future<_FetchResponse> _fsxFetch(String url) async {
   );
 }`;
 const HTTP_IMPORT = 'package:http/http.dart';
+
+// ---------------------------------------------------------------------------
+// Feature-function codegen — top-level functions (launchUrl, share, pickFile,
+// clipboard.*, hapticFeedback.*, systemChrome.*, loadAsset, appDir, tempDir).
+// Templates use the $0/$1/$0.key arg-substitution convention. `fetch` is
+// excluded (handled specially via rewriteFetchCall + the _fsxFetch helper).
+// ---------------------------------------------------------------------------
+
+interface FeatureFunction {
+  dart: string;
+  dartImport?: string;
+}
+
+const loadFunctionMap = (): Record<string, FeatureFunction> => {
+  try {
+    const jsonPath = join(
+      import.meta.dir,
+      '..',
+      '..',
+      'ref',
+      'derived',
+      'functions.json',
+    );
+    const arr = JSON.parse(readFileSync(jsonPath, 'utf-8')) as {
+      name?: string;
+      tsxName?: string;
+      dart?: string;
+      dartImport?: string;
+    }[];
+    const map: Record<string, FeatureFunction> = {};
+    for (const fn of arr) {
+      const key = fn.tsxName ?? fn.name;
+      if (key && key !== 'fetch' && fn.dart) {
+        map[key] = { dart: fn.dart, dartImport: fn.dartImport };
+      }
+    }
+    return map;
+  } catch {
+    return {};
+  }
+};
+
+const FUNCTION_MAP: Record<string, FeatureFunction> = loadFunctionMap();
 
 // ---------------------------------------------------------------------------
 // CodegenContext
@@ -844,7 +891,11 @@ export class CodegenContext {
 
   /** Future-position expression text, rewriting `fetch(...)` → `_fsxFetch(...)`. */
   private asyncExprText(expr: ts.Expression): string {
-    return this.rewriteFetchCall(expr) ?? expr.getText(this.sourceFile);
+    return (
+      this.rewriteFetchCall(expr) ??
+      this.rewriteFunctionCall(expr) ??
+      expr.getText(this.sourceFile)
+    );
   }
 
   /**
@@ -863,6 +914,37 @@ export class CodegenContext {
     this.imports.add('dart:convert');
     const url = expr.arguments[0]?.getText(this.sourceFile) ?? "''";
     return `_fsxFetch(${url})`;
+  }
+
+  /**
+   * Feature-functions: `launchUrl(url)`, `share(text)`, `pickFile(opts)`,
+   * `clipboard.copy(text)`, `hapticFeedback.light()`, `systemChrome.setOrientation(o)`,
+   * `loadAsset(path)`, `appDir()`, `tempDir()`, … → their Dart template (with
+   * $0/$1/$0.key args substituted), registering the package import (which the
+   * dep collector maps to a pubspec dependency). Returns null for other calls.
+   */
+  private rewriteFunctionCall(expr: ts.Expression): string | null {
+    if (!ts.isCallExpression(expr)) return null;
+    const callee = expr.expression.getText(this.sourceFile);
+    const fn = FUNCTION_MAP[callee];
+    if (!fn) return null;
+
+    if (fn.dartImport) {
+      const bare = fn.dartImport
+        .replace(/^import\s+'/, '')
+        .replace(/';$/, '')
+        .replace(/'\s*as\s+\w+/, '');
+      this.imports.add(bare);
+    }
+
+    const substituted = substitutePluginArgs(fn.dart, expr.arguments, (arg) =>
+      ts.isTemplateLiteral(arg)
+        ? this.transformTemplateLiteral(arg)
+        : arg.getText(this.sourceFile),
+    );
+    // Omitted optional args (e.g. launchUrl(url) without externalApp) leave a
+    // bare $N / $N.key placeholder → default it to null.
+    return substituted.replace(/\$\d+(?:\.\w+)*/g, 'null');
   }
 
   /** Emits build()-local `final` declarations for store/useParams var stmts. */
@@ -1246,16 +1328,17 @@ export class CodegenContext {
             new RegExp(`\\b${paramName}\\.target\\.value\\b`, 'g'),
             'value',
           );
-          return `(value) { ${transformed} }`;
+          return `(value) ${asyncKeyword(transformed)}{ ${transformed} }`;
         }
       }
 
       // General callback with parameters: (index) => setIdx(index) → (index) { ... }
       const paramList = parameters.map((p) => p.name.getText(src)).join(', ');
       const transformed = this.transformCallbackBody(body);
+      const async = asyncKeyword(transformed);
       return paramList
-        ? `(${paramList}) { ${transformed} }`
-        : `() { ${transformed} }`;
+        ? `(${paramList}) ${async}{ ${transformed} }`
+        : `() ${async}{ ${transformed} }`;
     }
 
     // Identifier: local handler → _handlerName; a bare useState setter passed
@@ -1350,6 +1433,33 @@ export class CodegenContext {
     if (ts.isCallExpression(node)) {
       const modal = this.rewriteModalCall(node);
       if (modal) return `${modal};`;
+    }
+
+    // Feature-functions: launchUrl(...), share(...), clipboard.copy(...), …
+    if (ts.isCallExpression(node)) {
+      const fn = this.rewriteFunctionCall(node);
+      if (fn !== null) return `${fn};`;
+    }
+
+    // const/final x = await pickFile(…) | clipboard.paste() | loadAsset(…) | …
+    if (ts.isVariableStatement(node)) {
+      const lines: string[] = [];
+      let allRewritten = true;
+      for (const decl of node.declarationList.declarations) {
+        const init = decl.initializer;
+        const inner =
+          init && ts.isAwaitExpression(init) ? init.expression : init;
+        const rewritten = inner
+          ? (this.rewriteFunctionCall(inner) ?? this.rewriteFetchCall(inner))
+          : null;
+        if (ts.isIdentifier(decl.name) && rewritten != null) {
+          lines.push(`final ${decl.name.text} = ${rewritten};`);
+        } else {
+          allRewritten = false;
+          break;
+        }
+      }
+      if (allRewritten && lines.length > 0) return lines.join(' ');
     }
 
     // setX(value) → setState(() { x = value; })

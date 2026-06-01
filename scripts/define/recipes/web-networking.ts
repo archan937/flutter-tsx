@@ -116,7 +116,7 @@ await launchUrl(Uri.parse('mailto:help@example.com'));`,
   returns: 'Promise<void>',
   dart: {
     imports: ["import 'package:url_launcher/url_launcher.dart';"],
-    expression: `await launchUrl(Uri.parse(url), mode: externalApp == true ? LaunchMode.externalApplication : LaunchMode.platformDefault)`,
+    expression: `await launchUrl(Uri.parse($0), mode: $1 == true ? LaunchMode.externalApplication : LaunchMode.platformDefault)`,
   },
 };
 
@@ -186,7 +186,7 @@ const share: FunctionRecipe = {
   returns: 'Promise<void>',
   dart: {
     imports: ["import 'package:share_plus/share_plus.dart';"],
-    expression: `await Share.share(text, subject: subject)`,
+    expression: `await Share.share($0, subject: $1)`,
   },
 };
 

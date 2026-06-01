@@ -77,7 +77,7 @@ const clipboardCopy: FunctionRecipe = {
   returns: 'Promise<void>',
   dart: {
     imports: ["import 'package:flutter/services.dart';"],
-    expression: 'await Clipboard.setData(ClipboardData(text: text))',
+    expression: 'await Clipboard.setData(ClipboardData(text: $0))',
   },
 };
 
@@ -115,7 +115,7 @@ const systemChromeOrientation: FunctionRecipe = {
   returns: 'Promise<void>',
   dart: {
     imports: ["import 'package:flutter/services.dart';"],
-    expression: `await SystemChrome.setPreferredOrientations(orientation == 'portrait' ? [DeviceOrientation.portraitUp] : orientation == 'landscape' ? [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight] : DeviceOrientation.values)`,
+    expression: `await SystemChrome.setPreferredOrientations($0 == 'portrait' ? [DeviceOrientation.portraitUp] : $0 == 'landscape' ? [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight] : DeviceOrientation.values)`,
   },
 };
 
@@ -131,7 +131,7 @@ const systemChromeStatusBar: FunctionRecipe = {
   returns: 'void',
   dart: {
     imports: ["import 'package:flutter/services.dart';"],
-    expression: `SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: _colorFromHex(color)))`,
+    expression: `SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Color(int.parse($0.substring(1), radix: 16) + 0xFF000000)))`,
   },
 };
 

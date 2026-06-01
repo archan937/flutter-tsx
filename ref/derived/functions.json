@@ -13,7 +13,7 @@
     "dartImport": "import 'package:file_picker/file_picker.dart';",
     "package": "file_picker",
     "pubspecDep": "file_picker: ^8.1.4",
-    "dart": "await FilePicker.platform.pickFiles(allowedExtensions: options?.extensions)"
+    "dart": "await FilePicker.platform.pickFiles(allowedExtensions: $0.extensions)"
   },
   {
     "name": "loadAsset",
@@ -27,7 +27,7 @@
     ],
     "returns": "Promise<string>",
     "dartImport": "import 'package:flutter/services.dart';",
-    "dart": "await rootBundle.loadString(path)"
+    "dart": "await rootBundle.loadString($0)"
   },
   {
     "name": "appDir",
@@ -68,7 +68,7 @@
     "dartImport": "import 'package:url_launcher/url_launcher.dart';",
     "package": "url_launcher",
     "pubspecDep": "url_launcher: ^6.3.1",
-    "dart": "await launchUrl(Uri.parse(url), mode: externalApp == true ? LaunchMode.externalApplication : LaunchMode.platformDefault)"
+    "dart": "await launchUrl(Uri.parse($0), mode: $1 == true ? LaunchMode.externalApplication : LaunchMode.platformDefault)"
   },
   {
     "name": "fetch",
@@ -110,7 +110,7 @@
     "dartImport": "import 'package:share_plus/share_plus.dart';",
     "package": "share_plus",
     "pubspecDep": "share_plus: ^10.1.4",
-    "dart": "await Share.share(text, subject: subject)"
+    "dart": "await Share.share($0, subject: $1)"
   },
   {
     "name": "hapticFeedback.light",
@@ -156,7 +156,7 @@
     ],
     "returns": "Promise<void>",
     "dartImport": "import 'package:flutter/services.dart';",
-    "dart": "await Clipboard.setData(ClipboardData(text: text))"
+    "dart": "await Clipboard.setData(ClipboardData(text: $0))"
   },
   {
     "name": "clipboard.paste",
@@ -178,7 +178,7 @@
     ],
     "returns": "Promise<void>",
     "dartImport": "import 'package:flutter/services.dart';",
-    "dart": "await SystemChrome.setPreferredOrientations(orientation == 'portrait' ? [DeviceOrientation.portraitUp] : orientation == 'landscape' ? [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight] : DeviceOrientation.values)"
+    "dart": "await SystemChrome.setPreferredOrientations($0 == 'portrait' ? [DeviceOrientation.portraitUp] : $0 == 'landscape' ? [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight] : DeviceOrientation.values)"
   },
   {
     "name": "systemChrome.setStatusBarColor",
@@ -192,6 +192,6 @@
     ],
     "returns": "void",
     "dartImport": "import 'package:flutter/services.dart';",
-    "dart": "SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: _colorFromHex(color)))"
+    "dart": "SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Color(int.parse($0.substring(1), radix: 16) + 0xFF000000)))"
   }
 ]
