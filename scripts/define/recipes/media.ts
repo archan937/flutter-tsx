@@ -141,9 +141,12 @@ const videoPlayer: WidgetPluginRecipe = {
   dart: {
     imports: ["import 'package:video_player/video_player.dart';"],
     controllerField: 'VideoPlayerController? _videoController;',
-    initState: `_videoController = VideoPlayerController.networkUrl(Uri.parse(url));
-_videoController!.initialize().then((_) => setState(() {}));`,
+    initState: `_videoController = VideoPlayerController.networkUrl(Uri.parse($url))
+..initialize().then((_) { if (mounted) setState(() {}); });`,
     dispose: '_videoController?.dispose();',
+    render:
+      '_videoController != null && _videoController!.value.isInitialized ? VideoPlayer(_videoController!) : const SizedBox.shrink()',
+    defaults: { url: "''" },
   },
   additionalHook: {
     domain: 'media',
@@ -290,6 +293,8 @@ const cachedNetworkImage: WidgetPluginRecipe = {
     imports: [
       "import 'package:cached_network_image/cached_network_image.dart';",
     ],
+    widget: 'CachedNetworkImage',
+    propMap: { url: 'imageUrl', width: 'width', height: 'height', fit: 'fit' },
   },
 };
 

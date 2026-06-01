@@ -24,7 +24,9 @@ const webView: WidgetPluginRecipe = {
     controllerField: 'late final WebViewController _webViewController;',
     initState: `_webViewController = WebViewController()
   ..setJavaScriptMode(JavaScriptMode.unrestricted)
-  ..loadRequest(Uri.parse(url));`,
+  ..loadRequest(Uri.parse($url));`,
+    render: 'WebViewWidget(controller: _webViewController)',
+    defaults: { url: "''" },
   },
   additionalHook: {
     domain: 'web-networking',

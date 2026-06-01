@@ -21,6 +21,18 @@
       "pickVideo": "await _imagePicker.pickVideo(source: ImageSource.gallery)"
     }
   },
+  "VideoPlayer": {
+    "imports": [
+      "import 'package:video_player/video_player.dart';"
+    ],
+    "controllerField": "VideoPlayerController? _videoController;",
+    "initState": "_videoController = VideoPlayerController.networkUrl(Uri.parse($url))\n..initialize().then((_) { if (mounted) setState(() {}); });",
+    "dispose": "_videoController?.dispose();",
+    "render": "_videoController != null && _videoController!.value.isInitialized ? VideoPlayer(_videoController!) : const SizedBox.shrink()",
+    "defaults": {
+      "url": "''"
+    }
+  },
   "useVideoController": {
     "imports": [
       "import 'package:video_player/video_player.dart';"
@@ -42,6 +54,30 @@
       "pause": "await _audioPlayer.pause()",
       "stop": "await _audioPlayer.stop()",
       "setVolume": "await _audioPlayer.setVolume(volume)"
+    }
+  },
+  "CachedNetworkImage": {
+    "imports": [
+      "import 'package:cached_network_image/cached_network_image.dart';"
+    ],
+    "widget": "CachedNetworkImage",
+    "propMap": {
+      "url": "imageUrl",
+      "width": "width",
+      "height": "height",
+      "fit": "fit"
+    }
+  },
+  "GoogleMap": {
+    "imports": [
+      "import 'package:google_maps_flutter/google_maps_flutter.dart';"
+    ],
+    "controllerField": "GoogleMapController? _mapController;",
+    "render": "GoogleMap(initialCameraPosition: CameraPosition(target: LatLng($initialLat, $initialLng), zoom: $zoom), onMapCreated: (controller) => _mapController = controller)",
+    "defaults": {
+      "initialLat": "0",
+      "initialLng": "0",
+      "zoom": "12"
     }
   },
   "useMapController": {
@@ -149,6 +185,17 @@
       "cancel": "await _notifications.cancel(id)"
     }
   },
+  "WebView": {
+    "imports": [
+      "import 'package:webview_flutter/webview_flutter.dart';"
+    ],
+    "controllerField": "late final WebViewController _webViewController;",
+    "initState": "_webViewController = WebViewController()\n  ..setJavaScriptMode(JavaScriptMode.unrestricted)\n  ..loadRequest(Uri.parse($url));",
+    "render": "WebViewWidget(controller: _webViewController)",
+    "defaults": {
+      "url": "''"
+    }
+  },
   "useWebViewController": {
     "imports": [
       "import 'package:webview_flutter/webview_flutter.dart';"
@@ -180,6 +227,13 @@
       "getProducts": "await _iap.queryProductDetails(Set.from(ids))",
       "purchase": "await _iap.buyNonConsumable(purchaseParam: PurchaseParam(productDetails: productDetails))"
     }
+  },
+  "Router": {
+    "imports": [
+      "import 'package:go_router/go_router.dart';"
+    ],
+    "controllerField": "late final GoRouter _router;",
+    "initState": "_router = GoRouter(routes: _routes);"
   },
   "useNavigate": {
     "imports": [

@@ -81,6 +81,9 @@ export const buildCodegenMap = (
     if (isHookRecipe(recipe)) {
       map[recipe.tsxName] = recipe.dart;
     } else if (isWidgetRecipe(recipe)) {
+      // The widget itself is data-driven too (render/propMap/controllerField);
+      // codegen reads this entry instead of hardcoding per-widget logic.
+      map[recipe.tsxName] = recipe.dart;
       if (recipe.additionalHook) {
         map[recipe.additionalHook.tsxName] = recipe.additionalHook.dart;
       }

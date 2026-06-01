@@ -37,6 +37,9 @@ const googleMap: WidgetPluginRecipe = {
   dart: {
     imports: ["import 'package:google_maps_flutter/google_maps_flutter.dart';"],
     controllerField: 'GoogleMapController? _mapController;',
+    render:
+      'GoogleMap(initialCameraPosition: CameraPosition(target: LatLng($initialLat, $initialLng), zoom: $zoom), onMapCreated: (controller) => _mapController = controller)',
+    defaults: { initialLat: '0', initialLng: '0', zoom: '12' },
   },
   additionalHook: {
     domain: 'maps-location',

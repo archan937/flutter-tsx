@@ -39,7 +39,33 @@ interface DartCodegen {
   dispose?: string;
   methods?: Record<string, string>;
   expression?: string;
+  widget?: string;
+  propMap?: Record<string, string>;
+  render?: string;
+  defaults?: Record<string, string>;
 }
+
+/**
+ * Substitutes `$prop` tokens in a plugin-widget template with the JSX prop's
+ * Dart value (already transformed), falling back to recipe defaults. Keeps all
+ * per-widget Dart in the SDK-derived data — codegen stays generic.
+ */
+const substituteWidgetProps = (
+  template: string,
+  props: Record<string, string>,
+  defaults: Record<string, string> = {},
+): string =>
+  template.replace(
+    /\$([a-zA-Z][a-zA-Z0-9]*)/g,
+    (_match, name: string) => props[name] ?? defaults[name] ?? "''",
+  );
+
+/** `import 'package:x/x.dart';` → bare `package:x/x.dart` (alias dropped). */
+const stripImport = (dartImport: string): string =>
+  dartImport
+    .replace(/^import\s+'/, '')
+    .replace(/';$/, '')
+    .replace(/'\s*as\s+\w+/, '');
 
 const loadCodegenMap = (): Record<string, DartCodegen> => {
   try {
@@ -188,12 +214,20 @@ const loadFunctionMap = (): Record<string, FeatureFunction> => {
 
 const FUNCTION_MAP: Record<string, FeatureFunction> = loadFunctionMap();
 
-/** Plugin widgets that render a controller-backed widget → force StatefulWidget. */
-const STATEFUL_PLUGIN_WIDGETS = [
-  'GoogleMap',
-  'WebView',
-  'VideoPlayer',
-] as const;
+/**
+ * Plugin widgets whose codegen spec declares lifecycle state (controller field,
+ * initState, or dispose) must render inside a StatefulWidget. Derived from the
+ * data — adding a stateful plugin widget needs no code change here.
+ */
+const STATEFUL_PLUGIN_WIDGETS: readonly string[] = Object.entries(
+  PLUGIN_CODEGEN_MAP,
+)
+  .filter(
+    ([, spec]) =>
+      (spec.render !== undefined || spec.widget !== undefined) &&
+      Boolean(spec.controllerField ?? spec.initState ?? spec.dispose),
+  )
+  .map(([tagName]) => tagName);
 
 // ---------------------------------------------------------------------------
 // CodegenContext
@@ -309,11 +343,7 @@ export class CodegenContext {
       if (!codegen) continue;
 
       for (const imp of codegen.imports) {
-        const bare = imp
-          .replace(/^import\s+'/, '')
-          .replace(/';$/, '')
-          .replace(/'\s*as\s+\w+/, '');
-        this.imports.add(bare);
+        this.imports.add(stripImport(imp));
       }
 
       if (codegen.controllerField) {
@@ -801,49 +831,32 @@ export class CodegenContext {
     tagName: string,
     props: Record<string, string>,
   ): string | null {
-    if (tagName === 'CachedNetworkImage') {
-      this.imports.add(
-        'package:cached_network_image/cached_network_image.dart',
-      );
-      const args: string[] = [];
-      // `url` → `imageUrl`; width/height pass through.
-      if (props.url !== undefined) args.push(`imageUrl: ${props.url}`);
-      for (const key of ['width', 'height', 'fit'] as const) {
-        if (props[key] !== undefined) args.push(`${key}: ${props[key]}`);
-      }
-      return `CachedNetworkImage(${args.join(', ')})`;
+    const spec = PLUGIN_CODEGEN_MAP[tagName];
+    if (!spec || (spec.render === undefined && spec.widget === undefined)) {
+      return null;
     }
 
-    if (tagName === 'GoogleMap') {
-      this.imports.add('package:google_maps_flutter/google_maps_flutter.dart');
-      this.pluginFields.push('  GoogleMapController? _mapController;');
-      const lat = props.initialLat ?? '0';
-      const lng = props.initialLng ?? '0';
-      const zoom = props.zoom ?? '12';
-      return `GoogleMap(initialCameraPosition: CameraPosition(target: LatLng(${lat}, ${lng}), zoom: ${zoom}), onMapCreated: (controller) => _mapController = controller)`;
+    for (const dartImport of spec.imports) {
+      this.imports.add(stripImport(dartImport));
     }
-
-    if (tagName === 'WebView') {
-      this.imports.add('package:webview_flutter/webview_flutter.dart');
-      this.pluginFields.push(
-        '  late final WebViewController _webViewController;',
-      );
+    if (spec.controllerField) {
+      this.pluginFields.push(`  ${spec.controllerField}`);
+    }
+    if (spec.initState) {
       this.pluginInitState.push(
-        `_webViewController = WebViewController()..loadRequest(Uri.parse(${props.url ?? "''"}));`,
+        substituteWidgetProps(spec.initState, props, spec.defaults),
       );
-      return `WebViewWidget(controller: _webViewController)`;
     }
+    if (spec.dispose) this.pluginDispose.push(spec.dispose);
 
-    if (tagName === 'VideoPlayer') {
-      this.imports.add('package:video_player/video_player.dart');
-      this.pluginFields.push('  VideoPlayerController? _videoController;');
-      this.pluginInitState.push(
-        `_videoController = VideoPlayerController.networkUrl(Uri.parse(${props.url ?? "''"}))\n..initialize().then((_) { if (mounted) setState(() {}); });`,
-      );
-      this.pluginDispose.push('_videoController?.dispose();');
-      return `_videoController != null && _videoController!.value.isInitialized ? VideoPlayer(_videoController!) : const SizedBox.shrink()`;
+    if (spec.render !== undefined) {
+      return substituteWidgetProps(spec.render, props, spec.defaults);
     }
-    return null;
+    // propMap style: assemble `Widget(param: value, …)` for present props.
+    const args = Object.entries(spec.propMap ?? {})
+      .filter(([tsxProp]) => props[tsxProp] !== undefined)
+      .map(([tsxProp, dartParam]) => `${dartParam}: ${props[tsxProp]}`);
+    return `${spec.widget}(${args.join(', ')})`;
   }
 
   /** Wraps `inner` in a GestureDetector when non-native gesture props exist. */

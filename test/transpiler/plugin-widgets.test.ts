@@ -98,7 +98,9 @@ describe('plugin widgets → real plugin constructors (whole snippet)', () => {
         @override
         void initState() {
           super.initState();
-          _webViewController = WebViewController()..loadRequest(Uri.parse('https://flutter.dev'));
+          _webViewController = WebViewController()
+          ..setJavaScriptMode(JavaScriptMode.unrestricted)
+          ..loadRequest(Uri.parse('https://flutter.dev'));
         }
       }`);
   });

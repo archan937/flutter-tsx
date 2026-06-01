@@ -15,6 +15,15 @@ export interface DartCodegen {
   dispose?: string;
   methods?: Record<string, string>;
   expression?: string;
+  // ── Plugin-widget rendering (data-driven; no per-widget code in codegen) ──
+  /** Dart widget constructor for prop-mapped widgets (e.g. CachedNetworkImage). */
+  widget?: string;
+  /** tsx prop → Dart named param, assembled for whichever props are present. */
+  propMap?: Record<string, string>;
+  /** Render template with `$prop` placeholders (alternative to widget+propMap). */
+  render?: string;
+  /** Fallback Dart values for `$prop` tokens absent from the JSX. */
+  defaults?: Record<string, string>;
 }
 
 // ─── Plugin recipe shapes ──────────────────────────────────────────────────────
