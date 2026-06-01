@@ -747,7 +747,7 @@ export const landingHtml = (c: LandingCounts): string => `<!doctype html>
 
     <main class="wrap" id="top">
       <header>
-        <span class="eyebrow reveal"><span class="dot"></span> TSX in · Dart out</span>
+        <span class="eyebrow reveal"><span class="dot"></span> TSX in · Dart out · Flutter ${c.flutterVersion}</span>
         <h1 class="reveal"><span class="grad">Write Flutter<br />in TSX.</span></h1>
         <img class="hero-mark reveal" src="./icon.png" alt="Flutter.tsx logo" width="124" height="124" />
         <p class="lead reveal">
@@ -857,7 +857,7 @@ export const landingHtml = (c: LandingCounts): string => `<!doctype html>
         <div class="why-prose reveal">
           <p>
             Cross-platform has always forced a trade-off. <span class="fw">React&nbsp;Native</span>
-            gives you the syntax the whole industry already knows — JSX and hooks — but
+            gives you the syntax the whole industry already knows — <span class="hl">JSX and hooks</span> — but
             it ships your UI over a JavaScript bridge, leans on a patchwork of
             community-maintained native modules, and asks you to chase a steady stream of
             breaking upgrades. <span class="fw">Flutter</span> answers all of that with
