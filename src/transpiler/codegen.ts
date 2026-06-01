@@ -188,6 +188,13 @@ const loadFunctionMap = (): Record<string, FeatureFunction> => {
 
 const FUNCTION_MAP: Record<string, FeatureFunction> = loadFunctionMap();
 
+/** Plugin widgets that render a controller-backed widget → force StatefulWidget. */
+const STATEFUL_PLUGIN_WIDGETS = [
+  'GoogleMap',
+  'WebView',
+  'VideoPlayer',
+] as const;
+
 // ---------------------------------------------------------------------------
 // CodegenContext
 // ---------------------------------------------------------------------------
@@ -278,7 +285,14 @@ export class CodegenContext {
 
       this.applyPluginUsages(analysis.pluginUsages);
 
-      if (hasState || hasPlugins) {
+      // Controller-backed plugin widgets need StatefulWidget (controller field +
+      // initState), even with no useState/hook.
+      const bodyText = body.getText(this.sourceFile);
+      const usesStatefulPluginWidget = STATEFUL_PLUGIN_WIDGETS.some((w) =>
+        bodyText.includes(`<${w}`),
+      );
+
+      if (hasState || hasPlugins || usesStatefulPluginWidget) {
         return this.genStatefulWidget(component, analysis);
       }
       // No state/plugins, but named handlers still need method bodies on the
@@ -360,11 +374,18 @@ export class CodegenContext {
     const { name } = component;
     const stateName = `_${name}State`;
 
+    // Build the body FIRST: rendering plugin widgets (GoogleMap/WebView/…) pushes
+    // their controller field + initState, which the field/initState assembly below
+    // must then pick up.
+    const bodyDart = this.buildMethodBody(component);
+
     const stateVarFields = analysis.stateVars
       .map((sv) => `  ${sv.dartType} ${sv.name} = ${sv.initializer};`)
       .join('\n');
 
-    const allFields = [stateVarFields, ...this.pluginFields]
+    // dedup: a controller field can be pushed by both a hook (useMapController)
+    // and its widget (<GoogleMap>) in the same component.
+    const allFields = [...new Set([stateVarFields, ...this.pluginFields])]
       .filter(Boolean)
       .join('\n');
 
@@ -430,7 +451,7 @@ export class CodegenContext {
       allFields,
       `  @override`,
       `  Widget build(BuildContext context) {`,
-      this.buildMethodBody(component),
+      bodyDart,
       `  }`,
       initState ? initState.trimEnd() : '',
       dispose ? dispose.trimEnd() : '',
@@ -606,6 +627,14 @@ export class CodegenContext {
     // the widget doesn't support them natively.
     const emitTag = this.applyAnimate(tagName, props);
     const gestureProps = this.extractGestureProps(tagName, props);
+
+    // Plugin widgets (CachedNetworkImage, …) render via a dedicated template
+    // (correct Dart class + constructor params) and register their import.
+    const pluginWidget = this.tryPluginWidget(tagName, props);
+    if (pluginWidget !== null) {
+      return this.wrapGestures(pluginWidget, gestureProps);
+    }
+
     const parts: string[] = [];
 
     // --- Handle string props already encoded as named params
@@ -759,6 +788,62 @@ export class CodegenContext {
       out[gesture] = props[gesture];
     }
     return out;
+  }
+
+  /**
+   * Renders a plugin widget to its real Flutter/plugin constructor (correct
+   * class + param names) and registers the package import (→ pubspec dep).
+   * Returns null for non-plugin widgets. CachedNetworkImage is stateless; the
+   * controller-backed plugin widgets (GoogleMap/WebView/VideoPlayer) are handled
+   * separately because they require StatefulWidget controller wiring.
+   */
+  private tryPluginWidget(
+    tagName: string,
+    props: Record<string, string>,
+  ): string | null {
+    if (tagName === 'CachedNetworkImage') {
+      this.imports.add(
+        'package:cached_network_image/cached_network_image.dart',
+      );
+      const args: string[] = [];
+      // `url` → `imageUrl`; width/height pass through.
+      if (props.url !== undefined) args.push(`imageUrl: ${props.url}`);
+      for (const key of ['width', 'height', 'fit'] as const) {
+        if (props[key] !== undefined) args.push(`${key}: ${props[key]}`);
+      }
+      return `CachedNetworkImage(${args.join(', ')})`;
+    }
+
+    if (tagName === 'GoogleMap') {
+      this.imports.add('package:google_maps_flutter/google_maps_flutter.dart');
+      this.pluginFields.push('  GoogleMapController? _mapController;');
+      const lat = props.initialLat ?? '0';
+      const lng = props.initialLng ?? '0';
+      const zoom = props.zoom ?? '12';
+      return `GoogleMap(initialCameraPosition: CameraPosition(target: LatLng(${lat}, ${lng}), zoom: ${zoom}), onMapCreated: (controller) => _mapController = controller)`;
+    }
+
+    if (tagName === 'WebView') {
+      this.imports.add('package:webview_flutter/webview_flutter.dart');
+      this.pluginFields.push(
+        '  late final WebViewController _webViewController;',
+      );
+      this.pluginInitState.push(
+        `_webViewController = WebViewController()..loadRequest(Uri.parse(${props.url ?? "''"}));`,
+      );
+      return `WebViewWidget(controller: _webViewController)`;
+    }
+
+    if (tagName === 'VideoPlayer') {
+      this.imports.add('package:video_player/video_player.dart');
+      this.pluginFields.push('  VideoPlayerController? _videoController;');
+      this.pluginInitState.push(
+        `_videoController = VideoPlayerController.networkUrl(Uri.parse(${props.url ?? "''"}))\n..initialize().then((_) { if (mounted) setState(() {}); });`,
+      );
+      this.pluginDispose.push('_videoController?.dispose();');
+      return `_videoController != null && _videoController!.value.isInitialized ? VideoPlayer(_videoController!) : const SizedBox.shrink()`;
+    }
+    return null;
   }
 
   /** Wraps `inner` in a GestureDetector when non-native gesture props exist. */
