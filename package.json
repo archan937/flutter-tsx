@@ -53,6 +53,7 @@
   },
   "scripts": {
     "define": "bun scripts/define/index.ts",
+    "analyze:gate": "bun scripts/analyze-gate/index.ts",
     "docs": "bun scripts/generate-api-reference.ts",
     "build": "bun run build:clean && bun run build:types && bun run build:bundle",
     "build:clean": "rm -rf dist",
