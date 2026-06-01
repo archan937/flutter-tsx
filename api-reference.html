@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Flutter.tsx — API Reference</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='32'%20y2='32'%20gradientUnits='userSpaceOnUse'%3E%3Cstop%20stop-color='%2361dafb'/%3E%3Cstop%20offset='.5'%20stop-color='%2354a4ff'/%3E%3Cstop%20offset='1'%20stop-color='%23a78bfa'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='32'%20height='32'%20rx='8'%20fill='url(%23g)'/%3E%3Cg%20stroke='%2306121f'%20stroke-width='3.4'%20fill='none'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M8%209%20L15%2016%20L8%2023'/%3E%3Cpath%20d='M16%209%20L23%2016%20L16%2023'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" type="image/png" href="./icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -46,8 +46,8 @@ body { display: flex; font-family: var(--body); color: var(--text); line-height:
 .sb-brand { display: flex; align-items: center; gap: 10px; text-decoration: none;
   color: var(--text); font-family: var(--mono); font-weight: 700; font-size: .95rem;
   letter-spacing: -.02em; padding: 4px 6px 16px; }
-.sb-brand .mark { width: 28px; height: 28px; border-radius: 7px; display: grid; place-items: center;
-  background: var(--grad); box-shadow: 0 0 0 1px rgba(255,255,255,.12) inset, 0 5px 14px rgba(84,164,255,.4); }
+.sb-brand .mark { width: 28px; height: 28px; border-radius: 7px; object-fit: cover; display: block;
+  border: 1px solid rgba(97,218,251,.4); box-shadow: 0 0 9px rgba(167,139,250,.3), 0 3px 12px rgba(167,139,250,.16); }
 .sb-brand b { background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 #search { width: 100%; padding: 9px 11px; border: 1px solid var(--line); border-radius: 9px;
   font-family: var(--body); font-size: 13px; margin-bottom: 10px; outline: none;
@@ -168,9 +168,9 @@ details details > ul { padding-left: 24px; }
 <div class="bg-layer bg-grid"></div>
 <div class="bg-layer bg-glow"></div>
 <aside id="sidebar">
-  <a class="sb-brand" href="./index.html"><span class="mark"><svg width="17" height="17" viewBox="0 0 32 32" fill="none" aria-hidden="true"><g stroke="#06121f" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9 L15 16 L8 23"/><path d="M16 9 L23 16 L16 23"/></g></svg></span><span>flutter<b>.tsx</b></span></a>
+  <a class="sb-brand" href="./index.html"><img class="mark" src="./icon.png" alt="flutter.tsx logo" width="28" height="28"><span>flutter<b>.tsx</b></span></a>
   <input id="search" type="search" placeholder="Search widgets…" autocomplete="off" spellcheck="false">
-  <div class="meta-info">539 widgets · 38 plugins · 12 hooks · 767 types · 147 enums</div>
+  <div class="meta-info">542 widgets · 38 plugins · 12 hooks · 770 types · 147 enums</div>
   <nav id="sidebar-nav">
 <details open>
 <summary>Examples<span class="nav-count">23</span></summary>
@@ -287,7 +287,7 @@ details details > ul { padding-left: 24px; }
 </details>
 </details>
 <details open>
-<summary>Widgets<span class="nav-count">539</span></summary>
+<summary>Widgets<span class="nav-count">542</span></summary>
 <details open>
 <summary>Layout<span class="nav-count">17</span></summary>
 <ul><li data-name="Scaffold"><a href="#Scaffold">Scaffold</a></li>
@@ -351,7 +351,7 @@ details details > ul { padding-left: 24px; }
 <li data-name="TabBarView"><a href="#TabBarView">TabBarView</a></li></ul>
 </details>
 <details>
-<summary>Other<span class="nav-count">489</span></summary>
+<summary>Other<span class="nav-count">492</span></summary>
 <ul><li data-name="AboutListTile"><a href="#AboutListTile">AboutListTile</a></li>
 <li data-name="AboutDialog"><a href="#AboutDialog">AboutDialog</a></li>
 <li data-name="LicensePage"><a href="#LicensePage">LicensePage</a></li>
@@ -814,6 +814,9 @@ details details > ul { padding-left: 24px; }
 <li data-name="CupertinoListTileChevron"><a href="#CupertinoListTileChevron">CupertinoListTileChevron</a></li>
 <li data-name="CupertinoTextMagnifier"><a href="#CupertinoTextMagnifier">CupertinoTextMagnifier</a></li>
 <li data-name="CupertinoMagnifier"><a href="#CupertinoMagnifier">CupertinoMagnifier</a></li>
+<li data-name="CupertinoMenuAnchor"><a href="#CupertinoMenuAnchor">CupertinoMenuAnchor</a></li>
+<li data-name="CupertinoMenuDivider"><a href="#CupertinoMenuDivider">CupertinoMenuDivider</a></li>
+<li data-name="CupertinoMenuItem"><a href="#CupertinoMenuItem">CupertinoMenuItem</a></li>
 <li data-name="CupertinoNavigationBar"><a href="#CupertinoNavigationBar">CupertinoNavigationBar</a></li>
 <li data-name="CupertinoSliverNavigationBar"><a href="#CupertinoSliverNavigationBar">CupertinoSliverNavigationBar</a></li>
 <li data-name="CupertinoNavigationBarBackButton"><a href="#CupertinoNavigationBarBackButton">CupertinoNavigationBarBackButton</a></li>
@@ -994,7 +997,7 @@ details details > ul { padding-left: 24px; }
 <li data-name="SpringType"><a href="#SpringType">SpringType</a></li></ul>
 </details>
 <details>
-<summary>Types<span class="nav-count">767</span></summary>
+<summary>Types<span class="nav-count">770</span></summary>
 <details>
 <summary>material<span class="nav-count">607</span></summary>
 <ul><li data-name="ActionIconThemeData"><a href="#ActionIconThemeData">ActionIconThemeData</a></li>
@@ -1052,6 +1055,7 @@ details details > ul { padding-left: 24px; }
 <li data-name="InkSplash"><a href="#InkSplash">InkSplash</a></li>
 <li data-name="UnderlineInputBorder"><a href="#UnderlineInputBorder">UnderlineInputBorder</a></li>
 <li data-name="OutlineInputBorder"><a href="#OutlineInputBorder">OutlineInputBorder</a></li>
+<li data-name="ShapedInputBorder"><a href="#ShapedInputBorder">ShapedInputBorder</a></li>
 <li data-name="FloatingLabelAlignment"><a href="#FloatingLabelAlignment">FloatingLabelAlignment</a></li>
 <li data-name="InputDecoration"><a href="#InputDecoration">InputDecoration</a></li>
 <li data-name="InputDecorationThemeData"><a href="#InputDecorationThemeData">InputDecorationThemeData</a></li>
@@ -1074,7 +1078,6 @@ details details > ul { padding-left: 24px; }
 <li data-name="MaterialPage"><a href="#MaterialPage">MaterialPage</a></li>
 <li data-name="FadeForwardsPageTransitionsBuilder"><a href="#FadeForwardsPageTransitionsBuilder">FadeForwardsPageTransitionsBuilder</a></li>
 <li data-name="ZoomPageTransitionsBuilder"><a href="#ZoomPageTransitionsBuilder">ZoomPageTransitionsBuilder</a></li>
-<li data-name="CupertinoPageTransitionsBuilder"><a href="#CupertinoPageTransitionsBuilder">CupertinoPageTransitionsBuilder</a></li>
 <li data-name="PageTransitionsTheme"><a href="#PageTransitionsTheme">PageTransitionsTheme</a></li>
 <li data-name="PaginatedDataTableState"><a href="#PaginatedDataTableState">PaginatedDataTableState</a></li>
 <li data-name="PopupMenuItemState"><a href="#PopupMenuItemState">PopupMenuItemState</a></li>
@@ -1132,6 +1135,7 @@ details details > ul { padding-left: 24px; }
 <li data-name="TabBarThemeData"><a href="#TabBarThemeData">TabBarThemeData</a></li>
 <li data-name="TabController"><a href="#TabController">TabController</a></li>
 <li data-name="UnderlineTabIndicator"><a href="#UnderlineTabIndicator">UnderlineTabIndicator</a></li>
+<li data-name="TabBarScrollController"><a href="#TabBarScrollController">TabBarScrollController</a></li>
 <li data-name="TextButtonThemeData"><a href="#TextButtonThemeData">TextButtonThemeData</a></li>
 <li data-name="TextInputType"><a href="#TextInputType">TextInputType</a></li>
 <li data-name="MaterialTextSelectionHandleControls"><a href="#MaterialTextSelectionHandleControls">MaterialTextSelectionHandleControls</a></li>
@@ -1507,7 +1511,6 @@ details details > ul { padding-left: 24px; }
 <li data-name="ExtendSelectionToNextParagraphBoundaryOrCaretLocationIntent"><a href="#ExtendSelectionToNextParagraphBoundaryOrCaretLocationIntent">ExtendSelectionToNextParagraphBoundaryOrCaretLocationIntent</a></li>
 <li data-name="ExtendSelectionToDocumentBoundaryIntent"><a href="#ExtendSelectionToDocumentBoundaryIntent">ExtendSelectionToDocumentBoundaryIntent</a></li>
 <li data-name="ScrollToDocumentBoundaryIntent"><a href="#ScrollToDocumentBoundaryIntent">ScrollToDocumentBoundaryIntent</a></li>
-<li data-name="ExtendSelectionByPageIntent"><a href="#ExtendSelectionByPageIntent">ExtendSelectionByPageIntent</a></li>
 <li data-name="SelectAllTextIntent"><a href="#SelectAllTextIntent">SelectAllTextIntent</a></li>
 <li data-name="CopySelectionTextIntent"><a href="#CopySelectionTextIntent">CopySelectionTextIntent</a></li>
 <li data-name="PasteTextIntent"><a href="#PasteTextIntent">PasteTextIntent</a></li>
@@ -1606,7 +1609,7 @@ details details > ul { padding-left: 24px; }
 <li data-name="TextSelectionPoint"><a href="#TextSelectionPoint">TextSelectionPoint</a></li></ul>
 </details>
 <details>
-<summary>services<span class="nav-count">97</span></summary>
+<summary>services<span class="nav-count">98</span></summary>
 <ul><li data-name="NetworkAssetBundle"><a href="#NetworkAssetBundle">NetworkAssetBundle</a></li>
 <li data-name="PlatformAssetBundle"><a href="#PlatformAssetBundle">PlatformAssetBundle</a></li>
 <li data-name="AssetMetadata"><a href="#AssetMetadata">AssetMetadata</a></li>
@@ -1692,6 +1695,7 @@ details details > ul { padding-left: 24px; }
 <li data-name="LengthLimitingTextInputFormatter"><a href="#LengthLimitingTextInputFormatter">LengthLimitingTextInputFormatter</a></li>
 <li data-name="RawFloatingCursorPoint"><a href="#RawFloatingCursorPoint">RawFloatingCursorPoint</a></li>
 <li data-name="SelectionRect"><a href="#SelectionRect">SelectionRect</a></li>
+<li data-name="TextInputStyle"><a href="#TextInputStyle">TextInputStyle</a></li>
 <li data-name="TextInput"><a href="#TextInput">TextInput</a></li>
 <li data-name="SystemContextMenuController"><a href="#SystemContextMenuController">SystemContextMenuController</a></li>
 <li data-name="IOSSystemContextMenuItemDataCopy"><a href="#IOSSystemContextMenuItemDataCopy">IOSSystemContextMenuItemDataCopy</a></li>
@@ -1706,7 +1710,7 @@ details details > ul { padding-left: 24px; }
 <li data-name="UndoManager"><a href="#UndoManager">UndoManager</a></li></ul>
 </details>
 <details>
-<summary>foundation<span class="nav-count">40</span></summary>
+<summary>foundation<span class="nav-count">41</span></summary>
 <ul><li data-name="Category"><a href="#Category">Category</a></li>
 <li data-name="DocumentationIcon"><a href="#DocumentationIcon">DocumentationIcon</a></li>
 <li data-name="Summary"><a href="#Summary">Summary</a></li>
@@ -1733,6 +1737,7 @@ details details > ul { padding-left: 24px; }
 <li data-name="DiagnosticableNode"><a href="#DiagnosticableNode">DiagnosticableNode</a></li>
 <li data-name="DiagnosticableTreeNode"><a href="#DiagnosticableTreeNode">DiagnosticableTreeNode</a></li>
 <li data-name="DiagnosticsBlock"><a href="#DiagnosticsBlock">DiagnosticsBlock</a></li>
+<li data-name="ErrorToConsoleDumper"><a href="#ErrorToConsoleDumper">ErrorToConsoleDumper</a></li>
 <li data-name="LicenseParagraph"><a href="#LicenseParagraph">LicenseParagraph</a></li>
 <li data-name="LicenseEntryWithLineBreaks"><a href="#LicenseEntryWithLineBreaks">LicenseEntryWithLineBreaks</a></li>
 <li data-name="ObjectCreated"><a href="#ObjectCreated">ObjectCreated</a></li>
@@ -1749,7 +1754,7 @@ details details > ul { padding-left: 24px; }
 <li data-name="AggregatedTimedBlock"><a href="#AggregatedTimedBlock">AggregatedTimedBlock</a></li></ul>
 </details>
 <details>
-<summary>cupertino<span class="nav-count">18</span></summary>
+<summary>cupertino<span class="nav-count">19</span></summary>
 <ul><li data-name="CupertinoScrollBehavior"><a href="#CupertinoScrollBehavior">CupertinoScrollBehavior</a></li>
 <li data-name="CupertinoDynamicColor"><a href="#CupertinoDynamicColor">CupertinoDynamicColor</a></li>
 <li data-name="CupertinoDesktopTextSelectionControls"><a href="#CupertinoDesktopTextSelectionControls">CupertinoDesktopTextSelectionControls</a></li>
@@ -1759,6 +1764,7 @@ details details > ul { padding-left: 24px; }
 <li data-name="CupertinoPage"><a href="#CupertinoPage">CupertinoPage</a></li>
 <li data-name="CupertinoModalPopupRoute"><a href="#CupertinoModalPopupRoute">CupertinoModalPopupRoute</a></li>
 <li data-name="CupertinoDialogRoute"><a href="#CupertinoDialogRoute">CupertinoDialogRoute</a></li>
+<li data-name="CupertinoPageTransitionsBuilder"><a href="#CupertinoPageTransitionsBuilder">CupertinoPageTransitionsBuilder</a></li>
 <li data-name="CupertinoSheetRoute"><a href="#CupertinoSheetRoute">CupertinoSheetRoute</a></li>
 <li data-name="CupertinoTabController"><a href="#CupertinoTabController">CupertinoTabController</a></li>
 <li data-name="RestorableCupertinoTabController"><a href="#RestorableCupertinoTabController">RestorableCupertinoTabController</a></li>
@@ -1782,7 +1788,7 @@ details details > ul { padding-left: 24px; }
 </aside>
 <main>
   <h1>Flutter.tsx — API Reference</h1>
-  <p class="subtitle">Auto-generated from the live Flutter widget catalog. Run <code>bun run docs</code> to regenerate.</p>
+  <p class="subtitle">Auto-generated from the Flutter 3.44.0 widget catalog. Run <code>bun run docs</code> to regenerate.</p>
 <section id="examples">
 <h2>Examples</h2>
 <article class="widget example-card" id="ex-hello-world" data-name="hello-world">
@@ -1947,7 +1953,7 @@ class _ThemeToggleState extends State&lt;ThemeToggle&gt; {
   bool dark = false;
   @override
   Widget build(BuildContext context) {
-    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [Text('${dark ? 'Dark mode' : 'Light mode'}'), Switch(value: dark, onChanged: () { setState(() { dark = !dark; }); })]);
+    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [Text('${dark ? 'Dark mode' : 'Light mode'}'), Switch(value: dark, onChanged: (value) { setState(() { dark = !dark; }); })]);
   }
 }
 </code></pre>
@@ -2189,7 +2195,7 @@ class _SettingsScreenState extends State&lt;SettingsScreen&gt; {
   double volume = 0.8;
   @override
   Widget build(BuildContext context) {
-    return Column(children: [Text('Notifications'), Switch(value: notifs, onChanged: () { setState(() { notifs = !notifs; }); }), Text('Volume'), Slider(value: volume, onChanged: (v) { setState(() { volume = v; }); })]);
+    return Column(children: [Text('Notifications'), Switch(value: notifs, onChanged: (value) { setState(() { notifs = !notifs; }); }), Text('Volume'), Slider(value: volume, onChanged: (v) { setState(() { volume = v; }); })]);
   }
 }
 </code></pre>
@@ -2461,6 +2467,7 @@ class MapScreen extends StatefulWidget {
   State&lt;MapScreen&gt; createState() =&gt; _MapScreenState();
 }
 class _MapScreenState extends State&lt;MapScreen&gt; {
+  GoogleMapController? _mapController;
   @override
   Widget build(BuildContext context) {
     return Column(children: [ElevatedButton(onPressed: _goToParis, child: Text('Fly to Paris'))]);
@@ -2713,6 +2720,7 @@ class WorldCities extends StatefulWidget {
   State&lt;WorldCities&gt; createState() =&gt; _WorldCitiesState();
 }
 class _WorldCitiesState extends State&lt;WorldCities&gt; {
+  GoogleMapController? _mapController;
   @override
   Widget build(BuildContext context) {
     return Column(children: [Text('World Cities'), ElevatedButton(onPressed: _goToParis, child: Text('Paris')), ElevatedButton(onPressed: _goToTokyo, child: Text('Tokyo'))]);
@@ -3775,12 +3783,20 @@ await launchUrl(Uri.parse('mailto:help@example.com'));</code></pre>
 <button class="tab-btn" data-tab="dart" role="tab" aria-selected="false">Dart</button>
 </div>
 <div class="tab-panel active" data-panel="tsx" role="tabpanel">
-<pre><code class="language-tsx">const res = await fetch('https://api.example.com/data');
-const data = await res.json();</code></pre>
+<pre><code class="language-tsx">const { data, loading } = useAsync(() =&gt; fetch('https://api.example.com/data'));
+if (loading) return &lt;CircularProgressIndicator /&gt;;
+return &lt;Text&gt;{data.body}&lt;/Text&gt;; // data.ok, data.status, data.json also available</code></pre>
 </div>
 <div class="tab-panel" data-panel="dart" role="tabpanel">
-<pre><code class="language-dart">final res = await http.get(Uri.parse('https://api.example.com/data'));
-final data = jsonDecode(res.body);</code></pre>
+<pre><code class="language-dart">FutureBuilder(
+  future: _fsxFetch('https://api.example.com/data'),
+  builder: (context, snapshot) {
+    if (snapshot.connectionState != ConnectionState.done) {
+      return const CircularProgressIndicator();
+    }
+    return Text(snapshot.data!.body);
+  },
+)</code></pre>
 </div>
 </div>
 </article>
@@ -4445,6 +4461,7 @@ by the operating system.</p>
 <tr><td>center</td><td>unknown</td><td>Key?</td><td class="req"></td></tr>
 <tr><td>anchor</td><td>number</td><td>double</td><td class="req"></td></tr>
 <tr><td>cacheExtent</td><td>number</td><td>double?</td><td class="req"></td></tr>
+<tr><td>scrollCacheExtent</td><td>unknown</td><td>ScrollCacheExtent?</td><td class="req"></td></tr>
 <tr><td>paintOrder</td><td>'firstIsTop' | 'lastIsTop'</td><td>SliverPaintOrder</td><td class="req"></td></tr>
 <tr><td>slivers</td><td>FlutterElement[]</td><td>List&lt;Widget&gt;</td><td class="req"></td></tr>
 <tr><td>semanticChildCount</td><td>number</td><td>int?</td><td class="req"></td></tr>
@@ -4490,6 +4507,7 @@ by the operating system.</p>
 <tr><td>addRepaintBoundaries</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>addSemanticIndexes</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>cacheExtent</td><td>number</td><td>double?</td><td class="req"></td></tr>
+<tr><td>scrollCacheExtent</td><td>unknown</td><td>ScrollCacheExtent?</td><td class="req"></td></tr>
 <tr><td>children</td><td>FlutterElement[]</td><td>List&lt;Widget&gt;</td><td class="req"></td></tr>
 <tr><td>semanticChildCount</td><td>number</td><td>int?</td><td class="req"></td></tr>
 <tr><td>dragStartBehavior</td><td>string</td><td>DragStartBehavior</td><td class="req"></td></tr>
@@ -4532,6 +4550,7 @@ by the operating system.</p>
 <tr><td>addRepaintBoundaries</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>addSemanticIndexes</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>cacheExtent</td><td>number</td><td>double?</td><td class="req"></td></tr>
+<tr><td>scrollCacheExtent</td><td>unknown</td><td>ScrollCacheExtent?</td><td class="req"></td></tr>
 <tr><td>children</td><td>FlutterElement[]</td><td>List&lt;Widget&gt;</td><td class="req"></td></tr>
 <tr><td>semanticChildCount</td><td>number</td><td>int?</td><td class="req"></td></tr>
 <tr><td>dragStartBehavior</td><td>string</td><td>DragStartBehavior</td><td class="req"></td></tr>
@@ -5148,6 +5167,7 @@ with an outlined border.</p>
 <tr><td>scribbleEnabled</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>stylusHandwritingEnabled</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>enableIMEPersonalizedLearning</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
+<tr><td>enableInlinePrediction</td><td>boolean</td><td>bool?</td><td class="req"></td></tr>
 <tr><td>contextMenuBuilder</td><td>(editableTextState: unknown) =&gt; FlutterElement</td><td>Widget Function(BuildContext, EditableTextState)?</td><td class="req"></td></tr>
 <tr><td>canRequestFocus</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>spellCheckConfiguration</td><td>unknown</td><td>SpellCheckConfiguration?</td><td class="req"></td></tr>
@@ -6073,6 +6093,7 @@ five.</p>
 <tr><td>leadingAtTop</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>trailingAtBottom</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>scrollable</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
+<tr><td>mainAxisAlignment</td><td>'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly'</td><td>MainAxisAlignment?</td><td class="req"></td></tr>
 </tbody>
 </table>
 <div class="tabs">
@@ -6098,6 +6119,7 @@ five.</p>
 <tbody>
 <tr><td>tabs</td><td>FlutterElement[]</td><td>List&lt;Widget&gt;</td><td class="req">✓</td></tr>
 <tr><td>controller</td><td>unknown</td><td>TabController?</td><td class="req"></td></tr>
+<tr><td>scrollController</td><td>unknown</td><td>TabBarScrollController?</td><td class="req"></td></tr>
 <tr><td>isScrollable</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>padding</td><td>number | [number, number] | [number, number, number, number]</td><td>EdgeInsetsGeometry?</td><td class="req"></td></tr>
 <tr><td>indicatorColor</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
@@ -6175,7 +6197,7 @@ selected tab.</p>
 </article>
 </section>
 <section id="other">
-<h2>Other (489)</h2>
+<h2>Other (492)</h2>
 <article class="widget" id="AboutListTile" data-name="AboutListTile">
 <h3>AboutListTile<span class="badge badge-lib">material</span><span class="badge badge-cat">other</span></h3>
 <p class="doc">A [ListTile] that shows an about box.</p>
@@ -7195,8 +7217,10 @@ date.</p>
 <tr><td>reverse</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>onTap</td><td>(value: number) =&gt; void</td><td>void Function(int)?</td><td class="req"></td></tr>
 <tr><td>enableSplash</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
+<tr><td>infinite</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>itemExtent</td><td>number</td><td>double</td><td class="req">✓</td></tr>
 <tr><td>children</td><td>FlutterElement[]</td><td>List&lt;Widget&gt;</td><td class="req">✓</td></tr>
+<tr><td>onIndexChanged</td><td>(value: number) =&gt; void</td><td>void Function(int)?</td><td class="req"></td></tr>
 </tbody>
 </table>
 <div class="tabs">
@@ -7257,6 +7281,7 @@ date.</p>
 <tr><td>materialTapTargetSize</td><td>'padded' | 'shrinkWrap'</td><td>MaterialTapTargetSize?</td><td class="req"></td></tr>
 <tr><td>visualDensity</td><td>unknown</td><td>VisualDensity?</td><td class="req"></td></tr>
 <tr><td>focusNode</td><td>unknown</td><td>FocusNode?</td><td class="req"></td></tr>
+<tr><td>statesController</td><td>unknown</td><td>WidgetStatesController?</td><td class="req"></td></tr>
 <tr><td>autofocus</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>shape</td><td>unknown</td><td>ShapeBorder?</td><td class="req"></td></tr>
 <tr><td>side</td><td>unknown</td><td>BorderSide?</td><td class="req"></td></tr>
@@ -7896,6 +7921,7 @@ its ink splashes to the current table row of the nearest table.</p>
 <tr><td>titleTextStyle</td><td>TextStyleProps</td><td>TextStyle?</td><td class="req"></td></tr>
 <tr><td>children</td><td>FlutterElement[]</td><td>List&lt;Widget&gt;?</td><td class="req"></td></tr>
 <tr><td>contentPadding</td><td>number | [number, number] | [number, number, number, number]</td><td>EdgeInsetsGeometry</td><td class="req"></td></tr>
+<tr><td>contentTextStyle</td><td>TextStyleProps</td><td>TextStyle?</td><td class="req"></td></tr>
 <tr><td>backgroundColor</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
 <tr><td>elevation</td><td>number</td><td>double?</td><td class="req"></td></tr>
 <tr><td>shadowColor</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
@@ -8262,6 +8288,7 @@ menu item is displayed in that field.</p>
 <tr><td>cursorHeight</td><td>number</td><td>double?</td><td class="req"></td></tr>
 <tr><td>restorationId</td><td>string</td><td>String?</td><td class="req"></td></tr>
 <tr><td>menuController</td><td>unknown</td><td>MenuController?</td><td class="req"></td></tr>
+<tr><td>scrollPadding</td><td>number | [number, number] | [number, number, number, number]</td><td>EdgeInsets</td><td class="req"></td></tr>
 </tbody>
 </table>
 <div class="tabs">
@@ -8290,6 +8317,8 @@ menu item is displayed in that field.</p>
 <tr><td>menuHeight</td><td>number</td><td>double?</td><td class="req"></td></tr>
 <tr><td>leadingIcon</td><td>FlutterElement</td><td>Widget?</td><td class="req"></td></tr>
 <tr><td>trailingIcon</td><td>FlutterElement</td><td>Widget?</td><td class="req"></td></tr>
+<tr><td>showTrailingIcon</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
+<tr><td>trailingIconFocusNode</td><td>unknown</td><td>FocusNode?</td><td class="req"></td></tr>
 <tr><td>label</td><td>FlutterElement</td><td>Widget?</td><td class="req"></td></tr>
 <tr><td>hintText</td><td>string</td><td>String?</td><td class="req"></td></tr>
 <tr><td>helperText</td><td>string</td><td>String?</td><td class="req"></td></tr>
@@ -8307,6 +8336,7 @@ menu item is displayed in that field.</p>
 <tr><td>onSelected</td><td>(value: unknown) =&gt; void</td><td>void Function(dynamic?)?</td><td class="req"></td></tr>
 <tr><td>focusNode</td><td>unknown</td><td>FocusNode?</td><td class="req"></td></tr>
 <tr><td>requestFocusOnTap</td><td>boolean</td><td>bool?</td><td class="req"></td></tr>
+<tr><td>selectOnly</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>expandedInsets</td><td>number | [number, number] | [number, number, number, number]</td><td>EdgeInsetsGeometry?</td><td class="req"></td></tr>
 <tr><td>alignmentOffset</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
 <tr><td>filterCallback</td><td>(entries: unknown[], filter: string) =&gt; unknown[]</td><td>List&lt;DropdownMenuEntry&gt; Function(List&lt;DropdownMenuEntry&gt;, String)?</td><td class="req"></td></tr>
@@ -8316,6 +8346,8 @@ menu item is displayed in that field.</p>
 <tr><td>closeBehavior</td><td>'all' | 'self' | 'none'</td><td>DropdownMenuCloseBehavior</td><td class="req"></td></tr>
 <tr><td>maxLines</td><td>number</td><td>int</td><td class="req"></td></tr>
 <tr><td>textInputAction</td><td>'none' | 'unspecified' | 'done' | 'go' | 'search' | 'send' | 'next' | 'previous' | 'continueAction' | 'join' | 'route' | 'emergencyCall' | 'newline'</td><td>TextInputAction?</td><td class="req"></td></tr>
+<tr><td>cursorHeight</td><td>number</td><td>double?</td><td class="req"></td></tr>
+<tr><td>menuController</td><td>unknown</td><td>MenuController?</td><td class="req"></td></tr>
 <tr><td>restorationId</td><td>string</td><td>String?</td><td class="req"></td></tr>
 <tr><td>onSaved</td><td>(newValue: unknown) =&gt; void</td><td>void Function(dynamic?)?</td><td class="req"></td></tr>
 <tr><td>autovalidateMode</td><td>'disabled' | 'always' | 'onUserInteraction' | 'onUnfocus' | 'onUserInteractionIfError'</td><td>AutovalidateMode</td><td class="req"></td></tr>
@@ -8473,7 +8505,7 @@ the tile to reveal or hide the [children].</p>
 <tr><td>maintainState</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>tilePadding</td><td>number | [number, number] | [number, number, number, number]</td><td>EdgeInsetsGeometry?</td><td class="req"></td></tr>
 <tr><td>expandedCrossAxisAlignment</td><td>'start' | 'end' | 'center' | 'stretch' | 'baseline'</td><td>CrossAxisAlignment?</td><td class="req"></td></tr>
-<tr><td>expandedAlignment</td><td>string</td><td>Alignment?</td><td class="req"></td></tr>
+<tr><td>expandedAlignment</td><td>string</td><td>AlignmentGeometry?</td><td class="req"></td></tr>
 <tr><td>childrenPadding</td><td>number | [number, number] | [number, number, number, number]</td><td>EdgeInsetsGeometry?</td><td class="req"></td></tr>
 <tr><td>backgroundColor</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
 <tr><td>collapsedBackgroundColor</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
@@ -8494,6 +8526,7 @@ the tile to reveal or hide the [children].</p>
 <tr><td>enabled</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>expansionAnimationStyle</td><td>unknown</td><td>AnimationStyle?</td><td class="req"></td></tr>
 <tr><td>internalAddSemanticForOnTap</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
+<tr><td>statesController</td><td>unknown</td><td>WidgetStatesController?</td><td class="req"></td></tr>
 </tbody>
 </table>
 <div class="tabs">
@@ -9306,6 +9339,8 @@ explicit location, or with an alignment.</p>
 <tr><td>onClose</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
 <tr><td>crossAxisUnconstrained</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>useRootOverlay</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
+<tr><td>animated</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
+<tr><td>onAnimationStatusChanged</td><td>(value: 'dismissed' | 'forward' | 'reverse' | 'completed') =&gt; void</td><td>void Function(AnimationStatus)?</td><td class="req"></td></tr>
 <tr><td>menuChildren</td><td>FlutterElement[]</td><td>List&lt;Widget&gt;</td><td class="req">✓</td></tr>
 <tr><td>builder</td><td>(controller: unknown, child: FlutterElement) =&gt; FlutterElement</td><td>Widget Function(BuildContext, MenuController, Widget?)?</td><td class="req"></td></tr>
 <tr><td>child</td><td>FlutterElement</td><td>Widget?</td><td class="req"></td></tr>
@@ -9488,6 +9523,9 @@ its own, that can be activated by click or keyboard navigation.</p>
 <tr><td>trailingIcon</td><td>FlutterElement</td><td>Widget?</td><td class="req"></td></tr>
 <tr><td>submenuIcon</td><td>unknown</td><td>WidgetStateProperty?</td><td class="req"></td></tr>
 <tr><td>useRootOverlay</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
+<tr><td>hoverOpenDelay</td><td>unknown</td><td>Duration</td><td class="req"></td></tr>
+<tr><td>animated</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
+<tr><td>onAnimationStatusChanged</td><td>(value: 'dismissed' | 'forward' | 'reverse' | 'completed') =&gt; void</td><td>void Function(AnimationStatus)?</td><td class="req"></td></tr>
 <tr><td>menuChildren</td><td>FlutterElement[]</td><td>List&lt;Widget&gt;</td><td class="req">✓</td></tr>
 <tr><td>child</td><td>FlutterElement</td><td>Widget?</td><td class="req">✓</td></tr>
 </tbody>
@@ -9499,11 +9537,11 @@ its own, that can be activated by click or keyboard navigation.</p>
 </div>
 <div class="tab-panel active" data-panel="tsx" role="tabpanel">
 <pre><code class="language-tsx">export function Example() {
-  return &lt;SubmenuButton useRootOverlay={true}&gt;&lt;Text&gt;Label&lt;/Text&gt;&lt;/SubmenuButton&gt;;
+  return &lt;SubmenuButton useRootOverlay={true} animated={true}&gt;&lt;Text&gt;Label&lt;/Text&gt;&lt;/SubmenuButton&gt;;
 }</code></pre>
 </div>
 <div class="tab-panel" data-panel="dart" role="tabpanel">
-<pre><code class="language-dart">SubmenuButton(useRootOverlay: true, child: Text('Label'))</code></pre>
+<pre><code class="language-dart">SubmenuButton(useRootOverlay: true, animated: true, child: Text('Label'))</code></pre>
 </div>
 </div>
 </article>
@@ -10216,6 +10254,7 @@ popup menus in this widget's subtree.</p>
 <tr><td>selectedTileColor</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
 <tr><td>visualDensity</td><td>unknown</td><td>VisualDensity?</td><td class="req"></td></tr>
 <tr><td>focusNode</td><td>unknown</td><td>FocusNode?</td><td class="req"></td></tr>
+<tr><td>statesController</td><td>unknown</td><td>WidgetStatesController?</td><td class="req"></td></tr>
 <tr><td>onFocusChange</td><td>(value: boolean) =&gt; void</td><td>void Function(bool)?</td><td class="req"></td></tr>
 <tr><td>enableFeedback</td><td>boolean</td><td>bool?</td><td class="req"></td></tr>
 <tr><td>horizontalTitleGap</td><td>number</td><td>double?</td><td class="req"></td></tr>
@@ -10351,7 +10390,8 @@ popup menus in this widget's subtree.</p>
 <thead><tr><th>Prop</th><th>TSX type</th><th>Dart type</th><th>Required</th></tr></thead>
 <tbody>
 <tr><td>children</td><td>FlutterElement[]</td><td>List&lt;Widget&gt;</td><td class="req">✓</td></tr>
-<tr><td>onReorder</td><td>(oldIndex: number, newIndex: number) =&gt; void</td><td>void Function(int, int)</td><td class="req">✓</td></tr>
+<tr><td>onReorder</td><td>(oldIndex: number, newIndex: number) =&gt; void</td><td>void Function(int, int)?</td><td class="req"></td></tr>
+<tr><td>onReorderItem</td><td>(oldIndex: number, newIndex: number) =&gt; void</td><td>void Function(int, int)?</td><td class="req"></td></tr>
 <tr><td>onReorderStart</td><td>(index: number) =&gt; void</td><td>void Function(int)?</td><td class="req"></td></tr>
 <tr><td>onReorderEnd</td><td>(index: number) =&gt; void</td><td>void Function(int)?</td><td class="req"></td></tr>
 <tr><td>itemExtent</td><td>number</td><td>double?</td><td class="req"></td></tr>
@@ -10370,6 +10410,7 @@ popup menus in this widget's subtree.</p>
 <tr><td>shrinkWrap</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>anchor</td><td>number</td><td>double</td><td class="req"></td></tr>
 <tr><td>cacheExtent</td><td>number</td><td>double?</td><td class="req"></td></tr>
+<tr><td>scrollCacheExtent</td><td>unknown</td><td>ScrollCacheExtent?</td><td class="req"></td></tr>
 <tr><td>dragStartBehavior</td><td>string</td><td>DragStartBehavior</td><td class="req"></td></tr>
 <tr><td>keyboardDismissBehavior</td><td>'manual' | 'onDrag'</td><td>ScrollViewKeyboardDismissBehavior?</td><td class="req"></td></tr>
 <tr><td>restorationId</td><td>string</td><td>String?</td><td class="req"></td></tr>
@@ -10953,6 +10994,8 @@ completed in order to submit the whole form.</p>
 <tr><td>stepIconWidth</td><td>number</td><td>double?</td><td class="req"></td></tr>
 <tr><td>stepIconMargin</td><td>number | [number, number] | [number, number, number, number]</td><td>EdgeInsets?</td><td class="req"></td></tr>
 <tr><td>clipBehavior</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
+<tr><td>headerPadding</td><td>number | [number, number] | [number, number, number, number]</td><td>EdgeInsetsGeometry?</td><td class="req"></td></tr>
+<tr><td>contentPadding</td><td>number | [number, number] | [number, number, number, number]</td><td>EdgeInsetsGeometry?</td><td class="req"></td></tr>
 </tbody>
 </table>
 <div class="tabs">
@@ -10997,6 +11040,7 @@ completed in order to submit the whole form.</p>
 <tr><td>overlayColor</td><td>unknown</td><td>WidgetStateProperty?</td><td class="req"></td></tr>
 <tr><td>splashRadius</td><td>number</td><td>double?</td><td class="req"></td></tr>
 <tr><td>focusNode</td><td>unknown</td><td>FocusNode?</td><td class="req"></td></tr>
+<tr><td>statesController</td><td>unknown</td><td>WidgetStatesController?</td><td class="req"></td></tr>
 <tr><td>onFocusChange</td><td>(value: boolean) =&gt; void</td><td>void Function(bool)?</td><td class="req"></td></tr>
 <tr><td>autofocus</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>tileColor</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
@@ -11728,6 +11772,7 @@ between their sizes.</p>
 <tr><td>reverseDuration</td><td>unknown</td><td>Duration?</td><td class="req"></td></tr>
 <tr><td>layoutBuilder</td><td>(topChild: FlutterElement, topChildKey: unknown, bottomChild: FlutterElement, bottomChildKey: unknown) =&gt; FlutterElement</td><td>Widget Function(Widget, Key, Widget, Key)</td><td class="req"></td></tr>
 <tr><td>excludeBottomFocus</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
+<tr><td>onEnd</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
 </tbody>
 </table>
 <div class="tabs">
@@ -11761,6 +11806,7 @@ between their sizes.</p>
 <tr><td>shrinkWrap</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>padding</td><td>number | [number, number] | [number, number, number, number]</td><td>EdgeInsetsGeometry?</td><td class="req"></td></tr>
 <tr><td>clipBehavior</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
+<tr><td>scrollCacheExtent</td><td>unknown</td><td>ScrollCacheExtent?</td><td class="req"></td></tr>
 </tbody>
 </table>
 <div class="tabs">
@@ -11795,6 +11841,7 @@ in a grid.</p>
 <tr><td>physics</td><td>unknown</td><td>ScrollPhysics?</td><td class="req"></td></tr>
 <tr><td>padding</td><td>number | [number, number] | [number, number, number, number]</td><td>EdgeInsetsGeometry?</td><td class="req"></td></tr>
 <tr><td>clipBehavior</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
+<tr><td>scrollCacheExtent</td><td>unknown</td><td>ScrollCacheExtent?</td><td class="req"></td></tr>
 </tbody>
 </table>
 <div class="tabs">
@@ -14627,6 +14674,7 @@ should reset its position to the initial state.</p>
 <tr><td>magnifierConfiguration</td><td>unknown</td><td>TextMagnifierConfiguration</td><td class="req"></td></tr>
 <tr><td>undoController</td><td>unknown</td><td>UndoHistoryController?</td><td class="req"></td></tr>
 <tr><td>hintLocales</td><td>unknown[]</td><td>List&lt;dynamic&gt;?</td><td class="req"></td></tr>
+<tr><td>enableInlinePrediction</td><td>boolean</td><td>bool?</td><td class="req"></td></tr>
 </tbody>
 </table>
 <div class="tabs">
@@ -15090,6 +15138,8 @@ factories.</p>
 <tr><td>flightShuttleBuilder</td><td>(animation: unknown, flightDirection: 'push' | 'pop') =&gt; FlutterElement</td><td>Widget Function(BuildContext, Animation, HeroFlightDirection, BuildContext, BuildContext)?</td><td class="req"></td></tr>
 <tr><td>placeholderBuilder</td><td>(heroSize: unknown, child: FlutterElement) =&gt; FlutterElement</td><td>Widget Function(BuildContext, dynamic, Widget)?</td><td class="req"></td></tr>
 <tr><td>transitionOnUserGestures</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
+<tr><td>curve</td><td>unknown</td><td>Curve</td><td class="req"></td></tr>
+<tr><td>reverseCurve</td><td>unknown</td><td>Curve?</td><td class="req"></td></tr>
 <tr><td>child</td><td>FlutterElement</td><td>Widget</td><td class="req">✓</td></tr>
 </tbody>
 </table>
@@ -16327,6 +16377,7 @@ them out in a column instead.</p>
 <tbody>
 <tr><td>initialEntries</td><td>unknown[]</td><td>List&lt;OverlayEntry&gt;</td><td class="req"></td></tr>
 <tr><td>clipBehavior</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
+<tr><td>alwaysSizeToContent</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 </tbody>
 </table>
 <div class="tabs">
@@ -16336,11 +16387,11 @@ them out in a column instead.</p>
 </div>
 <div class="tab-panel active" data-panel="tsx" role="tabpanel">
 <pre><code class="language-tsx">export function Example() {
-  return &lt;Overlay /&gt;;
+  return &lt;Overlay alwaysSizeToContent={true} /&gt;;
 }</code></pre>
 </div>
 <div class="tab-panel" data-panel="dart" role="tabpanel">
-<pre><code class="language-dart">Overlay()</code></pre>
+<pre><code class="language-dart">Overlay(alwaysSizeToContent: true)</code></pre>
 </div>
 </div>
 </article>
@@ -16468,6 +16519,7 @@ being destroyed.</p>
 <tr><td>children</td><td>FlutterElement[]</td><td>List&lt;Widget&gt;</td><td class="req"></td></tr>
 <tr><td>dragStartBehavior</td><td>string</td><td>DragStartBehavior</td><td class="req"></td></tr>
 <tr><td>allowImplicitScrolling</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
+<tr><td>scrollCacheExtent</td><td>unknown</td><td>ScrollCacheExtent?</td><td class="req"></td></tr>
 <tr><td>restorationId</td><td>string</td><td>String?</td><td class="req"></td></tr>
 <tr><td>clipBehavior</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
 <tr><td>hitTestBehavior</td><td>'deferToChild' | 'opaque' | 'translucent'</td><td>HitTestBehavior</td><td class="req"></td></tr>
@@ -17056,6 +17108,7 @@ user interactions, such as hovering or long-pressing.</p>
 <tr><td>onTriggered</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
 <tr><td>animationStyle</td><td>unknown</td><td>AnimationStyle</td><td class="req"></td></tr>
 <tr><td>positionDelegate</td><td>(context: unknown) =&gt; unknown</td><td>dynamic Function(TooltipPositionContext)?</td><td class="req"></td></tr>
+<tr><td>ignorePointer</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>child</td><td>FlutterElement</td><td>Widget</td><td class="req">✓</td></tr>
 </tbody>
 </table>
@@ -17083,7 +17136,8 @@ list items.</p>
 <tbody>
 <tr><td>itemBuilder</td><td>(index: number) =&gt; FlutterElement</td><td>Widget Function(BuildContext, int)</td><td class="req">✓</td></tr>
 <tr><td>itemCount</td><td>number</td><td>int</td><td class="req">✓</td></tr>
-<tr><td>onReorder</td><td>(oldIndex: number, newIndex: number) =&gt; void</td><td>void Function(int, int)</td><td class="req">✓</td></tr>
+<tr><td>onReorder</td><td>(oldIndex: number, newIndex: number) =&gt; void</td><td>void Function(int, int)?</td><td class="req"></td></tr>
+<tr><td>onReorderItem</td><td>(oldIndex: number, newIndex: number) =&gt; void</td><td>void Function(int, int)?</td><td class="req"></td></tr>
 <tr><td>onReorderStart</td><td>(index: number) =&gt; void</td><td>void Function(int)?</td><td class="req"></td></tr>
 <tr><td>onReorderEnd</td><td>(index: number) =&gt; void</td><td>void Function(int)?</td><td class="req"></td></tr>
 <tr><td>itemExtent</td><td>number</td><td>double?</td><td class="req"></td></tr>
@@ -17099,6 +17153,7 @@ list items.</p>
 <tr><td>shrinkWrap</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>anchor</td><td>number</td><td>double</td><td class="req"></td></tr>
 <tr><td>cacheExtent</td><td>number</td><td>double?</td><td class="req"></td></tr>
+<tr><td>scrollCacheExtent</td><td>unknown</td><td>ScrollCacheExtent?</td><td class="req"></td></tr>
 <tr><td>dragStartBehavior</td><td>string</td><td>DragStartBehavior</td><td class="req"></td></tr>
 <tr><td>keyboardDismissBehavior</td><td>'manual' | 'onDrag'</td><td>ScrollViewKeyboardDismissBehavior?</td><td class="req"></td></tr>
 <tr><td>restorationId</td><td>string</td><td>String?</td><td class="req"></td></tr>
@@ -17131,7 +17186,8 @@ list items.</p>
 <tr><td>itemBuilder</td><td>(index: number) =&gt; FlutterElement</td><td>Widget Function(BuildContext, int)</td><td class="req">✓</td></tr>
 <tr><td>findChildIndexCallback</td><td>(key: unknown) =&gt; number</td><td>int? Function(Key)?</td><td class="req"></td></tr>
 <tr><td>itemCount</td><td>number</td><td>int</td><td class="req">✓</td></tr>
-<tr><td>onReorder</td><td>(oldIndex: number, newIndex: number) =&gt; void</td><td>void Function(int, int)</td><td class="req">✓</td></tr>
+<tr><td>onReorder</td><td>(oldIndex: number, newIndex: number) =&gt; void</td><td>void Function(int, int)?</td><td class="req"></td></tr>
+<tr><td>onReorderItem</td><td>(oldIndex: number, newIndex: number) =&gt; void</td><td>void Function(int, int)?</td><td class="req"></td></tr>
 <tr><td>onReorderStart</td><td>(p0: number) =&gt; void</td><td>void Function(int)?</td><td class="req"></td></tr>
 <tr><td>onReorderEnd</td><td>(p0: number) =&gt; void</td><td>void Function(int)?</td><td class="req"></td></tr>
 <tr><td>itemExtent</td><td>number</td><td>double?</td><td class="req"></td></tr>
@@ -18215,6 +18271,7 @@ the main axis, one after another.</p>
 <tr><td>delegate</td><td>unknown</td><td>SliverChildDelegate</td><td class="req">✓</td></tr>
 <tr><td>viewportFraction</td><td>number</td><td>double</td><td class="req"></td></tr>
 <tr><td>padEnds</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
+<tr><td>allowImplicitScrolling</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 </tbody>
 </table>
 <div class="tabs">
@@ -18224,11 +18281,11 @@ the main axis, one after another.</p>
 </div>
 <div class="tab-panel active" data-panel="tsx" role="tabpanel">
 <pre><code class="language-tsx">export function Example() {
-  return &lt;SliverFillViewport viewportFraction={16} padEnds={true} /&gt;;
+  return &lt;SliverFillViewport viewportFraction={16} padEnds={true} allowImplicitScrolling={true} /&gt;;
 }</code></pre>
 </div>
 <div class="tab-panel" data-panel="dart" role="tabpanel">
-<pre><code class="language-dart">SliverFillViewport(viewportFraction: 16, padEnds: true)</code></pre>
+<pre><code class="language-dart">SliverFillViewport(viewportFraction: 16, padEnds: true, allowImplicitScrolling: true)</code></pre>
 </div>
 </div>
 </article>
@@ -18978,7 +19035,8 @@ subtree.</p>
 <tbody>
 <tr><td>axis</td><td>'horizontal' | 'vertical'</td><td>Axis</td><td class="req"></td></tr>
 <tr><td>sizeFactor</td><td>unknown</td><td>Animation</td><td class="req">✓</td></tr>
-<tr><td>axisAlignment</td><td>number</td><td>double</td><td class="req"></td></tr>
+<tr><td>axisAlignment</td><td>number</td><td>double?</td><td class="req"></td></tr>
+<tr><td>alignment</td><td>string</td><td>AlignmentGeometry?</td><td class="req"></td></tr>
 <tr><td>fixedCrossAxisSizeFactor</td><td>number</td><td>double?</td><td class="req"></td></tr>
 <tr><td>child</td><td>FlutterElement</td><td>Widget?</td><td class="req"></td></tr>
 </tbody>
@@ -18990,11 +19048,11 @@ subtree.</p>
 </div>
 <div class="tab-panel active" data-panel="tsx" role="tabpanel">
 <pre><code class="language-tsx">export function Example() {
-  return &lt;SizeTransition axis=&quot;horizontal&quot; axisAlignment={16} fixedCrossAxisSizeFactor={16}&gt;&lt;Text&gt;Label&lt;/Text&gt;&lt;/SizeTransition&gt;;
+  return &lt;SizeTransition axis=&quot;horizontal&quot; axisAlignment={16} alignment=&quot;example&quot;&gt;&lt;Text&gt;Label&lt;/Text&gt;&lt;/SizeTransition&gt;;
 }</code></pre>
 </div>
 <div class="tab-panel" data-panel="dart" role="tabpanel">
-<pre><code class="language-dart">SizeTransition(axis: Axis.horizontal, axisAlignment: 16, fixedCrossAxisSizeFactor: 16, child: Text('Label'))</code></pre>
+<pre><code class="language-dart">SizeTransition(axis: Axis.horizontal, axisAlignment: 16, alignment: 'example', child: Text('Label'))</code></pre>
 </div>
 </div>
 </article>
@@ -19446,6 +19504,7 @@ in combination with a [Scrollable].</p>
 <tr><td>center</td><td>unknown</td><td>Key?</td><td class="req"></td></tr>
 <tr><td>cacheExtent</td><td>number</td><td>double?</td><td class="req"></td></tr>
 <tr><td>cacheExtentStyle</td><td>string</td><td>CacheExtentStyle</td><td class="req"></td></tr>
+<tr><td>scrollCacheExtent</td><td>unknown</td><td>ScrollCacheExtent?</td><td class="req"></td></tr>
 <tr><td>paintOrder</td><td>'firstIsTop' | 'lastIsTop'</td><td>SliverPaintOrder</td><td class="req"></td></tr>
 <tr><td>clipBehavior</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
 <tr><td>slivers</td><td>FlutterElement[]</td><td>List&lt;Widget&gt;</td><td class="req"></td></tr>
@@ -19478,6 +19537,9 @@ main axis.</p>
 <tr><td>offset</td><td>unknown</td><td>ViewportOffset</td><td class="req">✓</td></tr>
 <tr><td>paintOrder</td><td>'firstIsTop' | 'lastIsTop'</td><td>SliverPaintOrder</td><td class="req"></td></tr>
 <tr><td>clipBehavior</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
+<tr><td>cacheExtent</td><td>number</td><td>double?</td><td class="req"></td></tr>
+<tr><td>cacheExtentStyle</td><td>string</td><td>CacheExtentStyle</td><td class="req"></td></tr>
+<tr><td>scrollCacheExtent</td><td>unknown</td><td>ScrollCacheExtent?</td><td class="req"></td></tr>
 <tr><td>slivers</td><td>FlutterElement[]</td><td>List&lt;Widget&gt;</td><td class="req"></td></tr>
 </tbody>
 </table>
@@ -20506,6 +20568,115 @@ finger may be blocking the point of interest, like a selection handle.</p>
 </div>
 </div>
 </article>
+<article class="widget" id="CupertinoMenuAnchor" data-name="CupertinoMenuAnchor">
+<h3>CupertinoMenuAnchor<span class="badge badge-lib">cupertino</span><span class="badge badge-cat">other</span></h3>
+<p class="doc">A widget used to mark the &quot;anchor&quot; for a menu, defining the rectangle used
+to position the menu, which can be done with an explicit location, or
+with an alignment.</p>
+<table class="props">
+<thead><tr><th>Prop</th><th>TSX type</th><th>Dart type</th><th>Required</th></tr></thead>
+<tbody>
+<tr><td>controller</td><td>unknown</td><td>MenuController?</td><td class="req"></td></tr>
+<tr><td>onOpen</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
+<tr><td>onClose</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
+<tr><td>onAnimationStatusChanged</td><td>(status: 'dismissed' | 'forward' | 'reverse' | 'completed') =&gt; void</td><td>void Function(AnimationStatus)?</td><td class="req"></td></tr>
+<tr><td>constraints</td><td>unknown</td><td>BoxConstraints?</td><td class="req"></td></tr>
+<tr><td>constrainCrossAxis</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
+<tr><td>consumeOutsideTaps</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
+<tr><td>enableSwipe</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
+<tr><td>enableLongPressToOpen</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
+<tr><td>useRootOverlay</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
+<tr><td>overlayPadding</td><td>number | [number, number] | [number, number, number, number]</td><td>EdgeInsetsGeometry</td><td class="req"></td></tr>
+<tr><td>menuChildren</td><td>FlutterElement[]</td><td>List&lt;Widget&gt;</td><td class="req">✓</td></tr>
+<tr><td>builder</td><td>(controller: unknown, child: FlutterElement) =&gt; FlutterElement</td><td>Widget Function(BuildContext, MenuController, Widget?)?</td><td class="req"></td></tr>
+<tr><td>child</td><td>FlutterElement</td><td>Widget?</td><td class="req"></td></tr>
+<tr><td>childFocusNode</td><td>unknown</td><td>FocusNode?</td><td class="req"></td></tr>
+</tbody>
+</table>
+<div class="tabs">
+<div class="tab-btns" role="tablist">
+<button class="tab-btn active" data-tab="tsx" role="tab" aria-selected="true">TSX</button>
+<button class="tab-btn" data-tab="dart" role="tab" aria-selected="false">Dart</button>
+</div>
+<div class="tab-panel active" data-panel="tsx" role="tabpanel">
+<pre><code class="language-tsx">export function Example() {
+  return &lt;CupertinoMenuAnchor constrainCrossAxis={true} consumeOutsideTaps={true} enableSwipe={true}&gt;&lt;Text&gt;Label&lt;/Text&gt;&lt;/CupertinoMenuAnchor&gt;;
+}</code></pre>
+</div>
+<div class="tab-panel" data-panel="dart" role="tabpanel">
+<pre><code class="language-dart">CupertinoMenuAnchor(constrainCrossAxis: true, consumeOutsideTaps: true, enableSwipe: true, child: Text('Label'))</code></pre>
+</div>
+</div>
+</article>
+<article class="widget" id="CupertinoMenuDivider" data-name="CupertinoMenuDivider">
+<h3>CupertinoMenuDivider<span class="badge badge-lib">cupertino</span><span class="badge badge-cat">other</span></h3>
+<p class="doc">A large horizontal divider that is used to separate [CupertinoMenuItem]s in
+a [CupertinoMenuAnchor].</p>
+<table class="props">
+<thead><tr><th>Prop</th><th>TSX type</th><th>Dart type</th><th>Required</th></tr></thead>
+<tbody>
+<tr><td>color</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
+</tbody>
+</table>
+<div class="tabs">
+<div class="tab-btns" role="tablist">
+<button class="tab-btn active" data-tab="tsx" role="tab" aria-selected="true">TSX</button>
+<button class="tab-btn" data-tab="dart" role="tab" aria-selected="false">Dart</button>
+</div>
+<div class="tab-panel active" data-panel="tsx" role="tabpanel">
+<pre><code class="language-tsx">export function Example() {
+  return &lt;CupertinoMenuDivider /&gt;;
+}</code></pre>
+</div>
+<div class="tab-panel" data-panel="dart" role="tabpanel">
+<pre><code class="language-dart">CupertinoMenuDivider()</code></pre>
+</div>
+</div>
+</article>
+<article class="widget" id="CupertinoMenuItem" data-name="CupertinoMenuItem">
+<h3>CupertinoMenuItem<span class="badge badge-lib">cupertino</span><span class="badge badge-cat">other</span></h3>
+<p class="doc">A menu item for use in a [CupertinoMenuAnchor].</p>
+<table class="props">
+<thead><tr><th>Prop</th><th>TSX type</th><th>Dart type</th><th>Required</th></tr></thead>
+<tbody>
+<tr><td>child</td><td>FlutterElement</td><td>Widget</td><td class="req">✓</td></tr>
+<tr><td>subtitle</td><td>FlutterElement</td><td>Widget?</td><td class="req"></td></tr>
+<tr><td>leading</td><td>FlutterElement</td><td>Widget?</td><td class="req"></td></tr>
+<tr><td>leadingWidth</td><td>number</td><td>double?</td><td class="req"></td></tr>
+<tr><td>leadingMidpointAlignment</td><td>string</td><td>AlignmentGeometry?</td><td class="req"></td></tr>
+<tr><td>trailing</td><td>FlutterElement</td><td>Widget?</td><td class="req"></td></tr>
+<tr><td>trailingWidth</td><td>number</td><td>double?</td><td class="req"></td></tr>
+<tr><td>trailingMidpointAlignment</td><td>string</td><td>AlignmentGeometry?</td><td class="req"></td></tr>
+<tr><td>padding</td><td>number | [number, number] | [number, number, number, number]</td><td>EdgeInsetsGeometry?</td><td class="req"></td></tr>
+<tr><td>constraints</td><td>unknown</td><td>BoxConstraints?</td><td class="req"></td></tr>
+<tr><td>autofocus</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
+<tr><td>focusNode</td><td>unknown</td><td>FocusNode?</td><td class="req"></td></tr>
+<tr><td>onFocusChange</td><td>(value: boolean) =&gt; void</td><td>void Function(bool)?</td><td class="req"></td></tr>
+<tr><td>onHover</td><td>(value: boolean) =&gt; void</td><td>void Function(bool)?</td><td class="req"></td></tr>
+<tr><td>onClick</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
+<tr><td>decoration</td><td>unknown</td><td>WidgetStateProperty?</td><td class="req"></td></tr>
+<tr><td>mouseCursor</td><td>unknown</td><td>WidgetStateProperty?</td><td class="req"></td></tr>
+<tr><td>behavior</td><td>'deferToChild' | 'opaque' | 'translucent'</td><td>HitTestBehavior</td><td class="req"></td></tr>
+<tr><td>requestCloseOnActivate</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
+<tr><td>requestFocusOnHover</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
+<tr><td>isDestructiveAction</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
+</tbody>
+</table>
+<div class="tabs">
+<div class="tab-btns" role="tablist">
+<button class="tab-btn active" data-tab="tsx" role="tab" aria-selected="true">TSX</button>
+<button class="tab-btn" data-tab="dart" role="tab" aria-selected="false">Dart</button>
+</div>
+<div class="tab-panel active" data-panel="tsx" role="tabpanel">
+<pre><code class="language-tsx">export function Example() {
+  return &lt;CupertinoMenuItem leadingWidth={16} leadingMidpointAlignment=&quot;example&quot; trailingWidth={16}&gt;&lt;Text&gt;Label&lt;/Text&gt;&lt;/CupertinoMenuItem&gt;;
+}</code></pre>
+</div>
+<div class="tab-panel" data-panel="dart" role="tabpanel">
+<pre><code class="language-dart">CupertinoMenuItem(leadingWidth: 16, leadingMidpointAlignment: 'example', trailingWidth: 16, child: Text('Label'))</code></pre>
+</div>
+</div>
+</article>
 <article class="widget" id="CupertinoNavigationBar" data-name="CupertinoNavigationBar">
 <h3>CupertinoNavigationBar<span class="badge badge-lib">cupertino</span><span class="badge badge-cat">other</span></h3>
 <p class="doc">An iOS-styled navigation bar.</p>
@@ -21266,6 +21437,7 @@ finger may be blocking the point of interest, like a selection handle.</p>
 <tr><td>scribbleEnabled</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>stylusHandwritingEnabled</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>enableIMEPersonalizedLearning</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
+<tr><td>enableInlinePrediction</td><td>boolean</td><td>bool?</td><td class="req"></td></tr>
 <tr><td>contextMenuBuilder</td><td>(editableTextState: unknown) =&gt; FlutterElement</td><td>Widget Function(BuildContext, EditableTextState)?</td><td class="req"></td></tr>
 <tr><td>spellCheckConfiguration</td><td>unknown</td><td>SpellCheckConfiguration?</td><td class="req"></td></tr>
 <tr><td>magnifierConfiguration</td><td>unknown</td><td>TextMagnifierConfiguration?</td><td class="req"></td></tr>
@@ -22247,7 +22419,7 @@ a [CupertinoTextField].</p>
 <button class="tab-btn" data-tab="dart" role="tab" aria-selected="false">Dart</button>
 </div>
 <div class="tab-panel active" data-panel="tsx" role="tabpanel">
-<pre><code class="language-typescript">"debugDumpApp" | "debugDumpFocusTree" | "showPerformanceOverlay" | "didSendFirstFrameEvent" | "didSendFirstFrameRasterizedEvent" | "fastReassemble" | "profileWidgetBuilds" | "profileUserWidgetBuilds" | "debugAllowBanner"</code></pre>
+<pre><code class="language-typescript">"debugDumpApp" | "debugDumpFocusTree" | "showPerformanceOverlay" | "didSendFirstFrameEvent" | "didSendFirstFrameRasterizedEvent" | "fastReassemble" | "profileWidgetBuilds" | "profileUserWidgetBuilds" | "debugAllowBanner" | "accessibilityEvaluations"</code></pre>
 </div>
 <div class="tab-panel" data-panel="dart" role="tabpanel">
 <ul class="enum-values"><li><code>WidgetsServiceExtensions.debugDumpApp</code></li>
@@ -22258,7 +22430,8 @@ a [CupertinoTextField].</p>
 <li><code>WidgetsServiceExtensions.fastReassemble</code></li>
 <li><code>WidgetsServiceExtensions.profileWidgetBuilds</code></li>
 <li><code>WidgetsServiceExtensions.profileUserWidgetBuilds</code></li>
-<li><code>WidgetsServiceExtensions.debugAllowBanner</code></li></ul>
+<li><code>WidgetsServiceExtensions.debugAllowBanner</code></li>
+<li><code>WidgetsServiceExtensions.accessibilityEvaluations</code></li></ul>
 </div>
 </div>
 </article>
@@ -24087,7 +24260,7 @@ a [CupertinoTextField].</p>
 </article>
 </section>
 <section id="types">
-<h2>Types (767)</h2>
+<h2>Types (770)</h2>
 <section id="types-material">
 <h3>material (607)</h3>
 <article class="widget type-entry" id="ActionIconThemeData" data-name="ActionIconThemeData">
@@ -25089,6 +25262,18 @@ defines the container's shape.</p>
 </tbody>
 </table>
 </article>
+<article class="widget type-entry" id="ShapedInputBorder" data-name="ShapedInputBorder">
+<h3>ShapedInputBorder<span class="badge badge-lib">material</span><span class="badge badge-cat">type</span></h3>
+<p class="doc">Draws a custom shape around an [InputDecorator]'s container.</p>
+<table class="props">
+<thead><tr><th>Prop</th><th>TSX type</th><th>Dart type</th><th>Required</th></tr></thead>
+<tbody>
+<tr><td>borderSide</td><td>unknown</td><td>BorderSide</td><td class="req"></td></tr>
+<tr><td>shape</td><td>unknown</td><td>ShapeBorder</td><td class="req">✓</td></tr>
+<tr><td>gapPadding</td><td>number</td><td>double</td><td class="req"></td></tr>
+</tbody>
+</table>
+</article>
 <article class="widget type-entry" id="FloatingLabelAlignment" data-name="FloatingLabelAlignment">
 <h3>FloatingLabelAlignment<span class="badge badge-lib">material</span><span class="badge badge-cat">type</span></h3>
 <p class="doc">Defines **where** the floating label should be displayed within an
@@ -25506,12 +25691,6 @@ Android Q.</p>
 </tbody>
 </table>
 </article>
-<article class="widget type-entry" id="CupertinoPageTransitionsBuilder" data-name="CupertinoPageTransitionsBuilder">
-<h3>CupertinoPageTransitionsBuilder<span class="badge badge-lib">material</span><span class="badge badge-cat">type</span></h3>
-<p class="doc">Used by [PageTransitionsTheme] to define a horizontal [MaterialPageRoute]
-page transition animation that matches native iOS page transitions.</p>
-
-</article>
 <article class="widget type-entry" id="PageTransitionsTheme" data-name="PageTransitionsTheme">
 <h3>PageTransitionsTheme<span class="badge badge-lib">material</span><span class="badge badge-cat">type</span></h3>
 <p class="doc">Defines the page transition animations used by [MaterialPageRoute]
@@ -25566,13 +25745,23 @@ as well as [PopupMenuItem] and [PopupMenuDivider] widgets.</p>
 <p class="doc">Used by [PageTransitionsTheme] to define a [MaterialPageRoute] page
 transition animation that looks like the default page transition used on
 Android U and above when using predictive back.</p>
-
+<table class="props">
+<thead><tr><th>Prop</th><th>TSX type</th><th>Dart type</th><th>Required</th></tr></thead>
+<tbody>
+<tr><td>fallbackColor</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
+</tbody>
+</table>
 </article>
 <article class="widget type-entry" id="PredictiveBackFullscreenPageTransitionsBuilder" data-name="PredictiveBackFullscreenPageTransitionsBuilder">
 <h3>PredictiveBackFullscreenPageTransitionsBuilder<span class="badge badge-lib">material</span><span class="badge badge-cat">type</span></h3>
 <p class="doc">Used by [PageTransitionsTheme] to define a [MaterialPageRoute] page
 transition animation that looks like Android's Full Screen page transition.</p>
-
+<table class="props">
+<thead><tr><th>Prop</th><th>TSX type</th><th>Dart type</th><th>Required</th></tr></thead>
+<tbody>
+<tr><td>fallbackColor</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
+</tbody>
+</table>
 </article>
 <article class="widget type-entry" id="ProgressIndicatorThemeData" data-name="ProgressIndicatorThemeData">
 <h3>ProgressIndicatorThemeData<span class="badge badge-lib">material</span><span class="badge badge-cat">type</span></h3>
@@ -26143,6 +26332,11 @@ selected tab.</p>
 <tr><td>insets</td><td>number | [number, number] | [number, number, number, number]</td><td>EdgeInsetsGeometry</td><td class="req"></td></tr>
 </tbody>
 </table>
+</article>
+<article class="widget type-entry" id="TabBarScrollController" data-name="TabBarScrollController">
+<h3>TabBarScrollController<span class="badge badge-lib">material</span><span class="badge badge-cat">type</span></h3>
+<p class="doc">The [ScrollController] for a [TabBar] widget.</p>
+
 </article>
 <article class="widget type-entry" id="TextButtonThemeData" data-name="TextButtonThemeData">
 <h3>TextButtonThemeData<span class="badge badge-lib">material</span><span class="badge badge-cat">type</span></h3>
@@ -27643,6 +27837,7 @@ or the iOS themed [CupertinoTabBar] with an icon and title.</p>
 <tr><td>activeIcon</td><td>FlutterElement</td><td>Widget?</td><td class="req"></td></tr>
 <tr><td>backgroundColor</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
 <tr><td>tooltip</td><td>string</td><td>String?</td><td class="req"></td></tr>
+<tr><td>semanticsLabel</td><td>string</td><td>String?</td><td class="req"></td></tr>
 </tbody>
 </table>
 </article>
@@ -28707,6 +28902,7 @@ and selection gestures, used to position magnifiers.</p>
 <tr><td>letterSpacingOverride</td><td>number</td><td>double?</td><td class="req"></td></tr>
 <tr><td>wordSpacingOverride</td><td>number</td><td>double?</td><td class="req"></td></tr>
 <tr><td>paragraphSpacingOverride</td><td>number</td><td>double?</td><td class="req"></td></tr>
+<tr><td>displayCornerRadii</td><td>unknown</td><td>BorderRadius?</td><td class="req"></td></tr>
 </tbody>
 </table>
 </article>
@@ -30349,17 +30545,6 @@ parameter.</p>
 </tbody>
 </table>
 </article>
-<article class="widget type-entry" id="ExtendSelectionByPageIntent" data-name="ExtendSelectionByPageIntent">
-<h3>ExtendSelectionByPageIntent<span class="badge badge-lib">material</span><span class="badge badge-cat">type</span></h3>
-<p class="doc">Scrolls up or down by page depending on the [forward] parameter.
-Extends the selection up or down by page based on the [forward] parameter.</p>
-<table class="props">
-<thead><tr><th>Prop</th><th>TSX type</th><th>Dart type</th><th>Required</th></tr></thead>
-<tbody>
-<tr><td>forward</td><td>boolean</td><td>bool</td><td class="req">✓</td></tr>
-</tbody>
-</table>
-</article>
 <article class="widget type-entry" id="SelectAllTextIntent" data-name="SelectAllTextIntent">
 <h3>SelectAllTextIntent<span class="badge badge-lib">material</span><span class="badge badge-cat">type</span></h3>
 <p class="doc">An [Intent] to select everything in the field.</p>
@@ -31521,7 +31706,7 @@ holds the selection.</p>
 </article>
 </section>
 <section id="types-services">
-<h3>services (97)</h3>
+<h3>services (98)</h3>
 <article class="widget type-entry" id="NetworkAssetBundle" data-name="NetworkAssetBundle">
 <h3>NetworkAssetBundle<span class="badge badge-lib">services</span><span class="badge badge-cat">type</span></h3>
 <p class="doc">An [AssetBundle] that loads resources over the network.</p>
@@ -31585,6 +31770,7 @@ holds the selection.</p>
 <tr><td>allowedMimeTypes</td><td>string[]</td><td>List&lt;String&gt;</td><td class="req"></td></tr>
 <tr><td>enableDeltaModel</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
 <tr><td>hintLocales</td><td>unknown[]</td><td>List&lt;dynamic&gt;?</td><td class="req"></td></tr>
+<tr><td>enableInlinePrediction</td><td>boolean</td><td>bool?</td><td class="req"></td></tr>
 </tbody>
 </table>
 </article>
@@ -32471,6 +32657,23 @@ than allowed.</p>
 </tbody>
 </table>
 </article>
+<article class="widget type-entry" id="TextInputStyle" data-name="TextInputStyle">
+<h3>TextInputStyle<span class="badge badge-lib">services</span><span class="badge badge-cat">type</span></h3>
+<p class="doc">Text styling information for the current input client.</p>
+<table class="props">
+<thead><tr><th>Prop</th><th>TSX type</th><th>Dart type</th><th>Required</th></tr></thead>
+<tbody>
+<tr><td>fontFamily</td><td>string</td><td>String?</td><td class="req"></td></tr>
+<tr><td>fontSize</td><td>number</td><td>double?</td><td class="req"></td></tr>
+<tr><td>fontWeight</td><td>unknown</td><td>dynamic</td><td class="req"></td></tr>
+<tr><td>textDirection</td><td>unknown</td><td>dynamic</td><td class="req">✓</td></tr>
+<tr><td>textAlign</td><td>unknown</td><td>dynamic</td><td class="req">✓</td></tr>
+<tr><td>letterSpacing</td><td>number</td><td>double?</td><td class="req"></td></tr>
+<tr><td>wordSpacing</td><td>number</td><td>double?</td><td class="req"></td></tr>
+<tr><td>lineHeight</td><td>number</td><td>double?</td><td class="req"></td></tr>
+</tbody>
+</table>
+</article>
 <article class="widget type-entry" id="TextInput" data-name="TextInput">
 <h3>TextInput<span class="badge badge-lib">services</span><span class="badge badge-cat">type</span></h3>
 <p class="doc">An low-level interface to the system's text input control.</p>
@@ -32563,7 +32766,7 @@ button.</p>
 </article>
 </section>
 <section id="types-foundation">
-<h3>foundation (40)</h3>
+<h3>foundation (41)</h3>
 <article class="widget type-entry" id="Category" data-name="Category">
 <h3>Category<span class="badge badge-lib">foundation</span><span class="badge badge-cat">type</span></h3>
 <p class="doc">A category with which to annotate a class, for documentation
@@ -32965,6 +33168,11 @@ diagnostics that typically lacks a meaningful value of its own.</p>
 </tbody>
 </table>
 </article>
+<article class="widget type-entry" id="ErrorToConsoleDumper" data-name="ErrorToConsoleDumper">
+<h3>ErrorToConsoleDumper<span class="badge badge-lib">foundation</span><span class="badge badge-cat">type</span></h3>
+<p class="doc">Dumps error messages to the console.</p>
+
+</article>
 <article class="widget type-entry" id="LicenseParagraph" data-name="LicenseParagraph">
 <h3>LicenseParagraph<span class="badge badge-lib">foundation</span><span class="badge badge-cat">type</span></h3>
 <p class="doc">A string that represents one paragraph in a [LicenseEntry].</p>
@@ -32979,10 +33187,7 @@ diagnostics that typically lacks a meaningful value of its own.</p>
 <article class="widget type-entry" id="LicenseEntryWithLineBreaks" data-name="LicenseEntryWithLineBreaks">
 <h3>LicenseEntryWithLineBreaks<span class="badge badge-lib">foundation</span><span class="badge badge-cat">type</span></h3>
 <p class="doc">Variant of [LicenseEntry] for licenses that separate paragraphs with blank
-lines and that hard-wrap text within paragraphs. Lines that begin with one
-or more space characters are also assumed to introduce new paragraphs,
-unless they start with the same number of spaces as the previous line, in
-which case it's assumed they are a continuation of an indented paragraph.</p>
+lines and that hard-wrap text within paragraphs.</p>
 <table class="props">
 <thead><tr><th>Prop</th><th>TSX type</th><th>Dart type</th><th>Required</th></tr></thead>
 <tbody>
@@ -33020,9 +33225,8 @@ which case it's assumed they are a continuation of an indented paragraph.</p>
 </article>
 <article class="widget type-entry" id="AbstractNode" data-name="AbstractNode">
 <h3>AbstractNode<span class="badge badge-lib">foundation</span><span class="badge badge-cat">type</span></h3>
-<p class="doc">Deprecated. Unused by the framework and will be removed in a future version
-of Flutter. If needed, inline any required functionality of this class
-directly in the subclass.</p>
+<p class="doc">Deprecated; unused by the framework and will be removed in a future version
+of Flutter.</p>
 
 </article>
 <article class="widget type-entry" id="ObserverList" data-name="ObserverList">
@@ -33094,7 +33298,7 @@ value by key.</p>
 </article>
 </section>
 <section id="types-cupertino">
-<h3>cupertino (18)</h3>
+<h3>cupertino (19)</h3>
 <article class="widget type-entry" id="CupertinoScrollBehavior" data-name="CupertinoScrollBehavior">
 <h3>CupertinoScrollBehavior<span class="badge badge-lib">cupertino</span><span class="badge badge-cat">type</span></h3>
 <p class="doc">Describes how [Scrollable] widgets behave for [CupertinoApp]s.</p>
@@ -33222,6 +33426,12 @@ bottom of the screen.</p>
 </tbody>
 </table>
 </article>
+<article class="widget type-entry" id="CupertinoPageTransitionsBuilder" data-name="CupertinoPageTransitionsBuilder">
+<h3>CupertinoPageTransitionsBuilder<span class="badge badge-lib">cupertino</span><span class="badge badge-cat">type</span></h3>
+<p class="doc">A [PageTransitionsBuilder] that provides an iOS-style page transition
+animation.</p>
+
+</article>
 <article class="widget type-entry" id="CupertinoSheetRoute" data-name="CupertinoSheetRoute">
 <h3>CupertinoSheetRoute<span class="badge badge-lib">cupertino</span><span class="badge badge-cat">type</span></h3>
 <p class="doc">Route for displaying an iOS sheet styled page.</p>
@@ -33229,10 +33439,11 @@ bottom of the screen.</p>
 <thead><tr><th>Prop</th><th>TSX type</th><th>Dart type</th><th>Required</th></tr></thead>
 <tbody>
 <tr><td>settings</td><td>unknown</td><td>RouteSettings?</td><td class="req"></td></tr>
-<tr><td>builder</td><td>() =&gt; FlutterElement</td><td>Widget Function(BuildContext)</td><td class="req">✓</td></tr>
+<tr><td>builder</td><td>() =&gt; FlutterElement</td><td>Widget Function(BuildContext)?</td><td class="req"></td></tr>
+<tr><td>scrollableBuilder</td><td>(scrollController: unknown) =&gt; FlutterElement</td><td>Widget Function(BuildContext, ScrollController)?</td><td class="req"></td></tr>
 <tr><td>enableDrag</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
-<tr><td>topGap</td><td>number</td><td>double?</td><td class="req"></td></tr>
 <tr><td>showDragHandle</td><td>boolean</td><td>bool</td><td class="req"></td></tr>
+<tr><td>topGap</td><td>number</td><td>double?</td><td class="req"></td></tr>
 </tbody>
 </table>
 </article>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Flutter.tsx — write Flutter in TSX</title>
     <meta name="description" content="Write cross-platform Flutter apps in TypeScript + JSX. Compiles to idiomatic Dart. Ship everywhere." />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='32'%20y2='32'%20gradientUnits='userSpaceOnUse'%3E%3Cstop%20stop-color='%2361dafb'/%3E%3Cstop%20offset='.5'%20stop-color='%2354a4ff'/%3E%3Cstop%20offset='1'%20stop-color='%23a78bfa'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='32'%20height='32'%20rx='8'%20fill='url(%23g)'/%3E%3Cg%20stroke='%2306121f'%20stroke-width='3.4'%20fill='none'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M8%209%20L15%2016%20L8%2023'/%3E%3Cpath%20d='M16%209%20L23%2016%20L16%2023'/%3E%3C/g%3E%3C/svg%3E" />
+    <link rel="icon" type="image/png" href="./icon.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -132,14 +132,10 @@
         width: 30px;
         height: 30px;
         border-radius: 8px;
-        display: grid;
-        place-items: center;
-        background: var(--grad);
-        color: #06121f;
-        font-family: var(--display);
-        font-weight: 800;
-        font-size: 1.05rem;
-        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12) inset, 0 6px 18px rgba(84, 164, 255, 0.4);
+        object-fit: cover;
+        display: block;
+        border: 1px solid rgba(97, 218, 251, 0.4);
+        box-shadow: 0 0 9px rgba(167, 139, 250, 0.3), 0 3px 12px rgba(167, 139, 250, 0.16);
       }
       .brand b {
         background: var(--grad);
@@ -191,6 +187,16 @@
         text-align: center;
         padding: 92px 0 30px;
       }
+      .hero-mark {
+        width: 124px;
+        height: 124px;
+        border-radius: 28px;
+        object-fit: cover;
+        display: block;
+        margin: 34px auto 34px;
+        border: 1px solid rgba(97, 218, 251, 0.35);
+        box-shadow: 0 16px 38px rgba(167, 139, 250, 0.26);
+      }
       .eyebrow {
         display: inline-flex;
         align-items: center;
@@ -204,7 +210,7 @@
         border-radius: 999px;
         border: 1px solid rgba(97, 218, 251, 0.28);
         background: rgba(97, 218, 251, 0.07);
-        margin-bottom: 28px;
+        margin-bottom: 36px;
       }
       .eyebrow .dot {
         width: 6px;
@@ -711,7 +717,7 @@
     <nav>
       <div class="wrap nav-inner">
         <a class="brand" href="#top">
-          <span class="mark"><svg width="18" height="18" viewBox="0 0 32 32" fill="none" aria-hidden="true"><g stroke="#06121f" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9 L15 16 L8 23" /><path d="M16 9 L23 16 L16 23" /></g></svg></span>
+          <img class="mark" src="./icon.png" alt="flutter.tsx logo" width="30" height="30" />
           <span>flutter<b>.tsx</b></span>
         </a>
         <div class="nav-links">
@@ -728,10 +734,11 @@
 
     <main class="wrap" id="top">
       <header>
-        <span class="eyebrow reveal"><span class="dot"></span> TSX in · Dart out</span>
+        <span class="eyebrow reveal"><span class="dot"></span> TSX in · Dart out · Flutter 3.44.0</span>
         <h1 class="reveal"><span class="grad">Write Flutter<br />in TSX.</span></h1>
+        <img class="hero-mark reveal" src="./icon.png" alt="Flutter.tsx logo" width="124" height="124" />
         <p class="lead reveal">
-          Build cross-platform Flutter apps in <b>TypeScript&nbsp;+&nbsp;JSX</b>.
+          Build cross-platform <b>Flutter apps in TypeScript&nbsp;+&nbsp;JSX</b>.
           Compile to idiomatic Dart. Ship everywhere — from one source.
         </p>
         <div class="cta-row reveal">
@@ -748,7 +755,7 @@
         <div class="compile-bar">
           <span>Counter.tsx</span>
           <span class="arrow">⟶</span>
-          <span>compiles to idiomatic Dart</span>
+          <span>idiomatic Dart · Flutter 3.44.0</span>
         </div>
 
         <div class="toggle" role="tablist" id="toggle">
@@ -817,11 +824,11 @@
       </section>
 
       <section class="stats reveal" aria-label="By the numbers">
-        <div class="stat"><div class="stat-value" data-count="539">0</div><div class="stat-label">Flutter Widgets</div></div>
+        <div class="stat"><div class="stat-value" data-count="542">0</div><div class="stat-label">Flutter Widgets</div></div>
         <div class="stat"><div class="stat-value" data-count="38">0</div><div class="stat-label">Native Plugins</div></div>
         <div class="stat"><div class="stat-value" data-count="12">0</div><div class="stat-label">Hooks &amp; Core APIs</div></div>
         <div class="stat"><div class="stat-value" data-count="147">0</div><div class="stat-label">Enums</div></div>
-        <div class="stat"><div class="stat-value" data-count="767">0</div><div class="stat-label">Types</div></div>
+        <div class="stat"><div class="stat-value" data-count="770">0</div><div class="stat-label">Types</div></div>
       </section>
 
       <section class="why" id="why">
@@ -837,7 +844,7 @@
         <div class="why-prose reveal">
           <p>
             Cross-platform has always forced a trade-off. <span class="fw">React&nbsp;Native</span>
-            gives you the syntax the whole industry already knows — JSX and hooks — but
+            gives you the syntax the whole industry already knows — <span class="hl">JSX and hooks</span> — but
             it ships your UI over a JavaScript bridge, leans on a patchwork of
             community-maintained native modules, and asks you to chase a steady stream of
             breaking upgrades. <span class="fw">Flutter</span> answers all of that with
@@ -863,7 +870,7 @@
             <span class="hl">typed first-party hooks</span> — not a gamble on an
             unmaintained npm package. And
             <span class="hl">ESLint, Prettier, and end-to-end TypeScript types</span> are
-            wired in from <code>fsx init</code>: every one of the 539 widgets is fully
+            wired in from <code>fsx init</code>: every one of the 542 widgets is fully
             typed, so it's autocomplete and red squiggles, never guesswork.
           </p>
         </div>
