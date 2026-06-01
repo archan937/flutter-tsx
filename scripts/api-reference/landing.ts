@@ -181,6 +181,17 @@ export const landingHtml = (c: LandingCounts): string => `<!doctype html>
       .nav-links a.ghbtn {
         border: 1px solid var(--line);
       }
+      .nav-links a.ghstars {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border: 1px solid var(--line);
+        font-family: var(--mono);
+        font-size: 0.82rem;
+        font-weight: 600;
+      }
+      .nav-links a.ghstars svg { color: var(--amber); }
+      .nav-links a.ghstars:hover { border-color: rgba(245, 215, 97, 0.45); }
       @media (max-width: 620px) {
         .nav-links a.dim-mobile {
           display: none;
@@ -718,6 +729,10 @@ export const landingHtml = (c: LandingCounts): string => `<!doctype html>
         <div class="nav-links">
           <a class="dim-mobile" href="#why">Why</a>
           <a href="./api-reference.html">API Reference</a>
+          <a class="ghstars" href="https://github.com/archan937/flutter-tsx/stargazers" target="_blank" rel="noopener" aria-label="Star flutter-tsx on GitHub">
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 .25l2.06 4.17 4.6.67-3.33 3.24.79 4.59L8 11.42l-4.12 2.16.79-4.59L1.34 5.09l4.6-.67z" /></svg>
+            <span id="gh-stars">Star</span>
+          </a>
           <a class="ghbtn" href="https://github.com/archan937/flutter-tsx" target="_blank" rel="noopener">GitHub ↗</a>
         </div>
       </div>
@@ -1005,6 +1020,20 @@ export const landingHtml = (c: LandingCounts): string => `<!doctype html>
           });
           if (fname) fname.textContent = names[tab];
         });
+      })();
+
+      // ── Live GitHub star count ──
+      (function () {
+        const el = document.getElementById("gh-stars");
+        if (!el) return;
+        fetch("https://api.github.com/repos/archan937/flutter-tsx")
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (d) {
+            if (d && typeof d.stargazers_count === "number") {
+              el.textContent = d.stargazers_count.toLocaleString();
+            }
+          })
+          .catch(function () {});
       })();
 
       // ── Copy npm command ──
