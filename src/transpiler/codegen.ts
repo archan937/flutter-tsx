@@ -811,6 +811,66 @@ export class CodegenContext {
     return { slottedArgs, unslottedChildren };
   }
 
+  /**
+   * A JS string concatenation (`'Runs: ' + n`, `'a' + x + 'b'`) → a single Dart
+   * interpolated string (`'Runs: $n'`, `'a${x}b'`). Dart can't `String + int`,
+   * so any `+` chain containing a string literal must become interpolation.
+   * Returns null when `expr` isn't such a concatenation.
+   */
+  private concatToDartString(expr: ts.Expression): string | null {
+    if (
+      !ts.isBinaryExpression(expr) ||
+      expr.operatorToken.kind !== ts.SyntaxKind.PlusToken
+    ) {
+      return null;
+    }
+    const operands: ts.Expression[] = [];
+    const flatten = (e: ts.Expression): void => {
+      if (
+        ts.isBinaryExpression(e) &&
+        e.operatorToken.kind === ts.SyntaxKind.PlusToken
+      ) {
+        flatten(e.left);
+        flatten(e.right);
+      } else {
+        operands.push(e);
+      }
+    };
+    flatten(expr);
+
+    const isStr = (e: ts.Expression): boolean =>
+      ts.isStringLiteral(e) || ts.isNoSubstitutionTemplateLiteral(e);
+    if (!operands.some(isStr)) return null;
+
+    const escapeLiteral = (s: string): string =>
+      s
+        .replace(/\\/g, '\\\\')
+        .replace(/'/g, "\\'")
+        .replace(/\$/g, '\\$')
+        .replace(/\n/g, '\\n');
+
+    let body = '';
+    operands.forEach((operand, i) => {
+      if (isStr(operand)) {
+        body += escapeLiteral((operand as ts.StringLiteral).text);
+        return;
+      }
+      const text = operand.getText(this.sourceFile);
+      // `$id` only when the next segment can't be read as part of the
+      // identifier (e.g. `'a' + n + 'b'` must be `a${n}b`, not `a$nb`).
+      const next = operands[i + 1];
+      const nextStartsIdent =
+        next !== undefined &&
+        isStr(next) &&
+        /^[A-Za-z0-9_$]/.test((next as ts.StringLiteral).text);
+      body +=
+        SIMPLE_DART_IDENTIFIER.test(text) && !nextStartsIdent
+          ? `$${text}`
+          : `\${${text}}`;
+    });
+    return `'${body}'`;
+  }
+
   private extractTextChildren(children: ts.JsxChild[]): string | null {
     const parts: string[] = [];
 
@@ -824,9 +884,14 @@ export class CodegenContext {
           if (ts.isTemplateLiteral(expr)) {
             parts.push(this.transformTemplateLiteral(expr));
           } else {
-            const exprText =
-              this.rewriteParamsCall(expr) ?? expr.getText(this.sourceFile);
-            parts.push(`'${dartInterpolation(exprText)}'`);
+            const concat = this.concatToDartString(expr);
+            if (concat) {
+              parts.push(concat);
+            } else {
+              const exprText =
+                this.rewriteParamsCall(expr) ?? expr.getText(this.sourceFile);
+              parts.push(`'${dartInterpolation(exprText)}'`);
+            }
           }
         }
       }
@@ -1575,6 +1640,9 @@ export class CodegenContext {
     }
 
     if (ts.isBinaryExpression(expr)) {
+      // String concatenation child → Text('…') with interpolation.
+      const concat = this.concatToDartString(expr);
+      if (concat) return `Text(${concat})`;
       const result = tryTransformAndExpression(expr, src, (n) =>
         this.visitJSX(n, null),
       );

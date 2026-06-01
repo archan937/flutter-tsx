@@ -205,12 +205,18 @@ Call a native capability directly — fsx transpiles it to the underlying plugin
 call and adds the pubspec dependency automatically:
 
 ```tsx
-import { launchUrl, share, pickFile, clipboard, hapticFeedback } from 'flutter-tsx';
+import {
+  launchUrl,
+  share,
+  pickFile,
+  clipboard,
+  hapticFeedback,
+} from 'flutter-tsx';
 
-await launchUrl('https://flutter.dev');     // → url_launcher
-await share('Check this out', 'Subject');   // → share_plus
-await clipboard.copy('copied');             // → Clipboard.setData
-await hapticFeedback.light();               // → HapticFeedback.lightImpact
+await launchUrl('https://flutter.dev'); // → url_launcher
+await share('Check this out', 'Subject'); // → share_plus
+await clipboard.copy('copied'); // → Clipboard.setData
+await hapticFeedback.light(); // → HapticFeedback.lightImpact
 const file = await pickFile({ extensions: ['pdf'] }); // → file_picker
 ```
 
