@@ -94,7 +94,12 @@ export const synthStateHookComponent = (
   tsxExample: string,
   index: number,
 ): string => {
-  const body = tsxExample.includes('return ')
+  // A real screen always ends in an unconditional return; the recipe fragment
+  // may only have a guard (`if (...) return ...`), so add a fallback unless the
+  // last statement already returns.
+  const lines = tsxExample.trim().split('\n');
+  const lastLine = lines[lines.length - 1].trim();
+  const body = lastLine.startsWith('return ')
     ? tsxExample
     : `${tsxExample}\n  return <Text>case</Text>;`;
   return `import { Text, ${tsxHook} } from 'flutter-tsx';

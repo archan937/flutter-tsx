@@ -81,15 +81,21 @@ export const analyzeHooks = (
       const decl = node.declarationList.declarations[0];
 
       if (
-        ts.isIdentifier(decl.name) &&
+        (ts.isIdentifier(decl.name) || ts.isObjectBindingPattern(decl.name)) &&
         decl.initializer &&
         ts.isCallExpression(decl.initializer)
       ) {
         const hookName = decl.initializer.expression.getText(sourceFile);
         const pluginDef = PLUGIN_MAP.get(hookName);
         if (pluginDef && HOOK_SURFACES.has(pluginDef.surface)) {
+          // Destructured state hooks (`const { isOnline } = useConnectivity()`)
+          // count as a usage too, so the widget goes stateful and the hook's
+          // controllerField / initState get applied (the binding itself is
+          // emitted in build() via the recipe stateMap).
           pluginUsages.push({
-            varName: decl.name.getText(sourceFile),
+            varName: ts.isIdentifier(decl.name)
+              ? decl.name.getText(sourceFile)
+              : hookName,
             hookName,
             pluginDef,
           });

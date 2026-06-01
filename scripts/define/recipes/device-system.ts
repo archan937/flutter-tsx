@@ -38,6 +38,12 @@ bool _isPhysicalDevice = true;`,
     _devicePlatform = 'android'; _deviceModel = and.model; _deviceVersion = and.version.release; _isPhysicalDevice = and.isPhysicalDevice;
   }
 }));`,
+    stateMap: {
+      platform: '_devicePlatform',
+      model: '_deviceModel',
+      version: '_deviceVersion',
+      isPhysicalDevice: '_isPhysicalDevice',
+    },
     methods: {},
   },
 };
@@ -74,6 +80,10 @@ StreamSubscription<List<ConnectivityResult>>? _connectivitySub;`,
   setState(() => _connectivityType = results.isNotEmpty ? results.first : ConnectivityResult.none);
 });`,
     dispose: '_connectivitySub?.cancel();',
+    stateMap: {
+      isOnline: '_connectivityType != ConnectivityResult.none',
+      type: '_connectivityType.name',
+    },
     methods: {},
   },
 };
@@ -112,6 +122,9 @@ if (status.isDenied) await Permission.camera.request();`,
     imports: ["import 'package:permission_handler/permission_handler.dart';"],
     controllerField: `PermissionStatus? _permissionStatus;`,
     initState: `Permission.camera.status.then((s) => setState(() => _permissionStatus = s));`,
+    stateMap: {
+      status: "_permissionStatus?.name ?? 'unknown'",
+    },
     methods: {
       request: 'await Permission.camera.request()',
     },

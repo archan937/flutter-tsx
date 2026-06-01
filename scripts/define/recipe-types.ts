@@ -15,6 +15,13 @@ export interface DartCodegen {
   dispose?: string;
   methods?: Record<string, string>;
   expression?: string;
+  /**
+   * State hooks: maps a destructured public name to the Dart expression that
+   * reads it (usually a private field). `const { isOnline } = useConnectivity()`
+   * → `final isOnline = <stateMap.isOnline>;` in build(). Drives the otherwise
+   * unwired state-hook destructuring — no per-hook code in codegen.
+   */
+  stateMap?: Record<string, string>;
   // ── Plugin-widget rendering (data-driven; no per-widget code in codegen) ──
   /** Dart widget constructor for prop-mapped widgets (e.g. CachedNetworkImage). */
   widget?: string;

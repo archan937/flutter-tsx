@@ -98,6 +98,11 @@
     "controllerField": "double? _latitude;\ndouble? _longitude;\ndouble? _accuracy;\nStreamSubscription<Position>? _locationSub;",
     "initState": "_locationSub = Geolocator.getPositionStream().listen((pos) {\n  setState(() {\n    _latitude = pos.latitude;\n    _longitude = pos.longitude;\n    _accuracy = pos.accuracy;\n  });\n});",
     "dispose": "_locationSub?.cancel();",
+    "stateMap": {
+      "latitude": "_latitude",
+      "longitude": "_longitude",
+      "accuracy": "_accuracy"
+    },
     "methods": {
       "getCurrentPosition": "await Geolocator.getCurrentPosition()"
     }
@@ -155,6 +160,12 @@
     ],
     "controllerField": "String? _devicePlatform;\nString? _deviceModel;\nString? _deviceVersion;\nbool _isPhysicalDevice = true;",
     "initState": "DeviceInfoPlugin().deviceInfo.then((info) => setState(() {\n  if (Platform.isIOS) {\n    final ios = info as IosDeviceInfo;\n    _devicePlatform = 'ios'; _deviceModel = ios.model; _deviceVersion = ios.systemVersion; _isPhysicalDevice = ios.isPhysicalDevice;\n  } else if (Platform.isAndroid) {\n    final and = info as AndroidDeviceInfo;\n    _devicePlatform = 'android'; _deviceModel = and.model; _deviceVersion = and.version.release; _isPhysicalDevice = and.isPhysicalDevice;\n  }\n}));",
+    "stateMap": {
+      "platform": "_devicePlatform",
+      "model": "_deviceModel",
+      "version": "_deviceVersion",
+      "isPhysicalDevice": "_isPhysicalDevice"
+    },
     "methods": {}
   },
   "useConnectivity": {
@@ -165,6 +176,10 @@
     "controllerField": "ConnectivityResult _connectivityType = ConnectivityResult.none;\nStreamSubscription<List<ConnectivityResult>>? _connectivitySub;",
     "initState": "_connectivitySub = Connectivity().onConnectivityChanged.listen((results) {\n  setState(() => _connectivityType = results.isNotEmpty ? results.first : ConnectivityResult.none);\n});",
     "dispose": "_connectivitySub?.cancel();",
+    "stateMap": {
+      "isOnline": "_connectivityType != ConnectivityResult.none",
+      "type": "_connectivityType.name"
+    },
     "methods": {}
   },
   "usePermission": {
@@ -173,6 +188,9 @@
     ],
     "controllerField": "PermissionStatus? _permissionStatus;",
     "initState": "Permission.camera.status.then((s) => setState(() => _permissionStatus = s));",
+    "stateMap": {
+      "status": "_permissionStatus?.name ?? 'unknown'"
+    },
     "methods": {
       "request": "await Permission.camera.request()"
     }

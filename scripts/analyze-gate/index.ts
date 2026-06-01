@@ -16,7 +16,6 @@ import { join } from 'path';
 
 import { generateDartFile } from '../../src/transpiler/codegen.js';
 import { parseSource } from '../../src/transpiler/parser.js';
-import { GENERATED_IGNORES } from '../../src/dart-lint.js';
 import { EXAMPLES } from '../api-reference/examples-data.js';
 import {
   type HookDef,
@@ -96,8 +95,8 @@ const buildCases = (): { cases: GateCase[]; deps: Set<string> } => {
 
 const transpile = (tsx: string): string => {
   const { sourceFile, exports } = parseSource(tsx);
-  // Match production: every generated file carries the ignore_for_file header.
-  return `${GENERATED_IGNORES}\n${generateDartFile(sourceFile, exports)}`;
+  // generateDartFile already emits the production ignore_for_file header.
+  return generateDartFile(sourceFile, exports);
 };
 
 const writeProject = (dir: string, deps: Set<string>): void => {

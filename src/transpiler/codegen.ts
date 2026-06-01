@@ -39,6 +39,7 @@ interface DartCodegen {
   dispose?: string;
   methods?: Record<string, string>;
   expression?: string;
+  stateMap?: Record<string, string>;
   widget?: string;
   propMap?: Record<string, string>;
   render?: string;
@@ -60,12 +61,18 @@ const substituteWidgetProps = (
     (_match, name: string) => props[name] ?? defaults[name] ?? "''",
   );
 
-/** `import 'package:x/x.dart';` → bare `package:x/x.dart` (alias dropped). */
-const stripImport = (dartImport: string): string =>
-  dartImport
+/**
+ * `import 'package:x/x.dart';` → bare `package:x/x.dart` (alias dropped). An
+ * import with a `show`/`hide` clause can't be reduced to a bare path, so it's
+ * kept as a full statement (the emitter passes those through verbatim).
+ */
+const stripImport = (dartImport: string): string => {
+  if (/\bshow\b|\bhide\b/.test(dartImport)) return dartImport.trim();
+  return dartImport
     .replace(/^import\s+'/, '')
     .replace(/';$/, '')
     .replace(/'\s*as\s+\w+/, '');
+};
 
 const loadCodegenMap = (): Record<string, DartCodegen> => {
   try {
@@ -1039,6 +1046,12 @@ class CodegenContext {
             lines.push(...store);
             continue;
           }
+          // `const { isOnline } = useConnectivity()` → state-hook binding.
+          const stateHook = this.tryStateHook(decl);
+          if (stateHook) {
+            lines.push(...stateHook);
+            continue;
+          }
           // `const id = useParams('id')` → build()-local Dart final.
           if (ts.isIdentifier(decl.name)) {
             const params = this.rewriteParamsCall(decl.initializer);
@@ -1285,6 +1298,36 @@ class CodegenContext {
     }
 
     return null;
+  }
+
+  /**
+   * Rewrites `const { isOnline, type } = useConnectivity()` to a `final` per
+   * destructured name, reading the recipe stateMap expression (state) or a
+   * tear-off closure (zero-arg methods, e.g. usePermission's `request`). The
+   * widget is already made stateful + the controllerField/initState applied via
+   * applyPluginUsages. Returns null when not a state-hook destructure.
+   */
+  private tryStateHook(decl: ts.VariableDeclaration): string[] | null {
+    const init = decl.initializer;
+    if (!init || !ts.isCallExpression(init)) return null;
+    if (!ts.isObjectBindingPattern(decl.name)) return null;
+    const hookName = init.expression.getText(this.sourceFile);
+    const spec = PLUGIN_CODEGEN_MAP[hookName];
+    if (!spec || (!spec.stateMap && !spec.methods)) return null;
+
+    const lines: string[] = [];
+    for (const el of decl.name.elements) {
+      const prop = (el.propertyName ?? el.name).getText(this.sourceFile);
+      const alias = el.name.getText(this.sourceFile);
+      const stateExpr = spec.stateMap?.[prop];
+      if (stateExpr !== undefined) {
+        lines.push(`    final ${alias} = ${stateExpr};`);
+      } else if (spec.methods?.[prop] !== undefined) {
+        // Tear-off: `final request = () async => <template>;`
+        lines.push(`    ${alias}() async => ${spec.methods[prop]};`);
+      }
+    }
+    return lines.length > 0 ? lines : null;
   }
 
   private extractGuardReturn(stmt: ts.Statement): string | null {
@@ -2024,7 +2067,9 @@ const buildDartOutput = (
     .map((c) => ctx.generateComponent(c))
     .filter(Boolean);
 
-  const importLines = [...ctx.imports].map((i) => `import '${i}';`).join('\n');
+  const importLines = [...ctx.imports]
+    .map((i) => (i.startsWith('import ') ? i : `import '${i}';`))
+    .join('\n');
   const routerDecl = ctx.routerDecl();
 
   const parts: string[] = [

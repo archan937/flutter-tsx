@@ -136,6 +136,11 @@ StreamSubscription<Position>? _locationSub;`,
   });
 });`,
     dispose: '_locationSub?.cancel();',
+    stateMap: {
+      latitude: '_latitude',
+      longitude: '_longitude',
+      accuracy: '_accuracy',
+    },
     methods: {
       getCurrentPosition: 'await Geolocator.getCurrentPosition()',
     },
