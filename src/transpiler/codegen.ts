@@ -66,12 +66,23 @@ const PLUGIN_CODEGEN_MAP: Record<string, DartCodegen> = loadCodegenMap();
 // Plugin arg substitution helper
 // ---------------------------------------------------------------------------
 
+interface SubstituteArgsOptions {
+  argToDart?: (arg: ts.Expression) => string;
+  sourceFile?: ts.SourceFile;
+}
+
 const substitutePluginArgs = (
   template: string,
   args: readonly ts.Expression[],
-  argToDart: (arg: ts.Expression) => string = (arg) => arg.getText(),
+  options: SubstituteArgsOptions = {},
 ): string => {
+  const argToDart =
+    options.argToDart ?? ((arg: ts.Expression): string => arg.getText());
   let result = template;
+  // getText() with no args walks parent→SourceFile, which isn't always set on
+  // CLI-parsed nodes; pass the sourceFile explicitly when we have it.
+  const textOf = (node: ts.Node): string =>
+    options.sourceFile ? node.getText(options.sourceFile) : node.getText();
 
   args.forEach((arg, idx) => {
     // Replace $N.key patterns (object literal property access)
@@ -81,11 +92,11 @@ const substitutePluginArgs = (
         if (ts.isObjectLiteralExpression(arg)) {
           const prop = arg.properties.find(
             (p): p is ts.PropertyAssignment =>
-              ts.isPropertyAssignment(p) && p.name.getText() === key,
+              ts.isPropertyAssignment(p) && textOf(p.name) === key,
           );
-          if (prop) return prop.initializer.getText();
+          if (prop) return argToDart(prop.initializer);
         }
-        return `${arg.getText()}.${key}`;
+        return `${argToDart(arg)}.${key}`;
       },
     );
     // Replace bare $N (template literals → Dart string interpolation, etc.)
@@ -937,11 +948,13 @@ export class CodegenContext {
       this.imports.add(bare);
     }
 
-    const substituted = substitutePluginArgs(fn.dart, expr.arguments, (arg) =>
-      ts.isTemplateLiteral(arg)
-        ? this.transformTemplateLiteral(arg)
-        : arg.getText(this.sourceFile),
-    );
+    const substituted = substitutePluginArgs(fn.dart, expr.arguments, {
+      argToDart: (arg) =>
+        ts.isTemplateLiteral(arg)
+          ? this.transformTemplateLiteral(arg)
+          : arg.getText(this.sourceFile),
+      sourceFile: this.sourceFile,
+    });
     // Omitted optional args (e.g. launchUrl(url) without externalApp) leave a
     // bare $N / $N.key placeholder → default it to null.
     return substituted.replace(/\$\d+(?:\.\w+)*/g, 'null');
@@ -1415,14 +1428,13 @@ export class CodegenContext {
           const template = methods[method];
           // Substitute $0, $1, ... and $0.key (object property access);
           // template-literal args become Dart string interpolation.
-          const substituted = substitutePluginArgs(
-            template,
-            node.arguments,
-            (arg) =>
+          const substituted = substitutePluginArgs(template, node.arguments, {
+            argToDart: (arg) =>
               ts.isTemplateLiteral(arg)
                 ? this.transformTemplateLiteral(arg)
                 : arg.getText(src),
-          );
+            sourceFile: src,
+          });
           return `${substituted};`;
         }
         // Unknown method on known plugin var — fall through to raw text
