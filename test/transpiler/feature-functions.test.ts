@@ -1,8 +1,9 @@
+import '../helpers/resemble.js';
+
 import { describe, expect, it } from 'bun:test';
 
 import { generateDartFile } from '@src/transpiler/codegen.js';
 import { parseSource } from '@src/transpiler/parser.js';
-import '../helpers/resemble.js';
 
 /** Full generated Dart (imports + classes) — everything after the comment + ignores header. */
 const body = (src: string): string => {

@@ -1,3 +1,5 @@
+import '../helpers/resemble.js';
+
 import { describe, expect, test } from 'bun:test';
 import { execFileSync } from 'child_process';
 import { existsSync, mkdtempSync, readFileSync, rmSync } from 'fs';
@@ -5,7 +7,6 @@ import { homedir, tmpdir } from 'os';
 import { join } from 'path';
 
 import { transpileAll } from '@src/transpiler/index.js';
-import '../helpers/resemble.js';
 
 // The skeletons being validated live in the sibling create-flutter-tsx
 // package. This is a test-only import — flutter-tsx tests are never shipped,

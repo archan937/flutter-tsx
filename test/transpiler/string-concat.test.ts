@@ -1,8 +1,9 @@
+import '../helpers/resemble.js';
+
 import { describe, expect, it } from 'bun:test';
 
 import { generateDartFile } from '@src/transpiler/codegen.js';
 import { parseSource } from '@src/transpiler/parser.js';
-import '../helpers/resemble.js';
 
 const dartFor = (jsx: string): string => {
   const src = `import { Text, ElevatedButton, useState } from 'flutter-tsx';

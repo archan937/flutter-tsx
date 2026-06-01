@@ -10,6 +10,7 @@ import type {
   WidgetCategory,
   WidgetDef,
 } from '../define/api-types';
+import { formatDartSource } from '../../src/flutter/format';
 import { generateDartFile } from '../../src/transpiler/codegen';
 import { parseSource } from '../../src/transpiler/parser';
 import { EXAMPLES } from './examples-data';
@@ -109,7 +110,7 @@ interface BuildResult {
   dartVersion: string;
 }
 
-export const buildApiReference = (): BuildResult => {
+export const buildApiReference = async (): Promise<BuildResult> => {
   const widgets = loadJson<WidgetDef[]>(join(refDir, 'derived/widgets.json'));
   const enums = loadJson<EnumEntity[]>(join(refDir, 'derived/enums.json'));
   const types = loadJson<TypeDef[]>(join(refDir, 'derived/types.json'));
@@ -150,11 +151,14 @@ export const buildApiReference = (): BuildResult => {
   let failures = 0;
   const sections: string[] = [];
 
-  // Examples section — Dart is produced by the transpiler, not hand-authored
-  const renderedExamples: RenderedExample[] = EXAMPLES.map((ex) => ({
-    ...ex,
-    dart: transpileExampleFull(ex.id, ex.tsx),
-  }));
+  // Examples section — Dart is produced by the transpiler, not hand-authored,
+  // then run through `dart format` so the docs show idiomatic, formatted Dart.
+  const renderedExamples: RenderedExample[] = await Promise.all(
+    EXAMPLES.map(async (ex) => ({
+      ...ex,
+      dart: await formatDartSource(transpileExampleFull(ex.id, ex.tsx)),
+    })),
+  );
   sections.push(examplesSection(renderedExamples));
 
   // Hooks section (before Widgets)

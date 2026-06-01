@@ -9,6 +9,7 @@ import type {
   TrayConfig,
 } from '../../config.js';
 import { envToDartDefines } from '../../flutter/env.js';
+import { formatDartDir } from '../../flutter/format.js';
 import { ensureFlutterProject } from '../../flutter/project.js';
 import {
   applyLinks,
@@ -149,6 +150,13 @@ export const prepareProject = async (
   if (links) applyLinks(flutterDir, links, surfaceOpts);
 
   applyLocales(root, outDir);
+
+  // Normalize all generated Dart with `dart format` (the single formatting
+  // point — the transpiler emits readable but unformatted Dart). No-op without
+  // a dart binary, so it never blocks transpilation.
+  if (await formatDartDir(outDir, flutterBin)) {
+    logger.success('Formatted generated Dart');
+  }
 
   // config/env.ts → --dart-define flags.
   const envConfig =

@@ -1,10 +1,11 @@
+import '../helpers/resemble.js';
+
 import { describe, expect, it } from 'bun:test';
 import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
 
 import { transpileAll, transpileFile } from '@src/transpiler/index.js';
-import '../helpers/resemble.js';
 
 const bodyOf = (dart: string): string =>
   dart.split('\n').slice(2).join('\n').trim();

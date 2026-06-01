@@ -1,7 +1,8 @@
+import '../helpers/resemble.js';
+
 import { describe, expect, it } from 'bun:test';
 
 import { buildGoRouter, discoverRoutes } from '@src/transpiler/routing.js';
-import '../helpers/resemble.js';
 
 describe('discoverRoutes — file-based path mapping (Next/Expo convention)', () => {
   const paths = (files: string[]): Record<string, string> =>

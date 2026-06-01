@@ -1,3 +1,5 @@
+import '../helpers/resemble.js';
+
 import { describe, expect, it } from 'bun:test';
 
 import { GENERATED_IGNORES } from '@src/dart-lint.js';
@@ -6,7 +8,6 @@ import {
   generateDartFileResult,
 } from '@src/transpiler/codegen.js';
 import { parseSource } from '@src/transpiler/parser.js';
-import '../helpers/resemble.js';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 

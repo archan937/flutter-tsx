@@ -5515,7 +5515,13 @@ class App extends StatelessWidget {
   const App({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'My App', home: Scaffold(appBar: AppBar(title: Text('My App')), body: Center(child: Text('Hello, World!'))));
+    return MaterialApp(
+      title: 'My App',
+      home: Scaffold(
+        appBar: AppBar(title: Text('My App')),
+        body: Center(child: Text('Hello, World!')),
+      ),
+    );
   }
 }
 </code></pre>
@@ -5576,11 +5582,25 @@ class Counter extends StatefulWidget {
   @override
   State&lt;Counter&gt; createState() =&gt; _CounterState();
 }
+
 class _CounterState extends State&lt;Counter&gt; {
   int count = 0;
   @override
   Widget build(BuildContext context) {
-    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [Text('Count:' + '$count'), ElevatedButton(onPressed: () { setState(() { count = count + 1; }); }, child: Text('Increment'))]);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text('Count:' + '$count'),
+        ElevatedButton(
+          onPressed: () {
+            setState(() {
+              count = count + 1;
+            });
+          },
+          child: Text('Increment'),
+        ),
+      ],
+    );
   }
 }
 </code></pre>
@@ -5642,11 +5662,24 @@ class NameEntry extends StatefulWidget {
   @override
   State&lt;NameEntry&gt; createState() =&gt; _NameEntryState();
 }
+
 class _NameEntryState extends State&lt;NameEntry&gt; {
   String name = '';
   @override
   Widget build(BuildContext context) {
-    return Column(children: [TextField(decoration: InputDecoration(labelText: 'Your name'), onChanged: (value) { setState(() { name = value; }); }), Text('Hello,' + '$name' + '!')]);
+    return Column(
+      children: [
+        TextField(
+          decoration: InputDecoration(labelText: 'Your name'),
+          onChanged: (value) {
+            setState(() {
+              name = value;
+            });
+          },
+        ),
+        Text('Hello,' + '$name' + '!'),
+      ],
+    );
   }
 }
 </code></pre>
@@ -5700,11 +5733,25 @@ class ThemeToggle extends StatefulWidget {
   @override
   State&lt;ThemeToggle&gt; createState() =&gt; _ThemeToggleState();
 }
+
 class _ThemeToggleState extends State&lt;ThemeToggle&gt; {
   bool dark = false;
   @override
   Widget build(BuildContext context) {
-    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [Text('${dark ? 'Dark mode' : 'Light mode'}'), Switch(value: dark, onChanged: (value) { setState(() { dark = !dark; }); })]);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text('${dark ? 'Dark mode' : 'Light mode'}'),
+        Switch(
+          value: dark,
+          onChanged: (value) {
+            setState(() {
+              dark = !dark;
+            });
+          },
+        ),
+      ],
+    );
   }
 }
 </code></pre>
@@ -5775,11 +5822,30 @@ class TapBox extends StatefulWidget {
   @override
   State&lt;TapBox&gt; createState() =&gt; _TapBoxState();
 }
+
 class _TapBoxState extends State&lt;TapBox&gt; {
   bool open = false;
   @override
   Widget build(BuildContext context) {
-    return Center(child: GestureDetector(onTap: () { setState(() { open = !open; }); }, child: AnimatedContainer(duration: Duration(milliseconds: 300), curve: Curves.easeInOut, width: open ? 240 : 120, height: open ? 240 : 120, color: open ? Colors.blue : Colors.grey, child: Center(child: Text('${open ? 'Tap to shrink' : 'Tap to grow'}')))));
+    return Center(
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            open = !open;
+          });
+        },
+        child: AnimatedContainer(
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+          width: open ? 240 : 120,
+          height: open ? 240 : 120,
+          color: open ? Colors.blue : Colors.grey,
+          child: Center(
+            child: Text('${open ? 'Tap to shrink' : 'Tap to grow'}'),
+          ),
+        ),
+      ),
+    );
   }
 }
 </code></pre>
@@ -5841,7 +5907,21 @@ class ProfileCard extends StatelessWidget {
   const ProfileCard({super.key});
   @override
   Widget build(BuildContext context) {
-    return Card(child: Padding(padding: EdgeInsets.all(16), child: Column(children: [Text('Jane Doe', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)), Text('Flutter developer', style: TextStyle(fontSize: 14)), Text('jane@example.com', style: TextStyle(fontSize: 12))])));
+    return Card(
+      child: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          children: [
+            Text(
+              'Jane Doe',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            Text('Flutter developer', style: TextStyle(fontSize: 14)),
+            Text('jane@example.com', style: TextStyle(fontSize: 12)),
+          ],
+        ),
+      ),
+    );
   }
 }
 </code></pre>
@@ -5900,16 +5980,20 @@ class WelcomeBanner extends StatefulWidget {
   @override
   State&lt;WelcomeBanner&gt; createState() =&gt; _WelcomeBannerState();
 }
+
 class _WelcomeBannerState extends State&lt;WelcomeBanner&gt; {
   String message = 'Loading...';
   @override
   Widget build(BuildContext context) {
     return Text('$message');
   }
+
   @override
   void initState() {
     super.initState();
-    setState(() { message = 'Flutter.tsx ready!'; });
+    setState(() {
+      message = 'Flutter.tsx ready!';
+    });
   }
 }
 </code></pre>
@@ -5978,11 +6062,26 @@ class FabDemo extends StatefulWidget {
   @override
   State&lt;FabDemo&gt; createState() =&gt; _FabDemoState();
 }
+
 class _FabDemoState extends State&lt;FabDemo&gt; {
   int count = 0;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'FAB Demo', home: Scaffold(appBar: AppBar(title: Text('FAB Demo')), floatingActionButton: FloatingActionButton(onPressed: () { setState(() { count = count + 1; }); }, child: Text('+')), body: Center(child: Text('Tapped' + '$count' + 'times'))));
+    return MaterialApp(
+      title: 'FAB Demo',
+      home: Scaffold(
+        appBar: AppBar(title: Text('FAB Demo')),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              count = count + 1;
+            });
+          },
+          child: Text('+'),
+        ),
+        body: Center(child: Text('Tapped' + '$count' + 'times')),
+      ),
+    );
   }
 }
 </code></pre>
@@ -6047,12 +6146,34 @@ class SettingsScreen extends StatefulWidget {
   @override
   State&lt;SettingsScreen&gt; createState() =&gt; _SettingsScreenState();
 }
+
 class _SettingsScreenState extends State&lt;SettingsScreen&gt; {
   bool notifs = true;
   double volume = 0.8;
   @override
   Widget build(BuildContext context) {
-    return Column(children: [Text('Notifications'), Switch(value: notifs, onChanged: (value) { setState(() { notifs = !notifs; }); }), Text('Volume'), Slider(value: volume, onChanged: (v) { setState(() { volume = v; }); })]);
+    return Column(
+      children: [
+        Text('Notifications'),
+        Switch(
+          value: notifs,
+          onChanged: (value) {
+            setState(() {
+              notifs = !notifs;
+            });
+          },
+        ),
+        Text('Volume'),
+        Slider(
+          value: volume,
+          onChanged: (v) {
+            setState(() {
+              volume = v;
+            });
+          },
+        ),
+      ],
+    );
   }
 }
 </code></pre>
@@ -6116,6 +6237,7 @@ class StatusView extends StatefulWidget {
   @override
   State&lt;StatusView&gt; createState() =&gt; _StatusViewState();
 }
+
 class _StatusViewState extends State&lt;StatusView&gt; {
   bool loading = true;
   String status = '';
@@ -6124,11 +6246,16 @@ class _StatusViewState extends State&lt;StatusView&gt; {
     if (loading) return CircularProgressIndicator();
     return Text('$status');
   }
+
   @override
   void initState() {
     super.initState();
-    setState(() { status = 'Connected'; });
-    setState(() { loading = false; });
+    setState(() {
+      status = 'Connected';
+    });
+    setState(() {
+      loading = false;
+    });
   }
 }
 </code></pre>
@@ -6224,15 +6351,17 @@ class TodosStore extends ChangeNotifier {
     items = [...items, text];
     notifyListeners();
   }
+
   void remove(dynamic text) {
     items = items.where((t) =&gt; t != text).toList();
     done = done.where((t) =&gt; t != text).toList();
     notifyListeners();
   }
+
   void toggle(dynamic text) {
     done = done.contains(text)
-      ? done.where((t) =&gt; t != text).toList()
-      : [...done, text];
+        ? done.where((t) =&gt; t != text).toList()
+        : [...done, text];
     notifyListeners();
   }
 }
@@ -6242,6 +6371,7 @@ class TodoList extends StatefulWidget {
   @override
   State&lt;TodoList&gt; createState() =&gt; _TodoListState();
 }
+
 class _TodoListState extends State&lt;TodoList&gt; {
   String draft = '';
   @override
@@ -6252,7 +6382,47 @@ class _TodoListState extends State&lt;TodoList&gt; {
     final add = todosStore.add;
     final remove = todosStore.remove;
     final toggle = todosStore.toggle;
-    return Scaffold(appBar: AppBar(title: Text('Todos')), body: Column(children: [TextField(decoration: InputDecoration(labelText: 'New todo'), onChanged: (value) { setState(() { draft = value; }); }), ElevatedButton(onPressed: () { add(draft); }, child: Text('Add')), ListView(children: [...items.map((todo) =&gt; ListTile(title: Text(todo), leading: Checkbox(value: done.contains(todo), onChanged: (v) { toggle(todo); }), onTap: () { remove(todo); })).toList()])]));
+    return Scaffold(
+      appBar: AppBar(title: Text('Todos')),
+      body: Column(
+        children: [
+          TextField(
+            decoration: InputDecoration(labelText: 'New todo'),
+            onChanged: (value) {
+              setState(() {
+                draft = value;
+              });
+            },
+          ),
+          ElevatedButton(
+            onPressed: () {
+              add(draft);
+            },
+            child: Text('Add'),
+          ),
+          ListView(
+            children: [
+              ...items
+                  .map(
+                    (todo) =&gt; ListTile(
+                      title: Text(todo),
+                      leading: Checkbox(
+                        value: done.contains(todo),
+                        onChanged: (v) {
+                          toggle(todo);
+                        },
+                      ),
+                      onTap: () {
+                        remove(todo);
+                      },
+                    ),
+                  )
+                  .toList(),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
 </code></pre>
@@ -6316,30 +6486,46 @@ class CameraScreen extends StatefulWidget {
   @override
   State&lt;CameraScreen&gt; createState() =&gt; _CameraScreenState();
 }
+
 class _CameraScreenState extends State&lt;CameraScreen&gt; {
   bool taken = false;
   CameraController? _cameraController;
   @override
   Widget build(BuildContext context) {
-    return Column(children: [if (taken) Text('Photo saved!'), ElevatedButton(onPressed: _takePhoto, child: Text('Take Photo'))]);
+    return Column(
+      children: [
+        if (taken) Text('Photo saved!'),
+        ElevatedButton(onPressed: _takePhoto, child: Text('Take Photo')),
+      ],
+    );
   }
+
   @override
   void initState() {
     super.initState();
     availableCameras().then((cameras) {
       if (cameras.isEmpty) return;
-      _cameraController = CameraController(cameras.first, ResolutionPreset.medium);
-      _cameraController!.initialize().then((_) { if (mounted) setState(() {}); });
+      _cameraController = CameraController(
+        cameras.first,
+        ResolutionPreset.medium,
+      );
+      _cameraController!.initialize().then((_) {
+        if (mounted) setState(() {});
+      });
     });
   }
+
   @override
   void dispose() {
     _cameraController?.dispose();
     super.dispose();
   }
+
   Future&lt;void&gt; _takePhoto() async {
     await _cameraController!.takePicture();
-    setState(() { taken = true; });
+    setState(() {
+      taken = true;
+    });
   }
 }
 </code></pre>
@@ -6404,14 +6590,24 @@ class MapScreen extends StatefulWidget {
   @override
   State&lt;MapScreen&gt; createState() =&gt; _MapScreenState();
 }
+
 class _MapScreenState extends State&lt;MapScreen&gt; {
   GoogleMapController? _mapController;
   @override
   Widget build(BuildContext context) {
-    return Column(children: [ElevatedButton(onPressed: _goToParis, child: Text('Fly to Paris'))]);
+    return Column(
+      children: [
+        ElevatedButton(onPressed: _goToParis, child: Text('Fly to Paris')),
+      ],
+    );
   }
+
   Future&lt;void&gt; _goToParis() async {
-    await _mapController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(48.8566, 2.3522), zoom: 13 ?? 12)));
+    await _mapController?.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(target: LatLng(48.8566, 2.3522), zoom: 13 ?? 12),
+      ),
+    );
   }
 }
 </code></pre>
@@ -6484,11 +6680,17 @@ class _FsxTabs0State extends State&lt;_FsxTabs0&gt; {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(index: _index, children: [HomeScreen(), ProfileScreen()]),
+      body: IndexedStack(
+        index: _index,
+        children: [HomeScreen(), ProfileScreen()],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _index,
         onTap: (i) =&gt; setState(() =&gt; _index = i),
-        items: const [BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'), BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile')],
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        ],
       ),
     );
   }
@@ -6590,11 +6792,49 @@ class DrawerApp extends StatefulWidget {
   @override
   State&lt;DrawerApp&gt; createState() =&gt; _DrawerAppState();
 }
+
 class _DrawerAppState extends State&lt;DrawerApp&gt; {
   int page = 0;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Drawer Demo', home: Scaffold(appBar: AppBar(title: Text('Drawer Demo')), drawer: Drawer(child: ListView(children: [DrawerHeader(child: Text('Menu')), ListTile(title: Text('Home'), onTap: () { setState(() { page = 0; }); }), ListTile(title: Text('Profile'), onTap: () { setState(() { page = 1; }); }), ListTile(title: Text('Settings'), onTap: () { setState(() { page = 2; }); })])), body: Center(child: Text('${PAGES[page]}'))));
+    return MaterialApp(
+      title: 'Drawer Demo',
+      home: Scaffold(
+        appBar: AppBar(title: Text('Drawer Demo')),
+        drawer: Drawer(
+          child: ListView(
+            children: [
+              DrawerHeader(child: Text('Menu')),
+              ListTile(
+                title: Text('Home'),
+                onTap: () {
+                  setState(() {
+                    page = 0;
+                  });
+                },
+              ),
+              ListTile(
+                title: Text('Profile'),
+                onTap: () {
+                  setState(() {
+                    page = 1;
+                  });
+                },
+              ),
+              ListTile(
+                title: Text('Settings'),
+                onTap: () {
+                  setState(() {
+                    page = 2;
+                  });
+                },
+              ),
+            ],
+          ),
+        ),
+        body: Center(child: Text('${PAGES[page]}')),
+      ),
+    );
   }
 }
 </code></pre>
@@ -6662,16 +6902,25 @@ class PhotoGallery extends StatefulWidget {
   @override
   State&lt;PhotoGallery&gt; createState() =&gt; _PhotoGalleryState();
 }
+
 class _PhotoGalleryState extends State&lt;PhotoGallery&gt; {
   int count = 0;
   final ImagePicker _imagePicker = ImagePicker();
   @override
   Widget build(BuildContext context) {
-    return Column(children: [Text('Photos:' + '$count'), ElevatedButton(onPressed: _pick, child: Text('Pick Photo'))]);
+    return Column(
+      children: [
+        Text('Photos:' + '$count'),
+        ElevatedButton(onPressed: _pick, child: Text('Pick Photo')),
+      ],
+    );
   }
+
   Future&lt;void&gt; _pick() async {
     await _imagePicker.pickImage(source: ImageSource.gallery);
-    setState(() { count = count + 1; });
+    setState(() {
+      count = count + 1;
+    });
   }
 }
 </code></pre>
@@ -6742,17 +6991,34 @@ class WorldCities extends StatefulWidget {
   @override
   State&lt;WorldCities&gt; createState() =&gt; _WorldCitiesState();
 }
+
 class _WorldCitiesState extends State&lt;WorldCities&gt; {
   GoogleMapController? _mapController;
   @override
   Widget build(BuildContext context) {
-    return Column(children: [Text('World Cities'), ElevatedButton(onPressed: _goToParis, child: Text('Paris')), ElevatedButton(onPressed: _goToTokyo, child: Text('Tokyo'))]);
+    return Column(
+      children: [
+        Text('World Cities'),
+        ElevatedButton(onPressed: _goToParis, child: Text('Paris')),
+        ElevatedButton(onPressed: _goToTokyo, child: Text('Tokyo')),
+      ],
+    );
   }
+
   Future&lt;void&gt; _goToParis() async {
-    await _mapController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(48.8566, 2.3522), zoom: 12 ?? 12)));
+    await _mapController?.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(target: LatLng(48.8566, 2.3522), zoom: 12 ?? 12),
+      ),
+    );
   }
+
   Future&lt;void&gt; _goToTokyo() async {
-    await _mapController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(35.6762, 139.6503), zoom: 11 ?? 12)));
+    await _mapController?.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(target: LatLng(35.6762, 139.6503), zoom: 11 ?? 12),
+      ),
+    );
   }
 }
 </code></pre>
@@ -6828,16 +7094,41 @@ class LoginForm extends StatefulWidget {
   @override
   State&lt;LoginForm&gt; createState() =&gt; _LoginFormState();
 }
+
 class _LoginFormState extends State&lt;LoginForm&gt; {
   String email = '';
   String password = '';
   bool submitted = false;
   @override
   Widget build(BuildContext context) {
-    return Column(children: [TextField(decoration: InputDecoration(labelText: 'Email'), onChanged: (value) { setState(() { email = value; }); }), TextField(decoration: InputDecoration(labelText: 'Password'), onChanged: (value) { setState(() { password = value; }); }), ElevatedButton(onPressed: _submit, child: Text('Login')), if (submitted) Text('Logged in!')]);
+    return Column(
+      children: [
+        TextField(
+          decoration: InputDecoration(labelText: 'Email'),
+          onChanged: (value) {
+            setState(() {
+              email = value;
+            });
+          },
+        ),
+        TextField(
+          decoration: InputDecoration(labelText: 'Password'),
+          onChanged: (value) {
+            setState(() {
+              password = value;
+            });
+          },
+        ),
+        ElevatedButton(onPressed: _submit, child: Text('Login')),
+        if (submitted) Text('Logged in!'),
+      ],
+    );
   }
+
   void _submit() {
-    setState(() { submitted = true; });
+    setState(() {
+      submitted = true;
+    });
   }
 }
 </code></pre>
@@ -6908,7 +7199,12 @@ class CounterScreen extends StatelessWidget {
     final counterStore = context.watch&lt;CounterStore&gt;();
     final count = counterStore.count;
     final increment = counterStore.increment;
-    return Column(children: [Text('Count:' + '$count'), ElevatedButton(onPressed: increment, child: Text('Increment'))]);
+    return Column(
+      children: [
+        Text('Count:' + '$count'),
+        ElevatedButton(onPressed: increment, child: Text('Increment')),
+      ],
+    );
   }
 }
 </code></pre>
@@ -7054,11 +7350,20 @@ class _FsxTabs0State extends State&lt;_FsxTabs0&gt; {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(index: _index, children: [Center(child: Text('Home')), Center(child: Text('Profile'))]),
+      body: IndexedStack(
+        index: _index,
+        children: [
+          Center(child: Text('Home')),
+          Center(child: Text('Profile')),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _index,
         onTap: (i) =&gt; setState(() =&gt; _index = i),
-        items: const [BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'), BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile')],
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        ],
       ),
     );
   }
@@ -7121,7 +7426,25 @@ class Actions extends StatelessWidget {
   const Actions({super.key});
   @override
   Widget build(BuildContext context) {
-    return Column(children: [ElevatedButton(onPressed: () { showModalBottomSheet(context: context, builder: (context) =&gt; Text('Cart')); }, child: Text('Cart')), ElevatedButton(onPressed: () { showDialog(context: context, builder: (context) =&gt; Text('Delete?')); }, child: Text('Delete'))]);
+    return Column(
+      children: [
+        ElevatedButton(
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) =&gt; Text('Cart'),
+            );
+          },
+          child: Text('Cart'),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            showDialog(context: context, builder: (context) =&gt; Text('Delete?'));
+          },
+          child: Text('Delete'),
+        ),
+      ],
+    );
   }
 }
 </code></pre>
@@ -7180,10 +7503,21 @@ class Nav extends StatefulWidget {
   @override
   State&lt;Nav&gt; createState() =&gt; _NavState();
 }
+
 class _NavState extends State&lt;Nav&gt; {
   @override
   Widget build(BuildContext context) {
-    return Column(children: [Text('Home'), ElevatedButton(onPressed: () { context.push('/details'); }, child: Text('Open details'))]);
+    return Column(
+      children: [
+        Text('Home'),
+        ElevatedButton(
+          onPressed: () {
+            context.push('/details');
+          },
+          child: Text('Open details'),
+        ),
+      ],
+    );
   }
 }
 </code></pre>

@@ -29,7 +29,7 @@ const docsDir = join(__dirname, '../docs');
 const outPath = join(docsDir, 'api-reference.html');
 const landingPath = join(docsDir, 'index.html');
 
-const run = (): void => {
+const run = async (): Promise<void> => {
   console.log('[docs] Building API reference…');
   const {
     html,
@@ -41,7 +41,7 @@ const run = (): void => {
     failures,
     flutterVersion,
     dartVersion,
-  } = buildApiReference();
+  } = await buildApiReference();
 
   writeFileSync(outPath, html, 'utf-8');
 
@@ -73,4 +73,4 @@ const run = (): void => {
   }
 };
 
-run();
+await run();
