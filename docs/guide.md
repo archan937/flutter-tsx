@@ -199,7 +199,26 @@ fsx swaps it for the matching `Animated*` widget. `duration` is milliseconds
 Animatable widgets: `Container`, `Opacity`, `Align`, `Padding`, `Positioned`,
 `DefaultTextStyle`, `FractionallySizedBox`.
 
-## 9. System-tray / menubar apps (desktop)
+## 9. Native functions
+
+Call a native capability directly — fsx transpiles it to the underlying plugin
+call and adds the pubspec dependency automatically:
+
+```tsx
+import { launchUrl, share, pickFile, clipboard, hapticFeedback } from 'flutter-tsx';
+
+await launchUrl('https://flutter.dev');     // → url_launcher
+await share('Check this out', 'Subject');   // → share_plus
+await clipboard.copy('copied');             // → Clipboard.setData
+await hapticFeedback.light();               // → HapticFeedback.lightImpact
+const file = await pickFile({ extensions: ['pdf'] }); // → file_picker
+```
+
+Also available: `clipboard.paste`, `hapticFeedback.{medium,heavy,vibrate}`,
+`systemChrome.{setOrientation,setStatusBarColor}`, `loadAsset(path)`,
+`appDir()` / `tempDir()`. Use them inside a handler (`onClick`, `useEffect`).
+
+## 10. System-tray / menubar apps (desktop)
 
 Add a `config/tray.ts` to turn a desktop app into a tray/menubar app — fsx emits
 the `window_manager` + `tray_manager` bootstrap (tray icon, context menu, and
@@ -219,7 +238,7 @@ export default {
 } satisfies TrayConfig;
 ```
 
-## 10. Build & sign
+## 11. Build & sign
 
 ```sh
 bun run build              # fsx build — release artifact for config/app.ts target
