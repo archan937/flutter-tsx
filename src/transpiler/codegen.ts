@@ -258,7 +258,7 @@ export interface CodegenOptions {
   storeHooks?: ReadonlySet<string>;
 }
 
-export class CodegenContext {
+class CodegenContext {
   private sourceFile: ts.SourceFile;
   private stateVarNames = new Set<string>();
   private stateSetterNames = new Set<string>();
@@ -1408,7 +1408,8 @@ export class CodegenContext {
     // (unresolved generics); recover those by name until the extractor
     // classifies them. Tracked as the derive-stage gap, not new static logic.
     if (propDef?.transform === undefined || propDef.transform === 'none') {
-      if (propName.toLowerCase().includes('color')) return transformColor(value);
+      if (propName.toLowerCase().includes('color'))
+        return transformColor(value);
       if (propName === 'padding' || propName === 'margin') {
         return transformPadding(Number(value) || value);
       }
