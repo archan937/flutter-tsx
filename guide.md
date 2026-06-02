@@ -78,11 +78,17 @@ the `provider` dependency automatically:
 // src/stores/counter.tsx
 import { createStore } from 'flutter-tsx';
 
-export const useCounter = createStore((set) => ({
+type CounterState = { count: number; increment: () => void };
+
+export const useCounter = createStore<CounterState>((set) => ({
   count: 0,
   increment: () => set((s) => ({ count: s.count + 1 })),
 }));
 ```
+
+> Pass the state type explicitly — TS can't infer a store whose actions read
+> state (same as Zustand's `create<T>()`), so `createStore<State>(...)` is the
+> type-safe form.
 
 Use it in any screen — destructure like React. Reads become `context.watch`, and
 actions are bound calls:
