@@ -17,6 +17,18 @@ import { detectFonts, type FontMap } from './fonts.js';
 const toPackageName = (name: string): string =>
   name.toLowerCase().replace(/[^a-z0-9_]/g, '_');
 
+/**
+ * The source image for the menubar tray icon: a dedicated monochrome glyph at
+ * `icons/tray.png` when present, else the colourful app icon `icons/icon.png`.
+ * Returns null when neither exists.
+ */
+export const resolveTrayIconSource = (projectRoot: string): string | null => {
+  const tray = join(projectRoot, 'icons', 'tray.png');
+  if (existsSync(tray)) return tray;
+  const icon = join(projectRoot, 'icons', 'icon.png');
+  return existsSync(icon) ? icon : null;
+};
+
 export interface EnsureFlutterProjectOptions {
   flutterBin?: string;
   extraDeps?: string[];
@@ -99,8 +111,9 @@ export const ensureFlutterProject = async (
   }
 
   // System-tray / menubar mode (config/tray.ts): tray_manager + window_manager
-  // deps, a bundled tray icon (from icons/icon.png), and the tray main.dart
-  // bootstrap in place of the plain runApp entry point.
+  // deps, a bundled tray icon, and the tray main.dart bootstrap in place of the
+  // plain runApp entry point. The menubar wants a small monochrome glyph, so the
+  // source is `icons/tray.png` when present, falling back to `icons/icon.png`.
   const trayDeps = tray
     ? ['tray_manager: ^0.2.3', 'window_manager: ^0.4.3']
     : [];
@@ -108,8 +121,8 @@ export const ensureFlutterProject = async (
     ? { ...config, assets: [...(config.assets ?? []), 'assets/tray_icon.png'] }
     : config;
   if (tray && projectRoot) {
-    const iconSrc = join(projectRoot, 'icons', 'icon.png');
-    if (existsSync(iconSrc)) {
+    const iconSrc = resolveTrayIconSource(projectRoot);
+    if (iconSrc) {
       const dest = join(flutterDir, 'assets', 'tray_icon.png');
       mkdirSync(join(flutterDir, 'assets'), { recursive: true });
       writeFileSync(dest, readFileSync(iconSrc));

@@ -80,8 +80,9 @@ export interface TrayMenuItem {
 /**
  * `config/tray.ts` — presence turns the app into a system-tray / menubar app
  * (desktop). The transpiler emits a `main.dart` bootstrap that initializes
- * `window_manager` + `tray_manager`, sets the tray icon (from `icons/icon.png`),
- * builds this context menu, and wires Show/Hide/Quit.
+ * `window_manager` + `tray_manager`, sets the tray icon (from `icons/tray.png`,
+ * falling back to `icons/icon.png`), builds this context menu, and wires
+ * Show/Hide/Quit.
  */
 export interface TrayConfig {
   /** Tooltip shown on hover over the tray icon. */
