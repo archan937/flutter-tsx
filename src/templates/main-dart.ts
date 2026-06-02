@@ -103,7 +103,10 @@ Future<void> main() async {
   await windowManager.ensureInitialized();
   // Keep the app alive in the tray when its window is hidden or closed.
   await windowManager.setPreventClose(true);
-  await trayManager.setIcon('assets/tray_icon.png');
+  // On macOS render as a template image so the menubar tints it automatically
+  // (black on light menubars, white on dark) — a fixed-colour icon is invisible
+  // in one mode. Windows/Linux ignore isTemplate and use the icon as-is.
+  await trayManager.setIcon('assets/tray_icon.png', isTemplate: Platform.isMacOS);
   await trayManager.setToolTip('${tooltip}');
   await trayManager.setContextMenu(Menu(items: [
 ${menuItems}

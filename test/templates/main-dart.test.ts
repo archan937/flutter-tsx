@@ -1,42 +1,46 @@
+import '../../test/helpers/resemble.js';
+
 import { describe, expect, it } from 'bun:test';
 
 import { mainDart, trayMainDart } from '@src/templates/main-dart.js';
 
+// Drop the long ignore_for_file header line so the expected snippets stay readable.
+const bodyOf = (out: string): string =>
+  out.split('\n').slice(1).join('\n').trim();
+
 describe('mainDart', () => {
-  it('runs the app widget directly when there are no stores', () => {
-    const out = mainDart('MainApp');
-    expect(out).toContain('runApp(const MainApp());');
-    expect(out).not.toContain('MultiProvider');
-    expect(out).not.toContain('provider/provider.dart');
+  it('runs the app widget directly when there are no stores (default name MainApp)', () => {
+    const expected = `
+      import 'package:flutter/material.dart';
+      import 'App.dart';
+
+      void main() {
+        runApp(const MainApp());
+      }`;
+    expect(bodyOf(mainDart('MainApp'))).toResemble(expected);
+    expect(bodyOf(mainDart())).toResemble(expected); // name defaults to MainApp
   });
 
-  it('defaults the widget name to MainApp', () => {
-    expect(mainDart()).toContain('runApp(const MainApp());');
-  });
-
-  it('wraps the app in MultiProvider when stores are present', () => {
+  it('wraps the app in a MultiProvider when stores are present (imports deduped)', () => {
     const out = mainDart('MainApp', [
       { className: 'CounterStore', importFile: 'stores.dart' },
       { className: 'SessionStore', importFile: 'stores.dart' },
     ]);
-    expect(out).toContain("import 'package:provider/provider.dart';");
-    expect(out).toContain("import 'stores.dart';");
-    expect(out).toContain('MultiProvider(');
-    expect(out).toContain(
-      'ChangeNotifierProvider(create: (_) => CounterStore()),',
-    );
-    expect(out).toContain(
-      'ChangeNotifierProvider(create: (_) => SessionStore()),',
-    );
-    expect(out).toContain('child: const MainApp(),');
-  });
+    expect(bodyOf(out)).toResemble(`
+      import 'package:flutter/material.dart';
+      import 'package:provider/provider.dart';
+      import 'App.dart';
+      import 'stores.dart';
 
-  it('deduplicates store import files', () => {
-    const out = mainDart('MainApp', [
-      { className: 'CounterStore', importFile: 'stores.dart' },
-      { className: 'SessionStore', importFile: 'stores.dart' },
-    ]);
-    expect(out.match(/import 'stores\.dart';/g)).toHaveLength(1);
+      void main() {
+        runApp(MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (_) => CounterStore()),
+              ChangeNotifierProvider(create: (_) => SessionStore()),
+            ],
+            child: const MainApp(),
+          ));
+      }`);
   });
 });
 
@@ -50,52 +54,112 @@ describe('trayMainDart', () => {
     ],
   };
 
-  it('emits an async main with window_manager + tray_manager bootstrap', () => {
-    const out = trayMainDart('MainApp', [], TRAY);
-    expect(out).toContain("import 'package:tray_manager/tray_manager.dart';");
-    expect(out).toContain(
-      "import 'package:window_manager/window_manager.dart';",
-    );
-    expect(out).toContain('Future<void> main() async {');
-    expect(out).toContain('await windowManager.ensureInitialized();');
-    expect(out).toContain("await trayManager.setIcon('assets/tray_icon.png');");
-    expect(out).toContain("await trayManager.setToolTip('My App');");
-    expect(out).toContain('trayManager.addListener(');
-    expect(out).toContain('runApp(const MainApp());');
+  it('emits the full window_manager + tray_manager bootstrap (template icon, menu, keep-alive)', () => {
+    expect(bodyOf(trayMainDart('MainApp', [], TRAY))).toResemble(`
+      import 'dart:io';
+      import 'package:flutter/material.dart';
+      import 'package:tray_manager/tray_manager.dart';
+      import 'package:window_manager/window_manager.dart';
+      import 'App.dart';
+
+      class _FsxTray with TrayListener, WindowListener {
+        @override
+        void onTrayIconMouseDown() => trayManager.popUpContextMenu();
+        @override
+        void onTrayIconRightMouseDown() => trayManager.popUpContextMenu();
+        @override
+        void onTrayMenuItemClick(MenuItem menuItem) {
+          if (menuItem.key == 'show') windowManager.show();
+          if (menuItem.key == 'hide') windowManager.hide();
+          if (menuItem.key == 'quit') exit(0);
+        }
+
+        // Closing the window hides it to the tray instead of quitting the app.
+        @override
+        void onWindowClose() async {
+          if (await windowManager.isPreventClose()) windowManager.hide();
+        }
+      }
+
+      Future<void> main() async {
+        WidgetsFlutterBinding.ensureInitialized();
+        await windowManager.ensureInitialized();
+        // Keep the app alive in the tray when its window is hidden or closed.
+        await windowManager.setPreventClose(true);
+        // On macOS render as a template image so the menubar tints it automatically
+        // (black on light menubars, white on dark) — a fixed-colour icon is invisible
+        // in one mode. Windows/Linux ignore isTemplate and use the icon as-is.
+        await trayManager.setIcon('assets/tray_icon.png', isTemplate: Platform.isMacOS);
+        await trayManager.setToolTip('My App');
+        await trayManager.setContextMenu(Menu(items: [
+            MenuItem(key: 'show', label: 'Show'),
+            MenuItem(key: 'hide', label: 'Hide'),
+            MenuItem(key: 'quit', label: 'Quit'),
+        ]));
+        final fsxTray = _FsxTray();
+        trayManager.addListener(fsxTray);
+        windowManager.addListener(fsxTray);
+        runApp(const MainApp());
+      }`);
   });
 
-  it('builds the context menu from config + wires Show/Hide/Quit', () => {
-    const out = trayMainDart('MainApp', [], TRAY);
-    expect(out).toContain("MenuItem(key: 'show', label: 'Show')");
-    expect(out).toContain("MenuItem(key: 'quit', label: 'Quit')");
-    expect(out).toContain("if (menuItem.key == 'show') windowManager.show();");
-    expect(out).toContain("if (menuItem.key == 'hide') windowManager.hide();");
-    expect(out).toContain("if (menuItem.key == 'quit') exit(0);");
-  });
+  it('wraps the app in a MultiProvider when stores are present', () => {
+    expect(
+      bodyOf(
+        trayMainDart(
+          'myapp',
+          [{ className: 'SessionStore', importFile: 'session.dart' }],
+          { menu: [{ label: 'Quit', action: 'quit' as const }] },
+        ),
+      ),
+    ).toResemble(`
+      import 'dart:io';
+      import 'package:flutter/material.dart';
+      import 'package:tray_manager/tray_manager.dart';
+      import 'package:window_manager/window_manager.dart';
+      import 'package:provider/provider.dart';
+      import 'App.dart';
+      import 'session.dart';
 
-  it('wraps the app in MultiProvider when stores are present', () => {
-    const out = trayMainDart(
-      'myapp',
-      [{ className: 'SessionStore', importFile: 'session.dart' }],
-      { menu: [{ label: 'Quit', action: 'quit' as const }] },
-    );
-    expect(out).toContain("import 'package:provider/provider.dart';");
-    expect(out).toContain('MultiProvider(');
-    expect(out).toContain(
-      'ChangeNotifierProvider(create: (_) => SessionStore())',
-    );
-  });
+      class _FsxTray with TrayListener, WindowListener {
+        @override
+        void onTrayIconMouseDown() => trayManager.popUpContextMenu();
+        @override
+        void onTrayIconRightMouseDown() => trayManager.popUpContextMenu();
+        @override
+        void onTrayMenuItemClick(MenuItem menuItem) {
+          if (menuItem.key == 'quit') exit(0);
+        }
 
-  it('keeps the app alive in the tray: prevents close + hides on window close', () => {
-    // Without this, hiding/closing the only window quits the app (the macOS
-    // applicationShouldTerminateAfterLastWindowClosed default).
-    const out = trayMainDart('MainApp', [], TRAY);
-    expect(out).toContain('await windowManager.setPreventClose(true);');
-    expect(out).toContain('with TrayListener, WindowListener');
-    expect(out).toContain('void onWindowClose() async {');
-    expect(out).toContain(
-      'if (await windowManager.isPreventClose()) windowManager.hide();',
-    );
-    expect(out).toContain('windowManager.addListener(fsxTray);');
+        // Closing the window hides it to the tray instead of quitting the app.
+        @override
+        void onWindowClose() async {
+          if (await windowManager.isPreventClose()) windowManager.hide();
+        }
+      }
+
+      Future<void> main() async {
+        WidgetsFlutterBinding.ensureInitialized();
+        await windowManager.ensureInitialized();
+        // Keep the app alive in the tray when its window is hidden or closed.
+        await windowManager.setPreventClose(true);
+        // On macOS render as a template image so the menubar tints it automatically
+        // (black on light menubars, white on dark) — a fixed-colour icon is invisible
+        // in one mode. Windows/Linux ignore isTemplate and use the icon as-is.
+        await trayManager.setIcon('assets/tray_icon.png', isTemplate: Platform.isMacOS);
+        await trayManager.setToolTip('myapp');
+        await trayManager.setContextMenu(Menu(items: [
+            MenuItem(key: 'quit', label: 'Quit'),
+        ]));
+        final fsxTray = _FsxTray();
+        trayManager.addListener(fsxTray);
+        windowManager.addListener(fsxTray);
+        runApp(MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (_) => SessionStore()),
+            ],
+            child: const myapp(),
+          ));
+      }`);
   });
 });
