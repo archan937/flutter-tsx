@@ -68,6 +68,31 @@ jobs:
         run: FSX_E2E=1 bun test test/transpiler/skeletons.test.ts
         working-directory: packages/flutter-tsx
 
+  typecheck-gate:
+    name: scaffold typecheck gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: packages/flutter-tsx
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ env.SIBLING_REPO }}
+          path: packages/create-flutter-tsx
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install
+        working-directory: packages/flutter-tsx
+      - run: bun install
+        working-directory: packages/create-flutter-tsx
+      # Build dist (the gate links the built package into each scaffold), then
+      # prove every skeleton is tsc-clean — scaffolds must ALWAYS compile.
+      - name: Build flutter-tsx
+        run: bun run build
+        working-directory: packages/flutter-tsx
+      - name: Typecheck every scaffolded skeleton
+        run: bun run typecheck:gate
+        working-directory: packages/flutter-tsx
+
   build:
     name: build ${{ matrix.target }} (${{ matrix.os }})
     strategy:

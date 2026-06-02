@@ -72,6 +72,30 @@ export const useAsync = <T>(fetcher: () => Promise<T>): AsyncResult<T> => {
   return { data: undefined as T, loading: true, error: undefined };
 };
 
+/** Response shape for {@link fetch} — `json` is typed by fetch's `T` param. */
+export interface FetchResponse<T = unknown> {
+  ok: boolean;
+  status: number;
+  body: string;
+  json: T;
+}
+
+/**
+ * HTTP GET helper for `useAsync`. The transpiler rewrites `fetch(url)` to a Dart
+ * `http` call (`_fsxFetch`) returning `{ ok, status, body, json }`. Type the
+ * decoded JSON with the generic: `useAsync(() => fetch<Post[]>(url))` → the
+ * result's `data.json` is `Post[]`.
+ */
+export const fetch = <T = unknown>(url: string): Promise<FetchResponse<T>> => {
+  void url;
+  return Promise.resolve({
+    ok: true,
+    status: 200,
+    body: '',
+    json: undefined as T,
+  });
+};
+
 type StoreSet<T> = (partial: Partial<T> | ((state: T) => Partial<T>)) => void;
 
 /**
@@ -80,8 +104,13 @@ type StoreSet<T> = (partial: Partial<T> | ((state: T) => Partial<T>)) => void;
  * actions → methods calling `notifyListeners()`), wires it with `provider`, and
  * the returned hook resolves to `context.watch`/`context.read` in screens.
  *
+ * Pass the state type explicitly — TypeScript can't infer a store's shape when
+ * its actions read state via `set`/`get` (same limitation as Zustand's
+ * `create<T>()`), so `createStore<State>(...)` is required for type-safe stores.
+ *
  * ```tsx
- * export const useCounter = createStore((set) => ({
+ * type CounterState = { count: number; increment: () => void };
+ * export const useCounter = createStore<CounterState>((set) => ({
  *   count: 0,
  *   increment: () => set((s) => ({ count: s.count + 1 })),
  * }));

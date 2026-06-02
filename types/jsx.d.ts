@@ -547,6 +547,9 @@ import type {
 declare global {
   namespace JSX {
     interface Element extends import('../src/core/widget-node.js').WidgetNode {}
+    interface IntrinsicAttributes {
+      key?: string | number;
+    }
     interface IntrinsicElements {
       AboutListTile: AboutListTileProps;
       AboutDialog: AboutDialogProps;

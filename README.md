@@ -128,7 +128,7 @@ When a developer runs `bun add flutter-tsx` (or `npm install flutter-tsx`), they
 | `flutter-tsx/jsx-dev-runtime` | Same, for development builds                                  |
 | `fsx` binary                  | CLI with `install`, `init`, `dev`, and `build` commands       |
 
-The `jsxImportSource: "flutter-tsx"` setting in `tsconfig.json` is all that's needed for full IDE autocomplete — TypeScript reads `types/jsx.d.ts` which declares `JSX.IntrinsicElements` with one typed entry per widget.
+The `jsxImportSource: "flutter-tsx"` setting in `tsconfig.json` is all that's needed for full IDE autocomplete and `tsc` checking — every widget is exported as a fully-typed component (props, children, and callbacks are all typed from the Flutter SDK), so invalid TSX fails to compile. A committed typecheck gate proves every scaffolded skeleton stays `tsc`-clean.
 
 ---
 
@@ -521,17 +521,17 @@ Run `bun run docs` (author-only) to regenerate `api-reference.html` from the cur
 
 ### Core Hooks & APIs
 
-| Hook / API                   | Description                                                                         |
-| ---------------------------- | ----------------------------------------------------------------------------------- |
-| `useState<T>(initial)`       | Reactive state → `StatefulWidget` + `setState()`                                    |
-| `useEffect(fn, deps?)`       | Lifecycle effects → `initState` / `dispose`                                         |
-| `createStore((set) => …)`    | Shared store (Zustand-style) → `ChangeNotifier` + `provider`, wired at the app root |
-| `useStore(store, selector?)` | Subscribe to a store (or destructure the hook directly → `context.watch`)           |
-| `useAsync(() => future)`     | Async data → `FutureBuilder` (`{ data, loading, error }`)                           |
-| `fetch(url)`                 | HTTP source over `http` → `{ ok, status, body, json }`; composes with `useAsync`    |
-| `useNavigate()`              | `go`/`push`/`replace`/`pop` → `context.*` (go_router)                               |
-| `useParams('id')`            | Route path param → `GoRouterState.of(context).pathParameters`                       |
-| `useTranslations()`          | `t('key')` from `locales/*.json` → generated `l10n.dart`                            |
+| Hook / API                       | Description                                                                         |
+| -------------------------------- | ----------------------------------------------------------------------------------- |
+| `useState<T>(initial)`           | Reactive state → `StatefulWidget` + `setState()`                                    |
+| `useEffect(fn, deps?)`           | Lifecycle effects → `initState` / `dispose`                                         |
+| `createStore<State>((set) => …)` | Shared store (Zustand-style) → `ChangeNotifier` + `provider`, wired at the app root |
+| `useStore(store, selector?)`     | Subscribe to a store (or destructure the hook directly → `context.watch`)           |
+| `useAsync(() => future)`         | Async data → `FutureBuilder` (`{ data, loading, error }`)                           |
+| `fetch(url)`                     | HTTP source over `http` → `{ ok, status, body, json }`; composes with `useAsync`    |
+| `useNavigate()`                  | `go`/`push`/`replace`/`pop` → `context.*` (go_router)                               |
+| `useParams('id')`                | Route path param → `GoRouterState.of(context).pathParameters`                       |
+| `useTranslations()`              | `t('key')` from `locales/*.json` → generated `l10n.dart`                            |
 
 ### Composite widgets & modals
 

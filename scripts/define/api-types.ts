@@ -80,6 +80,15 @@ export type ChildSlot =
   | 'body'
   | 'title'
   | 'none';
+
+/**
+ * What a widget's JSX children represent, derived from the SDK (no name checks):
+ * - `widget` — a Widget child/children slot (`children?: FlutterElement | …`).
+ * - `text` — text content fed by a primary `String` param (e.g. Text.data),
+ *   so children are `TextContent | TextContent[]`; that param becomes optional.
+ * - `none` — no children.
+ */
+export type ChildContent = 'widget' | 'text' | 'none';
 export type Transform =
   | 'callback'
   | 'style'
@@ -119,6 +128,9 @@ export interface WidgetDef {
   selfSlot: string;
   defaultChildSlot: ChildSlot;
   singleChild: boolean;
+  childContent: ChildContent;
+  /** For `childContent: 'text'`, the String param children fill (e.g. `data`). */
+  textContentParam?: string;
   props: PropDef[];
   styling: StylingDef[];
 }

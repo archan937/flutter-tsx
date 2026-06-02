@@ -7635,7 +7635,8 @@ void dispose() { /* cleanup */ super.dispose(); }</code></pre>
               </button>
             </div>
             <div class="tab-panel active" data-panel="tsx" role="tabpanel">
-              <pre><code class="language-tsx">export const useCounter = createStore((set) =&gt; ({
+              <pre><code class="language-tsx">type CounterState = { count: number; increment: () =&gt; void };
+export const useCounter = createStore&lt;CounterState&gt;((set) =&gt; ({
   count: 0,
   increment: () =&gt; set((s) =&gt; ({ count: s.count + 1 })),
 }));</code></pre>

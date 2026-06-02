@@ -28,6 +28,7 @@ const makeWidget = ({
   selfSlot: '',
   defaultChildSlot: 'none',
   singleChild: false,
+  childContent: 'none',
   props: [],
   styling: [],
   ...rest,
