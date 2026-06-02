@@ -157,6 +157,40 @@ The main development loop:
 4. Launches `flutter run -d <target>` with stdin piped
 5. Watches `src/**/*.tsx` via chokidar; on every save, retranspiles the changed file and sends `"r\n"` to the flutter process for hot-reload
 
+**One app, every platform — `target` is just the default, not a lock-in.** Both
+`fsx init` and `bun create flutter-tsx` scaffold **all six** platform folders
+(`flutter create --platforms web,ios,android,macos,windows,linux`). The target
+you pick is only the **default device for `fsx dev`** — switch or build any
+platform anytime, no reconfiguration:
+
+```sh
+fsx dev   --target=ios       # then, freely:
+fsx dev   --target=android
+fsx dev   --target=macos
+fsx build --target=web
+```
+
+`flutter run` drives **one device per process**, so to run e.g. iOS _and_ macOS
+at the same time, start two `fsx dev` invocations with different `--target`s.
+Change the everyday default in `config/app.ts` → `target`.
+
+**Native toolchains (one-time).** `fsx install` provides the Flutter/Dart SDK,
+but each native target needs the OS toolchain Flutter shells out to:
+
+| Target          | Also requires                                                                                               |
+| --------------- | ----------------------------------------------------------------------------------------------------------- |
+| **iOS / macOS** | **Xcode** (full app, then `sudo xcodebuild -runFirstLaunch`) **+ CocoaPods** (`sudo gem install cocoapods`) |
+| Android         | Android Studio / SDK + a JDK                                                                                |
+| web             | nothing extra                                                                                               |
+| Windows / Linux | Visual Studio C++ build tools / `clang` + GTK                                                               |
+
+Run `flutter doctor -v` to see what's missing.
+
+**iOS simulator won't launch.** Flutter needs a _booted_ simulator: open it
+first with `open -a Simulator` (or Xcode → Open Developer Tool → Simulator),
+wait for it to finish booting, then `fsx dev --target=ios`. Confirm it's visible
+to Flutter with `flutter devices`.
+
 **macOS desktop: app doesn't start / DVTBuildVersion / xcodebuild errors**
 
 If `fsx dev --target=macos` prints xcodebuild warnings and no window opens:
@@ -165,7 +199,7 @@ If `fsx dev --target=macos` prints xcodebuild warnings and no window opens:
    ```sh
    cd .fsx/flutter && flutter run -d macos
    ```
-2. **"Unable to find a device matching... arch:arm64" (or arch:x86_64)** — fsx sets `FLUTTER_XCODE_ARCHS` from the current process arch (x64→x86_64, arm64→arm64) so the build matches your Mac. If you still see this, run with an explicit arch: `FLUTTER_XCODE_ARCHS=x86_64 fsx dev --target=macos` (Intel) or `FLUTTER_XCODE_ARCHS=arm64` (Apple Silicon).
+2. **"Unable to find a device matching... arch:arm64" (or arch:x86_64)** — this means the installed Flutter SDK is the wrong CPU architecture for your Mac (e.g. an x86_64 SDK on Apple Silicon, running under Rosetta). `fsx install` picks the build matching `process.arch`; if you have a mismatched SDK, reinstall with `fsx install --force`. Diagnose the SDK's arch with `file ~/.fsx/flutter/bin/cache/dart-sdk/bin/dart`.
 3. **Xcode device noise** — the DVTBuildVersion / `DTDKRemoteDeviceData` messages are filtered from fsx output; they often come from iOS device tooling and are usually harmless.
 4. **Clean and retry** — from the project root: `cd .fsx/flutter && flutter clean && flutter pub get`, then `fsx dev --target=macos` again.
 5. **macOS desktop enabled** — run `flutter config --enable-macos-desktop` and `flutter doctor -v` to confirm macOS is ✓.
@@ -196,17 +230,20 @@ my-app/
     ├── splash.png       1024×1024 — splash centerpiece (falls back to icon.png)
     ├── background.png   any size  — brand background for adaptive icon + splash
     ├── monochrome.png   1024×1024 — silhouette for Android 13+ themed icons + notifications
-    └── dark/            dark-mode variants — same four filenames
+    ├── tray.png         menubar / system-tray glyph (tray apps; falls back to icon.png)
+    └── dark/            dark-mode / light-surface variants — same filenames
         ├── icon.png
         ├── splash.png
         ├── background.png
-        └── monochrome.png
+        ├── monochrome.png
+        └── tray.png
 ```
 
 - **Filename = brand intent**, not platform target. One file drives multiple platform artifacts.
-- **Cascade defaults**: `splash.png` absent → splash uses `icon.png`. `background.png` absent → white `#ffffff`. `monochrome.png` absent → Android themed icon simply not configured.
+- **Cascade defaults**: `splash.png` absent → splash uses `icon.png`. `background.png` absent → white `#ffffff`. `monochrome.png` absent → Android themed icon simply not configured. `tray.png` absent → the tray uses `icon.png`.
+- **`tray.png`** (system-tray / menubar apps, `config/tray.ts`): a small monochrome glyph. On macOS it's rendered as a _template image_, so the menubar tints it automatically — black on light menubars, white on dark; ship `icons/dark/tray.png` (black) for non-template platforms.
 - **Hash-cached**: `fsx dev` only re-runs the icon/splash generators when file content changes. Identical files → instant start.
-- **`icons/dark/`** mirrors the same four filenames for dark-mode variants — the subdirectory is the modifier.
+- **`icons/dark/`** mirrors the same filenames for dark-mode variants — the subdirectory is the modifier.
 - **Zero floor**: no `icons/` directory at all → Flutter default logo everywhere, no errors.
 
 Powered by [`flutter_launcher_icons`](https://pub.dev/packages/flutter_launcher_icons) and [`flutter_native_splash`](https://pub.dev/packages/flutter_native_splash) — both added to `dev_dependencies` automatically when the trigger files are detected.
