@@ -62,10 +62,25 @@ const SPLASH_KEYS = new Set<keyof DetectedAssets>([
   'backgroundDark',
 ]);
 
+const PNG_SIGNATURE = [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a];
+
+/**
+ * Reads a PNG's pixel dimensions from its IHDR chunk. Returns null when the
+ * file is not a valid PNG (e.g. a JPEG mistakenly saved as `.png`) — the caller
+ * surfaces that as a clear message instead of parsing unrelated bytes as if
+ * they were the IHDR width/height (which produced absurd sizes before).
+ */
 export const readPngDimensions = (
   path: string,
-): { width: number; height: number } => {
+): { width: number; height: number } | null => {
   const buf = readFileSync(path);
+  if (
+    buf.length < 24 ||
+    PNG_SIGNATURE.some((byte, i) => buf[i] !== byte) ||
+    buf.toString('latin1', 12, 16) !== 'IHDR'
+  ) {
+    return null;
+  }
   const dv = new DataView(buf.buffer, buf.byteOffset, buf.byteLength);
   return { width: dv.getUint32(16, false), height: dv.getUint32(20, false) };
 };
@@ -123,7 +138,11 @@ export const generateAssets = async ({
   for (const slot of presentSlots) {
     if (slot.recommendedSize > 0) {
       const dims = readPngDimensions(join(projectRoot, slot.relPath));
-      if (
+      if (dims === null) {
+        logger.warn(
+          `${slot.relPath}: not a valid PNG (is it a JPEG saved as .png?) — icon generation may fail`,
+        );
+      } else if (
         dims.width !== slot.recommendedSize ||
         dims.height !== slot.recommendedSize
       ) {

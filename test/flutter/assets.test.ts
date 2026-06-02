@@ -99,17 +99,23 @@ describe('readPngDimensions', () => {
   it('reads width and height from bytes 16-23 (big-endian)', () => {
     const pngPath = join(tmp, 'test.png');
     writeFileSync(pngPath, buildMinimalPng(1024, 1024));
-    const dims = readPngDimensions(pngPath);
-    expect(dims.width).toBe(1024);
-    expect(dims.height).toBe(1024);
+    expect(readPngDimensions(pngPath)).toEqual({ width: 1024, height: 1024 });
   });
 
   it('reads non-square dimensions correctly', () => {
     const pngPath = join(tmp, 'test.png');
     writeFileSync(pngPath, buildMinimalPng(512, 256));
-    const dims = readPngDimensions(pngPath);
-    expect(dims.width).toBe(512);
-    expect(dims.height).toBe(256);
+    expect(readPngDimensions(pngPath)).toEqual({ width: 512, height: 256 });
+  });
+
+  it('returns null for a non-PNG (e.g. a JPEG saved as .png)', () => {
+    const jpegPath = join(tmp, 'fake.png');
+    // JPEG/JFIF magic — exactly the bug that produced absurd dimensions.
+    writeFileSync(
+      jpegPath,
+      new Uint8Array([0xff, 0xd8, 0xff, 0xe0, ...Array(24).fill(0)]),
+    );
+    expect(readPngDimensions(jpegPath)).toBeNull();
   });
 });
 
