@@ -174,6 +174,10 @@ fsx build --target=web
 at the same time, start two `fsx dev` invocations with different `--target`s.
 Change the everyday default in `config/app.ts` → `target`.
 
+Scaffolded projects ship per-target shortcuts so you rarely type `--target`:
+`bun run dev:ios` · `dev:android` · `dev:macos` · `dev:windows` · `dev:linux` ·
+`dev:web` (and matching `build:<platform>`).
+
 **Native toolchains (one-time).** `fsx install` provides the Flutter/Dart SDK,
 but each native target needs the OS toolchain Flutter shells out to:
 
