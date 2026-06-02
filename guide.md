@@ -228,7 +228,9 @@ Also available: `clipboard.paste`, `hapticFeedback.{medium,heavy,vibrate}`,
 
 Add a `config/tray.ts` to turn a desktop app into a tray/menubar app — fsx emits
 the `window_manager` + `tray_manager` bootstrap (tray icon, context menu, and
-Show/Hide/Quit wiring) into `main.dart`; your TSX is just the window UI:
+Show/Hide/Quit wiring) into `main.dart`; your TSX is just the window UI. The
+menubar icon comes from `icons/tray.png` (a small monochrome glyph), falling
+back to `icons/icon.png` when absent:
 
 ```ts
 // config/tray.ts

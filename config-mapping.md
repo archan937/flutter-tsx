@@ -58,9 +58,9 @@ These are Dart-level — no native files involved, so they're identical on every
 Presence of `config/tray.ts` turns a desktop app into a tray/menubar app. fsx
 generates an async `main.dart` bootstrap and adds the native deps.
 
-| fsx config       | Output                                                                                                                                 | Platforms               |
-| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
-| `config/tray.ts` | `window_manager` + `tray_manager` deps; `main.dart` tray bootstrap (icon from `icons/icon.png`, context menu, Show/Hide/Quit listener) | macOS · Windows · Linux |
+| fsx config       | Output                                                                                                                                                                   | Platforms               |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- |
+| `config/tray.ts` | `window_manager` + `tray_manager` deps; `main.dart` tray bootstrap (icon from `icons/tray.png`, falling back to `icons/icon.png`; context menu; Show/Hide/Quit listener) | macOS · Windows · Linux |
 
 ```ts
 import type { TrayConfig } from 'flutter-tsx/config';
