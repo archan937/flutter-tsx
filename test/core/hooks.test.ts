@@ -2,6 +2,7 @@ import { describe, expect, it } from 'bun:test';
 
 import {
   createStore,
+  fetch,
   useAsync,
   useEffect,
   useParams,
@@ -124,6 +125,15 @@ describe('useAsync stub', () => {
     expect(result.loading).toBe(true);
     expect(result.error).toBeUndefined();
     expect(result.data).toBeUndefined();
+  });
+});
+
+describe('fetch stub', () => {
+  it('resolves the documented FetchResponse shape', async () => {
+    const res = await fetch<number[]>('https://example.com/x');
+    expect(res.ok).toBe(true);
+    expect(res.status).toBe(200);
+    expect(res.body).toBe('');
   });
 });
 

@@ -14,6 +14,14 @@
 export const GESTURE_PROPS = ['onTap', 'onDoubleTap', 'onLongPress'] as const;
 
 /**
+ * Widgets where a `label="…"` shorthand maps to the Dart `decoration:
+ * InputDecoration(labelText: …)` (codegen's transformStringProp). It's a
+ * flutter-tsx convenience not present on the Dart constructor, so the type
+ * generator injects `label?: string` for these widgets.
+ */
+export const LABEL_SUGAR_WIDGETS = ['TextField'] as const;
+
+/**
  * `animate` swaps a widget for its implicit-animation twin. Only widgets with a
  * direct Animated* counterpart are animatable; the swap reuses the same props.
  */

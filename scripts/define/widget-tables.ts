@@ -1,4 +1,5 @@
 import type {
+  ChildContent,
   ChildSlot,
   ParamInfo,
   Transform,
@@ -86,6 +87,33 @@ const isWidgetType = (node: TypeNode): boolean => {
 const isListWidgetType = (node: TypeNode): boolean => {
   const inner = node.kind === 'nullable' ? node.inner : node;
   return inner.kind === 'list' && inner.element.kind === 'widget';
+};
+
+const isStringType = (node: TypeNode): boolean => {
+  const inner = node.kind === 'nullable' ? node.inner : node;
+  return inner.kind === 'scalar' && inner.name === 'String';
+};
+
+/**
+ * Classifies what a widget's JSX children are, from SDK params (no name checks):
+ * a Widget child slot → `widget`; else a primary `String` content param
+ * (`data`/`text`, e.g. Text/SelectableText) → `text` (that param is returned so
+ * the generator can make it optional); else `none`.
+ */
+export const inferChildContentType = (
+  params: ParamInfo[],
+  defaultChildSlot: ChildSlot,
+): { childContent: ChildContent; textContentParam?: string } => {
+  if (defaultChildSlot !== 'none') return { childContent: 'widget' };
+  const textParam = params.find(
+    (p) =>
+      (p.name === 'data' || p.name === 'text') &&
+      p.isRequired &&
+      isStringType(p.type),
+  );
+  return textParam
+    ? { childContent: 'text', textContentParam: textParam.name }
+    : { childContent: 'none' };
 };
 
 export const inferChildSlot = (

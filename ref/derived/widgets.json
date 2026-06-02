@@ -79,6 +79,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -135,6 +136,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -182,6 +184,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -192,6 +195,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -230,6 +234,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -240,6 +245,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -278,6 +284,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -288,6 +295,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -326,6 +334,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -336,6 +345,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -374,6 +384,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -610,6 +621,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -639,6 +651,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -668,6 +681,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -733,6 +747,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -1086,6 +1101,7 @@
     "styling": [],
     "defaultChildSlot": "home",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "navigation"
   },
@@ -1394,6 +1410,7 @@
     "styling": [],
     "defaultChildSlot": "title",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "appBar",
     "category": "navigation"
   },
@@ -1747,6 +1764,7 @@
     "styling": [],
     "defaultChildSlot": "title",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -1938,6 +1956,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -2039,6 +2058,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -2149,6 +2169,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "display"
   },
@@ -2178,6 +2199,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -2342,6 +2364,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -2371,6 +2394,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -2472,6 +2496,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -2564,6 +2589,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -2773,6 +2799,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "bottomNavigationBar",
     "category": "navigation"
   },
@@ -2802,6 +2829,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -2948,6 +2976,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -3193,6 +3222,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -3303,6 +3333,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -3332,6 +3363,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -3487,6 +3519,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -3579,6 +3612,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -3662,6 +3696,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -3763,6 +3798,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "display"
   },
@@ -3855,6 +3891,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -4019,6 +4056,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -4048,6 +4086,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -4230,6 +4269,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "input"
   },
@@ -4601,6 +4641,7 @@
     "styling": [],
     "defaultChildSlot": "title",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -4630,6 +4671,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -4875,6 +4917,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "display"
   },
@@ -5246,6 +5289,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -5275,6 +5319,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -5565,6 +5610,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -5666,6 +5712,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -5875,6 +5922,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -5976,6 +6024,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -6005,6 +6054,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -6205,6 +6255,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -6414,6 +6465,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -6443,6 +6495,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -6472,6 +6525,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -6501,6 +6555,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -6629,6 +6684,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -6883,6 +6939,7 @@
     "styling": [],
     "defaultChildSlot": "title",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -6921,6 +6978,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -7076,6 +7134,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -7222,6 +7281,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -7287,6 +7347,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "display"
   },
@@ -7352,6 +7413,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -7381,6 +7443,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -7473,6 +7536,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "drawer",
     "category": "navigation"
   },
@@ -7565,6 +7629,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -7630,6 +7695,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -7659,6 +7725,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -7715,6 +7782,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -7735,6 +7803,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -8016,6 +8085,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "input"
   },
@@ -8342,6 +8412,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -8704,6 +8775,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -9093,6 +9165,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -9122,6 +9195,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -9223,6 +9297,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "input"
   },
@@ -9252,6 +9327,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -9344,6 +9420,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -9427,6 +9504,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -9735,6 +9813,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -9764,6 +9843,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -9865,6 +9945,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -9894,6 +9975,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -10229,6 +10311,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -10303,6 +10386,7 @@
     "styling": [],
     "defaultChildSlot": "title",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -10377,6 +10461,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -10595,6 +10680,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "floatingActionButton",
     "category": "input"
   },
@@ -10624,6 +10710,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -10662,6 +10749,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -10718,6 +10806,7 @@
     "styling": [],
     "defaultChildSlot": "title",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -10954,6 +11043,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "input"
   },
@@ -10983,6 +11073,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -11048,6 +11139,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -11365,6 +11457,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -11664,6 +11757,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "input"
   },
@@ -12017,6 +12111,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -12163,6 +12258,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -12255,6 +12351,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -12617,6 +12714,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -12961,6 +13059,7 @@
     "styling": [],
     "defaultChildSlot": "title",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "display"
   },
@@ -13125,6 +13224,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -13145,6 +13245,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -13210,6 +13311,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -13338,6 +13440,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -13628,6 +13731,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -13801,6 +13905,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -13848,6 +13953,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -14003,6 +14109,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -14140,6 +14247,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -14277,6 +14385,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -14468,6 +14577,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -14506,6 +14616,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -14535,6 +14646,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -14564,6 +14676,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -14593,6 +14706,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -14622,6 +14736,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -14678,6 +14793,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -14833,6 +14949,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "navigationBar",
     "category": "navigation"
   },
@@ -14889,6 +15006,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -14954,6 +15072,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -14983,6 +15102,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -15102,6 +15222,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -15158,6 +15279,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -15187,6 +15309,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -15405,6 +15528,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "navigation"
   },
@@ -15434,6 +15558,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -15535,6 +15660,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "input"
   },
@@ -15564,6 +15690,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -15827,6 +15954,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -15892,6 +16020,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -15984,6 +16113,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -16076,6 +16206,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -16357,6 +16488,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -16386,6 +16518,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -16514,6 +16647,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "display"
   },
@@ -16651,6 +16785,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "display"
   },
@@ -16770,6 +16905,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -16799,6 +16935,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -16990,6 +17127,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "input"
   },
@@ -17352,6 +17490,7 @@
     "styling": [],
     "defaultChildSlot": "title",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -17381,6 +17520,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -17527,6 +17667,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -17646,6 +17787,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -17918,6 +18060,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -17938,6 +18081,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -18192,6 +18336,7 @@
     "styling": [],
     "defaultChildSlot": "body",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "layout"
   },
@@ -18284,6 +18429,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -18313,6 +18459,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -18603,6 +18750,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -18884,6 +19032,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -18913,6 +19062,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -18942,6 +19092,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -19043,6 +19194,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -19072,6 +19224,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -19371,6 +19524,8 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "text",
+    "textContentParam": "data",
     "selfSlot": "",
     "category": "other"
   },
@@ -19436,6 +19591,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -19645,6 +19801,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "input"
   },
@@ -19674,6 +19831,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -19739,6 +19897,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -19921,6 +20080,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -19950,6 +20110,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -19979,6 +20140,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -20170,6 +20332,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -20424,6 +20587,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "input"
   },
@@ -20822,6 +20986,7 @@
     "styling": [],
     "defaultChildSlot": "title",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -20851,6 +21016,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -21024,6 +21190,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -21071,6 +21238,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -21127,6 +21295,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -21417,6 +21586,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "tabBar",
     "category": "navigation"
   },
@@ -21482,6 +21652,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "navigation"
   },
@@ -21529,6 +21700,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -21585,6 +21757,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -21695,6 +21868,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "input"
   },
@@ -21724,6 +21898,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -22374,6 +22549,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "input"
   },
@@ -23069,6 +23245,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "input"
   },
@@ -23098,6 +23275,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -23145,6 +23323,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -23192,6 +23371,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -23221,6 +23401,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -23277,6 +23458,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -23414,6 +23596,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -23443,6 +23626,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -23670,6 +23854,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -23699,6 +23884,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -23917,6 +24103,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "display"
   },
@@ -23946,6 +24133,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -23975,6 +24163,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -24076,6 +24265,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -24114,6 +24304,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -24152,6 +24343,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -24280,6 +24472,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -24318,6 +24511,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -24437,6 +24631,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -24547,6 +24742,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -24657,6 +24853,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -24695,6 +24892,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -24742,6 +24940,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -24816,6 +25015,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -24890,6 +25090,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -24928,6 +25129,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -25218,6 +25420,7 @@
     "styling": [],
     "defaultChildSlot": "home",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -25256,6 +25459,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -25294,6 +25498,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -25386,6 +25591,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -25415,6 +25621,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -25444,6 +25651,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -25464,6 +25672,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -25547,6 +25756,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -25567,6 +25777,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -25596,6 +25807,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -25634,6 +25846,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -25672,6 +25885,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -25701,6 +25915,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -25766,6 +25981,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -25831,6 +26047,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -25869,6 +26086,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -25916,6 +26134,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -25963,6 +26182,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -26001,6 +26221,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -26039,6 +26260,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -26113,6 +26335,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -26178,6 +26401,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -26243,6 +26467,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -26272,6 +26497,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -26337,6 +26563,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -26384,6 +26611,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -26422,6 +26650,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -26451,6 +26680,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -26480,6 +26710,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "layout"
   },
@@ -26527,6 +26758,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "layout"
   },
@@ -26565,6 +26797,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "layout"
   },
@@ -26594,6 +26827,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -26623,6 +26857,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -26652,6 +26887,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -26690,6 +26926,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "layout"
   },
@@ -26719,6 +26956,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -26784,6 +27022,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -26840,6 +27079,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -26887,6 +27127,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -26925,6 +27166,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -26999,6 +27241,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -27037,6 +27280,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -27066,6 +27310,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -27095,6 +27340,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -27133,6 +27379,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -27153,6 +27400,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -27191,6 +27439,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -27211,6 +27460,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -27231,6 +27481,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -27260,6 +27511,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -28018,6 +28270,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -28056,6 +28309,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -28112,6 +28366,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "layout"
   },
@@ -28177,6 +28432,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -28251,6 +28507,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -28325,6 +28582,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -28426,6 +28684,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -28509,6 +28768,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "layout"
   },
@@ -28592,6 +28852,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "layout"
   },
@@ -28630,6 +28891,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "layout"
   },
@@ -28659,6 +28921,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "layout"
   },
@@ -28760,6 +29023,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "layout"
   },
@@ -28798,6 +29062,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -28935,6 +29200,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -29090,6 +29356,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -29119,6 +29386,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -29157,6 +29425,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -29267,6 +29536,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -29341,6 +29611,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -29361,6 +29632,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -29399,6 +29671,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -29437,6 +29710,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -29475,6 +29749,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -30233,6 +30508,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -30253,6 +30529,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -30282,6 +30559,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -30311,6 +30589,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -30340,6 +30619,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -30360,6 +30640,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -30380,6 +30661,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -30400,6 +30682,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -30438,6 +30721,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -30467,6 +30751,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -30496,6 +30781,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -30534,6 +30820,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -30671,6 +30958,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "layout"
   },
@@ -30709,6 +30997,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -30756,6 +31045,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -30776,6 +31066,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -30913,6 +31204,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -30942,6 +31234,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -30962,6 +31255,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -31144,6 +31438,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -31335,6 +31630,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -31418,6 +31714,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -31519,6 +31816,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -31539,6 +31837,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -31586,6 +31885,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -32281,6 +32581,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -32373,6 +32674,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -32591,6 +32893,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -32647,6 +32950,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -32775,6 +33079,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -32903,6 +33208,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -32932,6 +33238,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -32961,6 +33268,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -33017,6 +33325,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -33046,6 +33355,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -33120,6 +33430,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -33221,6 +33532,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -33241,6 +33553,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -33837,6 +34150,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "input"
   },
@@ -33893,6 +34207,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -33949,6 +34264,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -34032,6 +34348,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -34061,6 +34378,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -34189,6 +34507,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "display"
   },
@@ -34218,6 +34537,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -34400,6 +34720,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "display"
   },
@@ -34438,6 +34759,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -34485,6 +34807,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -34640,6 +34963,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -34696,6 +35020,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -34770,6 +35095,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -34871,6 +35197,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -34972,6 +35299,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -35046,6 +35374,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -35120,6 +35449,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -35176,6 +35506,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -35241,6 +35572,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -35306,6 +35638,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -35416,6 +35749,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -35535,6 +35869,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -35609,6 +35944,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -35773,6 +36109,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -35829,6 +36166,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -35849,6 +36187,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -36031,6 +36370,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -36150,6 +36490,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -36197,6 +36538,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -36217,6 +36559,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -36282,6 +36625,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -36311,6 +36655,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -36385,6 +36730,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -36459,6 +36805,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -36515,6 +36862,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -36544,6 +36892,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -36690,6 +37039,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -36737,6 +37087,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -36856,6 +37207,7 @@
     "styling": [],
     "defaultChildSlot": "body",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -36885,6 +37237,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -36914,6 +37267,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -36997,6 +37351,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -37026,6 +37381,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -37046,6 +37402,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -37066,6 +37423,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -37140,6 +37498,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -37178,6 +37537,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -37225,6 +37585,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -37290,6 +37651,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -37337,6 +37699,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -37366,6 +37729,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -37512,6 +37876,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -37532,6 +37897,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -37552,6 +37918,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -37608,6 +37975,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -37637,6 +38005,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -37657,6 +38026,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -37740,6 +38110,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -37814,6 +38185,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -37888,6 +38260,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -37935,6 +38308,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -37973,6 +38347,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -38011,6 +38386,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -38049,6 +38425,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -38096,6 +38473,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -38125,6 +38503,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -38172,6 +38551,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -38210,6 +38590,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -38266,6 +38647,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -38376,6 +38758,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -38405,6 +38788,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -38488,6 +38872,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -38616,6 +39001,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -38861,6 +39247,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -38989,6 +39376,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -39027,6 +39415,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -39065,6 +39454,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -39139,6 +39529,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -39168,6 +39559,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -39197,6 +39589,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -39226,6 +39619,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -39282,6 +39676,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -39311,6 +39706,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -39385,6 +39781,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "layout"
   },
@@ -39450,6 +39847,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -39479,6 +39877,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -39499,6 +39898,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -39681,6 +40081,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "layout"
   },
@@ -39890,6 +40291,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "layout"
   },
@@ -40081,6 +40483,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "layout"
   },
@@ -40200,6 +40603,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -40292,6 +40696,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -40501,6 +40906,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -40566,6 +40972,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -40576,6 +40983,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -40605,6 +41013,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -40643,6 +41052,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -40672,6 +41082,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -40701,6 +41112,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -40730,6 +41142,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -40750,6 +41163,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -40797,6 +41211,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -40826,6 +41241,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -40846,6 +41262,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -40965,6 +41382,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "layout"
   },
@@ -40985,6 +41403,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -41005,6 +41424,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -41034,6 +41454,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -41063,6 +41484,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -41092,6 +41514,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -41130,6 +41553,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -41168,6 +41592,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -41197,6 +41622,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -41226,6 +41652,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -41255,6 +41682,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -41284,6 +41712,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -41304,6 +41733,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -41324,6 +41754,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -41344,6 +41775,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -41391,6 +41823,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -41429,6 +41862,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -41467,6 +41901,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -41487,6 +41922,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -41525,6 +41961,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -41554,6 +41991,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -41592,6 +42030,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -41720,6 +42159,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -41776,6 +42216,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -41796,6 +42237,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -41834,6 +42276,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -41844,6 +42287,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -41918,6 +42362,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -41947,6 +42392,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -41967,6 +42413,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -42068,6 +42515,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -42160,6 +42608,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -42243,6 +42692,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -42272,6 +42722,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -42427,6 +42878,8 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "text",
+    "textContentParam": "data",
     "selfSlot": "",
     "category": "display"
   },
@@ -42636,6 +43089,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -42674,6 +43128,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -42712,6 +43167,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -42750,6 +43206,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -42797,6 +43254,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -42853,6 +43311,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -42900,6 +43359,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -42947,6 +43407,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -43012,6 +43473,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -43050,6 +43512,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -43088,6 +43551,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -43117,6 +43581,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -43155,6 +43620,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -43193,6 +43659,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -43240,6 +43707,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -43305,6 +43773,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -43343,6 +43812,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -43381,6 +43851,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -43446,6 +43917,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -43520,6 +43992,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -43558,6 +44031,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -43605,6 +44079,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -43652,6 +44127,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -43672,6 +44148,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -43701,6 +44178,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -43811,6 +44289,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -43903,6 +44382,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -43995,6 +44475,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -44078,6 +44559,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -44125,6 +44607,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -44145,6 +44628,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -44165,6 +44649,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -44194,6 +44679,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -44232,6 +44718,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -44270,6 +44757,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -44299,6 +44787,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -44571,6 +45060,7 @@
     "styling": [],
     "defaultChildSlot": "home",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -44663,6 +45153,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -44836,6 +45327,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -44982,6 +45474,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -45020,6 +45513,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -45076,6 +45570,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -45086,6 +45581,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -45250,6 +45746,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -45351,6 +45848,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -45380,6 +45878,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -45409,6 +45908,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -45483,6 +45983,7 @@
     "styling": [],
     "defaultChildSlot": "title",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -45521,6 +46022,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -45586,6 +46088,7 @@
     "styling": [],
     "defaultChildSlot": "title",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -45660,6 +46163,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -45725,6 +46229,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -45772,6 +46277,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -45828,6 +46334,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -45902,6 +46409,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -45931,6 +46439,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -46050,6 +46559,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -46160,6 +46670,7 @@
     "styling": [],
     "defaultChildSlot": "title",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -46170,6 +46681,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -46235,6 +46747,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -46318,6 +46831,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -46464,6 +46978,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -46484,6 +46999,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -46684,6 +47200,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -46830,6 +47347,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -47012,6 +47530,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -47050,6 +47569,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -47097,6 +47617,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -47126,6 +47647,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -47254,6 +47776,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -47292,6 +47815,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -47429,6 +47953,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -47476,6 +48001,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -47523,6 +48049,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -47570,6 +48097,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -47671,6 +48199,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -47979,6 +48508,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -48089,6 +48619,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -48145,6 +48676,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -48237,6 +48769,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -48329,6 +48862,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -48358,6 +48892,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -48585,6 +49120,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -48650,6 +49186,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -48733,6 +49270,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -49392,6 +49930,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -49880,6 +50419,7 @@
     "styling": [],
     "defaultChildSlot": "none",
     "singleChild": false,
+    "childContent": "none",
     "selfSlot": "",
     "category": "other"
   },
@@ -49927,6 +50467,7 @@
     "styling": [],
     "defaultChildSlot": "children",
     "singleChild": false,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -49956,6 +50497,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -49985,6 +50527,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   },
@@ -50014,6 +50557,7 @@
     "styling": [],
     "defaultChildSlot": "child",
     "singleChild": true,
+    "childContent": "widget",
     "selfSlot": "",
     "category": "other"
   }

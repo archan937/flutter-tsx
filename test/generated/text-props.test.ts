@@ -12,4 +12,14 @@ describe('TextProps', () => {
     const props: TextProps = { children: 'hello' };
     expect(props.children).toBe('hello');
   });
+
+  it('accepts mixed text + interpolation children (array form)', () => {
+    // `<Text>Clicks: {count}</Text>` → children `['Clicks: ', count]`. Must be
+    // a valid array (children?: TextContent | TextContent[]); compile-time
+    // assertion — if Text children narrows back to `string | number`, `tsc`
+    // fails here (the bug that broke ~12 scaffolds).
+    const n = 3;
+    const props: TextProps = { children: ['Clicks: ', n] };
+    expect(props.children).toEqual(['Clicks: ', 3]);
+  });
 });

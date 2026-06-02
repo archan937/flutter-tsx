@@ -4,6 +4,77 @@ All notable changes to **flutter-tsx** are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/), and the project adheres to
 [Semantic Versioning](https://semver.org/) (pre-1.0: minor = features, patch = fixes).
 
+## [0.3.3] — 2026-06-02
+
+### Added
+
+- **Typecheck gate** (`bun run typecheck:gate`, CI job): scaffolds every skeleton,
+  links the built package, runs `tsc --noEmit`. All 20 skeletons are tsc-clean —
+  scaffolds can never ship type errors again.
+- **`fetch<T>(url)`** is exported and typed (`FetchResponse<T>` — `ok`/`status`/
+  `body`/`json`); `useAsync(() => fetch<Post[]>(url))` types `data.json`.
+
+### Fixed
+
+- **`createStore<State>(...)`** now types correctly. TypeScript can't infer a
+  store whose actions read state (same limitation as Zustand's `create<T>()`), so
+  the state type is passed explicitly — `set((s) => …)` and the returned hook are
+  now fully typed instead of `{}`.
+- **`<Text>` mixed children** (`<Text>Clicks: {count}</Text>`) type-check. Text
+  children are `TextContent | TextContent[]`, derived from an SDK `childContent`
+  classification (no widget-name hardcode; auto-covers `SelectableText`).
+- **`key`** is accepted on every widget (`JSX.IntrinsicAttributes`).
+- **`label`** shorthand typed on `TextField`; function-typed callbacks (e.g.
+  `onChange`) carry their real value signature.
+
+## [0.3.2] — 2026-06-02
+
+### Fixed
+
+- **Tray icon is a macOS template image** (`isTemplate`), so the menubar tints it
+  automatically (black on light, white on dark) — a fixed-colour icon was
+  invisible in one appearance.
+
+### Added
+
+- Dedicated tray-icon convention: **`icons/tray.png`** (a monochrome glyph) is
+  used for the menubar, falling back to `icons/icon.png`; ships a black
+  `icons/dark/tray.png` variant.
+- Per-target scripts for all six platforms (`dev:ios` … `dev:linux`, `build:*`).
+
+## [0.3.1] — 2026-06-02
+
+### Fixed
+
+- Scaffold icons were **JPEGs saved as `.png`** → shipped as real 1024² PNGs.
+- `readPngDimensions` validates the PNG signature and reports non-PNGs clearly
+  (no more absurd dimension warnings).
+
+## [0.3.0] — 2026-06-01
+
+### Added
+
+- **`flutter analyze` gate** (`bun run analyze:gate`) — the trust mechanism:
+  every generated construct (hooks, plugin widgets, feature-functions, gallery
+  examples) is verified against the real, pinned Flutter/plugin APIs.
+- **Feature-functions** transpile to their plugin calls: `launchUrl`, `share`,
+  `pickFile`, `clipboard.*`, `hapticFeedback.*`, `systemChrome.*`, `loadAsset`,
+  `appDir`/`tempDir` (deps auto-added).
+- **State-hook destructuring** (`const { isOnline } = useConnectivity()`) wired
+  for state-surface plugin hooks.
+
+### Changed
+
+- Regenerated against **Flutter 3.44** (542 widgets). Plugin **widgets**
+  (GoogleMap/WebView/VideoPlayer/CachedNetworkImage) are data-driven from the
+  recipes — no per-widget code in the transpiler.
+- Generated Dart is run through **`dart format`** (build pipeline + docs).
+
+### Fixed
+
+- 9 plugin hooks emitted non-conformant Dart (method templates used literal arg
+  names instead of `$N` substitution); all corrected and analyze-verified.
+
 ## [0.2.2] — 2026-05-31
 
 ### Fixed

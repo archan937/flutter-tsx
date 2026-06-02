@@ -204,7 +204,7 @@ export const CORE_APIS: CoreApi[] = [
   {
     name: 'createStore',
     doc: 'Defines a shared store (Zustand-style). Generates an idiomatic ChangeNotifier, provided at the app root via provider.',
-    tsx: `export const useCounter = createStore((set) => ({\n  count: 0,\n  increment: () => set((s) => ({ count: s.count + 1 })),\n}));`,
+    tsx: `type CounterState = { count: number; increment: () => void };\nexport const useCounter = createStore<CounterState>((set) => ({\n  count: 0,\n  increment: () => set((s) => ({ count: s.count + 1 })),\n}));`,
     dart: `class CounterStore extends ChangeNotifier {\n  int count = 0;\n  void increment() { count = count + 1; notifyListeners(); }\n}`,
   },
   {

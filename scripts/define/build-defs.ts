@@ -12,6 +12,7 @@ import { dartTypeString, translateType } from './translate-type';
 import {
   SELF_SLOT_OVERRIDES,
   inferCategory,
+  inferChildContentType,
   inferChildSlot,
   inferTransform,
   mapDartPropToTsx,
@@ -43,6 +44,10 @@ const buildWidget = (
   enumMap: Map<string, string[]>,
 ): WidgetDef => {
   const { defaultChildSlot, singleChild } = inferChildSlot(entity.params);
+  const { childContent, textContentParam } = inferChildContentType(
+    entity.params,
+    defaultChildSlot,
+  );
   const props = entity.params
     .filter((p) => p.name !== 'key')
     .map((p) => buildProp(p, enumMap));
@@ -54,6 +59,8 @@ const buildWidget = (
     styling: [],
     defaultChildSlot,
     singleChild,
+    childContent,
+    ...(textContentParam ? { textContentParam } : {}),
     selfSlot: SELF_SLOT_OVERRIDES[entity.name] ?? '',
     category: inferCategory(entity.library, entity.name),
   };

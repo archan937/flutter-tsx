@@ -20,6 +20,8 @@ export { showDialog, showSheet, TabView } from './core/widgets.js';
 // Hooks
 export {
   createStore,
+  fetch,
+  type FetchResponse,
   useAsync,
   useEffect,
   useParams,

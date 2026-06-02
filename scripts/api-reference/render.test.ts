@@ -142,6 +142,7 @@ const makeWidget = (name: string): WidgetDef => ({
   selfSlot: '',
   defaultChildSlot: 'none',
   singleChild: false,
+  childContent: 'none',
   props: [],
   styling: [],
 });
