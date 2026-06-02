@@ -1,6 +1,6 @@
 {
   "name": "flutter-tsx",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Write Flutter apps in TypeScript + JSX with full IDE autocomplete — transpiles to idiomatic Dart.",
   "keywords": [
     "flutter",
