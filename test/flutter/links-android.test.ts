@@ -1,3 +1,5 @@
+import '../helpers/resemble.js';
+
 import { describe, expect, it } from 'bun:test';
 
 import { applyLinksToAndroidManifest } from '@src/flutter/links.js';
@@ -14,25 +16,51 @@ const baseManifest = `<?xml version="1.0" encoding="utf-8"?>
 
 describe('applyLinksToAndroidManifest', () => {
   it('adds an intent-filter for scheme', () => {
-    const out = applyLinksToAndroidManifest(baseManifest, {
+    expect(applyLinksToAndroidManifest(baseManifest, {
       scheme: 'myapp',
       domains: [],
-    });
-    expect(out).toContain('<intent-filter');
-    expect(out).toContain('android.intent.action.VIEW');
-    expect(out).toContain('android.intent.category.DEFAULT');
-    expect(out).toContain('android.intent.category.BROWSABLE');
-    expect(out).toContain('android:scheme="myapp"');
+    })).toResemble(`
+      <?xml version="1.0" encoding="utf-8"?>
+      <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.example.app">
+          <application android:label="App">
+              <activity android:name=".MainActivity">
+      <!-- fsx:links:begin -->
+      <intent-filter>
+      <action android:name="android.intent.action.VIEW"/>
+      <category android:name="android.intent.category.DEFAULT"/>
+      <category android:name="android.intent.category.BROWSABLE"/>
+      <data android:scheme="myapp"/>
+      </intent-filter>
+      <!-- fsx:links:end -->
+              </activity>
+          </application>
+      </manifest>
+    `);
   });
 
   it('adds autoVerify intent-filter for domain', () => {
-    const out = applyLinksToAndroidManifest(baseManifest, {
+    expect(applyLinksToAndroidManifest(baseManifest, {
       scheme: null,
       domains: ['myapp.com'],
-    });
-    expect(out).toContain('android:autoVerify="true"');
-    expect(out).toContain('android:scheme="https"');
-    expect(out).toContain('android:host="myapp.com"');
+    })).toResemble(`
+      <?xml version="1.0" encoding="utf-8"?>
+      <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.example.app">
+          <application android:label="App">
+              <activity android:name=".MainActivity">
+      <!-- fsx:links:begin -->
+      <intent-filter android:autoVerify="true">
+      <action android:name="android.intent.action.VIEW"/>
+      <category android:name="android.intent.category.DEFAULT"/>
+      <category android:name="android.intent.category.BROWSABLE"/>
+      <data android:scheme="https" android:host="myapp.com"/>
+      </intent-filter>
+      <!-- fsx:links:end -->
+              </activity>
+          </application>
+      </manifest>
+    `);
   });
 
   it('is idempotent', () => {

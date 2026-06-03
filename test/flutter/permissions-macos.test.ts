@@ -1,3 +1,5 @@
+import '../helpers/resemble.js';
+
 import { describe, expect, it } from 'bun:test';
 
 import {
@@ -15,34 +17,40 @@ const BASE = `<?xml version="1.0" encoding="UTF-8"?>
 </plist>
 `;
 
+const withCamera = `<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+<key>com.apple.security.app-sandbox</key>
+<true/>
+<!-- fsx:entitlements:begin -->
+<key>com.apple.security.device.camera</key>
+<true/>
+<!-- fsx:entitlements:end -->
+</dict>
+</plist>`;
+
 describe('MACOS_ENTITLEMENT_MAP', () => {
   it('maps core capabilities to com.apple.security.* entitlements', () => {
-    expect(MACOS_ENTITLEMENT_MAP.camera).toContain(
+    expect(MACOS_ENTITLEMENT_MAP.camera).toEqual([
       'com.apple.security.device.camera',
-    );
-    expect(MACOS_ENTITLEMENT_MAP.microphone).toContain(
+    ]);
+    expect(MACOS_ENTITLEMENT_MAP.microphone).toEqual([
       'com.apple.security.device.audio-input',
-    );
-    expect(MACOS_ENTITLEMENT_MAP.location).toContain(
+    ]);
+    expect(MACOS_ENTITLEMENT_MAP.location).toEqual([
       'com.apple.security.personal-information.location',
-    );
+    ]);
   });
 });
 
 describe('applyToMacosEntitlements', () => {
   it('adds a boolean entitlement for an inferred capability', () => {
-    const out = applyToMacosEntitlements(BASE, ['camera']);
-    expect(out).toContain('<key>com.apple.security.device.camera</key>');
-    // boolean entitlement → <true/> follows the key
-    expect(out).toMatch(
-      /<key>com\.apple\.security\.device\.camera<\/key>\s*\n\s*<true\/>/,
-    );
+    expect(applyToMacosEntitlements(BASE, ['camera'])).toResemble(withCamera);
   });
 
   it('preserves the existing app-sandbox entitlement', () => {
-    const out = applyToMacosEntitlements(BASE, ['camera']);
-    expect(out).toContain('<key>com.apple.security.app-sandbox</key>');
-    expect(out.trimEnd().endsWith('</plist>')).toBe(true);
+    expect(applyToMacosEntitlements(BASE, ['camera'])).toResemble(withCamera);
   });
 
   it('is idempotent — applying twice equals once', () => {
@@ -61,10 +69,20 @@ describe('applyToMacosEntitlements', () => {
   });
 
   it('deduplicates and sorts entitlement keys', () => {
-    const out = applyToMacosEntitlements(BASE, ['location', 'location_always']);
-    const matches = out.match(
-      /com\.apple\.security\.personal-information\.location/g,
-    );
-    expect(matches?.length).toBe(1);
+    expect(applyToMacosEntitlements(BASE, ['location', 'location_always']))
+      .toResemble(`
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+        <dict>
+        <key>com.apple.security.app-sandbox</key>
+        <true/>
+        <!-- fsx:entitlements:begin -->
+        <key>com.apple.security.personal-information.location</key>
+        <true/>
+        <!-- fsx:entitlements:end -->
+        </dict>
+        </plist>
+      `);
   });
 });

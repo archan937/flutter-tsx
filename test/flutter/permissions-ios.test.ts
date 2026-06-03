@@ -1,3 +1,5 @@
+import '../helpers/resemble.js';
+
 import { describe, expect, it } from 'bun:test';
 
 import {
@@ -33,11 +35,19 @@ const emptyPrivacyManifest = `<?xml version="1.0" encoding="UTF-8"?>
 
 describe('applyToInfoPlist', () => {
   it('adds NSCameraUsageDescription for camera', () => {
-    const out = applyToInfoPlist(emptyPlist, {
-      camera: 'For QR scanning',
-    });
-    expect(out).toContain('<key>NSCameraUsageDescription</key>');
-    expect(out).toContain('<string>For QR scanning</string>');
+    expect(applyToInfoPlist(emptyPlist, { camera: 'For QR scanning' }))
+      .toResemble(`
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+        <dict>
+        <!-- fsx:permissions:begin -->
+        <key>NSCameraUsageDescription</key>
+        <string>For QR scanning</string>
+        <!-- fsx:permissions:end -->
+        </dict>
+        </plist>
+      `);
   });
 
   it('is idempotent on second apply', () => {
@@ -51,30 +61,75 @@ describe('applyToInfoPlist', () => {
       camera: 'A',
       microphone: 'B',
     });
-    expect(initial).toContain('NSCameraUsageDescription');
-    expect(initial).toContain('NSMicrophoneUsageDescription');
+    expect(initial).toResemble(`
+      <?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+      <plist version="1.0">
+      <dict>
+      <!-- fsx:permissions:begin -->
+      <key>NSCameraUsageDescription</key>
+      <string>A</string>
+      <key>NSMicrophoneUsageDescription</key>
+      <string>B</string>
+      <!-- fsx:permissions:end -->
+      </dict>
+      </plist>
+    `);
 
-    const after = applyToInfoPlist(initial, { camera: 'A' });
-    expect(after).toContain('NSCameraUsageDescription');
-    expect(after).not.toContain('NSMicrophoneUsageDescription');
+    expect(applyToInfoPlist(initial, { camera: 'A' })).toResemble(`
+      <?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+      <plist version="1.0">
+      <dict>
+      <!-- fsx:permissions:begin -->
+      <key>NSCameraUsageDescription</key>
+      <string>A</string>
+      <!-- fsx:permissions:end -->
+      </dict>
+      </plist>
+    `);
   });
 
   it('preserves unrelated plist keys', () => {
-    const out = applyToInfoPlist(plistWithBundleName, {
-      camera: 'For QR scanning',
-    });
-    expect(out).toContain('<key>CFBundleName</key>');
-    expect(out).toContain('<string>MyApp</string>');
-    expect(out).toContain('NSCameraUsageDescription');
+    expect(applyToInfoPlist(plistWithBundleName, { camera: 'For QR scanning' }))
+      .toResemble(`
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+        <dict>
+        <key>CFBundleName</key>
+        <string>MyApp</string>
+        <!-- fsx:permissions:begin -->
+        <key>NSCameraUsageDescription</key>
+        <string>For QR scanning</string>
+        <!-- fsx:permissions:end -->
+        </dict>
+        </plist>
+      `);
   });
 });
 
 describe('applyToPrivacyManifest', () => {
   it('adds an entry for tracking', () => {
-    const out = applyToPrivacyManifest(emptyPrivacyManifest, {
+    expect(applyToPrivacyManifest(emptyPrivacyManifest, {
       tracking: 'Improve our ads',
-    });
-    expect(out).toContain('NSPrivacyAccessedAPITypes');
+    })).toResemble(`
+      <?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+      <plist version="1.0">
+      <dict>
+      <!-- fsx:privacy:begin -->
+      <key>NSPrivacyAccessedAPITypes</key>
+      <array>
+      <dict>
+      <key>NSPrivacyAccessedAPIType</key>
+      <string>tracking</string>
+      </dict>
+      </array>
+      <!-- fsx:privacy:end -->
+      </dict>
+      </plist>
+    `);
   });
 
   it('is idempotent', () => {

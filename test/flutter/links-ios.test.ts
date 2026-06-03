@@ -1,3 +1,5 @@
+import '../helpers/resemble.js';
+
 import { describe, expect, it } from 'bun:test';
 
 import {
@@ -25,13 +27,28 @@ const emptyEntitlements = `<?xml version="1.0" encoding="UTF-8"?>
 
 describe('applyLinksToInfoPlist', () => {
   it('adds CFBundleURLTypes for scheme', () => {
-    const out = applyLinksToInfoPlist(emptyPlist, {
-      scheme: 'myapp',
-      domains: [],
-    });
-    expect(out).toContain('CFBundleURLTypes');
-    expect(out).toContain('myapp');
-    expect(out).toContain('<key>CFBundleName</key>');
+    expect(applyLinksToInfoPlist(emptyPlist, { scheme: 'myapp', domains: [] }))
+      .toResemble(`
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+        <dict>
+        <key>CFBundleName</key>
+        <string>MyApp</string>
+        <!-- fsx:links:begin -->
+        <key>CFBundleURLTypes</key>
+        <array>
+        <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+        <string>myapp</string>
+        </array>
+        </dict>
+        </array>
+        <!-- fsx:links:end -->
+        </dict>
+        </plist>
+      `);
   });
 
   it('is idempotent', () => {
@@ -49,12 +66,23 @@ describe('applyLinksToInfoPlist', () => {
 
 describe('applyLinksToEntitlements', () => {
   it('adds applinks entry for domain', () => {
-    const out = applyLinksToEntitlements(emptyEntitlements, {
+    expect(applyLinksToEntitlements(emptyEntitlements, {
       scheme: null,
       domains: ['myapp.com'],
-    });
-    expect(out).toContain('com.apple.developer.associated-domains');
-    expect(out).toContain('applinks:myapp.com');
+    })).toResemble(`
+      <?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+      <plist version="1.0">
+      <dict>
+      <!-- fsx:links:begin -->
+      <key>com.apple.developer.associated-domains</key>
+      <array>
+      <string>applinks:myapp.com</string>
+      </array>
+      <!-- fsx:links:end -->
+      </dict>
+      </plist>
+    `);
   });
 
   it('is idempotent', () => {
@@ -74,12 +102,38 @@ describe('applyLinksToEntitlements', () => {
       scheme: null,
       domains: ['myapp.com', 'staging.myapp.com'],
     });
-    expect(initial).toContain('staging.myapp.com');
-    const after = applyLinksToEntitlements(initial, {
+    expect(initial).toResemble(`
+      <?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+      <plist version="1.0">
+      <dict>
+      <!-- fsx:links:begin -->
+      <key>com.apple.developer.associated-domains</key>
+      <array>
+      <string>applinks:myapp.com</string>
+      <string>applinks:staging.myapp.com</string>
+      </array>
+      <!-- fsx:links:end -->
+      </dict>
+      </plist>
+    `);
+
+    expect(applyLinksToEntitlements(initial, {
       scheme: null,
       domains: ['myapp.com'],
-    });
-    expect(after).toContain('myapp.com');
-    expect(after).not.toContain('staging.myapp.com');
+    })).toResemble(`
+      <?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+      <plist version="1.0">
+      <dict>
+      <!-- fsx:links:begin -->
+      <key>com.apple.developer.associated-domains</key>
+      <array>
+      <string>applinks:myapp.com</string>
+      </array>
+      <!-- fsx:links:end -->
+      </dict>
+      </plist>
+    `);
   });
 });

@@ -1,3 +1,5 @@
+import '../helpers/resemble.js';
+
 import { describe, expect, it } from 'bun:test';
 import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
@@ -14,75 +16,118 @@ import {
 
 describe('androidKeyProperties', () => {
   it('renders the gradle key.properties fields', () => {
-    const props = androidKeyProperties({
-      storeFile: '/abs/signing/android/release.jks',
-      keyAlias: 'app',
-      storePassword: 's3cret',
-      keyPassword: 's3cret',
-    });
-    expect(props).toContain('storeFile=/abs/signing/android/release.jks');
-    expect(props).toContain('keyAlias=app');
-    expect(props).toContain('storePassword=s3cret');
-    expect(props).toContain('keyPassword=s3cret');
+    expect(
+      androidKeyProperties({
+        storeFile: '/abs/signing/android/release.jks',
+        keyAlias: 'app',
+        storePassword: 's3cret',
+        keyPassword: 's3cret',
+      }),
+    ).toResemble(`
+      storeFile=/abs/signing/android/release.jks
+      keyAlias=app
+      storePassword=s3cret
+      keyPassword=s3cret
+    `);
   });
 });
 
 describe('codesignArgs', () => {
   it('Developer ID-signs the .app with hardened runtime', () => {
-    const args = codesignArgs(
+    expect(
+      codesignArgs('Developer ID Application: Acme', '/build/My.app'),
+    ).toEqual([
+      'codesign',
+      '--force',
+      '--deep',
+      '--options',
+      'runtime',
+      '--sign',
       'Developer ID Application: Acme',
       '/build/My.app',
-    );
-    expect(args[0]).toBe('codesign');
-    expect(args).toContain('--sign');
-    expect(args[args.indexOf('--sign') + 1]).toBe(
-      'Developer ID Application: Acme',
-    );
-    expect(args).toContain('runtime'); // --options runtime
-    expect(args[args.length - 1]).toBe('/build/My.app');
+    ]);
   });
 
   it('includes entitlements when provided', () => {
-    const args = codesignArgs('id', '/build/My.app', '/path/app.entitlements');
-    expect(args).toContain('--entitlements');
-    expect(args[args.indexOf('--entitlements') + 1]).toBe(
+    expect(
+      codesignArgs('id', '/build/My.app', '/path/app.entitlements'),
+    ).toEqual([
+      'codesign',
+      '--force',
+      '--deep',
+      '--options',
+      'runtime',
+      '--sign',
+      'id',
+      '--entitlements',
       '/path/app.entitlements',
-    );
+      '/build/My.app',
+    ]);
   });
 });
 
 describe('notarytoolArgs', () => {
   it('submits and waits with apple-id/password/team-id', () => {
-    const args = notarytoolArgs('/build/My.zip', {
-      appleId: 'me@example.com',
-      password: 'app-pw',
-      teamId: 'TEAM123',
-    });
-    expect(args.slice(0, 3)).toEqual(['xcrun', 'notarytool', 'submit']);
-    expect(args).toContain('--wait');
-    expect(args[args.indexOf('--team-id') + 1]).toBe('TEAM123');
-    expect(args[args.indexOf('--apple-id') + 1]).toBe('me@example.com');
+    expect(
+      notarytoolArgs('/build/My.zip', {
+        appleId: 'me@example.com',
+        password: 'app-pw',
+        teamId: 'TEAM123',
+      }),
+    ).toEqual([
+      'xcrun',
+      'notarytool',
+      'submit',
+      '/build/My.zip',
+      '--apple-id',
+      'me@example.com',
+      '--password',
+      'app-pw',
+      '--team-id',
+      'TEAM123',
+      '--wait',
+    ]);
   });
 });
 
 describe('signtoolArgs', () => {
   it('signs with the .pfx and a SHA256 timestamp', () => {
-    const args = signtoolArgs('/build/app.exe', {
-      certificate: 'C:/signing/windows/cert.pfx',
-      passwordEnvValue: 'pw',
-    });
-    expect(args.slice(0, 2)).toEqual(['signtool', 'sign']);
-    expect(args[args.indexOf('/f') + 1]).toBe('C:/signing/windows/cert.pfx');
-    expect(args[args.indexOf('/p') + 1]).toBe('pw');
-    expect(args).toContain('/tr'); // timestamp server
-    expect(args[args.length - 1]).toBe('/build/app.exe');
+    expect(
+      signtoolArgs('/build/app.exe', {
+        certificate: 'C:/signing/windows/cert.pfx',
+        passwordEnvValue: 'pw',
+      }),
+    ).toEqual([
+      'signtool',
+      'sign',
+      '/fd',
+      'SHA256',
+      '/f',
+      'C:/signing/windows/cert.pfx',
+      '/p',
+      'pw',
+      '/tr',
+      'http://timestamp.digicert.com',
+      '/td',
+      'SHA256',
+      '/build/app.exe',
+    ]);
   });
 
   it('omits /p when no password is given', () => {
-    const args = signtoolArgs('/build/app.exe', {
-      certificate: 'cert.pfx',
-    });
-    expect(args).not.toContain('/p');
+    expect(signtoolArgs('/build/app.exe', { certificate: 'cert.pfx' })).toEqual([
+      'signtool',
+      'sign',
+      '/fd',
+      'SHA256',
+      '/f',
+      'cert.pfx',
+      '/tr',
+      'http://timestamp.digicert.com',
+      '/td',
+      'SHA256',
+      '/build/app.exe',
+    ]);
   });
 });
 
@@ -104,9 +149,12 @@ describe('prepareAndroidSigning', () => {
       join(root, 'flutter', 'android', 'key.properties'),
       'utf-8',
     );
-    expect(props).toContain('keyAlias=app');
-    expect(props).toContain('storePassword=s3cret');
-    expect(props).toContain(join(root, 'release.jks'));
+    expect(props).toResemble(`
+      storeFile=${join(root, 'release.jks')}
+      keyAlias=app
+      storePassword=s3cret
+      keyPassword=s3cret
+    `);
   });
 
   it('copies the Android FCM config into place', () => {

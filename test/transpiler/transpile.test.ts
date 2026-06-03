@@ -167,7 +167,7 @@ describe('transpileFile', () => {
         `};\n`,
     );
     const result = await transpileFile(join(src, 'Cam.tsx'), join(dir, 'out'));
-    expect(result.capabilities).toContain('camera');
+    expect(result.capabilities).toEqual(['camera']);
   });
 });
 
@@ -270,10 +270,11 @@ describe('transpileAll — cross-file stores (createStore)', () => {
     const dir = scaffold();
     const results = await transpileAll(join(dir, 'src'), join(dir, 'out'));
     const stores = results.flatMap((r) => r.stores);
-    expect(stores).toContainEqual({
-      className: 'CounterStore',
-      importFile: 'stores.dart',
-    });
-    expect(results.flatMap((r) => r.packages)).toContain('provider: ^6.1.2');
+    expect(stores).toEqual([
+      { className: 'CounterStore', importFile: 'stores.dart' },
+    ]);
+    expect([...new Set(results.flatMap((r) => r.packages))]).toEqual([
+      'provider: ^6.1.2',
+    ]);
   });
 });

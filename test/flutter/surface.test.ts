@@ -1,3 +1,5 @@
+import '../helpers/resemble.js';
+
 import { describe, expect, it } from 'bun:test';
 import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
@@ -33,11 +35,6 @@ const EMPTY_MANIFEST = `<manifest xmlns:android="http://schemas.android.com/apk/
 </manifest>
 `;
 
-const plistPath = (dir: string): string =>
-  join(dir, 'ios', 'Runner', 'Info.plist');
-const manifestPath = (dir: string): string =>
-  join(dir, 'android', 'app', 'src', 'main', 'AndroidManifest.xml');
-
 const EMPTY_ENTITLEMENTS = `<?xml version="1.0" encoding="UTF-8"?>
 <plist version="1.0">
 <dict>
@@ -45,15 +42,118 @@ const EMPTY_ENTITLEMENTS = `<?xml version="1.0" encoding="UTF-8"?>
 </plist>
 `;
 
+// ── Expected full outputs (the entire file after the surface applier runs) ──
+const PLIST_CAMERA_DEFAULT = `
+  <?xml version="1.0" encoding="UTF-8"?>
+  <plist version="1.0">
+  <dict>
+  <key>CFBundleName</key>
+  <string>app</string>
+  <!-- fsx:permissions:begin -->
+  <key>NSCameraUsageDescription</key>
+  <string>This app uses the camera.</string>
+  <!-- fsx:permissions:end -->
+  </dict>
+  </plist>`;
+
+const PLIST_CAMERA_CUSTOM = `
+  <?xml version="1.0" encoding="UTF-8"?>
+  <plist version="1.0">
+  <dict>
+  <key>CFBundleName</key>
+  <string>app</string>
+  <!-- fsx:permissions:begin -->
+  <key>NSCameraUsageDescription</key>
+  <string>Scan QR codes</string>
+  <!-- fsx:permissions:end -->
+  </dict>
+  </plist>`;
+
+const MANIFEST_CAMERA = `
+  <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+      <application android:label="app"></application>
+  <!-- fsx:permissions:begin -->
+  <uses-permission android:name="android.permission.CAMERA"/>
+  <!-- fsx:permissions:end -->
+  </manifest>`;
+
+const MACOS_ENT_CAMERA = `
+  <?xml version="1.0" encoding="UTF-8"?>
+  <plist version="1.0">
+  <dict>
+  <!-- fsx:entitlements:begin -->
+  <key>com.apple.security.device.camera</key>
+  <true/>
+  <!-- fsx:entitlements:end -->
+  </dict>
+  </plist>`;
+
+const LINKS_PLIST = `
+  <?xml version="1.0" encoding="UTF-8"?>
+  <plist version="1.0">
+  <dict>
+  <key>CFBundleName</key>
+  <string>app</string>
+  <!-- fsx:links:begin -->
+  <key>CFBundleURLTypes</key>
+  <array>
+  <dict>
+  <key>CFBundleURLSchemes</key>
+  <array>
+  <string>myapp</string>
+  </array>
+  </dict>
+  </array>
+  <!-- fsx:links:end -->
+  </dict>
+  </plist>`;
+
+const LINKS_MANIFEST = `
+  <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+      <application android:label="app"></application>
+  <!-- fsx:links:begin -->
+  <intent-filter>
+  <action android:name="android.intent.action.VIEW"/>
+  <category android:name="android.intent.category.DEFAULT"/>
+  <category android:name="android.intent.category.BROWSABLE"/>
+  <data android:scheme="myapp"/>
+  </intent-filter>
+  <intent-filter android:autoVerify="true">
+  <action android:name="android.intent.action.VIEW"/>
+  <category android:name="android.intent.category.DEFAULT"/>
+  <category android:name="android.intent.category.BROWSABLE"/>
+  <data android:scheme="https" android:host="example.com"/>
+  </intent-filter>
+  <!-- fsx:links:end -->
+  </manifest>`;
+
+const LINKS_ENTITLEMENTS = `
+  <?xml version="1.0" encoding="UTF-8"?>
+  <plist version="1.0">
+  <dict>
+  <!-- fsx:links:begin -->
+  <key>com.apple.developer.associated-domains</key>
+  <array>
+  <string>applinks:example.com</string>
+  </array>
+  <!-- fsx:links:end -->
+  </dict>
+  </plist>`;
+
+const plistPath = (dir: string): string =>
+  join(dir, 'ios', 'Runner', 'Info.plist');
+const manifestPath = (dir: string): string =>
+  join(dir, 'android', 'app', 'src', 'main', 'AndroidManifest.xml');
 const entitlementsPath = (dir: string): string =>
   join(dir, 'ios', 'Runner', 'Runner.entitlements');
-
 const macosPlistPath = (dir: string): string =>
   join(dir, 'macos', 'Runner', 'Info.plist');
 const macosEntitlementsPaths = (dir: string): string[] => [
   join(dir, 'macos', 'Runner', 'DebugProfile.entitlements'),
   join(dir, 'macos', 'Runner', 'Release.entitlements'),
 ];
+
+const read = (path: string): string => readFileSync(path, 'utf-8');
 
 const mkFlutterDir = (): string => {
   const dir = mkdtempSync(join(tmpdir(), 'fsx-applyperms-'));
@@ -96,11 +196,8 @@ describe('applyPermissions', () => {
   it('writes inferred capabilities into Info.plist and AndroidManifest', () => {
     const dir = mkFlutterDir();
     applyPermissions(dir, ['camera']);
-    const plist = readFileSync(plistPath(dir), 'utf-8');
-    const manifest = readFileSync(manifestPath(dir), 'utf-8');
-    expect(plist).toContain('NSCameraUsageDescription');
-    expect(plist).toContain('This app uses the camera.'); // default description
-    expect(manifest).toContain('android.permission.CAMERA');
+    expect(read(plistPath(dir))).toResemble(PLIST_CAMERA_DEFAULT);
+    expect(read(manifestPath(dir))).toResemble(MANIFEST_CAMERA);
   });
 
   it('uses a custom description from config when provided', () => {
@@ -108,32 +205,25 @@ describe('applyPermissions', () => {
     applyPermissions(dir, ['camera'], {
       descriptions: { camera: 'Scan QR codes' },
     });
-    expect(readFileSync(plistPath(dir), 'utf-8')).toContain('Scan QR codes');
+    expect(read(plistPath(dir))).toResemble(PLIST_CAMERA_CUSTOM);
   });
 
   it('wires macOS: usage string in Info.plist + sandbox entitlement (signing on)', () => {
     const dir = mkFlutterDir();
     applyPermissions(dir, ['camera'], { macosEntitlements: true });
-    expect(readFileSync(macosPlistPath(dir), 'utf-8')).toContain(
-      'NSCameraUsageDescription',
-    );
+    expect(read(macosPlistPath(dir))).toResemble(PLIST_CAMERA_DEFAULT);
     for (const p of macosEntitlementsPaths(dir)) {
-      expect(readFileSync(p, 'utf-8')).toContain(
-        'com.apple.security.device.camera',
-      );
+      expect(read(p)).toResemble(MACOS_ENT_CAMERA);
     }
   });
 
   it('writes macOS Info.plist but SKIPS entitlements when signing is off (build-safe default)', () => {
     const dir = mkFlutterDir();
     applyPermissions(dir, ['camera']);
-    expect(readFileSync(macosPlistPath(dir), 'utf-8')).toContain(
-      'NSCameraUsageDescription',
-    );
+    expect(read(macosPlistPath(dir))).toResemble(PLIST_CAMERA_DEFAULT);
+    // Entitlement files stay untouched without signing.
     for (const p of macosEntitlementsPaths(dir)) {
-      expect(readFileSync(p, 'utf-8')).not.toContain(
-        'com.apple.security.device.camera',
-      );
+      expect(read(p)).toResemble(EMPTY_ENTITLEMENTS);
     }
   });
 
@@ -141,17 +231,13 @@ describe('applyPermissions', () => {
     const dir = mkFlutterDir();
     applyPermissions(dir, ['camera']);
     applyPermissions(dir, ['camera']);
-    const plist = readFileSync(plistPath(dir), 'utf-8');
-    const count = plist.split('NSCameraUsageDescription').length - 1;
-    expect(count).toBe(1);
+    expect(read(plistPath(dir))).toResemble(PLIST_CAMERA_DEFAULT);
   });
 
   it('does nothing when there are no capabilities', () => {
     const dir = mkFlutterDir();
     applyPermissions(dir, []);
-    expect(readFileSync(plistPath(dir), 'utf-8')).not.toContain(
-      'NSCameraUsageDescription',
-    );
+    expect(read(plistPath(dir))).toResemble(EMPTY_PLIST);
   });
 });
 
@@ -159,52 +245,58 @@ describe('applyLinks', () => {
   it('writes scheme into Info.plist + AndroidManifest and domains into entitlements', () => {
     const dir = mkFlutterDir();
     applyLinks(dir, { scheme: 'myapp', domains: ['example.com'] });
-    expect(readFileSync(plistPath(dir), 'utf-8')).toContain('myapp');
-    expect(readFileSync(manifestPath(dir), 'utf-8')).toContain('myapp');
-    expect(readFileSync(entitlementsPath(dir), 'utf-8')).toContain(
-      'example.com',
-    );
+    expect(read(plistPath(dir))).toResemble(LINKS_PLIST);
+    expect(read(manifestPath(dir))).toResemble(LINKS_MANIFEST);
+    expect(read(entitlementsPath(dir))).toResemble(LINKS_ENTITLEMENTS);
   });
 
   it('wires macOS: scheme in Info.plist always + domains in entitlements when signing on', () => {
     const dir = mkFlutterDir();
     applyLinks(dir, { scheme: 'myapp', domains: ['example.com'] });
     // Info.plist (scheme) always written...
-    expect(readFileSync(macosPlistPath(dir), 'utf-8')).toContain('myapp');
+    expect(read(macosPlistPath(dir))).toResemble(LINKS_PLIST);
     // ...but associated-domains entitlement skipped without signing.
     for (const p of macosEntitlementsPaths(dir)) {
-      expect(readFileSync(p, 'utf-8')).not.toContain('example.com');
+      expect(read(p)).toResemble(EMPTY_ENTITLEMENTS);
     }
     // With signing on, the entitlement is written.
     applyLinks(
       dir,
       { scheme: 'myapp', domains: ['example.com'] },
-      {
-        macosEntitlements: true,
-      },
+      { macosEntitlements: true },
     );
     for (const p of macosEntitlementsPaths(dir)) {
-      expect(readFileSync(p, 'utf-8')).toContain('example.com');
+      expect(read(p)).toResemble(LINKS_ENTITLEMENTS);
     }
   });
 
   it('emits Linux .desktop + Windows .reg scheme registration', () => {
     const dir = mkFlutterDir();
     applyLinks(dir, { scheme: 'myapp', domains: [] });
-    expect(
-      readFileSync(join(dir, 'linux', 'myapp.desktop'), 'utf-8'),
-    ).toContain('x-scheme-handler/myapp;');
-    expect(readFileSync(join(dir, 'windows', 'myapp.reg'), 'utf-8')).toContain(
-      'Software\\Classes\\myapp',
-    );
+    expect(read(join(dir, 'linux', 'myapp.desktop'))).toResemble(`
+      [Desktop Entry]
+      Type=Application
+      Name=myapp
+      Exec=myapp %u
+      NoDisplay=true
+      MimeType=x-scheme-handler/myapp;
+    `);
+    expect(read(join(dir, 'windows', 'myapp.reg'))).toResemble(`
+      Windows Registry Editor Version 5.00
+
+      [HKEY_CURRENT_USER\\Software\\Classes\\myapp]
+      @="URL:myapp Protocol"
+      "URL Protocol"=""
+
+      [HKEY_CURRENT_USER\\Software\\Classes\\myapp\\shell\\open\\command]
+      @="\\"myapp.exe\\" \\"%1\\""
+    `);
   });
 
   it('does nothing for an empty/invalid links config', () => {
     const dir = mkFlutterDir();
     applyLinks(dir, { scheme: 'https' });
-    expect(readFileSync(plistPath(dir), 'utf-8')).not.toContain(
-      'fsx:links:begin',
-    );
+    expect(read(plistPath(dir))).toResemble(EMPTY_PLIST);
   });
 });
 
@@ -217,12 +309,30 @@ describe('applyLocales', () => {
       JSON.stringify({ 'app.title': 'My App', greeting: 'Hi $name' }),
     );
     const outDir = join(root, 'out');
-    const wrote = applyLocales(root, outDir);
-    expect(wrote).toBe(true);
-    const dart = readFileSync(join(outDir, 'l10n.dart'), 'utf-8');
-    expect(dart).toContain('String t(String key)');
-    expect(dart).toContain("'app.title': 'My App'");
-    expect(dart).toContain('\\$name'); // $ escaped for Dart
+    expect(applyLocales(root, outDir)).toBe(true);
+    // Strip the two generated header comment lines; assert the rest in full.
+    const body = read(join(outDir, 'l10n.dart'))
+      .split('\n')
+      .slice(2)
+      .join('\n');
+    expect(body).toResemble(`
+      String _fsxLocale = 'en';
+
+      // ignore: unused_element
+      void setLocale(String locale) => _fsxLocale = locale;
+
+      const Map<String, Map<String, String>> _fsxTranslations = {
+        'en': {
+          'app.title': 'My App',
+          'greeting': 'Hi \\$name',
+        },
+      };
+
+      String t(String key) =>
+          _fsxTranslations[_fsxLocale]?[key] ??
+          _fsxTranslations['en']?[key] ??
+          key;
+    `);
   });
 
   it('returns false when there are no locales', () => {

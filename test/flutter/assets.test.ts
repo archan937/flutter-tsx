@@ -65,22 +65,26 @@ describe('ICON_SLOTS', () => {
   });
 
   it('covers all DetectedAssets keys', () => {
-    const keys = ICON_SLOTS.map((s) => s.key);
-    expect(keys).toContain('icon');
-    expect(keys).toContain('splash');
-    expect(keys).toContain('background');
-    expect(keys).toContain('monochrome');
-    expect(keys).toContain('iconDark');
-    expect(keys).toContain('splashDark');
-    expect(keys).toContain('backgroundDark');
-    expect(keys).toContain('monochromeDark');
+    expect(ICON_SLOTS.map((s) => s.key)).toEqual([
+      'icon',
+      'splash',
+      'background',
+      'monochrome',
+      'iconDark',
+      'splashDark',
+      'backgroundDark',
+      'monochromeDark',
+    ]);
   });
 
   it('maps dark slots to icons/dark/ subdirectory', () => {
     const darkSlots = ICON_SLOTS.filter((s) => s.key.endsWith('Dark'));
-    for (const slot of darkSlots) {
-      expect(slot.relPath).toContain('icons/dark/');
-    }
+    expect(darkSlots.map((s) => s.relPath)).toEqual([
+      'icons/dark/icon.png',
+      'icons/dark/splash.png',
+      'icons/dark/background.png',
+      'icons/dark/monochrome.png',
+    ]);
   });
 });
 
