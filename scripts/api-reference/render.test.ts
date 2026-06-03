@@ -1,4 +1,8 @@
+import '../../test/helpers/resemble.js';
+
 import { describe, expect, it } from 'bun:test';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 import type {
   EnumEntity,
   PluginDef,
@@ -18,6 +22,9 @@ import {
   widgetSection,
 } from './render';
 import type { RenderedExample } from './render';
+
+const fixture = (name: string): string =>
+  readFileSync(join(import.meta.dir, '__fixtures__', name), 'utf-8');
 
 // ─── cleanDoc ─────────────────────────────────────────────────────────────────
 
@@ -87,45 +94,67 @@ const makeStyling = (
 });
 
 describe('propTable', () => {
-  it('renders a table with thead and tbody', () => {
-    const html = propTable([makeProp('title', 'string', 'String?')], []);
-    expect(html).toContain('<table');
-    expect(html).toContain('<thead');
-    expect(html).toContain('<tbody');
-    expect(html).toContain('</table>');
+  it('renders a full table for an optional prop', () => {
+    expect(propTable([makeProp('title', 'string', 'String?')], [])).toResemble(`
+      <table class="props">
+      <thead><tr><th>Prop</th><th>TSX type</th><th>Dart type</th><th>Required</th></tr></thead>
+      <tbody>
+      <tr><td>title</td><td>string</td><td>String?</td><td class="req"></td></tr>
+      </tbody>
+      </table>
+    `);
   });
 
-  it('includes correct column headers', () => {
-    const html = propTable([makeProp('title', 'string', 'String?')], []);
-    expect(html).toContain('Prop');
-    expect(html).toContain('TSX type');
-    expect(html).toContain('Dart type');
-    expect(html).toContain('Required');
+  it('emits a row with the prop name, TSX type and Dart type', () => {
+    expect(
+      propTable([makeProp('width', 'number', 'double?', false)], []),
+    ).toResemble(`
+      <table class="props">
+      <thead><tr><th>Prop</th><th>TSX type</th><th>Dart type</th><th>Required</th></tr></thead>
+      <tbody>
+      <tr><td>width</td><td>number</td><td>double?</td><td class="req"></td></tr>
+      </tbody>
+      </table>
+    `);
   });
 
-  it('emits a row per prop with correct values', () => {
-    const html = propTable([makeProp('width', 'number', 'double?', false)], []);
-    expect(html).toContain('width');
-    expect(html).toContain('number');
-    expect(html).toContain('double?');
+  it('marks a required prop with ✓', () => {
+    expect(
+      propTable([makeProp('value', 'boolean', 'bool', true)], []),
+    ).toResemble(`
+      <table class="props">
+      <thead><tr><th>Prop</th><th>TSX type</th><th>Dart type</th><th>Required</th></tr></thead>
+      <tbody>
+      <tr><td>value</td><td>boolean</td><td>bool</td><td class="req">✓</td></tr>
+      </tbody>
+      </table>
+    `);
   });
 
-  it('marks required props distinctly', () => {
-    const required = propTable(
-      [makeProp('value', 'boolean', 'bool', true)],
-      [],
-    );
-    const optional = propTable(
-      [makeProp('label', 'string', 'String?', false)],
-      [],
-    );
-    expect(required).toContain('✓');
-    expect(optional).not.toContain('✓');
+  it('leaves the required cell empty for an optional prop', () => {
+    expect(
+      propTable([makeProp('label', 'string', 'String?', false)], []),
+    ).toResemble(`
+      <table class="props">
+      <thead><tr><th>Prop</th><th>TSX type</th><th>Dart type</th><th>Required</th></tr></thead>
+      <tbody>
+      <tr><td>label</td><td>string</td><td>String?</td><td class="req"></td></tr>
+      </tbody>
+      </table>
+    `);
   });
 
   it('includes styling props in the same table', () => {
-    const html = propTable([], [makeStyling('fontSize', 'number', 'double?')]);
-    expect(html).toContain('fontSize');
+    expect(
+      propTable([], [makeStyling('fontSize', 'number', 'double?')]),
+    ).toResemble(`
+      <table class="props">
+      <thead><tr><th>Prop</th><th>TSX type</th><th>Dart type</th><th>Required</th></tr></thead>
+      <tbody>
+      <tr><td>fontSize</td><td>number</td><td>double?</td><td class="req"></td></tr>
+      </tbody>
+      </table>
+    `);
   });
 
   it('returns empty string when both lists are empty', () => {
@@ -148,62 +177,56 @@ const makeWidget = (name: string): WidgetDef => ({
 });
 
 describe('widgetSection', () => {
-  it('has an id matching the widget name', () => {
-    const html = widgetSection(
-      makeWidget('Column'),
-      '',
-      'material',
-      '<Column />',
-      'Column()',
-    );
-    expect(html).toContain('id="Column"');
+  it('renders the full widget article (id, heading, badges, data-name)', () => {
+    expect(
+      widgetSection(makeWidget('Column'), '', 'material', '<Column />', 'Column()'),
+    ).toResemble(`
+      <article class="widget" id="Column" data-name="Column">
+      <h3>Column<span class="badge badge-lib">material</span><span class="badge badge-cat">layout</span></h3>
+
+      <div class="tabs">
+      <div class="tab-btns" role="tablist">
+      <button class="tab-btn active" data-tab="tsx" role="tab" aria-selected="true">TSX</button>
+      <button class="tab-btn" data-tab="dart" role="tab" aria-selected="false">Dart</button>
+      </div>
+      <div class="tab-panel active" data-panel="tsx" role="tabpanel">
+      <pre><code class="language-tsx">&lt;Column /&gt;</code></pre>
+      </div>
+      <div class="tab-panel" data-panel="dart" role="tabpanel">
+      <pre><code class="language-dart">Column()</code></pre>
+      </div>
+      </div>
+      </article>
+    `);
   });
 
-  it('contains the widget name in a heading', () => {
-    const html = widgetSection(
-      makeWidget('Column'),
-      '',
-      'material',
-      '<Column />',
-      'Column()',
-    );
-    expect(html).toContain('>Column<');
-  });
+  it('renders TSX and Dart code blocks in tab panels (escaped TSX)', () => {
+    expect(
+      widgetSection(
+        makeWidget('SizedBox'),
+        '',
+        'material',
+        '<SizedBox />',
+        'SizedBox()',
+      ),
+    ).toResemble(`
+      <article class="widget" id="SizedBox" data-name="SizedBox">
+      <h3>SizedBox<span class="badge badge-lib">material</span><span class="badge badge-cat">layout</span></h3>
 
-  it('includes the library badge', () => {
-    const html = widgetSection(
-      makeWidget('Column'),
-      '',
-      'material',
-      '<Column />',
-      'Column()',
-    );
-    expect(html).toContain('material');
-  });
-
-  it('renders TSX and Dart code blocks in tab panels', () => {
-    const html = widgetSection(
-      makeWidget('SizedBox'),
-      '',
-      'material',
-      '<SizedBox />',
-      'SizedBox()',
-    );
-    expect(html).toContain('&lt;SizedBox /&gt;'); // escaped TSX in a panel
-    expect(html).toContain('SizedBox()'); // Dart in a panel
-    expect(html).toContain('tab-panel');
-    expect(html).toContain('tab-btn');
-  });
-
-  it('includes data-name attribute for search filtering', () => {
-    const html = widgetSection(
-      makeWidget('Text'),
-      '',
-      'material',
-      '<Text />',
-      'Text()',
-    );
-    expect(html).toContain('data-name="Text"');
+      <div class="tabs">
+      <div class="tab-btns" role="tablist">
+      <button class="tab-btn active" data-tab="tsx" role="tab" aria-selected="true">TSX</button>
+      <button class="tab-btn" data-tab="dart" role="tab" aria-selected="false">Dart</button>
+      </div>
+      <div class="tab-panel active" data-panel="tsx" role="tabpanel">
+      <pre><code class="language-tsx">&lt;SizedBox /&gt;</code></pre>
+      </div>
+      <div class="tab-panel" data-panel="dart" role="tabpanel">
+      <pre><code class="language-dart">SizedBox()</code></pre>
+      </div>
+      </div>
+      </article>
+    `);
   });
 });
 
@@ -217,25 +240,26 @@ describe('enumSection', () => {
     values: ['system', 'light', 'dark'],
   };
 
-  it('has an id matching the enum name', () => {
-    expect(enumSection(themeMode)).toContain('id="ThemeMode"');
-  });
-
-  it('lists all enum values', () => {
-    const html = enumSection(themeMode);
-    expect(html).toContain('system');
-    expect(html).toContain('light');
-    expect(html).toContain('dark');
-  });
-
-  it('shows Dart enum syntax (ThemeMode.system)', () => {
-    const html = enumSection(themeMode);
-    expect(html).toContain('ThemeMode.system');
-  });
-
-  it('shows TSX literal union syntax', () => {
-    const html = enumSection(themeMode);
-    expect(html).toContain('"system"');
+  it('renders the full enum article (TSX union + Dart values)', () => {
+    expect(enumSection(themeMode)).toResemble(`
+      <article class="widget enum-entry" id="ThemeMode" data-name="ThemeMode">
+      <h3>ThemeMode<span class="badge badge-lib">material</span></h3>
+      <div class="tabs">
+      <div class="tab-btns" role="tablist">
+      <button class="tab-btn active" data-tab="tsx" role="tab" aria-selected="true">TSX</button>
+      <button class="tab-btn" data-tab="dart" role="tab" aria-selected="false">Dart</button>
+      </div>
+      <div class="tab-panel active" data-panel="tsx" role="tabpanel">
+      <pre><code class="language-typescript">"system" | "light" | "dark"</code></pre>
+      </div>
+      <div class="tab-panel" data-panel="dart" role="tabpanel">
+      <ul class="enum-values"><li><code>ThemeMode.system</code></li>
+      <li><code>ThemeMode.light</code></li>
+      <li><code>ThemeMode.dark</code></li></ul>
+      </div>
+      </div>
+      </article>
+    `);
   });
 });
 
@@ -243,7 +267,6 @@ describe('enumSection', () => {
 
 describe('pageShell', () => {
   const counts = { widgets: 539, enums: 130 };
-  // navHtml is now caller-generated; pass a minimal stub
   const stubNav = `<details open><summary>Layout<span class="nav-count">17</span></summary>
 <ul><li data-name="Column"><a href="#Column">Column</a></li></ul>
 </details>
@@ -254,52 +277,18 @@ describe('pageShell', () => {
 <ul><li data-name="useState"><a href="#useState">useState</a></li></ul>
 </details>`;
 
-  it('includes a search input', () => {
-    const html = pageShell('', stubNav, counts);
-    expect(html).toContain('<input');
-    expect(html).toMatch(/type=['"]search['"]/);
-  });
-
-  it('places the nav HTML verbatim in the sidebar', () => {
-    const html = pageShell('', stubNav, counts);
-    expect(html).toContain('href="#Column"');
-    expect(html).toContain('href="#ThemeMode"');
-    expect(html).toContain('href="#useState"');
+  // The page shell is a full ~300-line styled HTML document; assert it in full
+  // against a golden fixture (regenerate the fixture if pageShell changes).
+  it('renders the full document shell (search, nav, counts, search JS)', () => {
+    expect(pageShell('', stubNav, counts)).toResemble(
+      fixture('page-shell-empty.html'),
+    );
   });
 
   it('places the main content in the page body', () => {
-    const html = pageShell(
-      '<section id="test">hello</section>',
-      stubNav,
-      counts,
-    );
-    expect(html).toContain('<section id="test">hello</section>');
-  });
-
-  it('is a valid HTML document', () => {
-    const html = pageShell('', stubNav, counts);
-    expect(html).toContain('<!DOCTYPE html>');
-    expect(html).toContain('<html');
-    expect(html).toContain('</html>');
-  });
-
-  it('reports widget and enum counts in the meta strip', () => {
-    const html = pageShell('', stubNav, counts);
-    expect(html).toContain('539');
-    expect(html).toContain('130');
-  });
-
-  it('passes sidebar data-name attributes through verbatim', () => {
-    const html = pageShell('', stubNav, counts);
-    expect(html).toContain('data-name="Column"');
-    expect(html).toContain('data-name="ThemeMode"');
-    expect(html).toContain('data-name="useState"');
-  });
-
-  it('search JS targets sidebar li[data-name] elements', () => {
-    const html = pageShell('', stubNav, counts);
-    expect(html).toContain('sidebar-nav li[data-name]');
-    expect(html).toContain('initialOpen');
+    expect(
+      pageShell('<section id="test">hello</section>', stubNav, counts),
+    ).toResemble(fixture('page-shell-content.html'));
   });
 });
 
@@ -314,37 +303,29 @@ describe('typeSection', () => {
     params: [makeProp('fontSize', 'number', 'double?')],
   };
 
-  it('has an id matching the type name', () => {
-    expect(typeSection(textStyleDef)).toContain('id="TextStyle"');
-  });
-
-  it('shows the type name in a heading', () => {
-    expect(typeSection(textStyleDef)).toContain('>TextStyle<');
-  });
-
-  it('includes the library badge', () => {
-    expect(typeSection(textStyleDef)).toContain('material');
-  });
-
-  it('includes a type badge', () => {
-    expect(typeSection(textStyleDef)).toContain('type');
-  });
-
-  it('renders the doc string', () => {
-    expect(typeSection(textStyleDef)).toContain('An immutable style');
-  });
-
-  it('includes data-name for search filtering', () => {
-    expect(typeSection(textStyleDef)).toContain('data-name="TextStyle"');
-  });
-
-  it('renders a props table when params exist', () => {
-    expect(typeSection(textStyleDef)).toContain('fontSize');
+  it('renders the full type article with a props table', () => {
+    expect(typeSection(textStyleDef)).toResemble(`
+      <article class="widget type-entry" id="TextStyle" data-name="TextStyle">
+      <h3>TextStyle<span class="badge badge-lib">material</span><span class="badge badge-cat">type</span></h3>
+      <p class="doc">An immutable style describing how to format and paint text.</p>
+      <table class="props">
+      <thead><tr><th>Prop</th><th>TSX type</th><th>Dart type</th><th>Required</th></tr></thead>
+      <tbody>
+      <tr><td>fontSize</td><td>number</td><td>double?</td><td class="req"></td></tr>
+      </tbody>
+      </table>
+      </article>
+    `);
   });
 
   it('renders no table when params are empty', () => {
-    const noParams = { ...textStyleDef, params: [] };
-    expect(typeSection(noParams)).not.toContain('<table');
+    expect(typeSection({ ...textStyleDef, params: [] })).toResemble(`
+      <article class="widget type-entry" id="TextStyle" data-name="TextStyle">
+      <h3>TextStyle<span class="badge badge-lib">material</span><span class="badge badge-cat">type</span></h3>
+      <p class="doc">An immutable style describing how to format and paint text.</p>
+
+      </article>
+    `);
   });
 });
 
@@ -365,56 +346,80 @@ const makePlugin = (overrides: Partial<PluginDef> = {}): PluginDef => ({
 });
 
 describe('pluginSection', () => {
-  it('has an id matching tsxName', () => {
-    expect(pluginSection(makePlugin())).toContain('id="useCamera"');
-  });
-
-  it('includes data-name for search filtering', () => {
-    expect(pluginSection(makePlugin())).toContain('data-name="useCamera"');
-  });
-
-  it('renders the plugin name in a heading', () => {
-    expect(pluginSection(makePlugin())).toContain('>useCamera<');
-  });
-
-  it('includes domain badge', () => {
-    expect(pluginSection(makePlugin())).toContain('Media');
-  });
-
-  it('includes surface badge', () => {
-    expect(pluginSection(makePlugin())).toContain('action hook');
-  });
-
-  it('renders the package badge when package is present', () => {
-    expect(pluginSection(makePlugin())).toContain('badge-pkg');
-    expect(pluginSection(makePlugin())).toContain('camera');
+  it('renders the full plugin article (badges, description, tab panels)', () => {
+    expect(pluginSection(makePlugin())).toResemble(`
+      <article class="widget plugin-entry" id="useCamera" data-name="useCamera">
+      <h3>useCamera<span class="badge badge-pkg">camera</span><span class="badge badge-lib">Media</span><span class="badge badge-cat">action hook</span></h3>
+      <p class="doc">Access the device camera to capture photos and video.</p>
+      <div class="tabs">
+      <div class="tab-btns" role="tablist">
+      <button class="tab-btn active" data-tab="tsx" role="tab" aria-selected="true">TSX</button>
+      <button class="tab-btn" data-tab="dart" role="tab" aria-selected="false">Dart</button>
+      </div>
+      <div class="tab-panel active" data-panel="tsx" role="tabpanel">
+      <pre><code class="language-tsx">const cam = useCamera();
+      await cam.takePicture();</code></pre>
+      </div>
+      <div class="tab-panel" data-panel="dart" role="tabpanel">
+      <pre><code class="language-dart">final cam = CameraController(...);
+      await cam.takePicture();</code></pre>
+      </div>
+      </div>
+      </article>
+    `);
   });
 
   it('omits the package badge when package is absent', () => {
-    const html = pluginSection(makePlugin({ package: undefined }));
-    expect(html).not.toContain('badge-pkg');
-  });
-
-  it('renders description', () => {
-    expect(pluginSection(makePlugin())).toContain('Access the device camera');
-  });
-
-  it('renders TSX and Dart tab panels', () => {
-    const html = pluginSection(makePlugin());
-    expect(html).toContain('tab-panel');
-    expect(html).toContain('tab-btn');
-    expect(html).toContain('useCamera()');
+    expect(pluginSection(makePlugin({ package: undefined }))).toResemble(`
+      <article class="widget plugin-entry" id="useCamera" data-name="useCamera">
+      <h3>useCamera<span class="badge badge-lib">Media</span><span class="badge badge-cat">action hook</span></h3>
+      <p class="doc">Access the device camera to capture photos and video.</p>
+      <div class="tabs">
+      <div class="tab-btns" role="tablist">
+      <button class="tab-btn active" data-tab="tsx" role="tab" aria-selected="true">TSX</button>
+      <button class="tab-btn" data-tab="dart" role="tab" aria-selected="false">Dart</button>
+      </div>
+      <div class="tab-panel active" data-panel="tsx" role="tabpanel">
+      <pre><code class="language-tsx">const cam = useCamera();
+      await cam.takePicture();</code></pre>
+      </div>
+      <div class="tab-panel" data-panel="dart" role="tabpanel">
+      <pre><code class="language-dart">final cam = CameraController(...);
+      await cam.takePicture();</code></pre>
+      </div>
+      </div>
+      </article>
+    `);
   });
 
   it('handles tsxName with dots (utility functions)', () => {
-    const html = pluginSection(
-      makePlugin({
-        tsxName: 'hapticFeedback.light',
-        name: 'hapticFeedback.light',
-      }),
-    );
-    expect(html).toContain('id="hapticFeedback.light"');
-    expect(html).toContain('data-name="hapticFeedback.light"');
+    expect(
+      pluginSection(
+        makePlugin({
+          tsxName: 'hapticFeedback.light',
+          name: 'hapticFeedback.light',
+        }),
+      ),
+    ).toResemble(`
+      <article class="widget plugin-entry" id="hapticFeedback.light" data-name="hapticFeedback.light">
+      <h3>hapticFeedback.light<span class="badge badge-pkg">camera</span><span class="badge badge-lib">Media</span><span class="badge badge-cat">action hook</span></h3>
+      <p class="doc">Access the device camera to capture photos and video.</p>
+      <div class="tabs">
+      <div class="tab-btns" role="tablist">
+      <button class="tab-btn active" data-tab="tsx" role="tab" aria-selected="true">TSX</button>
+      <button class="tab-btn" data-tab="dart" role="tab" aria-selected="false">Dart</button>
+      </div>
+      <div class="tab-panel active" data-panel="tsx" role="tabpanel">
+      <pre><code class="language-tsx">const cam = useCamera();
+      await cam.takePicture();</code></pre>
+      </div>
+      <div class="tab-panel" data-panel="dart" role="tabpanel">
+      <pre><code class="language-dart">final cam = CameraController(...);
+      await cam.takePicture();</code></pre>
+      </div>
+      </div>
+      </article>
+    `);
   });
 });
 
@@ -438,30 +443,43 @@ describe('examplesSection', () => {
     },
   ];
 
-  it('wraps examples in a section with id="examples"', () => {
-    expect(examplesSection(examples)).toContain('id="examples"');
-  });
-
-  it('emits an article per example with correct id', () => {
-    const html = examplesSection(examples);
-    expect(html).toContain('id="ex-hello-world"');
-    expect(html).toContain('id="ex-counter"');
-  });
-
-  it('includes the example title in a heading', () => {
-    const html = examplesSection(examples);
-    expect(html).toContain('>Hello World<');
-    expect(html).toContain('>Counter<');
-  });
-
-  it('renders TSX and Dart in tab panels', () => {
-    const html = examplesSection(examples);
-    expect(html).toContain('tab-panel');
-    expect(html).toContain('tab-btn');
-  });
-
-  it('escapes TSX code content', () => {
-    const html = examplesSection(examples);
-    expect(html).toContain('&lt;Center /&gt;');
+  it('renders the full examples section (one article per example)', () => {
+    expect(examplesSection(examples)).toResemble(`
+      <section id="examples">
+      <h2>Examples</h2>
+      <article class="widget example-card" id="ex-hello-world" data-name="hello-world">
+      <h3>Hello World</h3>
+      <p class="doc">The simplest app.</p>
+      <div class="tabs">
+      <div class="tab-btns" role="tablist">
+      <button class="tab-btn active" data-tab="tsx" role="tab" aria-selected="true">TSX</button>
+      <button class="tab-btn" data-tab="dart" role="tab" aria-selected="false">Dart</button>
+      </div>
+      <div class="tab-panel active" data-panel="tsx" role="tabpanel">
+      <pre><code class="language-tsx">export const App = () =&gt; &lt;Center /&gt;;</code></pre>
+      </div>
+      <div class="tab-panel" data-panel="dart" role="tabpanel">
+      <pre><code class="language-dart">Center()</code></pre>
+      </div>
+      </div>
+      </article>
+      <article class="widget example-card" id="ex-counter" data-name="counter">
+      <h3>Counter</h3>
+      <p class="doc">Uses useState.</p>
+      <div class="tabs">
+      <div class="tab-btns" role="tablist">
+      <button class="tab-btn active" data-tab="tsx" role="tab" aria-selected="true">TSX</button>
+      <button class="tab-btn" data-tab="dart" role="tab" aria-selected="false">Dart</button>
+      </div>
+      <div class="tab-panel active" data-panel="tsx" role="tabpanel">
+      <pre><code class="language-tsx">const [n, setN] = useState(0);</code></pre>
+      </div>
+      <div class="tab-panel" data-panel="dart" role="tabpanel">
+      <pre><code class="language-dart">int n = 0;</code></pre>
+      </div>
+      </div>
+      </article>
+      </section>
+    `);
   });
 });

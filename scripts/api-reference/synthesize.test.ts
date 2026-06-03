@@ -1,3 +1,5 @@
+import '../../test/helpers/resemble.js';
+
 import { describe, expect, it } from 'bun:test';
 import type { PropDef, WidgetDef } from '../define/api-types';
 import { synthesizeTsx } from './synthesize';
@@ -85,7 +87,9 @@ describe('synthesizeTsx — prop value synthesis', () => {
         ],
       }),
     );
-    expect(tsx).toContain('mainAxisAlignment="start"');
+    expect(tsx).toBe(
+      '<Column mainAxisAlignment="start"><Text>Item 1</Text><Text>Item 2</Text></Column>',
+    );
   });
 
   it('uses {16} for double transform', () => {
@@ -97,7 +101,7 @@ describe('synthesizeTsx — prop value synthesis', () => {
         ],
       }),
     );
-    expect(tsx).toContain('width={16}');
+    expect(tsx).toBe('<SizedBox width={16} />');
   });
 
   it('uses {8} for int transform', () => {
@@ -107,7 +111,7 @@ describe('synthesizeTsx — prop value synthesis', () => {
         props: [makeProp({ name: 'flex', tsType: 'number', transform: 'int' })],
       }),
     );
-    expect(tsx).toContain('flex={8}');
+    expect(tsx).toBe('<Flex flex={8} />');
   });
 
   it('uses "example" for string transform', () => {
@@ -119,7 +123,7 @@ describe('synthesizeTsx — prop value synthesis', () => {
         ],
       }),
     );
-    expect(tsx).toContain('title="example"');
+    expect(tsx).toBe('<AppBar title="example" />');
   });
 
   it('uses {true} for boolean tsType with none transform', () => {
@@ -131,7 +135,7 @@ describe('synthesizeTsx — prop value synthesis', () => {
         ],
       }),
     );
-    expect(tsx).toContain('value={true}');
+    expect(tsx).toBe('<Switch value={true} />');
   });
 
   it('uses "#2196F3" for color transform', () => {
@@ -143,7 +147,7 @@ describe('synthesizeTsx — prop value synthesis', () => {
         ],
       }),
     );
-    expect(tsx).toContain('color="#2196F3"');
+    expect(tsx).toBe('<Container color="#2196F3" />');
   });
 
   it('skips widget transform props', () => {
@@ -160,7 +164,7 @@ describe('synthesizeTsx — prop value synthesis', () => {
         ],
       }),
     );
-    expect(tsx).not.toContain('child=');
+    expect(tsx).toBe('<Center><Text>Label</Text></Center>');
   });
 
   it('skips callback transform props', () => {
@@ -176,7 +180,7 @@ describe('synthesizeTsx — prop value synthesis', () => {
         ],
       }),
     );
-    expect(tsx).not.toContain('onPressed');
+    expect(tsx).toBe('<Button />');
   });
 
   it('skips unknown/dynamic none-transform props', () => {
@@ -200,9 +204,8 @@ describe('synthesizeTsx — prop count limit', () => {
       makeProp({ name: n, tsType: 'number', transform: 'int' }),
     );
     const tsx = synthesizeTsx(makeWidget({ name: 'Widget', props }));
-    // Count occurrences of ={8} (one per int prop)
-    const count = (tsx.match(/=\{8\}/g) ?? []).length;
-    expect(count).toBe(3);
+    // At most 3 props are emitted (one ={8} each), even with 5 eligible.
+    expect(tsx).toBe('<Widget a={8} b={8} c={8} />');
   });
 
   it('produces a bare self-closing tag when all props are skippable', () => {
@@ -237,9 +240,22 @@ describe('synthesizeTsx — transpiler integration', () => {
     const tsx = synthesizeTsx(column);
     const src = `export function Example() { return ${tsx}; }`;
     const { sourceFile, exports } = parseSource(src, 'example.tsx');
-    const dart = generateDartFile(sourceFile, exports);
+    const dart = generateDartFile(sourceFile, exports)
+      .split('\n')
+      .slice(2)
+      .join('\n')
+      .trimStart();
 
-    expect(dart).toContain('Column(');
-    expect(dart).toContain('MainAxisAlignment.start');
+    expect(dart).toResemble(`
+      import 'package:flutter/material.dart';
+
+      class Example extends StatelessWidget {
+        const Example({super.key});
+        @override
+        Widget build(BuildContext context) {
+          return Column(mainAxisAlignment: MainAxisAlignment.start, children: [Text('Item 1'), Text('Item 2')]);
+        }
+      }
+    `);
   });
 });

@@ -1,47 +1,10 @@
+import '../../test/helpers/resemble.js';
+
 import { describe, expect, it } from 'bun:test';
 
 import { generateDartFile } from '../../src/transpiler/codegen';
 import { parseSource } from '../../src/transpiler/parser';
 import { EXAMPLES } from './examples-data';
-
-// ─── Custom matcher ───────────────────────────────────────────────────────────
-
-declare module 'bun:test' {
-  interface Matchers<T> {
-    /**
-     * Asserts that two strings are equal after trimming each line.
-     * Allows readable indented template literals in expected strings.
-     */
-    toResemble(expected: string): T;
-  }
-}
-
-const normalize = (s: string): string =>
-  s
-    .split('\n')
-    .map((l) => l.trim())
-    .join('\n')
-    .trim();
-
-expect.extend({
-  toResemble(received: unknown, expected: string) {
-    const normReceived = normalize(String(received));
-    const normExpected = normalize(expected);
-    const pass = normReceived === normExpected;
-    return {
-      pass,
-      message: () =>
-        pass
-          ? `expected strings not to resemble each other`
-          : [
-              `expected strings to resemble each other`,
-              ``,
-              `received: ${JSON.stringify(normReceived)}`,
-              `expected: ${JSON.stringify(normExpected)}`,
-            ].join('\n'),
-    };
-  },
-});
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 

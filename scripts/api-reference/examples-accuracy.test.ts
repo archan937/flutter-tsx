@@ -40,15 +40,15 @@ describe('API-reference examples — hand-authored Dart is faithful', () => {
   for (const { name, tsx, dart } of pairs) {
     it(`${name}: Dart has no placeholder/leak`, () => {
       expect(dart.trim()).not.toBe('');
-      expect(dart).not.toContain('...'); // unfinished placeholder
-      expect(dart).not.toContain('console.log'); // leaked JS
+      expect(/\.\.\./.test(dart)).toBe(false); // unfinished placeholder
+      expect(/console\.log/.test(dart)).toBe(false); // leaked JS
       expect(/\bprint\(/.test(dart)).toBe(false); // use debugPrint
       expect(isCommentOnly(dart)).toBe(false); // not a stub
     });
 
     it(`${name}: a TSX console.log is mirrored by debugPrint in Dart`, () => {
       if (/console\.log/.test(tsx)) {
-        expect(dart).toContain('debugPrint');
+        expect(/debugPrint/.test(dart)).toBe(true);
       }
     });
   }
