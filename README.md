@@ -8,6 +8,10 @@
 
 <p align="center"><sub>Typed against <b>Flutter 3.44.0</b> · runs on the latest stable Flutter the CLI installs.</sub></p>
 
+<p align="center">
+  <a href="https://www.npmjs.com/package/flutter-tsx"><img src="https://img.shields.io/npm/v/flutter-tsx.svg" alt="flutter-tsx on npm" /></a>
+</p>
+
 ---
 
 ## What This Is
