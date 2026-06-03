@@ -34,12 +34,14 @@ describe('PERMISSION_MAP', () => {
   });
 
   it('has correct location_always mapping', () => {
-    expect(PERMISSION_MAP['location_always'].ios).toContain(
+    expect(PERMISSION_MAP['location_always'].ios).toEqual([
       'NSLocationAlwaysUsageDescription',
-    );
-    expect(PERMISSION_MAP['location_always'].android).toContain(
+      'NSLocationAlwaysAndWhenInUseUsageDescription',
+    ]);
+    expect(PERMISSION_MAP['location_always'].android).toEqual([
+      'android.permission.ACCESS_FINE_LOCATION',
       'android.permission.ACCESS_BACKGROUND_LOCATION',
-    );
+    ]);
   });
 
   it('marks tracking as privacy-manifest type', () => {
@@ -67,7 +69,9 @@ describe('HOOK_PERMISSIONS', () => {
 
 describe('defaultPermissionDescription', () => {
   it('returns a capability-specific default', () => {
-    expect(defaultPermissionDescription('camera')).toContain('camera');
+    expect(defaultPermissionDescription('camera')).toBe(
+      'This app uses the camera.',
+    );
   });
 
   it('falls back to a generic message for unknown capabilities', () => {

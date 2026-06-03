@@ -35,13 +35,13 @@ describe('selectStableRelease', () => {
   it('picks the arm64 build on Apple silicon (not the first/x64 entry)', () => {
     const r = selectStableRelease(macReleases, HASH, 'arm64');
     expect(r.dart_sdk_arch).toBe('arm64');
-    expect(r.archive).toContain('arm64');
+    expect(r.archive).toBe('stable/macos/flutter_macos_arm64_3.44.0-stable.zip');
   });
 
   it('picks the x64 build on Intel', () => {
     const r = selectStableRelease(macReleases, HASH, 'x64');
     expect(r.dart_sdk_arch).toBe('x64');
-    expect(r.archive).not.toContain('arm64');
+    expect(r.archive).toBe('stable/macos/flutter_macos_3.44.0-stable.zip');
   });
 
   it('falls back to an arch-agnostic stable build when no arch matches', () => {

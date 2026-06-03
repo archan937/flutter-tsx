@@ -1,3 +1,5 @@
+import '../helpers/resemble.js';
+
 import { describe, expect, it } from 'bun:test';
 import ts from 'typescript';
 
@@ -99,7 +101,7 @@ describe('analyzeHooks — useEffect', () => {
     `);
     expect(result.hasEffects).toBe(true);
     expect(result.effectBodies).toHaveLength(1);
-    expect(result.effectBodies[0]).toContain("console.log('mounted')");
+    expect(result.effectBodies[0]).toResemble("console.log('mounted');");
   });
 
   it('detects useEffect cleanup return', () => {
@@ -109,7 +111,7 @@ describe('analyzeHooks — useEffect', () => {
         return () => clearInterval(id);
       }, []);
     `);
-    expect(result.effectCleanups[0]).toContain('clearInterval');
+    expect(result.effectCleanups[0]).toResemble('() => clearInterval(id)');
   });
 
   it('reports empty cleanup when no return in effect', () => {
@@ -185,6 +187,6 @@ describe('analyzeHooks — useEffect with concise arrow body', () => {
     const result = analyze(`useEffect(() => console.log('hi'), []);`);
     expect(result.hasEffects).toBe(true);
     expect(result.effectBodies).toHaveLength(1);
-    expect(result.effectBodies[0]).toContain("console.log('hi')");
+    expect(result.effectBodies[0]).toResemble("console.log('hi')");
   });
 });

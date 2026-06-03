@@ -85,9 +85,7 @@ describe('FlutterRunner lifecycle', () => {
     expect(runner.isRunning).toBe(false);
 
     const echoed = readFileSync(echoFile, 'utf-8');
-    expect(echoed).toContain('r');
-    expect(echoed).toContain('R');
-    expect(echoed).toContain('q');
+    expect(echoed.trim().split('\n')).toEqual(['r', 'R', 'q']);
   });
 
   it('throws if start() is called twice', async () => {

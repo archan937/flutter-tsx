@@ -1,3 +1,5 @@
+import '../helpers/resemble.js';
+
 import { afterEach, beforeEach, describe, expect, it, spyOn } from 'bun:test';
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
@@ -173,6 +175,13 @@ describe('fontsToPubspecBlock', () => {
     const out = fontsToPubspecBlock({
       Inter: [{ weight: 700, italic: true, file: 'Inter-BoldItalic.ttf' }],
     });
-    expect(out).toContain('style: italic');
+    expect(out).toResemble(`
+      fonts:
+        - family: Inter
+          fonts:
+            - asset: .fsx-fonts/Inter-BoldItalic.ttf
+              weight: 700
+              style: italic
+    `);
   });
 });
