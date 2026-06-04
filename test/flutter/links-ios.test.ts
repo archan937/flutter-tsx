@@ -66,10 +66,12 @@ describe('applyLinksToInfoPlist', () => {
 
 describe('applyLinksToEntitlements', () => {
   it('adds applinks entry for domain', () => {
-    expect(applyLinksToEntitlements(emptyEntitlements, {
-      scheme: null,
-      domains: ['myapp.com'],
-    })).toResemble(`
+    expect(
+      applyLinksToEntitlements(emptyEntitlements, {
+        scheme: null,
+        domains: ['myapp.com'],
+      }),
+    ).toResemble(`
       <?xml version="1.0" encoding="UTF-8"?>
       <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
       <plist version="1.0">
@@ -118,10 +120,12 @@ describe('applyLinksToEntitlements', () => {
       </plist>
     `);
 
-    expect(applyLinksToEntitlements(initial, {
-      scheme: null,
-      domains: ['myapp.com'],
-    })).toResemble(`
+    expect(
+      applyLinksToEntitlements(initial, {
+        scheme: null,
+        domains: ['myapp.com'],
+      }),
+    ).toResemble(`
       <?xml version="1.0" encoding="UTF-8"?>
       <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
       <plist version="1.0">

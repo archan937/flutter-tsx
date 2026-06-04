@@ -29,8 +29,9 @@ describe('applyToAndroidManifest', () => {
   });
 
   it('emits multiple permissions alphabetically', () => {
-    expect(applyToAndroidManifest(emptyManifest, { microphone: 'A', camera: 'B' }))
-      .toResemble(`
+    expect(
+      applyToAndroidManifest(emptyManifest, { microphone: 'A', camera: 'B' }),
+    ).toResemble(`
         <?xml version="1.0" encoding="utf-8"?>
         <manifest xmlns:android="http://schemas.android.com/apk/res/android"
             package="com.example.app">
@@ -82,8 +83,9 @@ describe('applyToAndroidManifest', () => {
   });
 
   it('location_always adds both FINE and BACKGROUND', () => {
-    expect(applyToAndroidManifest(emptyManifest, { location_always: 'For maps' }))
-      .toResemble(`
+    expect(
+      applyToAndroidManifest(emptyManifest, { location_always: 'For maps' }),
+    ).toResemble(`
         <?xml version="1.0" encoding="utf-8"?>
         <manifest xmlns:android="http://schemas.android.com/apk/res/android"
             package="com.example.app">

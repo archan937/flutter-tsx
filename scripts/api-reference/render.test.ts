@@ -106,9 +106,8 @@ describe('propTable', () => {
   });
 
   it('emits a row with the prop name, TSX type and Dart type', () => {
-    expect(
-      propTable([makeProp('width', 'number', 'double?', false)], []),
-    ).toResemble(`
+    expect(propTable([makeProp('width', 'number', 'double?', false)], []))
+      .toResemble(`
       <table class="props">
       <thead><tr><th>Prop</th><th>TSX type</th><th>Dart type</th><th>Required</th></tr></thead>
       <tbody>
@@ -119,9 +118,8 @@ describe('propTable', () => {
   });
 
   it('marks a required prop with ✓', () => {
-    expect(
-      propTable([makeProp('value', 'boolean', 'bool', true)], []),
-    ).toResemble(`
+    expect(propTable([makeProp('value', 'boolean', 'bool', true)], []))
+      .toResemble(`
       <table class="props">
       <thead><tr><th>Prop</th><th>TSX type</th><th>Dart type</th><th>Required</th></tr></thead>
       <tbody>
@@ -132,9 +130,8 @@ describe('propTable', () => {
   });
 
   it('leaves the required cell empty for an optional prop', () => {
-    expect(
-      propTable([makeProp('label', 'string', 'String?', false)], []),
-    ).toResemble(`
+    expect(propTable([makeProp('label', 'string', 'String?', false)], []))
+      .toResemble(`
       <table class="props">
       <thead><tr><th>Prop</th><th>TSX type</th><th>Dart type</th><th>Required</th></tr></thead>
       <tbody>
@@ -145,9 +142,8 @@ describe('propTable', () => {
   });
 
   it('includes styling props in the same table', () => {
-    expect(
-      propTable([], [makeStyling('fontSize', 'number', 'double?')]),
-    ).toResemble(`
+    expect(propTable([], [makeStyling('fontSize', 'number', 'double?')]))
+      .toResemble(`
       <table class="props">
       <thead><tr><th>Prop</th><th>TSX type</th><th>Dart type</th><th>Required</th></tr></thead>
       <tbody>
@@ -179,7 +175,13 @@ const makeWidget = (name: string): WidgetDef => ({
 describe('widgetSection', () => {
   it('renders the full widget article (id, heading, badges, data-name)', () => {
     expect(
-      widgetSection(makeWidget('Column'), '', 'material', '<Column />', 'Column()'),
+      widgetSection(
+        makeWidget('Column'),
+        '',
+        'material',
+        '<Column />',
+        'Column()',
+      ),
     ).toResemble(`
       <article class="widget" id="Column" data-name="Column">
       <h3>Column<span class="badge badge-lib">material</span><span class="badge badge-cat">layout</span></h3>

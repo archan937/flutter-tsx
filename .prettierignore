@@ -4,3 +4,5 @@ ref/
 src/generated/
 types/jsx.d.ts
 .claude/
+
+scripts/api-reference/__fixtures__/

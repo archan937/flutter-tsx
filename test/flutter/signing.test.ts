@@ -115,19 +115,21 @@ describe('signtoolArgs', () => {
   });
 
   it('omits /p when no password is given', () => {
-    expect(signtoolArgs('/build/app.exe', { certificate: 'cert.pfx' })).toEqual([
-      'signtool',
-      'sign',
-      '/fd',
-      'SHA256',
-      '/f',
-      'cert.pfx',
-      '/tr',
-      'http://timestamp.digicert.com',
-      '/td',
-      'SHA256',
-      '/build/app.exe',
-    ]);
+    expect(signtoolArgs('/build/app.exe', { certificate: 'cert.pfx' })).toEqual(
+      [
+        'signtool',
+        'sign',
+        '/fd',
+        'SHA256',
+        '/f',
+        'cert.pfx',
+        '/tr',
+        'http://timestamp.digicert.com',
+        '/td',
+        'SHA256',
+        '/build/app.exe',
+      ],
+    );
   });
 });
 

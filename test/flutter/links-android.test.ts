@@ -16,10 +16,12 @@ const baseManifest = `<?xml version="1.0" encoding="utf-8"?>
 
 describe('applyLinksToAndroidManifest', () => {
   it('adds an intent-filter for scheme', () => {
-    expect(applyLinksToAndroidManifest(baseManifest, {
-      scheme: 'myapp',
-      domains: [],
-    })).toResemble(`
+    expect(
+      applyLinksToAndroidManifest(baseManifest, {
+        scheme: 'myapp',
+        domains: [],
+      }),
+    ).toResemble(`
       <?xml version="1.0" encoding="utf-8"?>
       <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.example.app">
@@ -40,10 +42,12 @@ describe('applyLinksToAndroidManifest', () => {
   });
 
   it('adds autoVerify intent-filter for domain', () => {
-    expect(applyLinksToAndroidManifest(baseManifest, {
-      scheme: null,
-      domains: ['myapp.com'],
-    })).toResemble(`
+    expect(
+      applyLinksToAndroidManifest(baseManifest, {
+        scheme: null,
+        domains: ['myapp.com'],
+      }),
+    ).toResemble(`
       <?xml version="1.0" encoding="utf-8"?>
       <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.example.app">
